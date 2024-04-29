@@ -1,0 +1,1340 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 1936,
+                        "title": "Web worker router (multi threading)",
+                        "repository": {
+                            "nameWithOwner": "osmosis-labs/osmosis-frontend",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-07-31T03:41:00Z",
+                        "mergedAt": "2023-08-04T01:38:26Z",
+                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "jonator"
+                        },
+                        "editor": {
+                            "login": "jonator"
+                        },
+                        "body": "<!-- < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < \u263a\r\nv                               \u2730  Thanks for creating a PR! \u2730\r\nv    Before smashing the submit button please review the checkboxes.\r\nv    If a checkbox is n/a - please still include it but + a little note why\r\nv    If your PR doesn't close an issue, that's OK!  Just remove the Closes: #XXX line!\r\nv    If you are a member of the Osmosis org, please include a link to the relevant clickup task in your PR description!\r\n\u263a > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >  -->\r\n\r\n## What is the purpose of the change\r\n\r\n<!-- > Add a description of the overall background and high level changes that this PR introduces\r\n\r\n_(E.g.: This pull request improves area A by adding ...._ -->\r\n\r\nYou may notice that the swap page has become quite laggy since the launch of CL, especially when the page loads but also if you enter a large in amount with a CL and perhaps split route involved.\r\n\r\n**Before** When the page loads, a lot of things happen (basically simultaneously):\r\n1. Many JS bundles and assets load after the SSR'd HTML page\r\n2.  Our root store loads, thus triggering various queries for pools, IBC trace denoms, user balances, wallets, etc. If this isn't the first time loading the page recently, much of this data is pulled from localstorage.\r\n  * Notably: about 1000 pools load in two chunks (pagination), most are filtered based on TVL (currently filters to ~170 on main, ~270 on frontier)\r\n3. The price store loads, triggers some individual pool queries, then starts calculating a few prices from pool weights and prices depending on the visible tokens\r\n4. When the pools load, many reactions are triggered by MobX\r\n  * \u2b50\ufe0f In the trade token in UI config, many reactions are initially triggered by all pools loading, some individual pools loading, and a few prices loading from coingecko. This causes heavy load on the main thread as a lot of intense computation is triggered for _each_ of these reactions. If a user interacts with the UI, it may be blocked by searching for routes or split quotes, or React may be updating the DOM constantly.\r\n  * Next.js is getting fancy with loading the token images, with each image being a separate React component.\r\n\r\n**Now**, with web workers, the issue here on this bullet (\u2b50\ufe0f ) is greatly alleviated. As yes, many reactions are happening on page load, but instead of expensive calculations in the router being synchronously triggered, instead they are simply queued in the background thread (similar to a thread pool). The UI remains snappy, since each reaction is quickly addressed and the main thread is quickly available to react to the user's input.\r\n\r\nI'm glad I figured this out, as I was worried about increasing performance issues looming with:\r\n* More pools being added, with most of them being the more expensive CL pools. With CL released, we're looking to migrate as much liquidity as soon as possible.\r\n* Was not a fan of server side routing if it could be avoided, given maintenance concerns there\r\n* Most users don't have M1/2 Macs like us, so any performance issues we see are best case. I've noticed _substantial_ performance improvements on mobile. Before, my phone (iPhone 13Pro) would freeze quite often.\r\n* This seemed to also fix the glitchiness with token images. I think they were not getting a chance to update/render properly due to the clog on main thread.\r\n\r\nI'm hoping this solution allows us to scale for some time now (perhaps not up to 100k pools like Uniswap has). Even if it takes several seconds, it's always OK to show a loading indicator in the UI instead of the UI freezing and being unreactive during those seconds. I'm hoping this solution will scale to several thousand pools, and split routes with 5+ CL pools involved; all with the UI remaining completely responsive. Also, now we can more aggressively refresh the pool data in the background, as we know it won't block user input.\r\n\r\n### ClickUp Task\r\n\r\n[ClickUp Task URL](https://app.clickup.com/t/860rcgraa)\r\n\r\n## Brief Changelog\r\n\r\n<!-- _(for example:)_\r\n\r\n- _This adds frontend_asset_name to page_name_\r\n- _Adds a new button for ..._\r\n- _Removes the ..._ -->\r\n\r\n* Adds some loading UI to swap tool\r\n* Set up Next.js webpack config to work with web workers\r\n* Write web worker as a new implementation of the router interface, which is merely a proxy to the existing router\r\n  * Con: had to write manual encoders/decoders to pass data between main thread and worker\r\n* Pools package: add default tick data provider and pool amount provider, dependencies needed by CL pool instance (and can now be used by others)\r\n* Minor: update route vis for CL pool to use spread factor in stead of swap fee\r\n* Crank up router params to increase granularity of multihop and split search, given this newfound luxury\r\n\r\nTODO\r\n- [x] Encode/decode errors as they come from router. Some expected.\r\n\r\n## Testing and Verifying\r\n\r\n<!-- _(Please pick either of the following options)_\r\n\r\nThis change has been tested locally by rebuilding the website and verified content and links are expected\r\n\r\n_(or)_\r\n\r\nThis change has not been tested locally, because (to-be-explained-why...) -->\r\n\r\nI've seen some issues with reliability in generating quotes, so marking as a draft as I look into reproducing those and fixing those.\r\n\r\n## Documentation and Release Note\r\n\r\n<!-- - Does this pull request introduce a new feature or user-facing behavior changes? (yes / no)\r\n- How is the feature or change documented? (not applicable / [Osmosis web dev guide](https://docs.osmosis.zone/developing/web-dev-guide.html) / not documented) -->\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-07-31T03:41:08Z",
+                                    "bodyText": "The latest updates on your projects. Learn more about Vercel for Git \u2197\ufe0e\n\n\n\nName\nStatus\nPreview\nComments\nUpdated (UTC)\n\n\n\n\nosmosis-frontend\n\u2705 Ready (Inspect)\nVisit Preview\n\ud83d\udcac Add feedback\nAug 4, 2023 1:45am\n\n\nosmosis-frontend-osmo-test-4\n\u2705 Ready (Inspect)\nVisit Preview\n\ud83d\udcac Add feedback\nAug 4, 2023 1:45am\n\n\nosmosis-frontend-v16-cl\n\u2705 Ready (Inspect)\nVisit Preview\n\ud83d\udcac Add feedback\nAug 4, 2023 1:45am\n\n\nosmosis-frontier\n\u2705 Ready (Inspect)\nVisit Preview\n\ud83d\udcac Add feedback\nAug 4, 2023 1:45am\n\n\nosmosis-frontier-testnet\n\u2705 Ready (Inspect)\nVisit Preview\n\ud83d\udcac Add feedback\nAug 4, 2023 1:45am\n\n\nosmosis-testnet\n\u2705 Ready (Inspect)\nVisit Preview\n\ud83d\udcac Add feedback\nAug 4, 2023 1:45am\n\n\n\n1 Ignored Deployment\n\n\n\nName\nStatus\nPreview\nComments\nUpdated (UTC)\n\n\n\n\nosmosis-frontier-stage\n\u2b1c\ufe0f Ignored (Inspect)\nVisit Preview\n\nAug 4, 2023 1:45am",
+                                    "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#issuecomment-1657467985",
+                                    "author": {
+                                        "login": "vercel"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-02T18:34:44Z",
+                                    "bodyText": "I think it would look better if the whole section was behind a loader instead of the value:",
+                                    "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#issuecomment-1662747958",
+                                    "author": {
+                                        "login": "JoseRFelix"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can you define as a constant?",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279470396",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Elsewhere in our app, we are using axios. Is there a reason to use the native fetch here?",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279471181",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What does this check do? Why would fetch be undefined? Seeing as we don't assign fetch here, is this check needed?",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279472032",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It is, as a default param. IMO adding another layer if indirection adds 0 value. Generally, across the app, pulling constants into vars communicates that it is some configuration option, likely to be reused and changed in the future. Constants being defined on site is useful for maintaining close proximity, and reducing dangling dependencies.\nEnd rant \ud83d\ude05",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279474409",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Our cache gets cleared only every 30 seconds. At scale, this could be an issue. I wonder if it would be worthwhile to implement something more sophisticated here such as LRU cache. https://www.npmjs.com/package/lru-cache",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279474415",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It's supported out of the box in node and browser environments, preventing us from having to bundle Axios with the worker script",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279476517",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We should clear any existing timeouts here just to be safe\nA suggestion might be to set timeoutIDs as a Map above:\n  protected timeoutIDs = new Map<string, NodeJS.Timeout>();\nAnd then below do timeoutIDs.set() when you are setting the timeouts, and then do an if statement if the timeout id exists, run clearTimeout and delete it from the Map",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279478115",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I built this with the intention of other teams using it. I think fetch API is ubiquitous at this point, but there could be some server side JS engine (perhaps an older version) that doesn't support it.",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279478444",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We could look into that if it's an issue in the future, IMO. It would be a premature optimization and would increase the bundle size of the worker.",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279479363",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "same questions as above. Why use fetch instead of axios? And why would it be undefined?",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279486926",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Consider using new URL, and url.searchParams.append here",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279487887",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "should we have a try/catch here?",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279488794",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "consider moving these default values to a constant",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279489472",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Good catch, added",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279491577",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "requestinDirectionWithInitialTickBound performs a few mutations. I suggest refactoring to use immutable data structures and avoid mutating _zeroForOneBoundIndex, _oneForZeroTicks, _zeroForOneBoundIndex, and _oneForZeroBoundIndex",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279492521",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In these cases, is there an error message included with the original error? If so, it would be lost here",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279493909",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "See constants rant above",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279495732",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Responded in former comment",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279495939",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Will have GPT4 do this",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279496314",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://chat.openai.com/share/3790441c-57e1-49bf-9fae-085447fd3825\nIt was great at this",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279497385",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why have both this and encodeRouteByTokenInParameters (same for decode)? Don't they do the same thing? Can we just have one encode and one decode?",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279498310",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You can do this more efficiently in a single pass like this:\nroute.pools.reduce((accumulated, currentPool) => {\n      const encodedPool = encodePool(currentPool);\n      if (encodedPool) {\n        accumulated.push(encodedPool);\n      }\n      return accumulated;\n    }, []",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279500875",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "How so? These params are effectively a cache, as the provider may be requested tick depths within a previously fetched tick bound. That's how our mobx query store version of the provider works, and how it's intended to be used. Perhaps this could be clarified somehow.",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279501084",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Same as above",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279501116",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "For these expected errors, we use the instance to identify the error instead of the message. I'd prefer to use the class instance as the symbol to identify the error instead of the string message, as the string message should be able to be changed.",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279502317",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why is this a static variable instead of an instance variable?",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279504440",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think I did this just to maintain convention for a separate encoder/decoder for each router function. If things we're to change with the router, we'd isolate changes to this file.\nA downside/tradeoff of this web worker routing is now the router API is someone solidified and harder to change (if we want to continue to use this background router). Though currently, I don't anticipate any change.",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279504670",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Hmm I think my intention was to always share a single router thread, since then we'd share the cache in the router.\nCould be a large assumption though, thoughts?",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279512935",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think this should work fine, but I wonder if the use of serial numbers and collecting pending responses is overcomplicating things? We aren't making any server connections here right? Typically, web workers are just passing messages back and forth https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers\nWondering what the impetus was behind using this model? Am I missing something?",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279513234",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Glad you are addressing this. Few comments/questions.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Theoretically, if there were multiple instances of BackgroundRoutes, there could be an issue since they would all share the same Worker. Seems like an opportunity for a bug to me. I think it makes more sense to make it an instance variable.",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279518222",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I personally think it's a little confusing since we just have one function that returns another that does the same thing. But it's not a huge deal.",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279519885",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I use that to maintain the Promise-based API in the router interface.\nWe use the serial number to identify the message as it's passed to the worker, then we use the same serial number in the future to identify the right response in the response pool and resolve the promise with that response. I don't believe there's any guarantee of order as response messages are received from worker. The use of the loop and timeout isn't ideal, but it seems to work fine for the most part. It is a bit fragile.\nI found this from Google: Comlink. Intends to modernize the API around web workers as a Promise-based RPC API, but IMO what we have works fine as we could avoid pulling in that dependency (which hasn't been updated in a while).",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279522689",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't have an opinion on the mobx query store, but as a general principle, side effects that cause mutation of properties should be avoided because the instance is changed unexpectedly when these properties are changed in various methods. The state of the instance might become inconsistent depending on the order of function calls\nIt's hard for me to know if that would be an issue here, but one way to ensure that it isn't is to use a more 'functional programming' approach to make sure that we avoid side effects.\nYou could create a state class above, and then create a new instance of that state provider with your function calls in order to track state.",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279535516",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm not sure I agree with this. Our app has a lot of hardcoded values that as an outsider coming in, they are much harder to catch because most developers are trained to look for hardcoded values as constants at the top of a file or in some constants file. Even if they are unlikely to be re-used and changed, it's still good to use constants since the consistency makes it easier for other devs to read",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279543239",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Gotcha. In that case, despite adding to the bundle size, it might be better to use axios since axios will work across browser and nodejs environments, making the package more consistent/reliable",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279553988",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'll defer to you here since I don't really have a good sense of the use case here. I think the point about premature optimization is stronger than bundle size. If we are getting a lot of unique requests and our cache hit rate is low, than downloading the lru-cache package would be a clear solution.",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279566116",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Oh actually I remember, I think it's because we update the pools in the router by creating a new router with the pools in the router params. So it was to avoid creating a new worker each time the pools are updated, which may be very expensive.\nNow, when we create another BackgroundRoutes instance, we just send new params to the worker which will be used to initialize a new OptimizedRoutes in the worker's existing memory. Instead of creating a new worker VM. This would be much less expensive for our purposes.",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279583742",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I do prefer full separation of state and code with functional programming.\nBut in this case, OOP is needed. Generally, the lifecycle of an objects data is considered to be the lifecycle of the instance. Here, without the object having to know; instances are created with CL pools and released with CL pools.\nSo, when the pools refresh, the pool is dropped from memory, with it's instances of providers, therefore clearing the caches.",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279594216",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "My point is I don't think these in particular are worth extracting elsewhere since they are certainly only used in that one place. I do think constants at the top of file or in a file have their place.\nBut, when developers rely on their convention/habit of looking at the top of the file, they should only find variables that are important and heavily relied on. Especially those found in dedicated files (which at that point I think are config variables, which generally should be minimized). Otherwise, we risk losing signal to noise. While constants on their own seem inconsequential, in sum they can result in a lot of added complexity and brain cycles. I take this view in most areas of programming, I learned it from a good book I recommend.",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279602996",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Isn't fetch considered a more modern alternative? IMO Axios should only be used if you need to be able to cancel requests (which is why they're used in our stores).",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279603928",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API#browser_compatibility\nIt's been supported in all browsers since 2015, almost 10 years. Though, only the last few years by Node/backend envs.",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279604805",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think it's fine to allow errors bubble up and be addressed at higher level, there's no specific handling I need to do here.",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279606149",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is not obvious, so I'll add a readme to explain this.",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279622924",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Also touched on this in top level README.",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279642252",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Your previous comment indicated that you were concerned about fetch not existing in some NodeJS/server side environments hence the if (fetch === undefined) check. Is this the correct understanding?\nIt's difficult to know what percentage of devs are using Node 18+ (which includes fetch) but I would imagine a substantial portion are still using a version older than Node 18 (which would not have a fetch implementation). axios will ensure universal compatibility.\nIf it only runs in browsers, I would not be concerned. The likelihood of someone running a browser that doesn't support fetch is very low.",
+                                                        "author": {
+                                                            "login": "MaxMillington"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279737995",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "That's the reason the fetch function is dependency injected, to handle for that case where it's not supported in the server side VM.\nFor now, I think it's good to assume the modern option now, as it will only become stronger going forward.",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1279747839",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7b9a58a",
+                                                            "authoredDate": "2023-07-31T15:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I see we are introducing new classes of type providers that fetch data on demand instead of on mount. Could you clarify why we're using this particular naming convention?  I'm concerned it might create confusion with React's naming system, as they reserve the term 'Providers' for their Context API.\nWouldn't the name without Provider like FetchPoolAmount be sufficiently descriptive for their use case?",
+                                                        "author": {
+                                                            "login": "JoseRFelix"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1282229035",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2003722",
+                                                            "authoredDate": "2023-08-01T21:11:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Perhaps we should rename this to isDataLoading to follow the boolean convention in this component",
+                                                        "author": {
+                                                            "login": "JoseRFelix"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1282233095",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2003722",
+                                                            "authoredDate": "2023-08-01T21:11:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I personally liked the previous decimal precision better. It gave me a better idea of the balance available. What if we increase the maxDecimals to 4?",
+                                                        "author": {
+                                                            "login": "JoseRFelix"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1282235400",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2003722",
+                                                            "authoredDate": "2023-08-01T21:11:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "How about this approach: if we have a number that is less than 1, we display it with 6 decimals; but if the number is 1 or more, we show it with just 2 decimals?",
+                                                        "author": {
+                                                            "login": "JoseRFelix"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1282237064",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2003722",
+                                                            "authoredDate": "2023-08-01T21:11:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I got the provider name convention from reading uniswaps router source code. They use \"providers\" as the general interface for dependency-injected generic data providers. This new one uses fetch directly (more generic/portable, which is why it's in pools package), the non-web-worker one makes use of our query store.\nWorth mentioning the query store one doesn't fetch data on mount since it's outside of a reactive context. Instead, we re-use a query store in the provider to source the data, thus still allowing the query store to match our convention for queries and to be available in a reactive context via our larger queries store.",
+                                                        "author": {
+                                                            "login": "jonator"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1282292070",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2003722",
+                                                            "authoredDate": "2023-08-01T21:11:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe DataProvider suffix could be an alternative to just Provider. What do you think?",
+                                                        "author": {
+                                                            "login": "JoseRFelix"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1282341696",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2003722",
+                                                            "authoredDate": "2023-08-01T21:11:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What do you think if we rename this hook to usePreviousWhen?",
+                                                        "author": {
+                                                            "login": "JoseRFelix"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1283717454",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "de8e451",
+                                                            "authoredDate": "2023-08-03T19:43:48Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Some minor nits",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                    let maxIters = 1_000_000;\n          \n          \n            \n                    let maxIterations = 1_000_000;",
+                                                        "author": {
+                                                            "login": "JoseRFelix"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1283719541",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "de8e451",
+                                                            "authoredDate": "2023-08-03T19:43:48Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            const TIMEOUT = Symbol(\"Timeout\");\n          \n          \n            \n            const TIMEOUT_SYMBOL = Symbol(\"Timeout\");",
+                                                        "author": {
+                                                            "login": "JoseRFelix"
+                                                        },
+                                                        "url": "https://github.com/osmosis-labs/osmosis-frontend/pull/1936#discussion_r1283719857",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "de8e451",
+                                                            "authoredDate": "2023-08-03T19:43:48Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM! A breakthrough for performance \ud83d\ude80",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

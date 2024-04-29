@@ -1,0 +1,631 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 219,
+                        "title": "WIP: Initial implementation of daily backups to cloud storage. ",
+                        "repository": {
+                            "nameWithOwner": "pwncollege/dojo",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-09-14T05:56:49Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/pwncollege/dojo/pull/219",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "adamdoupe"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-14T19:03:02Z",
+                                    "bodyText": "Do you have any ideas about our retention policy for backups? Here are some quick stats:\n\nOn September 14, a backup is 40MB\nOn May 18, a backup was 32MB\nThis puts our backup growth rate at about 0.05MB/day (if we pretend it's linear)\n24 backups/day\nsum((40 + 0.05 * i) * 24 for i in range(365)) = 430116.0, or we will have about 430GB of backups in the cloud in 1 year.\n\nObviously, the majority of data from one backup to the next is redundant.\nWe should not be able to delete data from the pwn.college server.\nI think S3 lets us tag our uploads, and then we can have different \"transitions\" dependent on the tag.\nProbably something like this makes sense:\n\nWe always keep the first backup of the month. (Transition it to Glacier Deep Archive after a year)\nWe keep the first backup of the week for 6 months.\nWe keep the first backup of the day for 30 days.\nWe keep everything for 5 days.\n\nMore likely than not, if theres a massive data issue, we'll probably know about it within 5 days, or something has gone really wrong. Worst case though, we have the other backups policies to draw from :)\nhttps://chat.openai.com/share/10bdda73-2fbe-4a5b-bba2-2c383bb8115b",
+                                    "url": "https://github.com/pwncollege/dojo/pull/219#issuecomment-1719988066",
+                                    "author": {
+                                        "login": "ConnorNelson"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-14T19:07:53Z",
+                                    "bodyText": "Also, I think it's totally fine, and maybe even preferable, if we write all of the backup logic in python, and throw it in as a docker service.\nIf we're concerned about reliability, we can include a heartbeat discord ping that keeps us in the loop that our backups are firing every day or every week or however often we want a heartbeat discord ping.",
+                                    "url": "https://github.com/pwncollege/dojo/pull/219#issuecomment-1719994284",
+                                    "author": {
+                                        "login": "ConnorNelson"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 1035,
+                        "title": "Policy on AI (ChatGPT, Bard, etc.)",
+                        "repository": {
+                            "nameWithOwner": "TurboWarp/extensions",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-09-14T03:39:24Z",
+                        "mergedAt": "2023-09-22T14:31:10Z",
+                        "url": "https://github.com/TurboWarp/extensions/pull/1035",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "GarboMuffin"
+                        },
+                        "editor": {
+                            "login": "GarboMuffin"
+                        },
+                        "body": "Example of why you shouldn't use ChatGPT: https://chat.openai.com/share/245724e7-0a3c-4001-9fef-fb72c4a4acc6\r\n\r\nEverything except the last code block is hallucinated garbage, and even the code block is still worse than useless as it uses ScratchX so it can never be accepted here.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-14T19:32:51Z",
+                                    "bodyText": "I've never used Chatgpt, but I agree",
+                                    "url": "https://github.com/TurboWarp/extensions/pull/1035#issuecomment-1720028115",
+                                    "author": null
+                                },
+                                {
+                                    "createdAt": "2023-09-15T09:55:32Z",
+                                    "bodyText": "That is why in the prompt you got to include a real TurboWarp extension for the ChatGPT to try to replicate it\nhttps://chat.openai.com/share/2d46a624-5dca-4e66-b159-4bd1d0a92a07\nCustom TurboWarp extensions have appeared after the august of 2021 therefore ChatGPT does not have any info on it\nChatGPT would make proper extensions once it knows how to",
+                                    "url": "https://github.com/TurboWarp/extensions/pull/1035#issuecomment-1721002419",
+                                    "author": {
+                                        "login": "BunkerStriker"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-15T13:17:00Z",
+                                    "bodyText": "There are several things wrong with the example you have provided.\n\nNo one submitting an AI extension actually prompts it like that\nMath operations is a trivial extension. Try something that we would actually accept here, and watch it painlessly fumble over itself\nIt doesn't include the mandatory // headers at the top\nThe divide block returns a string form of \"Infinity\" for no reason\nThe extension ID is improperly formatted\n\nIt's small things like this that make extension review painful at times because it's obvious someone has never even peeked at the documentation or another extension. What's worse is that ChatGPT, although it's awful at making real extensions, is really good at making things that look real, which makes people submit them in good faith and end up wasting a lot of our time fixing a broken heap of garbage. Sometimes we fix issues ourselves, other times we ask the author to fix it. If all someone has is ChatGPT, then good luck fixing review comments like \"the extension id needs to be based on your username\" and \"you don't have the // headers at the top, see CONTRIBUTING.md\".",
+                                    "url": "https://github.com/TurboWarp/extensions/pull/1035#issuecomment-1721268203",
+                                    "author": {
+                                        "login": "GarboMuffin"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-16T19:08:08Z",
+                                    "bodyText": "i dont think people should use it for actually making the extensions but having a quick tool that can check basic errors like a missing comma or colon is extremely useful",
+                                    "url": "https://github.com/TurboWarp/extensions/pull/1035#issuecomment-1722295951",
+                                    "author": {
+                                        "login": "IonMakesGarbage"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-16T19:18:30Z",
+                                    "bodyText": "if you need an AI to help you fix simple syntax errors (which your editor is already going to notify you about), then you probably shouldnt be submitting extensions here",
+                                    "url": "https://github.com/TurboWarp/extensions/pull/1035#issuecomment-1722297723",
+                                    "author": {
+                                        "login": "GarboMuffin"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-16T20:56:47Z",
+                                    "bodyText": "ok...",
+                                    "url": "https://github.com/TurboWarp/extensions/pull/1035#issuecomment-1722314721",
+                                    "author": {
+                                        "login": "IonMakesGarbage"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 167,
+                        "title": "Refactored core lib into 'agent-utils', 'evo-agent' and 'script-writer-agent' libs",
+                        "repository": {
+                            "nameWithOwner": "polywrap/evo.ninja",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-09-14T17:08:19Z",
+                        "mergedAt": "2023-09-16T12:46:48Z",
+                        "url": "https://github.com/polywrap/evo.ninja/pull/167",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "nerfZael"
+                        },
+                        "editor": {
+                            "login": "nerfZael"
+                        },
+                        "body": "Like the title says core lib has been refactored into 'agent-utils', 'evo-agent' and 'script-writer-agent' libs.\r\nThe core lib itself I did not delete to not break everything with merge conflicts if another PR gets merge first",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-15T12:42:26Z",
+                                    "bodyText": "I created another branch which deletes core, showing how it simplifies the changeset to a majority of renames (which will help with merge conflicts): https://github.com/polywrap/evo.ninja/compare/refactor-core-lib?expand=1",
+                                    "url": "https://github.com/polywrap/evo.ninja/pull/167#issuecomment-1721216224",
+                                    "author": {
+                                        "login": "dOrgJelli"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "I think it would be much better to remove core, so that the changeset shows renames instead of adds. The full-file adds break the correlation of subsequent changes that may be based on previous commits.\nTL;DR: I think we'll have less conflicts if we remove core such that file changes are registered as renames.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "NIT: for our package naming convention, what do you think about\n@evo-ninja/evo-agent\n@evo-ninja/js-script-writer-agent\n@evo-ninja/agent-utils",
+                                                        "author": {
+                                                            "login": "dOrgJelli"
+                                                        },
+                                                        "url": "https://github.com/polywrap/evo.ninja/pull/167#discussion_r1327175988",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d053885",
+                                                            "authoredDate": "2023-09-14T17:07:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can we do away with the I prefix for interfaces? I think it is redundant, isn't consistent with the rest of the codebase, and is something that is not very common in modern typescript. GPT response: https://chat.openai.com/share/fe121cf1-d304-4aad-a223-151ae99ec458",
+                                                        "author": {
+                                                            "login": "dOrgJelli"
+                                                        },
+                                                        "url": "https://github.com/polywrap/evo.ninja/pull/167#discussion_r1327179733",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d053885",
+                                                            "authoredDate": "2023-09-14T17:07:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think it makes sense to also have the js-engine types & shims in this package, as it fits nicely within this package's responsibilities.",
+                                                        "author": {
+                                                            "login": "dOrgJelli"
+                                                        },
+                                                        "url": "https://github.com/polywrap/evo.ninja/pull/167#discussion_r1327181334",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d053885",
+                                                            "authoredDate": "2023-09-14T17:07:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Convention change or did you just add \"js-\" prefix to the script writer agent?",
+                                                        "author": {
+                                                            "login": "nerfZael"
+                                                        },
+                                                        "url": "https://github.com/polywrap/evo.ninja/pull/167#discussion_r1327362738",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d053885",
+                                                            "authoredDate": "2023-09-14T17:07:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "While I would much rather work on a project with this convention than without, and argued for such in the past, it is not a hill I want to die on, so sure, we can do away with the convention on evo.",
+                                                        "author": {
+                                                            "login": "nerfZael"
+                                                        },
+                                                        "url": "https://github.com/polywrap/evo.ninja/pull/167#discussion_r1327372620",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d053885",
+                                                            "authoredDate": "2023-09-14T17:07:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Does the script writer even use the engine or shims at all? I don't think it does. It would be weird to put them there at this moment",
+                                                        "author": {
+                                                            "login": "nerfZael"
+                                                        },
+                                                        "url": "https://github.com/polywrap/evo.ninja/pull/167#discussion_r1327373967",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d053885",
+                                                            "authoredDate": "2023-09-14T17:07:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "yep my bad, thought I changed more but I ended up aligning with what you already had after rewriting a few times :P",
+                                                        "author": {
+                                                            "login": "dOrgJelli"
+                                                        },
+                                                        "url": "https://github.com/polywrap/evo.ninja/pull/167#discussion_r1327951713",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d053885",
+                                                            "authoredDate": "2023-09-14T17:07:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Bless your soul \ud83d\ude4f I would honestly be fine with it if I saw other projects do the same within the TypeScript ecosystem.",
+                                                        "author": {
+                                                            "login": "dOrgJelli"
+                                                        },
+                                                        "url": "https://github.com/polywrap/evo.ninja/pull/167#discussion_r1327951909",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d053885",
+                                                            "authoredDate": "2023-09-14T17:07:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ah true, good point, though it does make explicit reference to what supported packages (shims) exist.",
+                                                        "author": {
+                                                            "login": "dOrgJelli"
+                                                        },
+                                                        "url": "https://github.com/polywrap/evo.ninja/pull/167#discussion_r1327952021",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d053885",
+                                                            "authoredDate": "2023-09-14T17:07:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 32,
+                        "title": "Velocity",
+                        "repository": {
+                            "nameWithOwner": "BII-GmbH/WasaBii",
+                            "primaryLanguage": {
+                                "name": "C#"
+                            }
+                        },
+                        "createdAt": "2023-09-14T12:29:06Z",
+                        "mergedAt": "2023-09-18T09:23:14Z",
+                        "url": "https://github.com/BII-GmbH/WasaBii/pull/32",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Gollorum"
+                        },
+                        "editor": {
+                            "login": "Gollorum"
+                        },
+                        "body": "Our definition of \"velocity\" was wrong. According to ~~Wikipedia~~ reliable scientific sources, velocity is the change of position over time, which means that it includes the direction of movement. Since we are dealing with 3D spaces, this means that velocity is a vector. The thing that we used to call \"velocity\", i.e. the magnitude of the change of position over time, is called \"speed\". So I renamed the `Velocity` unit to `Speed` and added velocity geometry helpers",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "As usual, I'll just assume that the math's correct ^^",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Now one must wonder: is acceleration also a vector? ChatGPT says yes and I'm too lazy to do my own research...\n\nThis response makes it extra cursed. What do\nhttps://chat.openai.com/share/c757494a-db81-42c5-bac8-b7585ccfa005",
+                                                        "author": {
+                                                            "login": "XDracam"
+                                                        },
+                                                        "url": "https://github.com/BII-GmbH/WasaBii/pull/32#discussion_r1326429788",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e10bb18",
+                                                            "authoredDate": "2023-09-14T15:46:26Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Oh wow. I was about to comment \"I'm worried that this is really slow\". But no. You absolute maniac. You are using this string in roslyn to generate direct method call. Damn.\nOnly thing that might be bad: How's the error handling/debugging experience when there's e.g. a typo? Do you validate that a nameof expression is used? ... is that even worth it or just overkill procrastination at this point? x)",
+                                                        "author": {
+                                                            "login": "XDracam"
+                                                        },
+                                                        "url": "https://github.com/BII-GmbH/WasaBii/pull/32#discussion_r1326434484",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e10bb18",
+                                                            "authoredDate": "2023-09-14T15:46:26Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "so this seems to fail when using the attribute without named parameters. Hmmm... do we want validation that all params are named? (if there isn't already) or is that just more overkill for this \"internal\" attribute?",
+                                                        "author": {
+                                                            "login": "XDracam"
+                                                        },
+                                                        "url": "https://github.com/BII-GmbH/WasaBii/pull/32#discussion_r1326436683",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e10bb18",
+                                                            "authoredDate": "2023-09-14T15:46:26Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "very long line",
+                                                        "author": {
+                                                            "login": "XDracam"
+                                                        },
+                                                        "url": "https://github.com/BII-GmbH/WasaBii/pull/32#discussion_r1326437055",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e10bb18",
+                                                            "authoredDate": "2023-09-14T15:46:26Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "very long line",
+                                                        "author": {
+                                                            "login": "XDracam"
+                                                        },
+                                                        "url": "https://github.com/BII-GmbH/WasaBii/pull/32#discussion_r1326437209",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e10bb18",
+                                                            "authoredDate": "2023-09-14T15:46:26Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Huh.\nI would argue to just stick with Acceleration, but what if we need Local- / GlobalAcceleration vector variants in the future?\nBut I don't want to call the scalar one AccelerationMagnitude or something \ud83d\ude2d\nOr, as ChatGPT 3.5 suggests, AccelScalar, AccelValue, AccelMag, AccelScalar, or ScalarAccel :todd:\nI vote for leaving it as Acceleration for now, because I don't have a better idea \ud83e\udd37",
+                                                        "author": {
+                                                            "login": "Gollorum"
+                                                        },
+                                                        "url": "https://github.com/BII-GmbH/WasaBii/pull/32#discussion_r1327452045",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e10bb18",
+                                                            "authoredDate": "2023-09-14T15:46:26Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think such a validation would be too complicated \ud83d\ude05\nI left a comment \ud83e\udd37",
+                                                        "author": {
+                                                            "login": "Gollorum"
+                                                        },
+                                                        "url": "https://github.com/BII-GmbH/WasaBii/pull/32#discussion_r1327469501",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e10bb18",
+                                                            "authoredDate": "2023-09-14T15:46:26Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Nope, the attributeArguments are preprocessed. I'm using a modified version of code I found on the internet (in AttributeSyntaxUtils.cs) to supply the parameter names if they were not given explicitly.",
+                                                        "author": {
+                                                            "login": "Gollorum"
+                                                        },
+                                                        "url": "https://github.com/BII-GmbH/WasaBii/pull/32#discussion_r1327473935",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e10bb18",
+                                                            "authoredDate": "2023-09-14T15:46:26Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Axel Scalar is my favorite singer!",
+                                                        "author": {
+                                                            "login": "XDracam"
+                                                        },
+                                                        "url": "https://github.com/BII-GmbH/WasaBii/pull/32#discussion_r1328453544",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e10bb18",
+                                                            "authoredDate": "2023-09-14T15:46:26Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I would argue to just stick with Acceleration, but what if we need Local- / GlobalAcceleration vector variants in the future?\n\nThen we just name them Local/GlobalAcceleration and it'll work. Makes enough sense to me.",
+                                                        "author": {
+                                                            "login": "XDracam"
+                                                        },
+                                                        "url": "https://github.com/BII-GmbH/WasaBii/pull/32#discussion_r1328455404",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e10bb18",
+                                                            "authoredDate": "2023-09-14T15:46:26Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjQ=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 4
+        }
+    }
+}

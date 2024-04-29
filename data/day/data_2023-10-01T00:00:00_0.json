@@ -1,0 +1,158 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 716,
+                        "title": "BAH 3049 | Samridhi | Fix start date undefined value",
+                        "repository": {
+                            "nameWithOwner": "Bahmni/openmrs-module-bahmniapps",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-10-01T16:57:00Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/Bahmni/openmrs-module-bahmniapps/pull/716",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "Samridhi-98"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-10-25T08:15:36Z",
+                                    "bodyText": "Please see my comment on Test cases.\n\nsure, I'll check.",
+                                    "url": "https://github.com/Bahmni/openmrs-module-bahmniapps/pull/716#issuecomment-1778747142",
+                                    "author": {
+                                        "login": "Samridhi-98"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Seems to be hardcoded english message. Should come from translation.",
+                                                        "author": {
+                                                            "login": "gsluthra"
+                                                        },
+                                                        "url": "https://github.com/Bahmni/openmrs-module-bahmniapps/pull/716#discussion_r1356073479",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "29701cd",
+                                                            "authoredDate": "2023-10-11T17:14:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can you rephrase this to \"Later\" instead of \"Greater\"?\nStart date cannot be later than the End Date.",
+                                                        "author": {
+                                                            "login": "gsluthra"
+                                                        },
+                                                        "url": "https://github.com/Bahmni/openmrs-module-bahmniapps/pull/716#discussion_r1371195677",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9eb67c0",
+                                                            "authoredDate": "2023-10-24T15:17:24Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If the currentDate is 2-Oct-2023 (Mon), then for Menu option Last 7 days, the dates selected automatically should be: 26-Sep-2023 (Tue) to 2-Oct-2023 (Mon). In this case the startDate month = Sep (and not Oct). But I think your test is checking startDate.getMonth() to be currentDate.getMonth(). That isn't right I think. This test will break on certain days I think. Please reconfirm.\nIt would have been best if somehow tests could be written independent of actual date (today), and instead could be passed something like: If Current Date is X, then option Last 7 Days should show DateA and DateB, and so on. I am guessing that will require a little refactoring if your code, to take currentDate as a parameter, and then do calculations.",
+                                                        "author": {
+                                                            "login": "gsluthra"
+                                                        },
+                                                        "url": "https://github.com/Bahmni/openmrs-module-bahmniapps/pull/716#discussion_r1371207476",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9eb67c0",
+                                                            "authoredDate": "2023-10-24T15:17:24Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Please see my comment on Test cases.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe you can otherwise try and use Jasmine clock to mock the current Date. See this ChatGPT discussion I just did regarding this code block (scroll to end for Jasmine clock): https://chat.openai.com/share/42d88843-c43c-4dfc-81bc-6ef80438efbf",
+                                                        "author": {
+                                                            "login": "gsluthra"
+                                                        },
+                                                        "url": "https://github.com/Bahmni/openmrs-module-bahmniapps/pull/716#discussion_r1371234409",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9eb67c0",
+                                                            "authoredDate": "2023-10-24T15:17:24Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

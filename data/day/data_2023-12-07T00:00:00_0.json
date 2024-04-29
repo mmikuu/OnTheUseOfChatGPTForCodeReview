@@ -1,0 +1,271 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 65,
+                        "title": "Rewrite tune_play view, rename RepertoireTune foreignkey and edit vie\u2026",
+                        "repository": {
+                            "nameWithOwner": "jwjacobson/jazz_repertoire",
+                            "primaryLanguage": {
+                                "name": "CSS"
+                            }
+                        },
+                        "createdAt": "2023-12-07T15:44:10Z",
+                        "mergedAt": "2023-12-07T15:44:18Z",
+                        "url": "https://github.com/jwjacobson/jazz_repertoire/pull/65",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "jwjacobson"
+                        },
+                        "editor": null,
+                        "body": "\u2026ws to match",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "yep better",
+                                                        "author": {
+                                                            "login": "bbelderbos"
+                                                        },
+                                                        "url": "https://github.com/jwjacobson/jazz_repertoire/pull/65#discussion_r1419226985",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "29d6ea4",
+                                                            "authoredDate": "2023-12-07T15:43:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Here you would hit the N+1 problem (see #63 resource), you'd best use select_related here, see https://chat.openai.com/share/8242fb00-dd2a-4891-8318-935b7fd1d136",
+                                                        "author": {
+                                                            "login": "bbelderbos"
+                                                        },
+                                                        "url": "https://github.com/jwjacobson/jazz_repertoire/pull/65#discussion_r1419243358",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "29d6ea4",
+                                                            "authoredDate": "2023-12-07T15:43:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "cool",
+                                                        "author": {
+                                                            "login": "bbelderbos"
+                                                        },
+                                                        "url": "https://github.com/jwjacobson/jazz_repertoire/pull/65#discussion_r1419243778",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "29d6ea4",
+                                                            "authoredDate": "2023-12-07T15:43:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "don't change it for now, but this name could be more expressive: play_random_tune in case a developer looking at order_by(\"?\") wouldn't infer this retrieves a random object (this also shows how a more verbose name could save a potential comment around this ORM code).",
+                                                        "author": {
+                                                            "login": "bbelderbos"
+                                                        },
+                                                        "url": "https://github.com/jwjacobson/jazz_repertoire/pull/65#discussion_r1419247077",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "29d6ea4",
+                                                            "authoredDate": "2023-12-07T15:43:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 2415,
+                        "title": "build/os-x: fix build errors for M-based Apple machines",
+                        "repository": {
+                            "nameWithOwner": "digitalbitbox/bitbox-wallet-app",
+                            "primaryLanguage": {
+                                "name": "Go"
+                            }
+                        },
+                        "createdAt": "2023-12-07T15:52:56Z",
+                        "mergedAt": "2023-12-11T08:21:32Z",
+                        "url": "https://github.com/digitalbitbox/bitbox-wallet-app/pull/2415",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Beerosagos"
+                        },
+                        "editor": null,
+                        "body": "Apple machines with M processor have an arm64 architecture with a compatiblity layer for x86_64 software. Brew packages are installed with an arm64 architecture by default on these machines.\r\n\r\nBitBoxApp is compiled for x86_64 arch, and the arm64 Qt was causing errors in the build process.\r\n\r\nThis commit introduces an osx-brew.sh script that forces the installation of x86_64 deps even on arm64 machines, fixing the error.\r\n\r\n**NOTE: this is untested on Intel machines!**",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "why brew here and the full path to brew above?",
+                                                        "author": {
+                                                            "login": "benma"
+                                                        },
+                                                        "url": "https://github.com/digitalbitbox/bitbox-wallet-app/pull/2415#discussion_r1420100666",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c5ab31",
+                                                            "authoredDate": "2023-12-07T15:44:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "almost looks like this would work also in the else case",
+                                                        "author": {
+                                                            "login": "benma"
+                                                        },
+                                                        "url": "https://github.com/digitalbitbox/bitbox-wallet-app/pull/2415#discussion_r1420100845",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c5ab31",
+                                                            "authoredDate": "2023-12-07T15:44:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "could this mess with the user's system, i.e. replace their normal brew or give preference to this one? maybe all future brew package installs will be of the wrong architecture?",
+                                                        "author": {
+                                                            "login": "benma"
+                                                        },
+                                                        "url": "https://github.com/digitalbitbox/bitbox-wallet-app/pull/2415#discussion_r1420104867",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c5ab31",
+                                                            "authoredDate": "2023-12-07T15:44:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If both versions of brew are installed (i.e. the user already had arm64 brew on his system), calling brew defaults to the arm64 version (which is installed in a different path than the x86_64 one). Specifying the path should ensure calling the x86_64 version.",
+                                                        "author": {
+                                                            "login": "Beerosagos"
+                                                        },
+                                                        "url": "https://github.com/digitalbitbox/bitbox-wallet-app/pull/2415#discussion_r1420205658",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c5ab31",
+                                                            "authoredDate": "2023-12-07T15:44:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Not on my system where I tested. Preference seems to be given to the already existing brew installation, if present.",
+                                                        "author": {
+                                                            "login": "Beerosagos"
+                                                        },
+                                                        "url": "https://github.com/digitalbitbox/bitbox-wallet-app/pull/2415#discussion_r1420206659",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c5ab31",
+                                                            "authoredDate": "2023-12-07T15:44:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://chat.openai.com/share/4c3f44d9-5a73-4605-abfe-a1e5daf5e21c\ninteresting!",
+                                                        "author": {
+                                                            "login": "benma"
+                                                        },
+                                                        "url": "https://github.com/digitalbitbox/bitbox-wallet-app/pull/2415#discussion_r1420436612",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c5ab31",
+                                                            "authoredDate": "2023-12-07T15:44:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjI=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 2
+        }
+    }
+}

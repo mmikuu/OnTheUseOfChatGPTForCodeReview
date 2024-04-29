@@ -1,0 +1,193 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 69,
+                        "title": "491 - Blog Post Draft",
+                        "repository": {
+                            "nameWithOwner": "MSU-CSE491/cse_491_fall_2023",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2023-10-19T01:11:27Z",
+                        "mergedAt": "2023-12-13T18:08:58Z",
+                        "url": "https://github.com/MSU-CSE491/cse_491_fall_2023/pull/69",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "ravipat3"
+                        },
+                        "editor": null,
+                        "body": "my blog post draft should be here",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-10-31T01:59:06Z",
+                                    "bodyText": "https://chat.openai.com/share/c553d5c1-3c73-4ffa-aae3-698e002ccdef\nthis is the link to the chatgpt link i have with the code since you can't click on the link via pdf",
+                                    "url": "https://github.com/MSU-CSE491/cse_491_fall_2023/pull/69#issuecomment-1786316042",
+                                    "author": {
+                                        "login": "ravipat3"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 6,
+                        "title": "add api to recieve json request",
+                        "repository": {
+                            "nameWithOwner": "sillsdev/appbuilder-usercontent-management",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-10-19T15:12:33Z",
+                        "mergedAt": "2023-10-25T19:48:54Z",
+                        "url": "https://github.com/sillsdev/appbuilder-usercontent-management/pull/6",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "mla04762"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This should be\nimport prisma from '$lib/prisma';\n\n/** @type {import('./$types').RequestHandler} */\nexport async function POST({ request }) {\n    const data = await request.json();\n    await prisma.app.upsert({\n        where: {\n            appId: data.appId\n        },\n        create: data,\n        update: data\n    });\n    return new Response(null, { status: 201 });\n}",
+                                                        "author": {
+                                                            "login": "chrisvire"
+                                                        },
+                                                        "url": "https://github.com/sillsdev/appbuilder-usercontent-management/pull/6#discussion_r1366884067",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8d4e9fe",
+                                                            "authoredDate": "2023-10-19T15:12:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You will need the database update for @unique added to the appId field.",
+                                                        "author": {
+                                                            "login": "chrisvire"
+                                                        },
+                                                        "url": "https://github.com/sillsdev/appbuilder-usercontent-management/pull/6#discussion_r1366884836",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8d4e9fe",
+                                                            "authoredDate": "2023-10-19T15:12:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Changes requested:\n\nremove \"create\" from data.json\nimplement api endpoint to handle app and listing separately.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@mla04762 This data.json should not have the \"create\" element around the listings since the code in seed.ts has it already.",
+                                                        "author": {
+                                                            "login": "chrisvire"
+                                                        },
+                                                        "url": "https://github.com/sillsdev/appbuilder-usercontent-management/pull/6#discussion_r1368685247",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ad7c990",
+                                                            "authoredDate": "2023-10-23T13:29:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The only change you need in this file is \"listing\" to \"listings\"",
+                                                        "author": {
+                                                            "login": "chrisvire"
+                                                        },
+                                                        "url": "https://github.com/sillsdev/appbuilder-usercontent-management/pull/6#discussion_r1368686257",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ad7c990",
+                                                            "authoredDate": "2023-10-23T13:29:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This will not work.  You need to add code for handling the app and the listings separately. See the last example in this ChatGPT question: https://chat.openai.com/share/e9088187-f951-481c-8f4a-1d22241d7cb5",
+                                                        "author": {
+                                                            "login": "chrisvire"
+                                                        },
+                                                        "url": "https://github.com/sillsdev/appbuilder-usercontent-management/pull/6#discussion_r1368689876",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ad7c990",
+                                                            "authoredDate": "2023-10-23T13:29:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjI=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 2
+        }
+    }
+}

@@ -1,0 +1,403 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 63,
+                        "title": "Feat Containerize the application to improve cross OS compatibility",
+                        "repository": {
+                            "nameWithOwner": "OthersideAI/self-operating-computer",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-02T17:05:12Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/OthersideAI/self-operating-computer/pull/63",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "legendkartik45"
+                        },
+                        "editor": {
+                            "login": "legendkartik45"
+                        },
+                        "body": "\ud83d\ude80 **PR Summary:**\r\nAdds a Dockerfile to support containerization as part of https://github.com/OthersideAI/self-operating-computer/issues/36.\r\n\r\n\ud83d\udee0\ufe0f **Changes Made:**\r\n- Included Dockerfile for containerization.\r\n- Used Python:3.11-slim as the base image (Considering it's lightweight and supports all libs).\r\n\r\n\ud83d\udd0d **Testing:**\r\n- Tested successful build and execution using the Dockerfile.\r\n\r\n\ud83d\udc69\u200d\ud83d\udcbb **Next Steps:**\r\n- Review and merge if no issues arise.\r\n\r\n\ud83d\udd27 **How to Build and Run:**\r\n1. **Build the Docker Image:**\r\n   ```bash\r\n   \r\n   docker build -t your_image_name .\r\n\r\n2. **Run the Docker Image:**\r\n   ```bash\r\n   \r\n   docker run -it your_image_name",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-03T14:30:32Z",
+                                    "bodyText": "@joshbickett  Any suggestions regarding this PR as how this would align with the priority of features in queue.",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/63#issuecomment-1837500206",
+                                    "author": {
+                                        "login": "legendkartik45"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-05T03:50:42Z",
+                                    "bodyText": "@legendkartik45 thanks for the PR. I don't know Docker super well. I'll take a look do some learning and let you know if I have any questions! :)",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/63#issuecomment-1839956144",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-07T18:46:18Z",
+                                    "bodyText": "Hello, while I don't know much about Docker I did some basic research. More detail in this ChatGPT thread: https://chat.openai.com/share/5ff7b3d0-6855-42a6-a3fd-2394e9bd9890\nMy main concern is that Docker containers are designed to run in isolated environments. They don't natively interact with the host operating system's desktop or graphical user interface. We you able to get this working and working with the native UI on an OS?\n__\nGUI Operations: Your application relies on GUI operations (like PyAutoGUI), which might not work seamlessly in a headless Docker container. Additional setup or a different approach might be required for GUI interactions.",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/63#issuecomment-1845919170",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-07T18:46:36Z",
+                                    "bodyText": "@legendkartik45 let me know your thoughts on the question above. Thanks",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/63#issuecomment-1845919568",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-09T03:32:23Z",
+                                    "bodyText": "It's going to be challenging to get this to work in a container due to the GUI limitations. What I recommend is using a VM instead. For example, you could create one inside your own desktop or provision one through a cloud provider.",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/63#issuecomment-1848205254",
+                                    "author": {
+                                        "login": "tomasfernandez1212"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-09T14:49:29Z",
+                                    "bodyText": "@tomasfernandez1212 that's my understanding as well. Thanks for the input",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/63#issuecomment-1848429496",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-09T14:52:17Z",
+                                    "bodyText": "@joshbickett @tomasfernandez1212 I believe that makes sense, let me explore running on local VM and get back.",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/63#issuecomment-1848430214",
+                                    "author": {
+                                        "login": "legendkartik45"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-21T15:16:25Z",
+                                    "bodyText": "@legendkartik45 curious if you have any findings. Thanks",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/63#issuecomment-1866464950",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-30T16:04:05Z",
+                                    "bodyText": "Hi @legendkartik45. Let me know if you found anything on this PR.\nI'll close this PR for now until we know more. If you have any updates feel free to reopen the PR",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/63#issuecomment-1872555326",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 61,
+                        "title": "Enhanced error handling in key functions",
+                        "repository": {
+                            "nameWithOwner": "OthersideAI/self-operating-computer",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-02T16:25:49Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/OthersideAI/self-operating-computer/pull/61",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "Prureddy"
+                        },
+                        "editor": null,
+                        "body": "# Enhanced error handling in key functions:\r\n- Added specific exception handling to 'summarize' and 'get_next_action_from_openai' functions for improved reliability and debugging.\r\n- Introduced granular error handling for FileNotFound, Permission, Image, I/O, Base64 encoding, API request, and other potential exceptions.\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-02T16:37:44Z",
+                                    "bodyText": "@Prureddy This looks a lot better and comprehensively handles a lot of potential exceptions in get_next_action_from_openai with descriptive error messages. I'd like to see what @joshbickett thinks.\nNote: Closes #58",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/61#issuecomment-1837197951",
+                                    "author": {
+                                        "login": "michaelhhogue"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-02T17:54:52Z",
+                                    "bodyText": "@legendkartik45 Yess I can add thanks for your suggestion",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/61#issuecomment-1837215576",
+                                    "author": {
+                                        "login": "Prureddy"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-02T17:56:05Z",
+                                    "bodyText": "It appears there may be an issue with the order of exceptions. @legendkartik45 suggestion may also help as well\nBad except clauses order (Exception is an ancestor class of Error)Pylint[E0701:bad-except-order](https://pylint.readthedocs.io/en/latest/user_guide/messages/error/bad-except-order.html)\n\nHere's a ChatGPT thread about it: https://chat.openai.com/share/53fe5500-7fda-4935-ade9-5dd1fc94b2d6",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/61#issuecomment-1837215854",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T15:20:06Z",
+                                    "bodyText": "@Prureddy, let us know when you have an update on the questions. Would be great to merge this PR after a few corrections!",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/61#issuecomment-1837513994",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-05T03:42:57Z",
+                                    "bodyText": "@Prureddy going to close this PR for the meantime. If you're able to implement some of the required updates for the error handling that'd be great. When your updates are ready feel free to reopen the PR, Thanks!",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/61#issuecomment-1839950737",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-07T07:32:15Z",
+                                    "bodyText": "@joshbickett @alm0ra @legendkartik45\nThank you for pointing out the concerns. I've optimized the code by consolidating exception handling into a single approach using a dictionary for better efficiency and readability. Redundant code segments have been refactored to avoid repetition, ensuring a streamlined structure.\nRegarding the order of exceptions, I've organized them in specificity, which aligns with best practices for error handling in Python.\nAs for printing and returning, the code previously printed the error and returned an error message. I've adjusted the error handling function to return the error message directly, simplifying the structure and making it more cohesive. This change avoids unnecessary duplication between printing and returning.\nThe updates have significantly improved the code's clarity, maintainability, and adherence to best practices. Thank you for your feedback, which greatly contributed to these enhancements!tion",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/61#issuecomment-1844814140",
+                                    "author": {
+                                        "login": "Prureddy"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Instead of adding additional lines for every exception, we can have only one line to capture all the exceptions.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Lines 473 - 484 are redundant as 388-412.\nWe should try to optimize this such that we should not repeat code",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Why once you print and again you return ?\nDo you do any thing on returning? Why you didn't print on function result?",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 57,
+                        "title": "Added -accurate, reflective mouse click mode",
+                        "repository": {
+                            "nameWithOwner": "OthersideAI/self-operating-computer",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-02T06:35:09Z",
+                        "mergedAt": "2023-12-03T16:35:46Z",
+                        "url": "https://github.com/OthersideAI/self-operating-computer/pull/57",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "klxu03"
+                        },
+                        "editor": null,
+                        "body": "Implemented -accurate, reflective mouse click mode.\r\n\r\nIf you add the -accurate tag when running operate, it will enable accurate mode. Now, whenever the model tries to click on anything, it will send another additional request to GPT giving it a chance to adjust its initial percentage guesses.\r\n\r\nI first extract out the initial guess of where the model tries to click, and then I take a screenshot of a smaller 200 x 200 pixel rectangle around the initial guess. I then upsample the image by doubling the dimensions so it's bigger to GPT (all done in capture_mini_screenshot_with_cursor) and then ask the model to refine its guess, giving it the previous image/message as context as well as the previous X Y coordinate guess it attempted and give it a chance to add and subtract minute percentages (accurate_mode_double_check).\r\n\r\nLocally, this configuration has significantly improved the accuracy of clicking on my desktop configuration (two monitors). Currently I've only implemented it for Linux, but if this approach is liked it can easily be adapted to other OS.\r\n\r\nIdea could be further improved if the add_grid_to_image is further improved such that in the accurate_mode adding grid case to the mini screenshot, if instead of (25%, 25%) in the first intersection, instead it was (-3%, -5%) for example so it was just the relative percentage change. This will probably allow the model to have an easier time adding and subtracting the proper amount in the refined click.\r\n\r\nAlso I almost arbitrarily chose 200 x 200 as the rectangle size. I just noticed that on my desktop, the model would often be wrong by more than 100 pixels away, but less than 200 pixels so I just chose that as the size.\r\n\r\nI would be happy to improve my code, or explain anything as wanted!\r\n\r\nPS: I also added poetry support. But I can delete this and just add all of those files to .gitignore",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-02T15:03:48Z",
+                                    "bodyText": "@klxu03 thank you for this PR. It looks promising. I'll let you know if I have any questions!",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837168570",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-02T18:02:31Z",
+                                    "bodyText": "@klxu03 Using mss for screenshots on Linux appears to be a much better solution, especially for just getting the active monitor.",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837217278",
+                                    "author": {
+                                        "login": "michaelhhogue"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-02T18:06:39Z",
+                                    "bodyText": "@klxu03 Using mss for screenshots on Linux appears to be a much better solution, especially for just getting the active monitor.\n\nYeah earlier I went and just did mss, but then I noticed the clicking percentage system was configured globally so they didn't align. But if you think this is worth exploring, it's probably not bad to do a conversion (like scaling GPTs output divide by two and just adding 50% to the percentage)",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837218290",
+                                    "author": {
+                                        "login": "klxu03"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-02T18:13:28Z",
+                                    "bodyText": "@klxu03 Ah okay I see the removal of mss now. mss is probably the best multi-platform screenshot solution and the easiest way to just get the active monitor. So looking into the conversion in order to adopt mss could definitely help!",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837219707",
+                                    "author": {
+                                        "login": "michaelhhogue"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-02T22:34:46Z",
+                                    "bodyText": "@klxu03 Ah okay I see the removal of mss now. mss is probably the best multi-platform screenshot solution and the easiest way to just get the active monitor. So looking into the conversion in order to adopt mss could definitely help!\n\nYeah makes sense, I'll probably try it another time (in a diff PR). BTW, I didn't do the most prompt engineering for the -accurate, so definitely feel free to change it.\nCurious, is my code readable enough so you can follow the logic of what is happening? Are there any glaring architectural/design choices that you guys didn't like in this PR?",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837270002",
+                                    "author": {
+                                        "login": "klxu03"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T15:56:32Z",
+                                    "bodyText": "@klxu03 Just reviewing this PR now.. project grew more than expected and it has been busy.\nCode looks good at a high level but my pip install . was breaking. Maybe something to do with the new pyproject.toml. I honestly don't know poetry well. We probably should be compatible, but main concern is that this same thing would break for other users.\nHere's a ChatGPT thread about it: https://chat.openai.com/share/994b3d20-5bc4-4954-8abe-f53ddabc90ca\nI deleted the pyproject.toml and it runs for me now so I'll test the -accuracy mode. One thought, maybe we could move the poetry support to another PR and keep this one just accuracy. Anyway, I'll have additional input soon",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837524092",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T16:12:10Z",
+                                    "bodyText": "I like what I see so far.\nThe 200x200 may be a little small of a mini screenshot. It appears to me GPT-4v can roughly guess which of 4 quadrant of the screen to move into so it may make sense to make the mini_screenshot.jpg the 1 of 4 quadrants that is correct.\nWe could imagine a system where we loop over this function breaking the screenshot into ever smaller quadrant until we have just the right button to click.. but maybe that's for another PR.\nAnyway, going to keep reviewing the PR and will share more thoughts",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837527772",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T16:20:12Z",
+                                    "bodyText": "I like what I see so far.\nThe 200x200 may be a little small of a mini screenshot. It appears to me GPT-4v can roughly guess which of 4 quadrant of the screen to move into so it may make sense to make the mini_screenshot.jpg the 1 of 4 quadrants that is correct.\nWe could imagine a system where we loop over this function breaking the screenshot into ever smaller quadrant until we have just the right button to click.. but maybe that's for another PR.\nAnyway, going to keep reviewing the PR and will share more thoughts\n\nI love that idea! Like a sniper slowly scoping in. The idea was like scoping into like 400 x 400, adjust, then another 200 x 200, adjust, and then another 100 x 100? I feel like we could adjust the -accurate to also take in a number, like the number of scopes of precision you'd like. -accurate = 3, means 3 layers of scoping.\nI coded this mini screenshot system in a way such that the scoping amounts can all be variables, it's only dependent on ACCURATE_PIXEL_COUNT, which can easily just be a param passed in.\nAlso yeah, I will just delete poetry. 100% not important",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837529497",
+                                    "author": {
+                                        "login": "klxu03"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T16:21:26Z",
+                                    "bodyText": "Ok great. If you can push up your poetry changes I think this is ready to merge into the main project.\nI think this is a good architecture. It doesn't always perform well for me, but I think we can iterate it to improve performance.\n-accurate = 3, means 3 layers of scoping sounds like a good approach. We can do this with a later PR.",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837529780",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T16:29:00Z",
+                                    "bodyText": "Ok great. If you can push up your poetry changes I think this is ready to merge into the main project.\nI think this is a good architecture. It doesn't always perform well for me, but I think we can iterate it to improve performance.\n-accurate = 3, means 3 layers of scoping sounds like a good approach. We can do this with a later PR.\n\nAwesome, sounds good! I just cleaned up the repo. Going to do a quick round of testing to make sure it all works\nUpdate: it works",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837531507",
+                                    "author": {
+                                        "login": "klxu03"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T16:35:41Z",
+                                    "bodyText": "Ok, looks good! I'm going to merge it. Can you create a new PR for one thing I noticed?\nCan you add more \"app prints\" so it shows a log of click logic? Something like this below. Does that make sense?\n[Self-Operating Computer] [Act] CLICK\n[Self-Operating Computer] [Act] CLICK REFLECTION",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837532972",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T16:36:26Z",
+                                    "bodyText": "Ok, looks good! I'm going to merge it. Can you create a new PR for one thing I noticed?\nCan you add more \"app prints\" so it shows a log of click logic? Something like this below. Does that make sense?\n[Self-Operating Computer] [Act] CLICK\n[Self-Operating Computer] [Act] CLICK REFLECTION\n\n\nYup! This makes sense",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837533100",
+                                    "author": {
+                                        "login": "klxu03"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T16:36:39Z",
+                                    "bodyText": "Anyway, I think you get the vision. The ideas we've discussed are all great. If you want to iterate on what you've built so far that'd be great!!",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837533134",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T16:37:22Z",
+                                    "bodyText": "Anyway, I think you get the vision. The ideas we've discussed are all great. If you want to iterate on what you've built so far that'd be great!!\n\nof course! happy to contribute and improve :)",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837533291",
+                                    "author": {
+                                        "login": "klxu03"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T16:40:43Z",
+                                    "bodyText": "Also the quick start section in README.MD could you create a \"additional features\" section or something and add this -accurate flag detail?",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837534059",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T16:41:51Z",
+                                    "bodyText": "Also the quick start section in README.MD could you create a \"additional features\" section or something and add this -accurate flag detail?\n\nfor sure! i just twitter DMed an additional thought of later full blown converting accuracy to a pure classification problem I had after this thread!",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837534332",
+                                    "author": {
+                                        "login": "klxu03"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T17:48:55Z",
+                                    "bodyText": "@klxu03 Just wanted to comment that I've tested accurate mode on Linux and it's working great. I'm noticing significant improvements already. However, I've noticed that it sometimes seems to prioritize looking at the mini-screenshot over the whole screen. So it sometimes gets \"stuck\" in the 200 x 200 area of the screen where the previous guess was.\nTomorrow I'm going to look into refining the accurate mode vision prompt a bit to reduce how often it gets stuck in the 200 x 200 box.\nGreat work on this!",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/57#issuecomment-1837550231",
+                                    "author": {
+                                        "login": "michaelhhogue"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

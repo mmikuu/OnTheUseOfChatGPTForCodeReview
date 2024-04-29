@@ -1,0 +1,711 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 2394,
+                        "title": "Add support for `CollapsedDocStrings` in `@meta` block",
+                        "repository": {
+                            "nameWithOwner": "JuliaDocs/Documenter.jl",
+                            "primaryLanguage": {
+                                "name": "Julia"
+                            }
+                        },
+                        "createdAt": "2024-01-08T03:51:58Z",
+                        "mergedAt": "2024-02-04T23:41:31Z",
+                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "goerz"
+                        },
+                        "editor": null,
+                        "body": "Setting `DocStringsCollapsed = true` in the `@meta` block of a particular page essentially clicks the \"Collapse all docstrings\" in the navigation bar after the page loads, collapsing all docstrings on that page.\r\n\r\nI think the approach of just having JavaScript click the collapse button is the right one here: First, I'm not sure that it would be possible to write out the page in a collapsed state, or at least not without doing some pretty gnarly rewrites of the `HTMLWriter`. More importantly, rendering the page expanded and then collapsing it with JavaScript seems like the right thing to do from an accessibility standpoint: We'd want the page to still be useful without JavaScript. I've been known to access API documentation in the terminal with `w3m`, so not relying on JavaScript to render the core content is something I actually care about. Screenreaders probably also wouldn't like if all docstrings initially rendered as `hidden`.\r\n\r\nCloses #2282",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I feel that ideally we'd do this by statically generating the necessary HTML. It looks like we use display: none on the section tags.. and then update some other stuff. Ideally, we'd have a class on the article tag that toggles everything.\nHow much effort would you be willing to put into this? I didn't test this yet, but I assume that this works, and we can merge this as is, and refactor later as well.",
+                                                        "author": {
+                                                            "login": "mortenpi"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1451844771",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "More importantly, rendering the page expanded and then collapsing it with JavaScript seems like the right thing to do from an accessibility standpoint: We'd want the page to still be useful without JavaScript.\n\nAh.. that is a fair point actually. We should indeed make sure that it loads uncollapsed if you don't have JS enabled. So now I'm coming around to this approach.",
+                                                        "author": {
+                                                            "login": "mortenpi"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1451845250",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Right. I'd still advocate for going with the approach in this PR. I started out with trying to write out the collapsed HTML if the option is set until I realized that:\n(a) It's much more difficult to implement that way. In fact, I'm not sure that I'd be able to do it in any reasonable amount of time.\n(b) \"Collapsed\" means display: none, which removes the content entirely without JS, which seems like a bad idea.\nThe test in the PR only checks for the presence of the injected JS. I don't think there's much I can do beyond that. I did test locally that the JS does what it's supposed to (very nicely, in fact). What I could do as an additional test is to use the feature in the Documenter documentation. Maybe collapsing all the Internal API pages by default?",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1451966296",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeah, let's go with the JS approach.\nIt currently does have the problem that you can see all the docstrings collapsing when you navigate to the page though. Maybe @Hetarth02 has some ideas how to work around that.",
+                                                        "author": {
+                                                            "login": "mortenpi"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1452800293",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Interesting, I will definitely take a look into this.",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1452856024",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@Hetarth02 I'd appreciate that! You might be better at JS than me. I'm having real trouble getting it to load correctly. In my first iteration, it worked fine locally but only 90% of the time in Chrome and only 1% of the time in Safari. I'm guessing the script was running too early. In the current iteration, I've tried to move the <script> tag to the end of the file, but that's still behaving the same way (i.e., not working in Safari). I also tried putting it in an external script (I think local scripts load before external scripts, which may be part of the problem), but that was much more complicated to implement, and then just didn't work at all. I can push that branch again somewhere if you'd like to take a look at it.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1452874609",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It currently does have the problem that you can see all the docstrings collapsing when you navigate to the page though\n\nYeah, I can't decide whether it's a problem or whether I actually kinda like it. But in any case, I think jQuery is handling the collapse animation. Maybe there's a way to temporarily disable the animation or at least speed it up?",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1452875696",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, Jquery handles the animation and there is a way to speed it up.\nI also think that, initially appearing as open then getting closed is okay.",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1452878063",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I can push that branch again\n\nPushed to https://github.com/JuliaDocs/Documenter.jl/tree/mg/meta-docstrings-collapsed2. This one doesn't work at all, though, and I'm not sure why.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1452883918",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm somewhat out of my depth when it comes to JS. Does anything from the discussion I had with ChatGPT seem useful here? https://chat.openai.com/share/a5c0b599-79f0-46e5-9840-74984896d398\nThe suggestion\n\nModify documenter.js to dispatch a custom event when it has fully loaded and executed. Then, in your script at the end of the page, add an event listener for this custom event before executing your code.\n\ndoesn't sound entirely implausible.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1453859719",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@goerz Which branch should I check from?\nmg/meta-docstrings-collapsed2 or mg/meta-docstrings-collapsed",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459539083",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Preferably, mg/meta-docstrings-collapsed. The other one was an attempt to put the JS in a separate script file. It was both more complicated and didn't actually work, but I just wanted to keep the branch around in case mg/meta-docstrings-collapsed doesn't work out and I need to get back to it.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459554448",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "mg/meta-docstrings-collapsed works perfectly when looking at documentation locally with LiveServer, but doesn't work reliably when looking at the online documentation, e.g. at https://documenter.juliadocs.org/previews/PR2394/lib/internals/anchors/. In Chrome, it works most of the time, in Safari, it does not work most of the time. Presumably, the issue is the asynchronous execution of JS and the code that clicks the collapse button firing too early.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459561035",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@goerz So, I fiddled around a bit. I have found a way which I think will work.\nBasically, what we will do is save all the @meta flags in data attribute of a div element. Something like below,\n<div data-docstringscollapsed=\"true\"></div>\nThen add a js script, which will perform the necessary actions for each flags. For example, like this\n// assets/html/js/metadata.js\n\n// libraries: jquery\n// arguments: $\n\nlet docstringscollapsed = $(\"div[data-docstringscollapsed]\").data();\n\nif (docstringscollapsed) {\n  $(\"#documenter-article-toggle-button\").click();\n}\nDoing this will always ensure that, all the scripts and DOM content will be loaded. Hence, it might mitigate what we are currently facing.",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459634416",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "That sounds good! Do you want to just push to the mg/meta-docstrings-collapsed branch? I'm assuming you have permissions \u2013 or make a new branch, if you prefer.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459644657",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think I have the necessary permissions to do so.",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459697400",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I can merge from https://github.com/Hetarth02/Documenter.jl/ into my PR then. Let me know which branch.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459709672",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Alright, will do so. Let me iron some things out and will ping you when I am done.",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459717966",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@goerz Sorry for the delay, I have pushed the changes to Draft-PR-2394. Also, made an PR to this branch.",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1463774307",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "No worries! Thanks for taking a look! I'll check it out.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1463790058",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@goerz Just FYI, this is just a rudimentary implementation from my side. There is of course room for improvement in logic.\ud83d\ude05",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1463912569",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It works perfectly! Thanks for coming up with the approach that makes this reliable!",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1463956341",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This seems fine to me. It still shows the close-animation after the page is loaded. I don't mind it that much, but @mortenpi might still prefer if we speed it up.\n@Hetarth02 Do you know what to add to control the animation speed?",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1463958533",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fe1b190",
+                                                            "authoredDate": "2024-01-23T20:27:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Seems a little unrelated to the PR, but I just kept it in",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1463959065",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fe1b190",
+                                                            "authoredDate": "2024-01-23T20:27:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Marked as \"experimental\" so we can still change this even after the PR is merged/released. For example, #2394 (comment)",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1463983148",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6c43682",
+                                                            "authoredDate": "2024-01-23T20:55:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think I figured it out: e5b84d3\nThe currently deployed preview documentation disables the animation completely. Better? I'm okay with either.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1464233043",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fe1b190",
+                                                            "authoredDate": "2024-01-23T20:27:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This whole thing probably needs to be in a $(document).ready(function () { ... }?",
+                                                        "author": {
+                                                            "login": "mortenpi"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1471955796",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6cff39e",
+                                                            "authoredDate": "2024-01-24T02:53:19Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's try it! https://documenter.juliadocs.org/previews/PR2394/ should now have that change. Of course, all I can say is that it continues to work for me, so you'll have to let us know :-)",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1472315311",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6cff39e",
+                                                            "authoredDate": "2024-01-24T02:53:19Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Eh, yea, let's just keep it on the top-level. Doing namespacing adds other kinds of complexity. Some of these options will just be ignored by some backends.\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            - `DocStringsCollapsed`: if `true`, collapse all docstrings after loading the page (experimental).\n          \n          \n            \n            - `DocStringsCollapsed`: for output formats that support this (i.e. only [`HTML`](@ref Documenter.HTML) currently), if set to `true`, render all docstrings as collapsed by default.",
+                                                        "author": {
+                                                            "login": "mortenpi"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1477009690",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6c43682",
+                                                            "authoredDate": "2024-01-23T20:55:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "@goerz I took the liberty of pushing a DocStringsCollapsed -> CollapsedDocString bikeshed. Happy to revert it if you prefer DocStringsCollapsed. From my side, I'm happy if we merge this!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjIx",
+                "hasNextPage": false,
+                "hasPreviousPage": true,
+                "startCursor": "Y3Vyc29yOjIx"
+            },
+            "issueCount": 21
+        }
+    }
+}

@@ -1,0 +1,2086 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 50,
+                        "title": "feat: neuron rotation",
+                        "repository": {
+                            "nameWithOwner": "s1dlx/meh",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-11-10T04:19:20Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/s1dlx/meh/pull/50",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "ljleb"
+                        },
+                        "editor": {
+                            "login": "ljleb"
+                        },
+                        "body": "For each key:\r\n1. extract an orthogonal matrix, model $A$ is the base and model $B$ is the target orientation\r\n2. apply the orthogonal transform immediately\r\n\r\nNote: this is pretty slow. On my RTX 3080 it takes me ~3 minutes to merge two models.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-10T04:49:50Z",
+                                    "bodyText": "A good idea would be to change the rotation rate of the orthogonal matrix $Q$ using $Q^{\\alpha}$, i.e.:\n$\\alpha = 0$ : $I$\n$\\alpha = 1$ : $Q$\n$\\alpha = 2$ : $Q^2$\n$\\alpha = 0.5$ : $Q^{0.5}$\nI have not tested this, but I believe we will run into the problem that it will be even slower. According to GPT, we have to compute a matrix log and then a matrix power. I'll run some tests to see how well that works.",
+                                    "url": "https://github.com/s1dlx/meh/pull/50#issuecomment-1805082599",
+                                    "author": {
+                                        "login": "ljleb"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-10T05:36:31Z",
+                                    "bodyText": "GPT4 found something called the cayley transform, which seems to do what we want.\n2D with an arbitrary matrix $A$ and a rotation power $t$:\n\n3D with an arbitrary matrix $A$ and a rotation power $t$:\n\nlink to discussion with GPT4: https://chat.openai.com/share/96a9b2ae-3a5f-47ce-8b22-bb07e5f6d1a9\nreference: https://en.wikipedia.org/wiki/Cayley_transform#Matrix_map",
+                                    "url": "https://github.com/s1dlx/meh/pull/50#issuecomment-1805129424",
+                                    "author": {
+                                        "login": "ljleb"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-10T07:21:44Z",
+                                    "bodyText": "I have not tested this, but I believe we will run into the problem that it will be even slower. According to GPT, we have to compute a matrix log and then a matrix power. I'll run some tests to see how well that works.\n\nIt turns out that it is not that much slower. I'm hitting ~6 minutes when merging using --device cuda. It goes down to ~3 minutes if we exclude the cases where a layer has 1 dimension.",
+                                    "url": "https://github.com/s1dlx/meh/pull/50#issuecomment-1805222411",
+                                    "author": {
+                                        "login": "ljleb"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-10T08:27:34Z",
+                                    "bodyText": "I ran more tests and cayley seems to break down on the 1D case. I need to spend more time on alpha to make it work.",
+                                    "url": "https://github.com/s1dlx/meh/pull/50#issuecomment-1805297130",
+                                    "author": {
+                                        "login": "ljleb"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-12T18:56:34Z",
+                                    "bodyText": "I found that you can apply a fractional power to the eigenvalues of a matrix to implement a fractional matrix exponent. This is fairly slow and requires double precision to work, otherwise the output gets an imaginary component because of precision errors.\nWith alpha not an integer, it takes ~15 minutes to merge with --work_device cuda, ~12 minutes to merge with --device cuda, and still ~5 minutes to merge with an integer alpha.",
+                                    "url": "https://github.com/s1dlx/meh/pull/50#issuecomment-1807210575",
+                                    "author": {
+                                        "login": "ljleb"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-17T01:45:59Z",
+                                    "bodyText": "Notes on a couple of trade-offs I had to look into:\n\n\n$\\alpha$ is used for two different purposes:\n\nrotating two sets of weights about their centroids in an $n$-dimensional space with ${n(n-1)}\\over{2}$ rotation planes\nrotating the centroid of $A$ towards the centroid of $B$ with respect to the origin of the vector space on an ellipse\n\n\nthis has the implication that $\\alpha \\equiv 0 \\mod 4$ will position the weights about the centroid of A. The purpose of this is to have a smooth transition for $0 \\leq \\alpha \\leq 1$. The range $4k + 1 &lt; \\alpha &lt; 4k + 4$ doesn't really make much sense as a result of this decision. To fix this situation, this method would need a 3rd parameter $\\gamma$ to separately control these two settings\n\n\n\n$\\beta$ is used to morph the neurons of $A$ into the shape of $B$, independently of the rotation of the neurons and of the position of their centroid. 0 = shape of $A$, 1 = shape of $B$\n\nthe neurons of some of the conv layers have > 20k floats. to solve the procrustes problem for these cases, the algorithm has to compute the SVD of a 20k x 20k matrix, which is really not practical. For this reason, I excluded the conv layers from the keys to be rotated. With the merge I tested this against, full exclusion of the conv layers seems to instead give more aesthetic results than splitting the conv layers neurons in smaller chuncks and doing the SVD on these.\n\nAs a result of this, merging 1.5 models now only takes ~3 minutes on an RTX 3080",
+                                    "url": "https://github.com/s1dlx/meh/pull/50#issuecomment-1815616300",
+                                    "author": {
+                                        "login": "ljleb"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-17T18:26:22Z",
+                                    "bodyText": "The models I tested against were not completely different, in particular the text encoder was the same. This skewed my small benchmarks for expected merge times. It seems to take 9 minutes to merge 2 v1 models with all different keys. Turning this to draft until we get merge time lower or determine that the merge method is valuable enough to outweight 9 minutes.",
+                                    "url": "https://github.com/s1dlx/meh/pull/50#issuecomment-1816895548",
+                                    "author": {
+                                        "login": "ljleb"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-17T04:51:21Z",
+                                    "bodyText": "Wanted to try with the bayesian merger extension. Added the changed parts to merge_methods.py\nAt the end of stage 1 got this error\nstage 1:  96%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f  | 1608/1680 [1:03:11<02:49,  2.36s/it]\n*** API error: POST: http://127.0.0.1:7860/bbwm/merge-models {'error': 'RuntimeError', 'detail': '', 'body': '', 'errors': 'torch.linalg.eig: input tensor should not contain infs or NaNs.'}\n    Traceback (most recent call last):\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\anyio\\streams\\memory.py\", line 98, in receive\n        return self.receive_nowait()\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\anyio\\streams\\memory.py\", line 93, in receive_nowait\n        raise WouldBlock\n    anyio.WouldBlock\n\n    During handling of the above exception, another exception occurred:\n\n    Traceback (most recent call last):\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\starlette\\middleware\\base.py\", line 78, in call_next\n        message = await recv_stream.receive()\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\anyio\\streams\\memory.py\", line 118, in receive\n        raise EndOfStream\n    anyio.EndOfStream\n\n    During handling of the above exception, another exception occurred:\n\n    Traceback (most recent call last):\n      File \"D:\\stable-diffusion-webui\\modules\\api\\api.py\", line 186, in exception_handling\n        return await call_next(request)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\starlette\\middleware\\base.py\", line 84, in call_next\n        raise app_exc\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\starlette\\middleware\\base.py\", line 70, in coro\n        await self.app(scope, receive_or_disconnect, send_no_error)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\starlette\\middleware\\base.py\", line 108, in __call__\n        response = await self.dispatch_func(request, call_next)\n      File \"D:\\stable-diffusion-webui\\modules\\api\\api.py\", line 150, in log_and_time\n        res: Response = await call_next(req)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\starlette\\middleware\\base.py\", line 84, in call_next\n        raise app_exc\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\starlette\\middleware\\base.py\", line 70, in coro\n        await self.app(scope, receive_or_disconnect, send_no_error)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\starlette\\middleware\\cors.py\", line 84, in __call__\n        await self.app(scope, receive, send)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\starlette\\middleware\\gzip.py\", line 24, in __call__\n        await responder(scope, receive, send)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\starlette\\middleware\\gzip.py\", line 44, in __call__\n        await self.app(scope, receive, self.send_with_gzip)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\starlette\\middleware\\exceptions.py\", line 79, in __call__\n        raise exc\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\starlette\\middleware\\exceptions.py\", line 68, in __call__\n        await self.app(scope, receive, sender)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\fastapi\\middleware\\asyncexitstack.py\", line 21, in __call__\n        raise e\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\fastapi\\middleware\\asyncexitstack.py\", line 18, in __call__\n        await self.app(scope, receive, send)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\starlette\\routing.py\", line 718, in __call__\n        await route.handle(scope, receive, send)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\starlette\\routing.py\", line 276, in handle\n        await self.app(scope, receive, send)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\starlette\\routing.py\", line 66, in app\n        response = await func(request)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\fastapi\\routing.py\", line 237, in app\n        raw_response = await run_endpoint_function(\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\fastapi\\routing.py\", line 163, in run_endpoint_function\n        return await dependant.call(**values)\n      File \"D:\\stable-diffusion-webui\\extensions\\sd-webui-bayesian-merger\\scripts\\api.py\", line 78, in merge_models_api\n        merged = merge_models(\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\sd_meh\\merge.py\", line 176, in merge_models\n        merged = simple_merge(\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\sd_meh\\merge.py\", line 262, in simple_merge\n        res.result()\n      File \"C:\\Users\\Imi\\AppData\\Local\\Programs\\Python\\Python310\\lib\\concurrent\\futures\\_base.py\", line 451, in result\n        return self.__get_result()\n      File \"C:\\Users\\Imi\\AppData\\Local\\Programs\\Python\\Python310\\lib\\concurrent\\futures\\_base.py\", line 403, in __get_result\n        raise self._exception\n      File \"C:\\Users\\Imi\\AppData\\Local\\Programs\\Python\\Python310\\lib\\concurrent\\futures\\thread.py\", line 58, in run\n        result = self.fn(*self.args, **self.kwargs)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\sd_meh\\merge.py\", line 371, in simple_merge_key\n        with merge_key_context(key, thetas, *args, **kwargs) as result:\n      File \"C:\\Users\\Imi\\AppData\\Local\\Programs\\Python\\Python310\\lib\\contextlib.py\", line 135, in __enter__\n        return next(self.gen)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\sd_meh\\merge.py\", line 475, in merge_key_context\n        result = merge_key(*args, **kwargs)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\sd_meh\\merge.py\", line 447, in merge_key\n        merged_key = merge_method(**merge_args).to(device)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\sd_meh\\merge_methods.py\", line 259, in rotate\n        transform = fractional_matrix_power(transform, alpha)\n      File \"D:\\stable-diffusion-webui\\venv\\lib\\site-packages\\sd_meh\\merge_methods.py\", line 279, in fractional_matrix_power\n        eigenvalues, eigenvectors = torch.linalg.eig(matrix)\n    RuntimeError: torch.linalg.eig: input tensor should not contain infs or NaNs.\n\n(fix is using cuda as device instead of cpu)",
+                                    "url": "https://github.com/s1dlx/meh/pull/50#issuecomment-1859037740",
+                                    "author": {
+                                        "login": "Enferlain"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-18T03:39:21Z",
+                                    "bodyText": "See the discussion here #50 (comment). This can happen when merging on the CPU with fractional alpha.",
+                                    "url": "https://github.com/s1dlx/meh/pull/50#issuecomment-1859501661",
+                                    "author": {
+                                        "login": "ljleb"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is actually a lot more complex than meets the eye. We should be determining the svd driver based on the size of the matrix. Different drivers perform faster on smaller/bigger matrices. And in some instances the CPU will out perform the GPU. What exactly is our average matrix size when we call svd?",
+                                                        "author": {
+                                                            "login": "mariaWitch"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419652579",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If we include all keys, it goes form $320^2$ to ~ $20K^2$. As this upper bound isn't really practical, if we exclude all conv layers (which have the largest neurons), the upper bound is ~ $5K^2$. I can list all sizes in a bit, they all are square matrices.\nI've never done this before at all, this is all new to me. Appreciate the help. IIUC, this only matters on cuda devices?",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419713533",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "all matrices sizes that currently go through svd are listed below:\n\n320x320: 47 keys\n640x640: 48 keys\n768x768: 94 keys\n960x960: 2 keys\n1280x1280: 83 keys\n2560x2560: 10 keys\n3072x3072: 12 keys\n5120x5120: 6 keys",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419746439",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I did some benchmarking between jax's svd functions jitted through XLA and pytorch's different drivers on a colab using a v100 (a 3080 is about equal to this in PyTorch Performance), and these were the results.\n\nBasically unless you need full accuracy, even with full_matrices set to true, gesvdj is going to be faster. However the speed you gain comes at the cost of some accuracy, and the potential to not always converge without needing to fall back to gesvd.",
+                                                        "author": {
+                                                            "login": "mariaWitch"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419802419",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I tested gesvdj with fractional alpha a while ago and the error builds up pretty quickly. IIRC it works okay in the non fractional cases (alpha = 0 or alpha = 1). I'll run some tests again to verify this and make sure this was the cause.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419804656",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It appears that I can't practically merge models using gesvdj, on my 3080 it takes 1m10s to merge a single 3072x3072 key. The full merge might take more than a hour. Maybe the proper merge driver to use is hardware dependent?\nstage 1:  11%|\u2588         | 121/1133 [08:28<22:51,  1.36s/it]\nshape: torch.Size([3072, 3072])\nstage 1:  11%|\u2588         | 125/1133 [09:38<1:46:57,  6.37s/it]",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419812072",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'll make sure to try it here in a bit on my system.",
+                                                        "author": {
+                                                            "login": "mariaWitch"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419834913",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Apart from taking 57 minutes to merge gesvdj on a RTX 3080, there doesn't seem to be any quality difference between merging using gesvd and gesvdj with alpha=1.0 and beta=0.0:\n\nUnless of course I did not switch the driver correctly. All I did was use the string \"gesvdj\" instead of \"gesvd\". All merges were made using --driver cuda",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419871893",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeah, something seems wrong on your end, are you sure that PyTorch is seeing your GPU?",
+                                                        "author": {
+                                                            "login": "mariaWitch"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419872612",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes my device is setup correctly and I can see that it uses cuda:0 during the merge. I don't have any other cuda hardware on my system.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419875731",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'll try updating pytorch to 2.1.x and see if that fixes it. Currently my version is 2.0.1 compiled with cuda support.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419880035",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Updating did not increase merge speed with gesvdj.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419884319",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "How long does it take on your end to merge the same set of models with gesvd and then with gesvdj? I understand that the benchmarks above indicate that gesvdj should be faster, but I wonder if we should run benchmarks against the particular type of data we would see with model merging in case gesvdj runs faster or slower depending on what the value of the input is.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419910898",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm getting 1.3 sec/it to 1.8it/sec with gesvd.  gesvdj does seem slower. My guess is that our matrices aren't converging. Now, do we need the full matrix from svd? Setting that to false would help speed things up as well.",
+                                                        "author": {
+                                                            "login": "mariaWitch"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419952364",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Does the full_matrices parameter even have an effect when the input matrix is square? But even if it has an effect, I believe we do. Basically, what we're doing here is solving the procrustes problem where the points are the neurons from A and B. We need $U$ and $V^T$ to be (square) unitary matrices. If computing reduced matrices shrinks $U$ and $V$ in width, I'm not sure the resulting $UV^T$ would necessarily be unitary.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419959499",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Hm, according to the docs, it seems that the columns of $U$ and $V$ should be orthonormal with full_matrices=False. IIUC, $UV^T$ should then be a orthogonal matrix. Experimentally, that seems to be the case. I'll test if there's any quality loss/drawback to this and how much quicker it is.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419962737",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "There is no apparent quality loss, so I'll commit full_matrices=False.\nleft image is full_matrices=False, right image is full_matrices=True",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419964640",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Actually I don't see a major speedup with full_matrices=False. I'll try to remove neuron dimensions that are more similar. One idea I had was to lower the similarity threshold during the comparison so that the values in a dimension closer to 0 are discarded before applying SVD.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1419978192",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If we have a lot of similar matrices, it might be worth it to try jax instead of pytorch and use the XLA accelerated svd functions there. From what I understanding, the caching will make repeated runs of similar data faster.",
+                                                        "author": {
+                                                            "login": "mariaWitch"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1420395357",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I just did a speed test on CPU and the performance is significantly better. With 4 threads, CPU was able to get to key 943/1145 in only 5 minutes using the default driver (gesvdj) before the process ran out of memory. (I use WSL for my SD env).",
+                                                        "author": {
+                                                            "login": "mariaWitch"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1420705562",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Also, I am currently having an issue where moving beyond stage 1 causes a crash with the following backtrace on cpu.\nstage 1:  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c | 1105/1131 [04:51<00:06,  3.79it/s]\nUsing already loaded model bbwm_Aurora.safetensors [431eebe43e]: done in 8.9s (send model to device: 8.9s)\n*** API error: POST: http://127.0.0.1:7860/bbwm/merge-models {'error': 'RuntimeError', 'detail': '', 'body': '', 'errors': 'torch.linalg.eig: input tensor should not contain infs or NaNs.'}\n    Traceback (most recent call last):\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/anyio/streams/memory.py\", line 98, in receive\n        return self.receive_nowait()\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/anyio/streams/memory.py\", line 93, in receive_nowait\n        raise WouldBlock\n    anyio.WouldBlock\n\n    During handling of the above exception, another exception occurred:\n\n    Traceback (most recent call last):\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/starlette/middleware/base.py\", line 78, in call_next\n        message = await recv_stream.receive()\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/anyio/streams/memory.py\", line 118, in receive\n        raise EndOfStream\n    anyio.EndOfStream\n\n    During handling of the above exception, another exception occurred:\n\n    Traceback (most recent call last):\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/modules/api/api.py\", line 187, in exception_handling\n        return await call_next(request)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/starlette/middleware/base.py\", line 84, in call_next\n        raise app_exc\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/starlette/middleware/base.py\", line 70, in coro\n        await self.app(scope, receive_or_disconnect, send_no_error)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/starlette/middleware/base.py\", line 108, in __call__\n        response = await self.dispatch_func(request, call_next)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/modules/api/api.py\", line 151, in log_and_time\n        res: Response = await call_next(req)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/starlette/middleware/base.py\", line 84, in call_next\n        raise app_exc\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/starlette/middleware/base.py\", line 70, in coro\n        await self.app(scope, receive_or_disconnect, send_no_error)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/starlette/middleware/cors.py\", line 84, in __call__\n        await self.app(scope, receive, send)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/starlette/middleware/gzip.py\", line 24, in __call__\n        await responder(scope, receive, send)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/starlette/middleware/gzip.py\", line 44, in __call__\n        await self.app(scope, receive, self.send_with_gzip)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/starlette/middleware/exceptions.py\", line 79, in __call__\n        raise exc\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/starlette/middleware/exceptions.py\", line 68, in __call__\n        await self.app(scope, receive, sender)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/fastapi/middleware/asyncexitstack.py\", line 21, in __call__\n        raise e\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/fastapi/middleware/asyncexitstack.py\", line 18, in __call__\n        await self.app(scope, receive, send)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/starlette/routing.py\", line 718, in __call__\n        await route.handle(scope, receive, send)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/starlette/routing.py\", line 276, in handle\n        await self.app(scope, receive, send)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/starlette/routing.py\", line 66, in app\n        response = await func(request)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/fastapi/routing.py\", line 237, in app\n        raw_response = await run_endpoint_function(\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/fastapi/routing.py\", line 163, in run_endpoint_function\n        return await dependant.call(**values)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/extensions/sd-webui-bayesian-merger/scripts/api.py\", line 78, in merge_models_api\n        merged = merge_models(\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/sd_meh/merge.py\", line 162, in merge_models\n        merged = simple_merge(\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/sd_meh/merge.py\", line 245, in simple_merge\n        res.result()\n      File \"/usr/lib/python3.10/concurrent/futures/_base.py\", line 451, in result\n        return self.__get_result()\n      File \"/usr/lib/python3.10/concurrent/futures/_base.py\", line 403, in __get_result\n        raise self._exception\n      File \"/usr/lib/python3.10/concurrent/futures/thread.py\", line 58, in run\n        result = self.fn(*self.args, **self.kwargs)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/sd_meh/merge.py\", line 353, in simple_merge_key\n        with merge_key_context(key, thetas, *args, **kwargs) as result:\n      File \"/usr/lib/python3.10/contextlib.py\", line 135, in __enter__\n        return next(self.gen)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/sd_meh/merge.py\", line 450, in merge_key_context\n        result = merge_key(*args, **kwargs)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/sd_meh/merge.py\", line 422, in merge_key\n        merged_key = merge_method(**merge_args).to(device)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/sd_meh/merge_methods.py\", line 252, in rotate\n        transform = fractional_matrix_power(transform, alpha)\n      File \"/home/maria/stable-diffusion/stable-diffusion-webui/venv/lib/python3.10/site-packages/sd_meh/merge_methods.py\", line 272, in fractional_matrix_power\n        eigenvalues, eigenvectors = torch.linalg.eig(matrix)\n    RuntimeError: torch.linalg.eig: input tensor should not contain infs or NaNs.\n\n---",
+                                                        "author": {
+                                                            "login": "mariaWitch"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1420789172",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "on CPU [...] the performance is significantly better\n\n5 minutes is the time it takes on my system to merge on cuda with the gesvd driver. I'll see if I get a speed discount on cpu with gesvdj with 10 threads.\n\nAlso, I am currently having an issue where moving beyond stage 1 causes a crash with the following backtrace on cpu.\n\nAlthough I am not testing rotation through the bbmw API, even though I haven't seen this error before, it is probably caused by the merge method and not the API. It seems to be near the end of stage 1 (still in it because the exception is raised inside the merge method). It seems to be caused by imprecision in the svd calculation. It is possible that full_matrices=False is the cause, if it isn't because we are using the gesvdj driver on cpu.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1420934119",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Reading from the docs, it doesn't seem to be possible to pick a specific driver if the device is not cuda:\n\nThe driver kwarg may be used in CUDA with a cuSOLVER backend to choose the algorithm used to compute the SVD. The choice of a driver is a trade-off between accuracy and speed.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1420974208",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sometimes torch.linalg.cond(a_neurons.T @ b_neurons) is very large (~1.0e+15) and at other times it is < 1000. According to the docs:\n\n\nIf A is well-conditioned (its condition number is not too large), or you do not mind some precision loss.\n\nFor a general matrix: \u2018gesvdj\u2019 (Jacobi method)\nIf A is tall or wide (m >> n or m << n): \u2018gesvda\u2019 (Approximate method)\n\n\n\n\nSo gesvda is definitely not appropriate, and gesvdj seems to be sometimes (but most keys seem to have a large cond experimentally). Calculating torch.linalg.cond takes a bit of time, so it may or may not be worth it to switch to gesvdj conditionally.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1420981246",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Do you know how I can install pytorch_xla? I'm not able to run the pip install here:\nhttps://github.com/pytorch/xla/#getting-started\n\nLooking in links: https://storage.googleapis.com/libtpu-releases/index.html\nRequirement already satisfied: torch~=2.1.0 in d:\\src\\meh-dev\\venv\\lib\\site-packages (2.1.1+cu118)\nERROR: Could not find a version that satisfies the requirement torch_xla[tpu]~=2.1.0 (from versions: 1.0)\nERROR: No matching distribution found for torch_xla[tpu]~=2.1.0",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1420989703",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The quickest run I could get was under 5 minutes (~4m45s) using --work_device cuda and --threads 10 with the current code in the PR. IIUC threads are useful here to reduce the overhead of tensors being copied to another device.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1421020571",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "So I actually did a test with a full matrices turned on and the issue still occurred. So I'm not sure what is causing it.",
+                                                        "author": {
+                                                            "login": "mariaWitch"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1421053962",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Do you know how I can install pytorch_xla? I'm not able to run the pip install here: https://github.com/pytorch/xla/#getting-started\n\nLooking in links: https://storage.googleapis.com/libtpu-releases/index.html\nRequirement already satisfied: torch~=2.1.0 in d:\\src\\meh-dev\\venv\\lib\\site-packages (2.1.1+cu118)\nERROR: Could not find a version that satisfies the requirement torch_xla[tpu]~=2.1.0 (from versions: 1.0)\nERROR: No matching distribution found for torch_xla[tpu]~=2.1.0\n\n\n\nSo when I referenced XLA, I was using it in the context of JAX, where you precompile your function using the XLA JIT with JAX, and then go from there. You can interoperate PyTorch and JAX using DLpacks so there shouldn't be any issues with type compatibility, the notation might get a little messy though.",
+                                                        "author": {
+                                                            "login": "mariaWitch"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1421059162",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "By the way full_matrices=False doesn't produce a reduced SVD when $m=n$ ($m$ and $n$ being the width and height of the svd input). That's why it didn't seem to affect generation speed. We might want to remove it as it doesn't really change anything, since the input to the svd is always a square covariance matrix here.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1421067944",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "So I did complete a full merge on CUDA, and didn't receive the error. I think it has something to do with trying to move models between the CPU and GPU, interacting with WebUI keeping models loaded in memory. Is there sanity checking when the models are loaded to ensure that they have been moved to CPU if the work_device is set to CPU?",
+                                                        "author": {
+                                                            "login": "mariaWitch"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1423142229",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Before merging, when assembling the merge args, the weights are sent to the requested device:\n\n  \n    \n      meh/sd_meh/merge.py\n    \n    \n        Lines 465 to 466\n      in\n      2780321\n    \n  \n  \n    \n\n        \n          \n           \"a\": thetas[\"model_a\"][key].to(work_device), \n        \n\n        \n          \n           \"b\": thetas[\"model_b\"][key].to(work_device), \n        \n    \n  \n\n\nnote that if work_device is None, it takes the value of device:\n\n  \n    \n      meh/sd_meh/merge.py\n    \n    \n        Lines 371 to 372\n      in\n      2780321\n    \n  \n  \n    \n\n        \n          \n           if work_device is None: \n        \n\n        \n          \n               work_device = device \n        \n    \n  \n\n\nSo IIUC, it shouldn't be a device issue.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1423394967",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think I found the culprit.\nIt seems that on CPU there isn't enough precision sometimes, which leads too $U$ or $V^T$ having a determinant of 0. This is not what SVD should output, $U$ and $V^T$ should always be orthogonal transforms, which implies $|det U| = |det V^T| = 1$.\nWhen the determinant of $U$ or $V^T$ is 0, then this line divides by 0:\n        u[:, -1] /= torch.det(u) * torch.det(v_t)\nSo the last column of u sometimes is filled with infinities. Then, when trying to compute the eigenvalues of the matrix, an error is then raised.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1429383612",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "As noted below, while this prevents the entire merge from raising an error, rotations with invalid determinants still result in a broken merge. I went the other direction and raised an error instead.",
+                                                        "author": {
+                                                            "login": "ljleb"
+                                                        },
+                                                        "url": "https://github.com/s1dlx/meh/pull/50#discussion_r1429469484",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a6742b3",
+                                                            "authoredDate": "2023-11-21T00:11:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 3,
+                        "title": "adding projects support to SDK",
+                        "repository": {
+                            "nameWithOwner": "fylein/fyle_integrations_imports",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-11-10T14:54:58Z",
+                        "mergedAt": "2023-11-17T11:27:06Z",
+                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "labhvam5"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "add it to clickup",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1394012113",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cc1008c",
+                                                            "authoredDate": "2023-11-15T07:40:33Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://chat.openai.com/share/ef1ff3ea-e794-44de-ba39-c77011abceae",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1394023245",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cc1008c",
+                                                            "authoredDate": "2023-11-15T07:40:33Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "why is this called new_?",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1394064669",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "check source type as EMPLOYEE / CATEGORY and call this func",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1394074178",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "remove this",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1394074689",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "no need to default values for destination_sync_method, it should be required always",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1394077174",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "same with is_auto_sync_enabled as well",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1394077417",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "let's use data class for this",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1394078773",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "if there are no caller to these functions, let's just keep them, no harm",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1394081539",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": ": Type[models.Model]",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1394101354",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The expections file has another function with the same name and it is used in old code . So just added the new infront till we remove the old function with the same name.",
+                                                        "author": {
+                                                            "login": "labhvam5"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1394360103",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "still didn't get it, we wanted handle_import_exceptions only no?",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1394375342",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "handle_import_exceptions  is used to handle exceptions in old code.\nnew_handle_import_exceptions is used to handle exceptions in the new code . We need this because we store the error in the import_logs table in the exception handler this we didn't do in the old code .\nThat is why we need two function until we completely move all the import stuff to the new flow then we can depreciate the  handle_import_exceptions()",
+                                                        "author": {
+                                                            "login": "labhvam5"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1395387091",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We dont need this we have moved all the scheduling logic to api.",
+                                                        "author": {
+                                                            "login": "labhvam5"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1395391267",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I have added the function not calling them anywhere since it is not needed. Also I have commented out the code there are a couple of import like wsg and configurations and  Error  that might need to be generalised so dont want to waste time on that .",
+                                                        "author": {
+                                                            "login": "labhvam5"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1395403117",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Not able to get this . This can be QBOCredentials or NetsuitieCredentials etc . So this has to be same credentials: Type[T] same as this comment https://chat.openai.com/share/ef1ff3ea-e794-44de-ba39-c77011abceae",
+                                                        "author": {
+                                                            "login": "labhvam5"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1395433990",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Have added the data class in helpers.py file",
+                                                        "author": {
+                                                            "login": "labhvam5"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1395563553",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "ah got it, let's name _v2 instead of new",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1396784060",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1396785729",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "let's also add keys of the dict",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1396819691",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d82c3be",
+                                                            "authoredDate": "2023-11-16T13:17:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "this shouldn't be optional no?",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1396819952",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d82c3be",
+                                                            "authoredDate": "2023-11-16T13:17:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "instead of optional, can we do None || something",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1396820201",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d82c3be",
+                                                            "authoredDate": "2023-11-16T13:17:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "name this file as dataclasses.py",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1396820363",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d82c3be",
+                                                            "authoredDate": "2023-11-16T13:17:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "remove this comment",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1396821229",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cc1008c",
+                                                            "authoredDate": "2023-11-15T07:40:33Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "variable name and data class mismatch, make it consistent",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1396822825",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d82c3be",
+                                                            "authoredDate": "2023-11-16T13:17:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "#3 (comment)",
+                                                        "author": {
+                                                            "login": "ashwin1111"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1396823383",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d82c3be",
+                                                            "authoredDate": "2023-11-16T13:17:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done",
+                                                        "author": {
+                                                            "login": "labhvam5"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1396990607",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2881da",
+                                                            "authoredDate": "2023-11-15T10:55:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "yes . Added credentials: models.Model",
+                                                        "author": {
+                                                            "login": "labhvam5"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1397004091",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d82c3be",
+                                                            "authoredDate": "2023-11-16T13:17:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Tried doing it but doesn't work",
+                                                        "author": {
+                                                            "login": "labhvam5"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1397011431",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d82c3be",
+                                                            "authoredDate": "2023-11-16T13:17:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "done\n@dataclass class ImportConfig: destination_field: str destination_sync_method: str is_auto_sync_enabled: bool",
+                                                        "author": {
+                                                            "login": "labhvam5"
+                                                        },
+                                                        "url": "https://github.com/fylein/fyle_integrations_imports/pull/3#discussion_r1397011900",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d82c3be",
+                                                            "authoredDate": "2023-11-16T13:17:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 1,
+                        "title": "Initial github setup",
+                        "repository": {
+                            "nameWithOwner": "EvergenEnergy/sparkplughost",
+                            "primaryLanguage": {
+                                "name": "Go"
+                            }
+                        },
+                        "createdAt": "2023-11-10T22:32:30Z",
+                        "mergedAt": "2023-11-10T23:13:59Z",
+                        "url": "https://github.com/EvergenEnergy/sparkplughost/pull/1",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "jlordiales"
+                        },
+                        "editor": null,
+                        "body": "- Added initial markdown files\r\n- Added protobuf spec and generated Go types",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Given this is a third party, do we need to commit this to our own project?\nI'm wondering if we could treat this as a library dependency instead",
+                                                        "author": {
+                                                            "login": "serroba"
+                                                        },
+                                                        "url": "https://github.com/EvergenEnergy/sparkplughost/pull/1#discussion_r1389997081",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "caeb07c",
+                                                            "authoredDate": "2023-11-10T22:36:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't know how this works. Can you commit to our Apache licensed software a different one?",
+                                                        "author": {
+                                                            "login": "serroba"
+                                                        },
+                                                        "url": "https://github.com/EvergenEnergy/sparkplughost/pull/1#discussion_r1389998423",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "caeb07c",
+                                                            "authoredDate": "2023-11-10T22:36:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm not aware of a way to include proto files as a library dependency",
+                                                        "author": {
+                                                            "login": "jlordiales"
+                                                        },
+                                                        "url": "https://github.com/EvergenEnergy/sparkplughost/pull/1#discussion_r1389998543",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "caeb07c",
+                                                            "authoredDate": "2023-11-10T22:36:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I had more the idea of doing what we do with the schemas in general. Having a dedicated place to just compile to different languages, in our case, go, and we import that library",
+                                                        "author": {
+                                                            "login": "serroba"
+                                                        },
+                                                        "url": "https://github.com/EvergenEnergy/sparkplughost/pull/1#discussion_r1389999377",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "caeb07c",
+                                                            "authoredDate": "2023-11-10T22:36:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "So we separate the host library from the underlying proto generation",
+                                                        "author": {
+                                                            "login": "serroba"
+                                                        },
+                                                        "url": "https://github.com/EvergenEnergy/sparkplughost/pull/1#discussion_r1390000080",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "caeb07c",
+                                                            "authoredDate": "2023-11-10T22:36:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "that feels like a lot of overhead considering the spec here is stable and won't change",
+                                                        "author": {
+                                                            "login": "jlordiales"
+                                                        },
+                                                        "url": "https://github.com/EvergenEnergy/sparkplughost/pull/1#discussion_r1390001140",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "caeb07c",
+                                                            "authoredDate": "2023-11-10T22:36:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm mostly concerned of having code that belongs to a different org embedded here.\nIt's not about design, it's more about correctness of licences.\nAre you better informed on the legalities here?",
+                                                        "author": {
+                                                            "login": "serroba"
+                                                        },
+                                                        "url": "https://github.com/EvergenEnergy/sparkplughost/pull/1#discussion_r1390002597",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "caeb07c",
+                                                            "authoredDate": "2023-11-10T22:36:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://chat.openai.com/share/c11ac26a-7686-42ce-b579-428c651fdbd2\nI think we should be fine",
+                                                        "author": {
+                                                            "login": "serroba"
+                                                        },
+                                                        "url": "https://github.com/EvergenEnergy/sparkplughost/pull/1#discussion_r1390006420",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "caeb07c",
+                                                            "authoredDate": "2023-11-10T22:36:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 28846,
+                        "title": "depends: fix libmultiprocess build on aarch64",
+                        "repository": {
+                            "nameWithOwner": "bitcoin/bitcoin",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2023-11-10T17:15:53Z",
+                        "mergedAt": "2023-12-13T10:44:27Z",
+                        "url": "https://github.com/bitcoin/bitcoin/pull/28846",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "fanquake"
+                        },
+                        "editor": {
+                            "login": "fanquake"
+                        },
+                        "body": "Change to always install libmultiprocess into `lib/`. On some systems (my Fedora aarch64 box), libmultiprocess was being installed into `lib64/`, and then configure would fail to pick it up, because we only add `lib/` to pkgconfig/ldflags out of depends. Rather than adding lib64 to those, I opted for installing libmultiprocess into lib, with every other dependency we build.\r\n\r\nThis was broken in our build after https://github.com/chaincodelabs/libmultiprocess/pull/79 upstream.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-10T17:15:56Z",
+                                    "bodyText": "The following sections might be updated with supplementary metadata relevant to reviewers and maintainers.\n\nCode Coverage\nFor detailed information about the code coverage, see the test coverage report.\n\nReviews\nSee the guideline for information on the review process.\n\n\n\nType\nReviewers\n\n\n\n\nACK\nryanofsky\n\n\nStale ACK\nhebasto\n\n\n\nIf your review is incorrectly listed, please react with \ud83d\udc4e to this comment and the bot will ignore it on the next update.",
+                                    "url": "https://github.com/bitcoin/bitcoin/pull/28846#issuecomment-1806113497",
+                                    "author": {
+                                        "login": "DrahtBot"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-10T17:21:05Z",
+                                    "bodyText": "Concept ACK.",
+                                    "url": "https://github.com/bitcoin/bitcoin/pull/28846#issuecomment-1806128909",
+                                    "author": {
+                                        "login": "hebasto"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-05T13:31:51Z",
+                                    "bodyText": "Rebased after #28856.",
+                                    "url": "https://github.com/bitcoin/bitcoin/pull/28846#issuecomment-1840801375",
+                                    "author": {
+                                        "login": "fanquake"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-05T13:54:07Z",
+                                    "bodyText": "ACK 6293a3f, tested on Fedora 37, aarch64.\n\nThe changes here don't link after #28856:\n/usr/bin/ld: cannot find -lcapnp-rpc: No such file or directory\n/usr/bin/ld: cannot find -lcapnp: No such file or directory\n/usr/bin/ld: cannot find -lkj-async: No such file or directory\n/usr/bin/ld: cannot find -lkj: No such file or directory\ncollect2: error: ld returned 1 exit status\nbecause by switching to CMake, that PR introduced more of the same issue (installation into native/lib64) being fixed here. If we are going to keep changing things, I might just switch to changing pkg-config.",
+                                    "url": "https://github.com/bitcoin/bitcoin/pull/28846#issuecomment-1840838481",
+                                    "author": {
+                                        "login": "fanquake"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-06T12:42:21Z",
+                                    "bodyText": "Fixed up capnp as well. Discussed this a bit with @theuni yesterday, and it seems to most straightforward to just keep using /lib (also discussed above) given thats how depends was built to work, and it's not clear why changing things to exist in various (depending on the system and it's configuration) GNU dirs is any better (for now). If we actually switched all packages in depends to using CMake, maybe we could revisit this (also assuming they all themselves use GNUInstallDirs).",
+                                    "url": "https://github.com/bitcoin/bitcoin/pull/28846#issuecomment-1842790794",
+                                    "author": {
+                                        "login": "fanquake"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-12T15:45:36Z",
+                                    "bodyText": "Guix build (aarch64):\n1415d765a10d1686e0a37f550aaf83fadad17d2d94c17688ae298ececcca17e2  guix-build-bde8d63b1763/output/aarch64-linux-gnu/SHA256SUMS.part\n7e6f42f033469d23300b93c3541babae3d60a7e21615ea3ba08f243131339e5c  guix-build-bde8d63b1763/output/aarch64-linux-gnu/bitcoin-bde8d63b1763-aarch64-linux-gnu-debug.tar.gz\n3eba206402f4a6f7bcbe73c53f1b95f01944e35b7c3a94cf0cb1daf2db08afc8  guix-build-bde8d63b1763/output/aarch64-linux-gnu/bitcoin-bde8d63b1763-aarch64-linux-gnu.tar.gz\n571ba070158c084fd47947f78275cbcfd94c346ebc01d843b4b62f360a6418ce  guix-build-bde8d63b1763/output/arm-linux-gnueabihf/SHA256SUMS.part\n56325636f6808c08a7a03f396fdf2225ff2f2d6600fa0208aae1dd8fb6012aa4  guix-build-bde8d63b1763/output/arm-linux-gnueabihf/bitcoin-bde8d63b1763-arm-linux-gnueabihf-debug.tar.gz\n04ad3daf53c04763471233797c3c083e3dffb0c7e954f7bc13c48bf9dd688696  guix-build-bde8d63b1763/output/arm-linux-gnueabihf/bitcoin-bde8d63b1763-arm-linux-gnueabihf.tar.gz\nd6d75f9e4d5b5e6f339cc16b15c74f8e9a70361e96892d7e225178970a4bd706  guix-build-bde8d63b1763/output/arm64-apple-darwin/SHA256SUMS.part\n347a53b175b853deaa04c710a4e0b4d9d3ae4fe9ec7a687694a702835d39a0d8  guix-build-bde8d63b1763/output/arm64-apple-darwin/bitcoin-bde8d63b1763-arm64-apple-darwin-unsigned.tar.gz\ncb2c32a31be45ce36067e31e29290aba1a71014320b54eed669e9e5d9a72fd6f  guix-build-bde8d63b1763/output/arm64-apple-darwin/bitcoin-bde8d63b1763-arm64-apple-darwin-unsigned.zip\n52838e8b6df3fc7b2cc377fd6279e8713e215dd256670b8be01c1d4ae12731c6  guix-build-bde8d63b1763/output/arm64-apple-darwin/bitcoin-bde8d63b1763-arm64-apple-darwin.tar.gz\n28917d61e7101d04d5c7263f6127db817abf9895d89f7fcc89766f34eadb199e  guix-build-bde8d63b1763/output/dist-archive/bitcoin-bde8d63b1763.tar.gz\n638512416661c7a40bbe2c9dd5239004bbcb0e4a33ce3602252d1e962384fad5  guix-build-bde8d63b1763/output/powerpc64-linux-gnu/SHA256SUMS.part\ncbe937cb603b53bb8c762d9466942bcf718e931952a8abbd4cea6ffad1c9b465  guix-build-bde8d63b1763/output/powerpc64-linux-gnu/bitcoin-bde8d63b1763-powerpc64-linux-gnu-debug.tar.gz\n7b9122d4d0be2e5fc2cd6ce4a4c9b113c9cde4f3414ecd2702ffd9d13b8156fb  guix-build-bde8d63b1763/output/powerpc64-linux-gnu/bitcoin-bde8d63b1763-powerpc64-linux-gnu.tar.gz\n6a6a63f4dff48bae35b89b799c97166d1f62c669c023c7e38da7109ec7f1223a  guix-build-bde8d63b1763/output/powerpc64le-linux-gnu/SHA256SUMS.part\ncbe2f744280720bcf4a470386aeacba7fccb68e4d95dfd8920635c4be43b4b10  guix-build-bde8d63b1763/output/powerpc64le-linux-gnu/bitcoin-bde8d63b1763-powerpc64le-linux-gnu-debug.tar.gz\n5afb328262a13ec03cb2980e19eccb439518602e00a7ba2b86d719036dec2658  guix-build-bde8d63b1763/output/powerpc64le-linux-gnu/bitcoin-bde8d63b1763-powerpc64le-linux-gnu.tar.gz\nfacc6df736e6b6c2b7d38e13f39c89dd579541cfa49548ac94b6793d5dc3110f  guix-build-bde8d63b1763/output/riscv64-linux-gnu/SHA256SUMS.part\n5b5e2423891191531498de4047f0d55946350b40f1792be52c7e68b0a954e3d4  guix-build-bde8d63b1763/output/riscv64-linux-gnu/bitcoin-bde8d63b1763-riscv64-linux-gnu-debug.tar.gz\n44bb66d007fccbd4400a4fe275e381ad04adf6b85ff5a98ec385ce135312a1b1  guix-build-bde8d63b1763/output/riscv64-linux-gnu/bitcoin-bde8d63b1763-riscv64-linux-gnu.tar.gz\nfd4efa0cf1a66e28e890d2d3c5149936f7f0d9d7a2a945ef4f90814b695da024  guix-build-bde8d63b1763/output/x86_64-apple-darwin/SHA256SUMS.part\nb1b8048236cbe2190e3a11466649635e7e264564e9efbc669636834c18a69e1b  guix-build-bde8d63b1763/output/x86_64-apple-darwin/bitcoin-bde8d63b1763-x86_64-apple-darwin-unsigned.tar.gz\n4fa00d6a8a9b86718bcc5d18dfc9ef6641f42a4a6127f49bbc209f26622276df  guix-build-bde8d63b1763/output/x86_64-apple-darwin/bitcoin-bde8d63b1763-x86_64-apple-darwin-unsigned.zip\nde5446b26cf0c5b6b6a6d1415699a2a08fcd8805a4db2dbf02a5f8618e96fc76  guix-build-bde8d63b1763/output/x86_64-apple-darwin/bitcoin-bde8d63b1763-x86_64-apple-darwin.tar.gz\n2821e45438e71d7a9c57813697997007ef8cc9a0e61d0692b92710221250b9cf  guix-build-bde8d63b1763/output/x86_64-linux-gnu/SHA256SUMS.part\n86d97c023d9c4ca9c0922fe95ea900b06072118fd0d8e08078d773e2bdda0e32  guix-build-bde8d63b1763/output/x86_64-linux-gnu/bitcoin-bde8d63b1763-x86_64-linux-gnu-debug.tar.gz\n162c3b42fd842b58b07ba06f2eeac2ffa2b33a59a9cec2e3cb0a73419aeca960  guix-build-bde8d63b1763/output/x86_64-linux-gnu/bitcoin-bde8d63b1763-x86_64-linux-gnu.tar.gz\nea477b6f88f81d598feb8f167edc838d90af7b1b5ea286e2ba9c41f6c247a753  guix-build-bde8d63b1763/output/x86_64-w64-mingw32/SHA256SUMS.part\n7a766bfd6d6946c2a1b13442f735e330b0c334cbb0808595695229d4e1536830  guix-build-bde8d63b1763/output/x86_64-w64-mingw32/bitcoin-bde8d63b1763-win64-debug.zip\nf317dfd6763882331067be9b27de9186abfb581436c74d580651d9fd847dc2df  guix-build-bde8d63b1763/output/x86_64-w64-mingw32/bitcoin-bde8d63b1763-win64-setup-unsigned.exe\n0c5bf7ab53dfa88780ce92dd5e801bf9ca7653849c01085c865fdaad9f6ad999  guix-build-bde8d63b1763/output/x86_64-w64-mingw32/bitcoin-bde8d63b1763-win64-unsigned.tar.gz\nb114c4d87a7a405c9f66e634e95348596906e2f3098c93c6f4b90eb450eafeed  guix-build-bde8d63b1763/output/x86_64-w64-mingw32/bitcoin-bde8d63b1763-win64.zip",
+                                    "url": "https://github.com/bitcoin/bitcoin/pull/28846#issuecomment-1852300861",
+                                    "author": {
+                                        "login": "fanquake"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-12T20:11:46Z",
+                                    "bodyText": "Guix builds (on x86_64)\n\n\n\nFile\ncommit a7484be(master)\ncommit 900a6fd(master and this pull)\n\n\n\n\nSHA256SUMS.part\ndc61ebdbca4d4c20...\n4758cc98450bc6b5...\n\n\n*-aarch64-linux-gnu-debug.tar.gz\n23c119c0f6b1b49d...\ne26a62c280b795e9...\n\n\n*-aarch64-linux-gnu.tar.gz\n3b4c3137af8c2140...\n5cab076e93a97e46...\n\n\n*-arm-linux-gnueabihf-debug.tar.gz\n4a04c5d1e5bdee34...\nb84e4d6294c90cbe...\n\n\n*-arm-linux-gnueabihf.tar.gz\n218e0d6e7a930111...\nc7e43085a68b0101...\n\n\n*-arm64-apple-darwin-unsigned.tar.gz\n96396cdd0858682a...\n8d16e2da9021178f...\n\n\n*-arm64-apple-darwin-unsigned.zip\ne9b5ad6be95b4189...\nce67efb59127a4df...\n\n\n*-arm64-apple-darwin.tar.gz\nb2a93626e607157c...\n2b4365c4159cb2ba...\n\n\n*-powerpc64-linux-gnu-debug.tar.gz\ndc8c9116c47ac1dd...\neaf5b668d23c4bc0...\n\n\n*-powerpc64-linux-gnu.tar.gz\n3051947e764e94f2...\n7aa18ca756a51dc3...\n\n\n*-powerpc64le-linux-gnu-debug.tar.gz\n31aba8992ab979fd...\nc03c65694b15868b...\n\n\n*-powerpc64le-linux-gnu.tar.gz\n9d302d71bf5f6b7b...\nc0e8456a6c2f9be2...\n\n\n*-riscv64-linux-gnu-debug.tar.gz\n5318802eac26a4b0...\nda030d659f1ae67f...\n\n\n*-riscv64-linux-gnu.tar.gz\n34743dd8039dcf8b...\nd6d0f303dc4f4289...\n\n\n*-x86_64-apple-darwin-unsigned.tar.gz\n15b74a6b0d11129d...\n5b1859fd3f049ae4...\n\n\n*-x86_64-apple-darwin-unsigned.zip\n76001bb57b18424b...\ne3a7335e121888e4...\n\n\n*-x86_64-apple-darwin.tar.gz\n474cd048415e1ded...\ne713acde33ee6826...\n\n\n*-x86_64-linux-gnu-debug.tar.gz\nf7fb07a847c2d2b7...\n0aba3f51712aa3e2...\n\n\n*-x86_64-linux-gnu.tar.gz\n4075f314dc725cce...\neea4e36e833c428f...\n\n\n*.tar.gz\n986a781a7719709d...\n7c83c718c1c11872...\n\n\nguix_build.log\nb12955749623ee00...\nf4971958a626c95c...\n\n\nguix_build.log.diff\n\necafa1b5645c100a...",
+                                    "url": "https://github.com/bitcoin/bitcoin/pull/28846#issuecomment-1852733089",
+                                    "author": {
+                                        "login": "DrahtBot"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Code review ACK c3a962b. These changes seems safe, and the first commit seems like a clear bugfix. But I did have some minor suggestions to improve the first commit, and some questions about the second commit below.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In commit \"depends: always install libmultiprocess to /lib\" (156366f)\nThanks for this fix. It seems like a regression after chaincodelabs/libmultiprocess#79 (comment)\nWould suggest a comment here like \"# Hardcode library install path to \"lib\" to match the  PKG_CONFIG_PATH setting in depends/config.site.in which also hardcodes \"lib\". Without this setting, cmake by default would use the OS library directory, which might be \"lib64\" or something else, not \"lib\", on multiarch systems.\"\nWould also suggest dropping trailing slash in \"lib/\" since it doesn't seem like directories are normally represented with a trailing slash in https://cmake.org/cmake/help/latest/module/GNUInstallDirs.html",
+                                                        "author": {
+                                                            "login": "ryanofsky"
+                                                        },
+                                                        "url": "https://github.com/bitcoin/bitcoin/pull/28846#discussion_r1399057303",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "156366f",
+                                                            "authoredDate": "2023-11-10T17:06:36Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In commit \"depends: build libmultiprocess with position independant code\" (c3a962b)\nI don't think I really understand what's going on here, but this seems like a reasonable change given that --with-pic seems to be used on so many other depends builds 1. I guess it is a little unclear why in the other depends builds, the --with-pic option seems to be selectively applied for individual platforms like linux, freebsd, netbsd, openbsd (and never darwin), while this PIC option apples to all platforms. But maybe always setting the option for cmake is fine.\nI guess I have 3 questions:\n\nIs this workaround still needed if you add --disable-shared to the capnp build for this platform like we are already doing the for the android platform? Maybe we should just be building capnp with --disable-shared unconditionally?\n\n\n  \n    \n      bitcoin/depends/packages/capnp.mk\n    \n    \n         Line 14\n      in\n      d752349\n    \n  \n  \n    \n\n        \n          \n           $(package)_config_opts_android := --disable-shared \n        \n    \n  \n\n\n\n\nOpposite question: is the android --disable-shared workaround needed anymore if   -DCMAKE_POSITION_INDEPENDENT_CODE=ON is used here? Maybe we could partially revert #25322 after this?\n\n\nIs this workaround still needed with #28856? That PR seems to drop the android workaround, so maybe switching both of these libraries to cmake would just fix the problem automatically.\n\n\nFootnotes\n\n\nI asked chatgpt to explain the link error https://chat.openai.com/share/6d5445a7-14ac-493b-a41a-d2b23899caa6 but didn't have enough details about the build to be able to narrow down specifically what is happening. \u21a9",
+                                                        "author": {
+                                                            "login": "ryanofsky"
+                                                        },
+                                                        "url": "https://github.com/bitcoin/bitcoin/pull/28846#discussion_r1399123100",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3a962b",
+                                                            "authoredDate": "2023-11-10T17:08:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Rather than adding lib64/ to the pkg-config and link flags, I opted for always installing into lib/.\n\nMind sharing your reasoning behind this decision? Asking because the alternative looks more generic and will work if any other dependency package will switch to CMake.\n\nA side note, not directly related to this PR: the CMake-based build system has no such an issue at all.",
+                                                        "author": {
+                                                            "login": "hebasto"
+                                                        },
+                                                        "url": "https://github.com/bitcoin/bitcoin/pull/28846#discussion_r1399309912",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "156366f",
+                                                            "authoredDate": "2023-11-10T17:06:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Rather than adding lib64/ to the pkg-config and link flags, I opted for always installing into lib/.\n\nMind sharing your reasoning behind this decision?\n\nThe quote you're responding is from fanquake, but I think it makes sense for the depends build to hardcode \"lib\" here because it is already hardcoding \"lib\" in config.site.in:\n\n  \n    \n      bitcoin/depends/config.site.in\n    \n    \n         Line 91\n      in\n      d752349\n    \n  \n  \n    \n\n        \n          \n           PKG_CONFIG_PATH=\"${depends_prefix}/share/pkgconfig:${depends_prefix}/lib/pkgconfig\" \n        \n    \n  \n\n\nSo this change just keeps the build consistent and ensure the bitcoin configure script can find the library built by depends on all platforms.\n\nAsking because the alternative looks more generic and will work if any other dependency package will switch to CMake.\n\nThis change isn't very clean so I agree there are probably better alternatives, but I'm actually not sure which alternative you're referring to here. I do agree it should become simpler when more of the build switches to cmake, though.",
+                                                        "author": {
+                                                            "login": "ryanofsky"
+                                                        },
+                                                        "url": "https://github.com/bitcoin/bitcoin/pull/28846#discussion_r1399329330",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "156366f",
+                                                            "authoredDate": "2023-11-10T17:06:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is this workaround still needed with\n\nI think this can be deffered for #28856. I haven't tested everything, but with that change, we seem to avoid the issues here. I'll close this for now in favour of that change, and properly review shortly.",
+                                                        "author": {
+                                                            "login": "fanquake"
+                                                        },
+                                                        "url": "https://github.com/bitcoin/bitcoin/pull/28846#discussion_r1410822923",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3a962b",
+                                                            "authoredDate": "2023-11-10T17:08:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Thanks for reopening, code review ACK 68823aa for just the third commit. This PR could be a draft since it is based on another PR.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In commit \"depends: always install libmultiprocess to /lib\" (68823aa)\nI still think it would be nice to add some code comment here, maybe like the one I suggested earlier:\n\n# Hardcode library install path to \"lib\" to match the PKG_CONFIG_PATH setting in depends/config.site.in which also hardcodes \"lib\". Without this setting, cmake by default would use the OS library directory, which might be \"lib64\" or something else, not \"lib\", on multiarch systems.\n\nIf you'd prefer not to add a comment like this so the makefile is shorter and minimal, that's fine. But personally I think the depends recipes would be easier to work with if they explained what they were trying to do without requiring git history to understand them.",
+                                                        "author": {
+                                                            "login": "ryanofsky"
+                                                        },
+                                                        "url": "https://github.com/bitcoin/bitcoin/pull/28846#discussion_r1414128811",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68823aa",
+                                                            "authoredDate": "2023-11-10T17:06:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sure, pushed up your comment and added co-author.",
+                                                        "author": {
+                                                            "login": "fanquake"
+                                                        },
+                                                        "url": "https://github.com/bitcoin/bitcoin/pull/28846#discussion_r1414135724",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68823aa",
+                                                            "authoredDate": "2023-11-10T17:06:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Code review ACK 1a90ac4, just adding comment since last review (thanks!)",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "ACK 6293a3f, tested on Fedora 37, aarch64.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Code review ACK 6293a3f. No changes since last review other than rebasing after #28856 merge",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is this workaround still needed with #28856? That PR seems to drop the android workaround, so maybe switching both of these libraries to cmake would just fix the problem automatically.\n\nYes, the switch to CMake in #28856 didn't fix this issue.",
+                                                        "author": {
+                                                            "login": "fanquake"
+                                                        },
+                                                        "url": "https://github.com/bitcoin/bitcoin/pull/28846#discussion_r1417239636",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3a962b",
+                                                            "authoredDate": "2023-11-10T17:08:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Code review ACK 965d38d. Left a suggestion to simplify the second commit, but it is not important and this change looks good as.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In commit \"depends: always install capnp to /lib\" (6d7e71e)\nI think probably it would be good revert this line and only make this change in capnp.mk not native_capnp.mk since the PKG_CONFIG_PATH mentioned in the comment above is used to find cross-compiled dependencies, not native dependencies, so the reasoning in the comment doesn't really apply here. Reverting this change would also make the native_capnp package definition simpler and more consistent with the native_libmultiprocess package definition.\nOn the other hand, If this change is actually needed on some platforms, that wouldn't be shocking because ways packages detect dependencies can be fragile. But I wouldn't expect this to be necessary and think it would be better not to override the build setting without a clear reason.",
+                                                        "author": {
+                                                            "login": "ryanofsky"
+                                                        },
+                                                        "url": "https://github.com/bitcoin/bitcoin/pull/28846#discussion_r1423019899",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6d7e71e",
+                                                            "authoredDate": "2023-12-06T12:34:03Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "re: #28846 (comment)\nIn commit \"depends: build libmultiprocess with position independant code\" (965d38d)\n\nYes, the switch to CMake in #28856 didn't fix this issue.\n\nI'm still not exactly clear why this change is needed here and also why --with-pic options seem to be used for many other packages as well. But at least after #28856 the PIC option is used more consistently, and it should cause no harm in any case.\nMaybe in the future the upstream build could do a better job of determining whether PIC code is needed itself, and this setting could be dropped.",
+                                                        "author": {
+                                                            "login": "ryanofsky"
+                                                        },
+                                                        "url": "https://github.com/bitcoin/bitcoin/pull/28846#discussion_r1423040107",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3a962b",
+                                                            "authoredDate": "2023-11-10T17:08:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Have dropped this change.",
+                                                        "author": {
+                                                            "login": "fanquake"
+                                                        },
+                                                        "url": "https://github.com/bitcoin/bitcoin/pull/28846#discussion_r1424034141",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6d7e71e",
+                                                            "authoredDate": "2023-12-06T12:34:03Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe in the future the upstream build could do a better job of determining whether PIC code is needed itself, and this setting could be dropped.\n\nI agree with your comments, and will probably followup with some improvements. I think historically, the usage of --with-pic, has been a bit whack-a-mole esqu, where it's been added as issues have arrison / as people have tested things of various platforms, leading to the inconsistent state we have today.",
+                                                        "author": {
+                                                            "login": "fanquake"
+                                                        },
+                                                        "url": "https://github.com/bitcoin/bitcoin/pull/28846#discussion_r1424036835",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3a962b",
+                                                            "authoredDate": "2023-11-10T17:08:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Code review ACK bde8d63. Only changes since last review were reverting the native_capnp change as suggested, and changing the order of the first two commits.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjQ=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 4
+        }
+    }
+}

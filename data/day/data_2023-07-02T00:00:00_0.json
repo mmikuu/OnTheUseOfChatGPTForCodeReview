@@ -1,0 +1,150 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 241,
+                        "title": "nip19: use template literal types",
+                        "repository": {
+                            "nameWithOwner": "nbd-wtf/nostr-tools",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-07-02T02:41:22Z",
+                        "mergedAt": "2023-07-02T17:22:05Z",
+                        "url": "https://github.com/nbd-wtf/nostr-tools/pull/241",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "alexgleason"
+                        },
+                        "editor": {
+                            "login": "alexgleason"
+                        },
+                        "body": "```ts\r\nconst npub = nip19.npubEncode('79c2cae114ea28a981e7559b4fe7854a473521a8d22a66bbab9fa248eb820ff6')\r\nconst decoded = nip19.decode(npub) // type is `{type: 'npub'; data: string}` !!\r\n```\r\n\r\nTakes advantage of [template literal types](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html) so that if the specific nip19 type is already known, decoding it will return the correct type without needing to check it.\r\n\r\n\r\nI think it's a good idea for nip19 template literals to be a thing, because then you could guard functions like:\r\n\r\n```ts\r\n// only gets pubkey from npub and nsec\r\n\r\nfunction getPubkey(value: `npub1${string}` | `nsec1${string}`): string {\r\n  return result.data // guaranteed to be a string\r\n}\r\n```\r\n\r\nI'm using it for configuration in Ditto:\r\n\r\n```ts\r\nconst Conf = {\r\n  get nsec() {\r\n    const _nsec = Deno.env.get('DITTO_NSEC');\r\n    if (!_nsec?.startsWith('nsec1')) {\r\n      throw new Error('The DITTO_NSEC environment variable is not set. Please generate a secret key for the server.');\r\n    }\r\n    return _nsec as `nsec1${string}`; // guaranteeing nsec\r\n  }\r\n}\r\n\r\n// Now the decoded type is already known\r\nconst seckey: string = nip19.decode(Conf.nsec).data;\r\n```",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-07-02T11:52:04Z",
+                                    "bodyText": "Every day you come here with a new wild feature from TypeScript types I couldn't even imagine was possible.",
+                                    "url": "https://github.com/nbd-wtf/nostr-tools/pull/241#issuecomment-1616618451",
+                                    "author": {
+                                        "login": "fiatjaf"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "There might be some way to reduce boilerplate/duplication with the code above, but I'm not sure how yet. We could improve it in a future MR.",
+                                                        "author": {
+                                                            "login": "alexgleason"
+                                                        },
+                                                        "url": "https://github.com/nbd-wtf/nostr-tools/pull/241#discussion_r1249127644",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c9bc702",
+                                                            "authoredDate": "2023-07-02T02:12:28Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is where the magic happens.\n(I might contribute this to @scure/base too)",
+                                                        "author": {
+                                                            "login": "alexgleason"
+                                                        },
+                                                        "url": "https://github.com/nbd-wtf/nostr-tools/pull/241#discussion_r1249128033",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c9bc702",
+                                                            "authoredDate": "2023-07-02T02:12:28Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I did end up making a PR upstream: paulmillr/scure-base#15",
+                                                        "author": {
+                                                            "login": "alexgleason"
+                                                        },
+                                                        "url": "https://github.com/nbd-wtf/nostr-tools/pull/241#discussion_r1249143363",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c9bc702",
+                                                            "authoredDate": "2023-07-02T02:12:28Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Figured out how to make it DRY. Thanks ChatGPT. https://chat.openai.com/share/f09f38e5-f541-4f98-9483-e183f5650398",
+                                                        "author": {
+                                                            "login": "alexgleason"
+                                                        },
+                                                        "url": "https://github.com/nbd-wtf/nostr-tools/pull/241#discussion_r1249166614",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c9bc702",
+                                                            "authoredDate": "2023-07-02T02:12:28Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

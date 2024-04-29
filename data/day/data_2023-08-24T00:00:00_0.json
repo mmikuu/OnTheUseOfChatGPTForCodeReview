@@ -1,0 +1,670 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 90,
+                        "title": "Passwords",
+                        "repository": {
+                            "nameWithOwner": "FIT4002-TEAM9/Leaf",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-08-24T03:01:16Z",
+                        "mergedAt": "2023-10-08T09:43:06Z",
+                        "url": "https://github.com/FIT4002-TEAM9/Leaf/pull/90",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "azho0003"
+                        },
+                        "editor": null,
+                        "body": "Implemented hashed passwords into account activation and login. Also updated each employee class to include password as part of their constructor.\r\n\r\nNote: the default testing accounts now have a password.\r\nWorker:\r\nw\r\nw\r\n\r\nLeader:\r\nl\r\nl\r\n\r\nAdmin:\r\na\r\na",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-08-24T04:39:09Z",
+                                    "bodyText": "Currently looking into some issues with the cryptography module causing crashes on iOS.",
+                                    "url": "https://github.com/FIT4002-TEAM9/Leaf/pull/90#issuecomment-1690988882",
+                                    "author": {
+                                        "login": "azho0003"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-30T02:10:16Z",
+                                    "bodyText": "We're hashing+salting the password, but after that, we're essentially passing it around the app and treating it \"not very securely\". Proper safety practice means the hashed password only exists in the database. We receive the password, hash+salt it, and post it. By attaching it to our Employees and restoring it, we make every hash password from every employee vulnerable. Or something like that. https://chat.openai.com/share/8505cd69-6206-4fd5-aafd-ea039c65af5a.\nAnyhow, I think it'd be much better practice (and much less questionable) to not be passing the password all around the app.\nI was thinking we have a new collection accounts or something with documents as follows:\n{\n    id: xxxxxxxx\n    password: xxxxxxxxxxxxxxxxxxxxxxxx\n}\n\nThen to compare password we fetch just the password for a specific id and compare. This takes passwords entirely out of our data flow.",
+                                    "url": "https://github.com/FIT4002-TEAM9/Leaf/pull/90#issuecomment-1698386032",
+                                    "author": {
+                                        "login": "Andre-Pham"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-30T02:40:59Z",
+                                    "bodyText": "Yep, currently in the process of reworking the whole thing and using a new cryptography library as the previous one was causing crashes on iOS.",
+                                    "url": "https://github.com/FIT4002-TEAM9/Leaf/pull/90#issuecomment-1698404600",
+                                    "author": {
+                                        "login": "azho0003"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-04T02:18:44Z",
+                                    "bodyText": "Remember to run prettier.",
+                                    "url": "https://github.com/FIT4002-TEAM9/Leaf/pull/90#issuecomment-1746026336",
+                                    "author": {
+                                        "login": "Andre-Pham"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-04T02:26:01Z",
+                                    "bodyText": "The forgot password button doesn't match the app's design language and appears as a \"call to action\" element despite the user rarely having to press it. Please refer to the sample image I created:",
+                                    "url": "https://github.com/FIT4002-TEAM9/Leaf/pull/90#issuecomment-1746031675",
+                                    "author": {
+                                        "login": "Andre-Pham"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-04T02:30:58Z",
+                                    "bodyText": "The following line should be removed from ResetPasswordScreen.tsx to appear correct on web:\n<View\n    style={{\n        maxWidth: 400,\n        alignItems: \"center\", // Remove this line\n        width: \"100%\",\n    }}\n>\nThis has already been done on the develop branch for the ActivateAccountScreen.tsx you copied off: 6ab2f10",
+                                    "url": "https://github.com/FIT4002-TEAM9/Leaf/pull/90#issuecomment-1746035094",
+                                    "author": {
+                                        "login": "Andre-Pham"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-07T08:05:40Z",
+                                    "bodyText": "Everything seems pretty solid... I haven't tested the password reset feature yet, though it feels like it'd be a security breach to be able to reset anyone's password?\nAlso, my login is SUSPICIOUSLY slow. Take a look:\n\n  \n    \n    \n\n    RPReplay_Final1696665800.MP4\n    \n  \n\n  \n\n  \n\n\nA full 6 seconds is unreasonable.",
+                                    "url": "https://github.com/FIT4002-TEAM9/Leaf/pull/90#issuecomment-1751644682",
+                                    "author": {
+                                        "login": "Andre-Pham"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 75,
+                        "title": "Fix: edit quiz ux improvements",
+                        "repository": {
+                            "nameWithOwner": "rajatkantinandi/quizmaster",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-08-24T09:44:10Z",
+                        "mergedAt": "2023-08-31T09:23:17Z",
+                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "govind007"
+                        },
+                        "editor": {
+                            "login": "govind007"
+                        },
+                        "body": "- [x] To improve correction option functionality, Error check if more than one options are same \r\n- [x] Allow image-only option \r\n- [x] Setting max. size feature for image \r\n- [x] Save the last activity of the user- When the user are editing the question and if switch to a different section/question, it automatically deletes ",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-08-24T09:44:14Z",
+                                    "bodyText": "The latest updates on your projects. Learn more about Vercel for Git \u2197\ufe0e\n\n\n\nName\nStatus\nPreview\nComments\nUpdated (UTC)\n\n\n\n\nquizmaster\n\u2705 Ready (Inspect)\nVisit Preview\n\ud83d\udcac Add feedback\nAug 31, 2023 7:14am",
+                                    "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#issuecomment-1691360266",
+                                    "author": {
+                                        "login": "vercel"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Did you test this one, working properly for various images. Try images from unsplash, Wikipedia, some news sites, etc. Try png, jpg, jpeg, gif files.",
+                                                        "author": {
+                                                            "login": "rajatkantinandi"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1304401241",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "85e5f0e",
+                                                            "authoredDate": "2023-08-24T09:40:36Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What's the different between this and the above error message? Should both messages be the same?",
+                                                        "author": {
+                                                            "login": "rajatkantinandi"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1304402525",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "85e5f0e",
+                                                            "authoredDate": "2023-08-24T09:40:36Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe take extract options here. No need of line 42\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              const options = watch('options');\n          \n          \n            \n              const isWithoutOptions = options.length === 1;\n          \n          \n            \n              const { points, text } = watch();\n          \n          \n            \n              const { points, text, options } = watch();\n          \n          \n            \n              const isWithoutOptions = options.length === 1;",
+                                                        "author": {
+                                                            "login": "rajatkantinandi"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1304404117",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "85e5f0e",
+                                                            "authoredDate": "2023-08-24T09:40:36Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is it safe to call watch here inside an useEffect?",
+                                                        "author": {
+                                                            "login": "rajatkantinandi"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1304405240",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "85e5f0e",
+                                                            "authoredDate": "2023-08-24T09:40:36Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Or we can use the value from watch from the above? We should probably call watch once to avoid perf issues.",
+                                                        "author": {
+                                                            "login": "rajatkantinandi"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1304406431",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "85e5f0e",
+                                                            "authoredDate": "2023-08-24T09:40:36Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can we create a helper function that does both trim + replace and returns clean string?",
+                                                        "author": {
+                                                            "login": "rajatkantinandi"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1304408240",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "85e5f0e",
+                                                            "authoredDate": "2023-08-24T09:40:36Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                                validate: (value: string) => !!getImageOrTextContent(value) || 'Option text should not be empty!',\n          \n          \n            \n                                validate: (value: string) => !!getImageOrTextContent(value) || 'Option should not be empty!',",
+                                                        "author": {
+                                                            "login": "rajatkantinandi"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1304412078",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "85e5f0e",
+                                                            "authoredDate": "2023-08-24T09:40:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "it will go in catch if url is correct but content is not loadable or blocked by browser, above error message will show if url is not correct",
+                                                        "author": {
+                                                            "login": "govind007"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1305151604",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "85e5f0e",
+                                                            "authoredDate": "2023-08-24T09:40:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "using ...rest to get rest data",
+                                                        "author": {
+                                                            "login": "govind007"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1305153351",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "85e5f0e",
+                                                            "authoredDate": "2023-08-24T09:40:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ohh. And what happens if network error?",
+                                                        "author": {
+                                                            "login": "rajatkantinandi"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1305173956",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "85e5f0e",
+                                                            "authoredDate": "2023-08-24T09:40:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "1 minor comment",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe call this getCleanText as we are not just trimming?",
+                                                        "author": {
+                                                            "login": "rajatkantinandi"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1306346484",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1782676",
+                                                            "authoredDate": "2023-08-25T06:01:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "coming in catch if if network error",
+                                                        "author": {
+                                                            "login": "govind007"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1311122624",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "85e5f0e",
+                                                            "authoredDate": "2023-08-24T09:40:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "checked for all images type. working fine",
+                                                        "author": {
+                                                            "login": "govind007"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1311150043",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "85e5f0e",
+                                                            "authoredDate": "2023-08-24T09:40:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "OK",
+                                                        "author": {
+                                                            "login": "rajatkantinandi"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1311155758",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "85e5f0e",
+                                                            "authoredDate": "2023-08-24T09:40:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Cool",
+                                                        "author": {
+                                                            "login": "rajatkantinandi"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1311155944",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "85e5f0e",
+                                                            "authoredDate": "2023-08-24T09:40:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We have to support webp, tiff, bmp and jpg as well. Maybe SVG as well.",
+                                                        "author": {
+                                                            "login": "rajatkantinandi"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1311157180",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ed15a7f",
+                                                            "authoredDate": "2023-08-31T06:25:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "These are the valid image mime types as per chatGPT: https://chat.openai.com/share/d44b7044-8482-471e-94f1-fe5d2d4b6407",
+                                                        "author": {
+                                                            "login": "rajatkantinandi"
+                                                        },
+                                                        "url": "https://github.com/rajatkantinandi/quizmaster/pull/75#discussion_r1311161413",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ed15a7f",
+                                                            "authoredDate": "2023-08-31T06:25:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 1661,
+                        "title": "Make __getitem__ TINYer",
+                        "repository": {
+                            "nameWithOwner": "tinygrad/tinygrad",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-08-24T17:24:19Z",
+                        "mergedAt": "2023-09-03T03:01:01Z",
+                        "url": "https://github.com/tinygrad/tinygrad/pull/1661",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "geohotstan"
+                        },
+                        "editor": null,
+                        "body": "cleean refactooooooooooooors only (maybe)\r\nstill potential lines to be reduced in fancy indexing.\r\nwip\r\nwip\r\nwip",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-08-24T17:29:35Z",
+                                    "bodyText": "Are all the exception cases tested?",
+                                    "url": "https://github.com/tinygrad/tinygrad/pull/1661#issuecomment-1692134763",
+                                    "author": {
+                                        "login": "geohot"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-24T17:30:16Z",
+                                    "bodyText": "Changes made in tinygrad/:\n------------------------------------------------------------\nfiles                             insertions       deletions\n------------------------------------------------------------\ntinygrad/tensor.py                        49              54\n------------------------------------------------------------\nlines added in the tinygrad folder: -5",
+                                    "url": "https://github.com/tinygrad/tinygrad/pull/1661#issuecomment-1692135684",
+                                    "author": {
+                                        "login": "tinyb0t"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-24T17:34:31Z",
+                                    "bodyText": "Are all the exception cases tested?\n\nI didn't delete any of the exception cases but I did move them around a little. :s\nI did run some tests locally to raise the exceptions tho.\nI'll check test_ops.py and if they're not tested, I'll add tests.",
+                                    "url": "https://github.com/tinygrad/tinygrad/pull/1661#issuecomment-1692141130",
+                                    "author": {
+                                        "login": "geohotstan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-24T17:37:23Z",
+                                    "bodyText": "Does GPT-4 have any good ideas? I find its code a lot more readable at least, particularity if it added some comments. Might be wrong of course... Remember, empty lines and comments do not count toward line count.\nhttps://chat.openai.com/share/30ab0b7e-d72c-444f-a228-620b132e9500",
+                                    "url": "https://github.com/tinygrad/tinygrad/pull/1661#issuecomment-1692144992",
+                                    "author": {
+                                        "login": "geohot"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-25T20:18:56Z",
+                                    "bodyText": "idk if collapsing the reshapes into 1 liners was the right choice for fancy indexing since we added 1 extra loop as well as we now have conditional checks within the loops (which could be mitigated with a list + list but then that's quite a long 1 liner...\nand line 321 is totally unreadable\nI added quite a lot of comments here... I'm not sure if it makes it more clear",
+                                    "url": "https://github.com/tinygrad/tinygrad/pull/1661#issuecomment-1693885395",
+                                    "author": {
+                                        "login": "geohotstan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-03T00:40:14Z",
+                                    "bodyText": "This good to merge?",
+                                    "url": "https://github.com/tinygrad/tinygrad/pull/1661#issuecomment-1703974170",
+                                    "author": {
+                                        "login": "geohot"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-03T02:33:02Z",
+                                    "bodyText": "This good to merge?\n\ngood on my end :D",
+                                    "url": "https://github.com/tinygrad/tinygrad/pull/1661#issuecomment-1703990640",
+                                    "author": {
+                                        "login": "geohotstan"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "this is pretty unreadable, can you split this line up a bit?",
+                                                        "author": {
+                                                            "login": "wozeparrot"
+                                                        },
+                                                        "url": "https://github.com/tinygrad/tinygrad/pull/1661#discussion_r1306237687",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b4351c6",
+                                                            "authoredDate": "2023-08-25T20:18:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Really happy with the new arange change.\nCurrent arange is readable and I separated idx 1 liner to 3 lines. Probably more readable",
+                                                        "author": {
+                                                            "login": "geohotstan"
+                                                        },
+                                                        "url": "https://github.com/tinygrad/tinygrad/pull/1661#discussion_r1306407537",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b4351c6",
+                                                            "authoredDate": "2023-08-25T20:18:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why is np.newaxis supported? This should be the same as None, and we shouldn't be using numpy stuff",
+                                                        "author": {
+                                                            "login": "geohot"
+                                                        },
+                                                        "url": "https://github.com/tinygrad/tinygrad/pull/1661#discussion_r1311701793",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3a8bf66",
+                                                            "authoredDate": "2023-08-29T00:36:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "# - Indexing with np.newaxis or None on a given axis will add a new dimension of size one before that axis\nthis line in the description of _getitem_ mentioned npnewaxis and I didn't see it tested xD\nBut np.newaxis just evaluates to None when passed in as arg to _getitem_, so really they literally are the same thing.\nYeah, you're right, I'll also del the np.newaxis in the description.\nPeople should just use None instead.",
+                                                        "author": {
+                                                            "login": "geohotstan"
+                                                        },
+                                                        "url": "https://github.com/tinygrad/tinygrad/pull/1661#discussion_r1312765979",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3a8bf66",
+                                                            "authoredDate": "2023-08-29T00:36:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

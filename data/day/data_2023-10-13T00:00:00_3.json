@@ -1,0 +1,2042 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 5423,
+                        "title": "feat: add sessionStore singleton class",
+                        "repository": {
+                            "nameWithOwner": "toeverything/blocksuite",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-11-24T03:26:25Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/toeverything/blocksuite/pull/5423",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "regischen"
+                        },
+                        "editor": null,
+                        "body": "Add singleton class `Storage` mainly for prefix and suffix encapsulation and provide a clean api.",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Occupying the concept of \"storage\" here sounds overkill, I would suggest some naming change \ud83e\udd14\nAlso this seems to break the Node compatibility test.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 287,
+                        "title": "[DERCBOT-661] RAG : indexing tools",
+                        "repository": {
+                            "nameWithOwner": "CreditMutuelArkea/tock",
+                            "primaryLanguage": {
+                                "name": "Kotlin"
+                            }
+                        },
+                        "createdAt": "2024-01-02T14:08:24Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "GuirriecP"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Thanks, some improvements can be done.\n\n  Pre-commit hooks should be applied here also : https://pre-commit.com/hooks.html",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Module name should be more explicit (if someday we want to publish it an pypi) for instance tock-llm-indexing-tools, would be more aligned with the existing tock-py : https://github.com/theopenconversationkit/tock-py/blob/master/setup.py#L26",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452166798",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "also ignore embeddings.json files to prevent some developper from commiting their API keys\n prefer putting  specific  .gitignore files in the package folder, in llm/orchestrator-server/",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452226026",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Remove this file it should be named __init__.py if you really want an init file",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452226869",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can you update it to langchain 0.1.0",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452312102",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You should only use the abstraction layer BaseEMSetting not OpenAIEMSetting nor AzureOpenAIEMSetting",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452314539",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is already handled by get_em_factory, simply load the configuration as a BaseEMSetting format.",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452316714",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Use a logger.info here",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452373905",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It's better to explicitly list all arguments with their type so that you can have a better documentation support :\ndef index_documents(input_csv: string, index_name: string, ....) -> str:\nDocument input types and return types using typing.",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452384328",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "When formatting logs you should not use f-strings, because arguments are always evaluated before calling the logger, this means that the string rendering occurs even if we are in INFO mode and not DEBUG. Let the logger do the formatting (we call it lazy logging) for you using arguments and this format :\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                logging.debug(f\"Beginning indexation session {session_uuid} at '{formatted_datetime}'\")\n          \n          \n            \n                logging.debug(\"Beginning indexation session %s at '%s'\", session_uuid, formatted_datetime)\n          \n      \n    \n    \n  \n\nGood reference about it : https://medium.com/flowe-ita/logging-should-be-lazy-bc6ac9816906",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452392940",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You could put this while in a function called tag_chunks, also this kind of data processing could be easily done using pandas in a more efficient way  like this :\nimport pandas as pd\n\n# Example data: list of dictionaries\ndata = [\n    {\"doc_uuid\": \"A\", \"other_key\": \"value1\"},\n    {\"doc_uuid\": \"B\", \"other_key\": \"value2\"},\n    {\"doc_uuid\": \"A\", \"other_key\": \"value3\"},\n    {\"doc_uuid\": \"B\", \"other_key\": \"value4\"},\n    {\"doc_uuid\": \"C\", \"other_key\": \"value5\"},\n    # Add more dictionaries as needed\n]\n\n# Create DataFrame\ndf = pd.DataFrame(data)\n\n# Group by 'doc_uuid' and generate incremental index\ndf['chunk'] = df.groupby('doc_uuid').cumcount()\n\n# Convert the DataFrame to a list of dictionaries\nflattened_data = df.to_dict('records')\n\nflattened_data\nThis this chatgpt : https://chat.openai.com/share/639aade3-aaca-47ba-9c29-09638e0d428e",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452417328",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Add typing for the function.\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            def index_name_is_valid(index_name):\n          \n          \n            \n            def index_name_is_valid(index_name: str) -> bool:",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452426885",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You are loading 2 times the configuration file, if you parse it using the TypeAdapter if the provider is unknown it will automatically through an exception.\nYou should parse it in the main them passe an EMSetting to your indexing function.",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452429497",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It's better to explicitly list all arguments with their type so that you can have a better documentation support.",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452435130",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Add parameters types.",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452435862",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why is it unverified ?",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452438478",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Upgraded to langchain 0.1.0 (0.1.4 in lock file), added langchain-community ^0.0.16.",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1472974432",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1473036846",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1473059483",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done (changed to tock-llm-indexing-tools)",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1473061280",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "BaseEMSetting cannot be instantiated from concrete json dict, and get_em_factory discriminates based on class type, so this cannot be done.\nMaybe a mixup between BaseEMSetting and EMSetting?",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481474971",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "As designed (asked by Mohamed) : without the '-v' option, the script prints the indexation session id (this is not a log line).\nCan you confirm?",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481478328",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "By design: the method is proposed as an importable convenience that does the same, but the script is supposed to be used via its docopt-documented CLI. The goal was not to double the same comments (douvbling maintainance).\nCan you confirm?",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481485228",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Duly noted, read the article.\nDo you confirm I shall rewrite all logs in the 3 scripts? (perf is not a priority, and this can easily introduce bugs)",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481503781",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done (use pandas to update metadata).",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481587989",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481588996",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "By design: checks in main are meant to be fail-soon CLI args-checks (valid JSON inputed by script user), they are then passed along to the heavy-processing index_documents() method.\nWhat do you think?",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481600615",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "idem #287 (comment)",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481603268",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481606087",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I can't seem to remember: removed it.",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481621714",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ok we will see in the futur",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1494821866",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Hum ok but it can be splitted, I will post a comment about it in my review.",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1495485042",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't see the change about it.",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1495490759",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "hum ok usually we don't like doing the same stuff several time ^^",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1497180745",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ok",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1497184095",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ok thanks :)",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1497186442",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 281,
+                        "title": "Clean up `col_to_pattern` logic",
+                        "repository": {
+                            "nameWithOwner": "pyg-team/pytorch-frame",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-08T03:43:26Z",
+                        "mergedAt": "2023-12-08T07:38:22Z",
+                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "weihua916"
+                        },
+                        "editor": {
+                            "login": "weihua916"
+                        },
+                        "body": "- Remove redundancy, increase code sharing.\r\n- Explicitly let `sep=None` handle `list` cell in multicategorical columns\r\n- More type checking of canonicalized `col_to_pattern` to raise informative errors.",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "In general LGTM, left some comments",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think it's not mapped to :class:torch.nn.Embeddings, let's change this.",
+                                                        "author": {
+                                                            "login": "zechengz"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1419962319",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This col_to_xxx seems a little bit weird",
+                                                        "author": {
+                                                            "login": "zechengz"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1419963278",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "See this https://chat.openai.com/share/3506c8b0-4810-42f2-a23a-a9d4e3c38fe4",
+                                                        "author": {
+                                                            "login": "zechengz"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1419964583",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It will be soon. My pr is going to change the mapping. \ud83d\ude06 It would be ready for review soon",
+                                                        "author": {
+                                                            "login": "yiweny"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1419976917",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I deliberately made so, since the input here is supposed to be canonicalized dictionary. By default, col_to_pattern should be an empty dictionary.",
+                                                        "author": {
+                                                            "login": "weihua916"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1419985442",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Good point. will modify.",
+                                                        "author": {
+                                                            "login": "weihua916"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1419986436",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Actually, interesting. We should make it None and replace with {} inside. Will do this way.",
+                                                        "author": {
+                                                            "login": "weihua916"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1419990094",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Good catch. Rewrote as follows:\n:obj:text_embedder that embeds texts into vectors",
+                                                        "author": {
+                                                            "login": "weihua916"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1420013421",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Updated. Since empty dictionary will be never accessed, leaving them as None inside the class seems fine as well. Again, thanks for the good catch!",
+                                                        "author": {
+                                                            "login": "weihua916"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1420017175",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This will fail the test_converter test",
+                                                        "author": {
+                                                            "login": "yiweny"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1420064268",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1f2175f",
+                                                            "authoredDate": "2023-12-08T07:07:22Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 448,
+                        "title": "Fix for #440 - Removed GuiData class",
+                        "repository": {
+                            "nameWithOwner": "unity-atoms/unity-atoms",
+                            "primaryLanguage": {
+                                "name": "C#"
+                            }
+                        },
+                        "createdAt": "2023-12-20T00:24:17Z",
+                        "mergedAt": "2024-01-07T19:23:25Z",
+                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "toasterhead-master"
+                        },
+                        "editor": null,
+                        "body": "Fixes #440",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "why was forceSingleLine deleted?\nthis is what @AdamRamberg  added as a fix in #447 I gues it got lost, due to the way this PR was created by overriding the changes from the previous PRs",
+                                                        "author": {
+                                                            "login": "soraphis"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1434926437",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7ce4812",
+                                                            "authoredDate": "2023-12-21T14:38:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "My bad, I should've checked if any external changes took place while my repo stayed the same. Fixing it",
+                                                        "author": {
+                                                            "login": "toasterhead-master"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1435214627",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7ce4812",
+                                                            "authoredDate": "2023-12-21T14:38:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We don't want to remove the compiler flag conditions here. I can revert it since I have write access to the PR :)",
+                                                        "author": {
+                                                            "login": "AdamRamberg"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1444057437",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "aa2780d",
+                                                            "authoredDate": "2023-12-22T16:58:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Oh thanks! Sorry, I didn't mean to remove it, don't know how I missed it or how it got removed :/",
+                                                        "author": {
+                                                            "login": "toasterhead-master"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1444057963",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "aa2780d",
+                                                            "authoredDate": "2023-12-22T16:58:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 184,
+                        "title": "Feat : Create checkbox component",
+                        "repository": {
+                            "nameWithOwner": "nishiki-tech/nishiki-frontend",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2024-01-13T07:17:47Z",
+                        "mergedAt": "2024-01-17T20:39:01Z",
+                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "kanta1207"
+                        },
+                        "editor": {
+                            "login": "kanta1207"
+                        },
+                        "body": "<!--\r\n\r\nTitle Naming Conventions:\r\n\r\n- Start with a capitalized prefix followed by an imperative form of a verb, just like a commit message.\r\n- Refer to the \"Commit Convention\" for the prefix:\r\n  https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/CONTRIBUTING.md#commit-convention.\r\n\r\nExample:\r\n- Fix: Resolve memory leak in data processing module\r\n- Feat: Add two-factor authentication\r\n- Refactor: Improve state management in React components\r\n- Docs: Add Windows setup instructions\r\n\r\n-->\r\n\r\n## Overview\r\n\r\n<!-- Provide a brief description of the changes introduced by this PR. -->\r\nCreate Checkbox component based on shadcn [Checkbox](https://ui.shadcn.com/docs/components/checkbox)\r\n\r\n## Changes\r\n\r\n<!-- List the changes -->\r\n<!-- Delete this section if not needed -->\r\n\r\n- Added `Checkbox.tsx` to `src/components/ui` directory.\r\n- Added `CheckboxUsageExample.tsx`\r\n- Added export of `Checkbox` in `src/components/ui/index.ts` \r\n- Added `icon_check.svg` to `assets/images/icons`\r\n- Added color `white` to Icon component variant\r\n\r\n## Review points\r\n\r\n<!-- List the points you would like to be reviewed in detail and the points you are not confident about. -->\r\n<!-- Delete this section if not needed -->\r\n\r\n- Since there weren't any size variation, I didn't add variants for checkbox, so checkbox rectangle is fixed to be 24px square, and check icon is fixed to be 14px. We can override it any time with `className` tho. **Should I make size variant already, considering the desktop design?**\r\n   \r\n\r\n## Screen Captures\r\n\r\n<!-- Add screenshots or screen recordings of the changes -->\r\n<!-- Necessary for UI changes -->\r\n<!-- Delete this section if not needed -->\r\n\r\n\r\nhttps://github.com/genesis-tech-tribe/nishiki-frontend/assets/99339182/31220b71-7c09-4270-8b37-13f8834e5fdb\r\n\r\n\r\n\r\n## References\r\n\r\n<!-- List all the URLs of the references (documents, articles, youtube videos, etc.) that you used to complete this task -->\r\n<!-- If you have referred to responses from ChatGPT or other AIs, please include the links to the conversations if possible -->\r\n<!-- Delete this section if not needed -->\r\n\r\n- [shadcn Checkbox component](https://ui.shadcn.com/docs/components/checkbox)\r\n\r\n\r\n## Assignee Checklist:\r\n\r\n<!-- You can tick the checkboxes if not applicable -->\r\n\r\n- [ ] The naming convention of the PR title is correct (See the comment at the top of this template)\r\n- [ ] The base branch is correct (See: [Types of Branches](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/CONTRIBUTING.md#types-of-branches))\r\n- [ ] The branch name follows the [Branch Naming Conventions](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/CONTRIBUTING.md#branch-naming-conventions)\r\n- [ ] The correct assignees and reviewers have been designated for this PR\r\n- [ ] The coding style follows the [Coding Style Guide](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/STYLEGUIDE.md)\r\n- [ ] All the related issues are associated with this PR\r\n- [ ] All criteria in the associated issues are met (please tick the checkboxes)\r\n- [ ] My changes do not generate new warnings or errors (especially in the console)\r\n\r\n## Reviewer Checklist:\r\n\r\n<!-- You can tick the checkboxes if not applicable -->\r\n\r\n- [ ] Double-check the \"Assignee Checklist\"\r\n- [ ] The code follows the generic best practices and our [Coding Style Guide](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/STYLEGUIDE.md)\r\n- [ ] The code is well-commented and easy to understand\r\n- [ ] The UI changes accurately reflect the provided design\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "There is no point from me to mention. Thanks!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "@kanta1207\nThank you for your work! I left some comments. Please kindly take a look at them.\nAlso could you tick the checklist, please? So we will be able to double-check them.\nFor your question,\n\nShould I make size variant already, considering the desktop design?\n\nI don't think you should define variants for the size, until it becomes necessary.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This <div> should be the <Label> tag, so that the entire card can toggle the checkbox.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452038121",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I recommend against defining styles not in the provided design. Disabled checkboxes typically have different styles, such as a grayish color.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452041544",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Does the color primary-foregroud exist?",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452045200",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Does this peer have any effects?\nhttps://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-sibling-state",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452050334",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The current border width looks a bit too thin to me.\nI played around and figured out border-[1.2px] and border-[1.5px] looked nicer.\nIn fact, the border width of the original svg image in Figma is around 1.2px.\n1px:\n\n1.2px (this is the closest value to the original design):\n\n1.5px:\n\nI personally prefer 1.5px, but if you stick to the Figma design, around 1.2px would be the best.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452068890",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I thought we might be able to utilize it, but now I feel like we can remove it!!\nIt doesn't have any effect itself, it can have some effect when checkbox component is used with other sibling element. But anyway we can pass peerclass anytime to CheckboxRoot only when it's needed.\nI removed it in the latest commit!",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453054744",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It was complete mistake of mine, sorry!\nI removed it!",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453055136",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Do you think it's better to add some typical style for disabled state?\nSince it's currently not designed in wire frame, I removed disabled:cursor-not-allowed in the latest commit!",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453055347",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thank you for pointing out!! I was a bit blind about it, sorry \ud83d\ude13\nI didn't have much preference between 1.2px and 1.5px , so I decided to follow the figma, 1.2px!\nThus I set it as 0.075rem since we're using rem in our code base",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453060906",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thank you for updating!\nIn general, disabled checkboxes are usually styled in a design. However, since our current features do not require disabled checkboxes, I suppose there is no need to define a style for them for now. When adding a new style to our code, it would be the time to ask the designers to add a new design to Figma.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453061812",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Using rem for such small values may not be effective... I have never seen that before.\nI asked ChatGPT, and here is the conversation:\nhttps://chat.openai.com/share/a85682c7-e98b-4ab9-9f84-a0a0edc9d88d\nCould you research more about it, please?",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453074111",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Use px when you need fixed-size elements that won't change, such as for borders or shadows.\nYour suggestion and also this article below make sense. I think I'm going to use px for this\nhttps://www.shecodes.io/athena/28078-when-to-use-ems-rems-and-px-in-css#:~:text=Use%20px%20when%20you%20need,their%20browser's%20default%20font%20size.\nOther references:\nhttps://stackoverflow.com/questions/33997943/0-1-rem-border-width-renders-differently-on-chrome-and-safari\nhttps://kheohyeewei.medium.com/in-short-when-to-use-px-em-and-rem-b2de94e1b829",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453966896",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I see that it still remains \ud83d\udc40",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1454442968",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@kanta1207\nI understand that you have made an update, but it's not what I intended.\nFirst, we should always avoid using the plain <label> tag everywhere, since we have defined the <Label> component.\nSecondly, what I originally meant was to substitute the previously specified <div> with a <Label> tag, which should have its htmlFor attribute referencing the id of the checkbox. Also, the existing <Label> tag needs to be replaced with a normal <div>, <p> or something else.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1454460397",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thank you for updating and providing additional information :)",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1454471328",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You mean peer on line 28 remains? I suppose it's removed in this commit, and I couldn't find it in the current branch",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1456607281",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sorry, I overlooked it... I suppose keeping it is acceptable if it's intentional, but thanks for updating!",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1456610575",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Addressed in this PR: #191",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1456634209",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 3644,
+                        "title": "Proposal: New CSS selector engine for jsdom",
+                        "repository": {
+                            "nameWithOwner": "jsdom/jsdom",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-12-23T15:13:03Z",
+                        "mergedAt": "2024-01-07T12:26:06Z",
+                        "url": "https://github.com/jsdom/jsdom/pull/3644",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "asamuzaK"
+                        },
+                        "editor": null,
+                        "body": "`nwsapi` has been working great so far, and I appreciate the developer's hard work, but `nwsapi` is unable to support Selectors Level 4 properly at the moment.\r\nYou can find many selector-related bug reports in the `jsdom` issues.\r\n\r\nTherefore, I recommend changing to a different CSS selector engine [dom-selector](https://github.com/asamuzaK/domSelector).\r\nIt supports many features of the Selectors Level 4 and also the Shadow Hosts.\r\nRef [Supported CSS selectors](https://github.com/asamuzaK/domSelector#supported-css-selectors)\r\n\r\n# Benchmark results\r\n\r\n```\r\nnpm run benchmark\r\n```\r\n\r\n|API|nwsapi|dom-selector|\r\n|:--------|:--------|:--------|\r\n|closest()|jsdom x 126,133 ops/sec \u00b10.75% (73 runs sampled)|jsdom x 7,449 ops/sec \u00b113.28% (64 runs sampled)|\r\n|matches()|jsdom x 120,369 ops/sec \u00b18.31% (65 runs sampled)|jsdom x 8,507 ops/sec \u00b17.84% (60 runs sampled)|\r\n|querySelector()|jsdom x 3.12 ops/sec \u00b12.60% (12 runs sampled)|jsdom x 14.72 ops/sec \u00b11.94% (35 runs sampled)|\r\n|querySelectorAll()|jsdom x 2.93 ops/sec \u00b11.52% (11 runs sampled)|jsdom x 12.41 ops/sec \u00b12.47% (31 runs sampled)|\r\n\r\nFor `closest()` and `matches()`, `nwsapi` is about 15 times faster, but in reality, `dom-selector` processed in 0.11 to 0.13 msec, so I don't think it's extremely slow.\r\nRather, it is `querySelector()` and `querySelectorAll()` that often have speed performance issues, and in this benchmark, `dom-selector` is about 4 times faster than `nwsapi`.\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I noticed that the global window is accessible via document.defaultView.\nSo if dom-selector throws an exception like throw new document.defaultView.DOMException(), these try-catch can be completely removed, right?",
+                                                        "author": {
+                                                            "login": "asamuzaK"
+                                                        },
+                                                        "url": "https://github.com/jsdom/jsdom/pull/3644#discussion_r1442599751",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "33bbfc9",
+                                                            "authoredDate": "2024-01-05T00:20:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, that's right!",
+                                                        "author": {
+                                                            "login": "domenic"
+                                                        },
+                                                        "url": "https://github.com/jsdom/jsdom/pull/3644#discussion_r1442606696",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "33bbfc9",
+                                                            "authoredDate": "2024-01-05T00:20:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thanks for the  quick reply.\nI will rewrite the code and PR.",
+                                                        "author": {
+                                                            "login": "asamuzaK"
+                                                        },
+                                                        "url": "https://github.com/jsdom/jsdom/pull/3644#discussion_r1442621495",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "33bbfc9",
+                                                            "authoredDate": "2024-01-05T00:20:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 252,
+                        "title": "Add model for iCubGenova11",
+                        "repository": {
+                            "nameWithOwner": "robotology/icub-models-generator",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2024-01-09T13:14:50Z",
+                        "mergedAt": "2024-01-11T09:14:15Z",
+                        "url": "https://github.com/robotology/icub-models-generator/pull/252",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "traversaro"
+                        },
+                        "editor": {
+                            "login": "traversaro"
+                        },
+                        "body": "The `iCubGenova11` is an iCub 2.7, so we generated the model accordingly.\r\n\r\nIt also fixes https://github.com/robotology/icub-models-generator/issues/255 to ensure that CI is green. I manually run the CI to push the generated files in https://github.com/robotology/icub-models/tree/addicubgenova11 for testing @martinaxgloria .",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 100,
+                        "title": "Fix for unneeded path fixing in Windows",
+                        "repository": {
+                            "nameWithOwner": "Regression-Games/RGUnityBots",
+                            "primaryLanguage": {
+                                "name": "C#"
+                            }
+                        },
+                        "createdAt": "2023-11-18T20:30:38Z",
+                        "mergedAt": "2023-11-20T21:04:00Z",
+                        "url": "https://github.com/Regression-Games/RGUnityBots/pull/100",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "vontell"
+                        },
+                        "editor": null,
+                        "body": "In Windows, there was an error (described in the linear ticket for this task). I _believe_ this is because in windows, there is no trailing slash included in the path, so there is an out of bounds error when trimming the path because of a -1 index.\r\n\r\nHowever, I have no access to a Windows computer rn, so I cannot confirm that this works. However, I did the next best thing and had GPT review this error, and it came to the same conclusion and reasoning, so I'm pretty confident this should work... https://chat.openai.com/share/1b7c364c-9a91-4ac1-ba2e-f14e1560d2ef\r\n\r\n---\r\n\r\nFind the pull request instructions [here](https://www.notion.so/regressiongg/Pull-Request-Process-0d57a7eb582a446983edfacafa406f1e?pvs=4)\r\n\r\nEvery reviewer and the owner of the PR should consider these points in their request (feel free to copy this checklist so you can fill it out yourself in the overall PR comment)\r\n\r\n- [ ] The code is extensible and backward compatible\r\n- [ ] New public interfaces are extensible and open to backward compatibility in the future\r\n- [ ] If preparing to remove a field in the future (i.e. this PR removes an argument), the argument stays but is no longer functional, and attaches a deprecation warning. A linear task is also created to track this deletion task.\r\n- [ ] Non-critical or potentially modifiable arguments are optional\r\n- [ ] Breaking changes and the approach to handling them have been verified with the team (in the Linear task, design doc, or PR itself)\r\n- [ ] The code is easy to read\r\n- [ ] Unit tests are added for expected and edge cases\r\n- [ ] Integration tests are added for expected and edge cases\r\n- [ ] Functions and classes are documented\r\n- [ ] Migrations for both up and down operations are completed\r\n- [ ] A documentation PR is created and being reviewed for anything in this PR that requires knowledge to use\r\n- [ ] Implications on other dependent code (i.e. sample games and sample bots) is considered, mentioned, and properly handled\r\n- [ ] Style changes and other non-blocking changes are marked as non-blocking from reviewers\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 71,
+                        "title": "update-game-list-viewbar",
+                        "repository": {
+                            "nameWithOwner": "star82620/join-joy",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-11-16T07:49:42Z",
+                        "mergedAt": "2023-11-19T13:19:55Z",
+                        "url": "https://github.com/star82620/join-joy/pull/71",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "star82620"
+                        },
+                        "editor": null,
+                        "body": "- \u8abf\u6574\u7d50\u69cb\u3001\u6a23\u5f0f",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "a\uff1f",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1397434230",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24c10c9",
+                                                            "authoredDate": "2023-11-16T08:30:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "className \u6709\u591a\u9918\u7a7a\u683c",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1397434820",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24c10c9",
+                                                            "authoredDate": "2023-11-16T08:30:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u4e0d\u8981\u5c0d\u50b3\u9032\u4f86\u7684 props \u6216 data \u91cd\u65b0\u8ce6\u503c\nFYI\uff1a\nconst data = gamesData ? gamesData : [];\n\nor\nconst data = gamesData || [];",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1397446810",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24c10c9",
+                                                            "authoredDate": "2023-11-16T08:30:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "isEmptyGames or isEmptyList",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1397454969",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24c10c9",
+                                                            "authoredDate": "2023-11-16T08:30:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u5df2\u4fee\u6b63",
+                                                        "author": {
+                                                            "login": "star82620"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1398238300",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24c10c9",
+                                                            "authoredDate": "2023-11-16T08:30:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "isDefault \u61c9\u8a72\u5c31\u884c\u4e86",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1398334500",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e871da3",
+                                                            "authoredDate": "2023-11-19T02:09:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "useMemo \u4e0d\u8981\u4e82\u7528\uff0c\u4e0d\u662f\u4ec0\u9ebc\u5f88\u91cd\u7684\u904b\u7b97\u6216\u8d85\u5927\u4e00\u5305\u8cc7\u6599\uff0c\u7528\u6211\u7559\u8a00\u7684\u65b9\u5f0f\u5373\u53ef",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1398334845",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e871da3",
+                                                            "authoredDate": "2023-11-19T02:09:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u6539\u56de  const data = gamesData || [];\n\u4f46\u6709\u932f\u8aa4\u8a0a\u606f\u53ef\u4ee5\u518d\u7559\u610f\u512a\u5316\uff1a\nhttps://chat.openai.com/share/2c928a8a-d6eb-4914-ad46-0c35e75dd981",
+                                                        "author": {
+                                                            "login": "star82620"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1398399390",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e871da3",
+                                                            "authoredDate": "2023-11-19T02:09:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 61,
+                        "title": "Enhanced error handling in key functions",
+                        "repository": {
+                            "nameWithOwner": "OthersideAI/self-operating-computer",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-02T16:25:49Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/OthersideAI/self-operating-computer/pull/61",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "Prureddy"
+                        },
+                        "editor": null,
+                        "body": "# Enhanced error handling in key functions:\r\n- Added specific exception handling to 'summarize' and 'get_next_action_from_openai' functions for improved reliability and debugging.\r\n- Introduced granular error handling for FileNotFound, Permission, Image, I/O, Base64 encoding, API request, and other potential exceptions.\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Instead of adding additional lines for every exception, we can have only one line to capture all the exceptions.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Lines 473 - 484 are redundant as 388-412.\nWe should try to optimize this such that we should not repeat code",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Why once you print and again you return ?\nDo you do any thing on returning? Why you didn't print on function result?",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjQw",
+                "hasNextPage": true,
+                "hasPreviousPage": true,
+                "startCursor": "Y3Vyc29yOjMx"
+            },
+            "issueCount": 84
+        }
+    }
+}

@@ -1,0 +1,144 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 15455,
+                        "title": "readme: reorder cols in whats new and add links",
+                        "repository": {
+                            "nameWithOwner": "netdata/netdata",
+                            "primaryLanguage": {
+                                "name": "C"
+                            }
+                        },
+                        "createdAt": "2023-07-19T20:06:21Z",
+                        "mergedAt": "2023-07-25T11:15:41Z",
+                        "url": "https://github.com/netdata/netdata/pull/15455",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "andrewm4894"
+                        },
+                        "editor": {
+                            "login": "andrewm4894"
+                        },
+                        "body": "##### Summary\r\n<!--\r\nDescribe the change in summary section, including rationale and design decisions.\r\nInclude \"Fixes #nnn\" if you are fixing an existing issue.\r\n-->\r\n\r\n- reorder cols to be the most interesting ones first (\"What\" and \"Description\").\r\n- makes it easier to read on mobile too then.\r\n- update all links in the whats new section to relevant agent release notes section.\r\n\r\nCan just look here to see what i mean: https://github.com/andrewm4894/netdata/tree/readme-whats-new-reorder#whats-new-and-coming\r\n\r\n![image](https://github.com/netdata/netdata/assets/2178292/2236fcc8-138c-45c7-9ee4-fdd9b9270400)\r\n![image](https://github.com/netdata/netdata/assets/2178292/3070ba3f-f291-4845-8e57-075631ca3d72)\r\n\r\n\r\n##### Test Plan\r\n\r\n<!--\r\nProvide enough detail so that your reviewer can understand which test cases you\r\nhave covered, and recreate them if necessary. If our CI covers sufficient tests, then state which tests cover the change.\r\n-->\r\n\r\n##### Additional Information\r\n<!-- This is usually used to help others understand your\r\nmotivation behind this change. A step-by-step reproduction of the problem is\r\nhelpful if there is no related issue. -->\r\n\r\n<details> <summary>For users: How does this change affect me?</summary>\r\n  <!--\r\nDescribe the PR affects users: \r\n- Which area of Netdata is affected by the change?\r\n- Can they see the change or is it an under the hood? If they can see it, where?\r\n- How is the user impacted by the change? \r\n- What are there any benefits of the change? \r\n-->\r\n</details>\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-07-20T20:04:57Z",
+                                    "bodyText": "Shoutout to chatgpt who helped me :)\nhttps://chat.openai.com/share/e93e3816-c8ad-4276-8f95-a8a0a1ba57b4",
+                                    "url": "https://github.com/netdata/netdata/pull/15455#issuecomment-1644527953",
+                                    "author": {
+                                        "login": "andrewm4894"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-21T09:38:11Z",
+                                    "bodyText": "making draft while i get rest of links",
+                                    "url": "https://github.com/netdata/netdata/pull/15455#issuecomment-1645301774",
+                                    "author": {
+                                        "login": "andrewm4894"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-21T10:01:11Z",
+                                    "bodyText": "For me, the existing order is better than the suggested one and makes more sense - in the context of \"new and coming\" it is better to have the \"Date\" column first. Also, on my mobile phone, the existing order/table looks good.",
+                                    "url": "https://github.com/netdata/netdata/pull/15455#issuecomment-1645329592",
+                                    "author": {
+                                        "login": "ilyam8"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-21T10:06:40Z",
+                                    "bodyText": "chatgpt agrees with me :)\nhttps://chat.openai.com/share/52c6076c-6d6d-45b8-aeea-5e62e384e20c\nfor someone reading the readme on balance i think aim here should be to \"whet their appetite\" hence focusing on the \"what\" first make most sense on balance. I think doing \"when\" first assumes they actually maybe already have an idea of what the when refers to which is less likely i think to be the case here (my assumption being 9 times out of 10 this will be the first time they are consuming the row of information).\nbit subjective ultimately but thats my thinking here.",
+                                    "url": "https://github.com/netdata/netdata/pull/15455#issuecomment-1645336801",
+                                    "author": {
+                                        "login": "andrewm4894"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-21T10:11:51Z",
+                                    "bodyText": "here is the existing order with the links if we want\n| When | Status | What | Description |\n|:----:|:------:|:----:|:-----------:|\n|later|POC|WebRTC|Browser to Agent communication via WebRTC.|\n|later|interrupted|Advanced Troubleshooting|Expanded view of dashboard charts integrating Metrics Correlations, Anomaly Advisor and many more.|\n|next|planned|Easy Custom<br/>Dashboards|Drag and drop charts to create custom dashboards on the fly, while troubleshooting!|\n|next|planned|More Customizability|Set default settings for all charts and views!|\n|soon|in progress|SystemD Journal|View the SystemD Journal of your systems on the dashboard.|\n|soon|in progress|UCUM Units|Migrate all metrics to the Unified Code for Units of Measure.|\n|**soon**|**in progress**|**Netdata Cloud<br/>On-Prem**|**Netdata Cloud available for On-Prem installation!**|\n|soon|in progress|Click to Activate|Configure Alerts and Data Collectors from the UI!|\n|soon|finishing|Integrations|Netdata Integrations Marketplace!|\n|Jul<br/>2023|[v1.41](https://github.com/netdata/netdata/releases/tag/v1.41.0#v1410-one-dashboard)|New Agent UI|Now Netdata Cloud and Netdata Agent share the same dashboard!|\n|Jun<br/>2023|[v1.40](https://github.com/netdata/netdata/releases/tag/v1.40.0#v1400-visualization-summary-dashboards)|Summary Dashboards|High level tiles everywhere!|\n|Jun<br/>2023|[v1.40](https://github.com/netdata/netdata/releases/tag/v1.40.0#v1400-ml-extended-training)|Machine Learning|Multiple ML models per metric.|\n|Jun<br/>2023|[v1.40](https://github.com/netdata/netdata/releases/tag/v1.40.0#v1400-streaming)|SSL|Netdata Agent gets a new SSL layer.|\n|May<br/>2023|[v1.39](https://github.com/netdata/netdata/releases/tag/v1.39.0)|New Cloud UI|Filter, slice and dice any dataset from the UI! ML-first!|\n|May<br/>2023|[v1.39](https://github.com/netdata/netdata/releases/tag/v1.39.0#v1390-windows-support)|Microsoft Windows|Monitor Windows hosts and apps!|\n|May<br/>2023|[v1.39](https://github.com/netdata/netdata/releases/tag/v1.39.0#v1390-virtual-nodes-and-custom-labels)|Virtual Nodes|Go collectors can now be assigned to virtual nodes!|\n|Feb<br/>2023|[v1.38](https://github.com/netdata/netdata/releases/tag/v1.38.0)|DBENGINE v2|Faster, more reliable, far more scalable!|\n|Feb<br/>2023|[v1.38](https://github.com/netdata/netdata/releases/tag/v1.38.0#v1380-functions)|Netdata Functions|Netdata beyond metrics! Monitoring anything!|\n|Feb<br/>2023|[v1.38](https://github.com/netdata/netdata/releases/tag/v1.38.0#v1380-feed)|Events Feed|Live feed of events about topology changes and alerts.|\n|Feb<br/>2023|[v1.38](https://github.com/netdata/netdata/releases/tag/v1.38.0#v1380-rbac)|Role Based<br/>Access Control|More roles, offering finer control over access to infrastructure.|\n|Nov<br/>2022|[v1.37](https://github.com/netdata/netdata/releases/tag/v1.37.0)|Infinite Scalability|Streaming compression. Replication. Active-active clustering.|\n|Nov<br/>2022|[v1.37](https://github.com/netdata/netdata/releases/tag/v1.37.0#v1370-grafana-plugin)|Grafana Plugin|Netdata Cloud as a data source for Grafana.|\n|Nov<br/>2022|[v1.37](https://github.com/netdata/netdata/releases/tag/v1.37.0#v1370-postgressql)|PostgreSQL|Completely rewritten, to reveal all the info, even at the table level.|\n|Aug<br/>2022|[v1.36](https://github.com/netdata/netdata/releases/tag/v1.36.0)|Metrics Correlations|Advanced algorithms to find the needle in the haystack.|\n|Aug<br/>2022|[v1.36](https://github.com/netdata/netdata/releases/tag/v1.36.0#v1360-tiering)|Database Tiering|Netdata gets unlimited retention!|\n|Aug<br/>2022|[v1.36](https://github.com/netdata/netdata/releases/tag/v1.36.0#v1360-kubernetes)|Kubernetes|Monitor your Kubernetes workloads.|\n|Aug<br/>2022|[v1.36](https://github.com/netdata/netdata/releases/tag/v1.36.0#v1360-anomaly-rate-on-charts)|Machine Learning|Anomaly Rate information on every chart.|\n|Jun<br/>2022|[v1.35](https://github.com/netdata/netdata/releases/tag/v1.35.0#v1350-anomaly-advisor-ml)|Machine Learning|Anomaly Advisor! Bottom up unsupervised anomaly detection.|\n|Jun<br/>2022|[v1.35](https://github.com/netdata/netdata/releases/tag/v1.35.0#v1350-metric-correlation-agent)|Machine Learning|Metrics Correlation on the Agent.|",
+                                    "url": "https://github.com/netdata/netdata/pull/15455#issuecomment-1645343075",
+                                    "author": {
+                                        "login": "andrewm4894"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-24T07:30:16Z",
+                                    "bodyText": "@netdata/product thoughts on this?",
+                                    "url": "https://github.com/netdata/netdata/pull/15455#issuecomment-1647364066",
+                                    "author": {
+                                        "login": "andrewm4894"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-24T07:38:58Z",
+                                    "bodyText": "@andrewm4894 Can we split the already delivered stuff into a separate table? Having both in the same table is a bit unintuitive.",
+                                    "url": "https://github.com/netdata/netdata/pull/15455#issuecomment-1647378193",
+                                    "author": {
+                                        "login": "shyamvalsan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-24T08:13:46Z",
+                                    "bodyText": "@shyamvalsan I think idea was to have things turn into links to release notes and so give impression of rows getting done.\nI have no strong preference either way. Just want to try get this PR done and merged and then any other improvements like your idea you can do as a new PR and discuss there.\nMainly keen to just keep this PR small and focused since at the moment the readme does not have all the links etc.\nSo idea was for this to be quick small PR.",
+                                    "url": "https://github.com/netdata/netdata/pull/15455#issuecomment-1647427986",
+                                    "author": {
+                                        "login": "andrewm4894"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-24T09:07:38Z",
+                                    "bodyText": "I agree with @andrewm4894 's suggestion mainly because we have most of the things with later, next, *soon so it actually isn't a date (which I don't think it should bem)\nso the order of:\n\nWhat\nDescription\nWhen\nStatus\n\nlgtm\nif this doesn't feel right to most I, keeping the When first, I would suggest:\n\nWhen\nWhat\nDescription\nStatus",
+                                    "url": "https://github.com/netdata/netdata/pull/15455#issuecomment-1647515335",
+                                    "author": {
+                                        "login": "hugovalente-pm"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

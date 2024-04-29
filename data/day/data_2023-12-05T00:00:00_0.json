@@ -1,0 +1,519 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 11308,
+                        "title": "AGDR/ Configure Overview section",
+                        "repository": {
+                            "nameWithOwner": "empirical-org/Empirical-Core",
+                            "primaryLanguage": {
+                                "name": "Ruby"
+                            }
+                        },
+                        "createdAt": "2023-12-05T22:07:43Z",
+                        "mergedAt": "2023-12-07T22:05:37Z",
+                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "eadams17"
+                        },
+                        "editor": null,
+                        "body": "## WHAT\r\nconfigure Overview section of the Admin Growth Diagnostic Reports to aggregate and display data from the backend\r\n\r\n## WHY\r\nnow that the necessary APIs are available, we want to configure them to feed into the frontend UI\r\n\r\n## HOW\r\n- add a bunch of logic for making the various API calls and then aggregating the data once they are all receive\r\n- update styling of the table\r\n\r\n**just a note that there are quite a few snapshots that were updated-- this is because I moved the `DataTable` header name inside of a <span> element for more styling flexibility**\r\n\r\n### Screenshots\r\n(If applicable. Also, please censor any sensitive data)\r\n<img width=\"1422\" alt=\"Screen Shot 2023-12-05 at 2 49 46 PM\" src=\"https://github.com/empirical-org/Empirical-Core/assets/25959584/04015b1e-0b4d-4f12-b929-5dbbfc929931\">\r\n<img width=\"1087\" alt=\"Screen Shot 2023-12-05 at 2 49 58 PM\" src=\"https://github.com/empirical-org/Empirical-Core/assets/25959584/ccfd416e-a64a-4afc-888b-2f869cbc984b\">\r\n<img width=\"1074\" alt=\"Screen Shot 2023-12-05 at 2 51 55 PM\" src=\"https://github.com/empirical-org/Empirical-Core/assets/25959584/4cfc973f-8191-47f0-8a9d-7610cf29aa77\">\r\n<img width=\"1091\" alt=\"Screen Shot 2023-12-05 at 2 52 25 PM\" src=\"https://github.com/empirical-org/Empirical-Core/assets/25959584/26929dfe-fc77-4635-8ef1-ffca074d19a5\">\r\n<img width=\"1412\" alt=\"Screen Shot 2023-12-05 at 2 52 57 PM\" src=\"https://github.com/empirical-org/Empirical-Core/assets/25959584/fc9a645b-0256-4768-90e6-5b45bdb4bbcf\">\r\n\r\n### Notion Card Links\r\n(Please provide links to any relevant Notion card(s) relevant to this PR.)\r\nhttps://www.notion.so/quill/Admin-Diagnostic-Growth-Report-Overview-Frontend-8e22794d03f345af85b1d95a62e77098?pvs=4\r\n\r\nPR Checklist | Your Answer\r\n------------ | -------------\r\nHave you added and/or updated tests? |  yes\r\nHave you deployed to Staging? | yes\r\nSelf-Review: Have you done an initial self-review of the code below on Github? | yes\r\nSpec Review: Have you reviewed the spec and ensured this meets requirements and/or matches design mockups? | yes",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@anathomical I noticed this misspelling-- is there anywhere else I need to worry about updating this value? (I already updated the PUSHER_EVENT_KEY in the OverviewSection frontend file and didn't find anywhere else when searching the codebase, but I wanted to check with you just to be sure)",
+                                                        "author": {
+                                                            "login": "eadams17"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1416344668",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2bdc10",
+                                                            "authoredDate": "2023-12-05T22:18:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I was trying to use the passedData convention we use in some other test files to stub the incoming data(i.e. https://github.com/empirical-org/Empirical-Core/blob/07fc91f79f408045129e496356cb61dddfb2842c/services/QuillLMS/client/app/bundles/PremiumHub/components/canvas/container.tsx#L13), but I kept hitting some issues. Since this is time sensitive and I want to give Peter S the chance to start testing ASAP, I opted to punt on adding more thorough testing in a later PR.",
+                                                        "author": {
+                                                            "login": "eadams17"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1416348676",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2bdc10",
+                                                            "authoredDate": "2023-12-05T22:18:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@eadams17 Good catch.  I think those should be the only two places where that value is defined: once on the front-end and once on the back-end.",
+                                                        "author": {
+                                                            "login": "anathomical"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1417732205",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2bdc10",
+                                                            "authoredDate": "2023-12-05T22:18:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "There's a lot of really good work in here -- just a couple of places I think we need to clean things up before they're ready to go to production.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think I would just write this as .timeframe-filter.disabled .dropdown .dropdown__control .dropdown__value-container .dropdown__single-value { color: #7f7f7f } to avoid all the nesting. Also, should that color be a variable?",
+                                                        "author": {
+                                                            "login": "emilia-friedberg"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1417651242",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm okay with it not being in this PR, but I think it should probably be the next one (can you work on the tests while Peter Sharkey does his review?)",
+                                                        "author": {
+                                                            "login": "emilia-friedberg"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1417657186",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2bdc10",
+                                                            "authoredDate": "2023-12-05T22:18:10Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This function is really hard for me to parse. I think we need to split out some interior functions and work on formatting for readability. I think this is a good use case for getting help from ChatGPT -- here's an initial stab at it that might be useful: https://chat.openai.com/c/97307d69-7fcd-4b56-9c38-f8e884c5be4d. I think we also probably want some tests specific to this method (the same way we would about this object if it were being sent up from a controller).",
+                                                        "author": {
+                                                            "login": "emilia-friedberg"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1417665504",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\"our guide\" is duplicated in the last sentence on this line.",
+                                                        "author": {
+                                                            "login": "emilia-friedberg"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1417667771",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "All the ternary logic in here is effectively duplicated and feels a little messy. I think we should do something like:\nconst performanceButtons = [\n  {\n    tab: OVERVIEW,\n    displayName: 'Performance Overview',\n    inactiveIconSrc: barChartGreySrc,\n    activeIconSrc: barChartWhiteIconSrc\n  },\n  ...\n]\n\nThen iterate through each of them to generate the button elements in their own function.",
+                                                        "author": {
+                                                            "login": "emilia-friedberg"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1417673394",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Should these querystrings be constants?",
+                                                        "author": {
+                                                            "login": "emilia-friedberg"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1417678006",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Love the clean up here.",
+                                                        "author": {
+                                                            "login": "emilia-friedberg"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1417745706",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It would be good to have these numbers as constants so it's clear what they mean.",
+                                                        "author": {
+                                                            "login": "emilia-friedberg"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1417746192",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "A couple of minor notes, but overall this looks good to me.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If we're going to leave this commented out after a merge, we should probably add a // TODO:  note to make it easier to find this later.",
+                                                        "author": {
+                                                            "login": "anathomical"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1417736447",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e2bdc10",
+                                                            "authoredDate": "2023-12-05T22:18:10Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think you can use toString().padLeft(2, '0') instead of adding these if length === 1 conditions.",
+                                                        "author": {
+                                                            "login": "anathomical"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1417743304",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think this conditional is fine as-is, but as far as I know it should be impossible for a row to have a postDiagnosticScore but not a preDiagnosticScore, so I think practically speaking you can just make this if (!postDiagnosticScore) if you wanted, but like I said, it's fine as-is.",
+                                                        "author": {
+                                                            "login": "anathomical"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1417762704",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Totally dig these as constants.",
+                                                        "author": {
+                                                            "login": "anathomical"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1417808774",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Given that all of these widths seem to be the same value, I wonder if this shouldn't also be a constant even if it's not from a shared file??",
+                                                        "author": {
+                                                            "login": "anathomical"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1417809595",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "So this isn't currently in the back-end, but reviewing this suggests to me that we should also have groupByValue in here.  Let's just do that in a separate PR, though, to avoid adding complexity to this one.",
+                                                        "author": {
+                                                            "login": "anathomical"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1417816161",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "good call! I'll update. I already flagged the hex code to Jack so that he can map it to a variable so just waiting for that (it's used quite a bit around the codebase)",
+                                                        "author": {
+                                                            "login": "eadams17"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1418165632",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "love that suggestion-- I'll make this update",
+                                                        "author": {
+                                                            "login": "eadams17"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1418173696",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "yeah, I can make these constants",
+                                                        "author": {
+                                                            "login": "eadams17"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1418175049",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "that makes sense-- I'll update to be more succinct",
+                                                        "author": {
+                                                            "login": "eadams17"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1418181270",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "sounds good to me!",
+                                                        "author": {
+                                                            "login": "eadams17"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1418183358",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@emilia-friedberg I can't seem to access the link-- can you maybe send the prompt you inputted so I can have better context?",
+                                                        "author": {
+                                                            "login": "eadams17"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1418188924",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32311c2",
+                                                            "authoredDate": "2023-12-05T22:39:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "The refactor you did with that function is so much easier to parse (and will be easier to debug if we ever need to now) -- beautiful work! Love the tests, too. I flagged one small thing I think may have been an error in the refactor but I don't need to review again. Thank you so much for doing all that. Excited to see this ship!",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "love these tests!",
+                                                        "author": {
+                                                            "login": "emilia-friedberg"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1419674860",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ec943c8",
+                                                            "authoredDate": "2023-12-07T19:06:19Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "should these two have activeTab === tab as the condition instead of tab === OVERVIEW?",
+                                                        "author": {
+                                                            "login": "emilia-friedberg"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1419676648",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ec943c8",
+                                                            "authoredDate": "2023-12-07T19:06:19Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "ahh yeah, good catch! I had resolved it in my other branch but not here",
+                                                        "author": {
+                                                            "login": "eadams17"
+                                                        },
+                                                        "url": "https://github.com/empirical-org/Empirical-Core/pull/11308#discussion_r1419700208",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ec943c8",
+                                                            "authoredDate": "2023-12-07T19:06:19Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

@@ -1,0 +1,372 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 160,
+                        "title": "CSV export/import",
+                        "repository": {
+                            "nameWithOwner": "ruslandoga/analytics",
+                            "primaryLanguage": {
+                                "name": "Elixir"
+                            }
+                        },
+                        "createdAt": "2023-10-17T06:38:25Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/ruslandoga/analytics/pull/160",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "ruslandoga"
+                        },
+                        "editor": {
+                            "login": "ruslandoga"
+                        },
+                        "body": "WIP\r\n\r\n- [ ] benchmarks / profiling\r\n- [ ] behind a feature flag",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Reasoning: https://chat.openai.com/share/8555e0b1-4fae-4319-ae24-739b6afafaa6",
+                                                        "author": {
+                                                            "login": "ruslandoga"
+                                                        },
+                                                        "url": "https://github.com/ruslandoga/analytics/pull/160#discussion_r1364183786",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fa4078c",
+                                                            "authoredDate": "2023-10-18T10:48:26Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In SQL, this query looks like this\nset param_site_id = 4;\nselect\n    toDate(d.timestamp) as date,\n    d.pathname as path,\n    any(d.hostname) as hostname,\n    sumIf(d.next_timestamp - d.timestamp, d.next_timestamp != 0) as time_on_page,\n    countIf(d.next_timestamp=0) as exits,\n    countIf(d.name='pageview') as pageviews,\n    uniq(d.user_id) as visitors\nfrom (\n    select\n        e.session_id,\n        e.timestamp,\n        leadInFrame(e.timestamp) over next as next_timestamp,\n        e.pathname,\n        e.hostname,\n        e.name,\n        e.user_id\n    from events_v2 e\n    where e.site_id = {site_id:UInt64}\n    window next as (partition by e.session_id order by e.timestamp rows between current row and 1 following)\n) d\ngroup by date, path\norder by date;",
+                                                        "author": {
+                                                            "login": "ruslandoga"
+                                                        },
+                                                        "url": "https://github.com/ruslandoga/analytics/pull/160#discussion_r1366844625",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c7c8eef",
+                                                            "authoredDate": "2023-10-20T11:20:21Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "quick tests show that zstd is best: plausible/ch#129 (comment)",
+                                                        "author": {
+                                                            "login": "ruslandoga"
+                                                        },
+                                                        "url": "https://github.com/ruslandoga/analytics/pull/160#discussion_r1372139447",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "014f77b",
+                                                            "authoredDate": "2023-10-17T06:31:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "can zstd be used in archives?",
+                                                        "author": {
+                                                            "login": "ruslandoga"
+                                                        },
+                                                        "url": "https://github.com/ruslandoga/analytics/pull/160#discussion_r1372139667",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "014f77b",
+                                                            "authoredDate": "2023-10-17T06:31:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://news.ycombinator.com/item?id=21959517",
+                                                        "author": {
+                                                            "login": "ruslandoga"
+                                                        },
+                                                        "url": "https://github.com/ruslandoga/analytics/pull/160#discussion_r1372140129",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "014f77b",
+                                                            "authoredDate": "2023-10-17T06:31:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "SELECT\n    toDate(s0.\"start\") AS \"date\",\n    s0.\"utm_source\" AS \"source\",\n    s0.\"utm_campaign\",\n    s0.\"utm_content\",\n    s0.\"utm_term\",\n    uniq(s0.\"user_id\") AS \"visitors\",\n    sum(s0.\"sign\") AS \"visits\",\n    toUInt32(round(sum(s0.\"duration\" * s0.\"sign\") / sum(s0.\"sign\"))) AS \"visit_duration\",\n    sum(s0.\"is_bounce\" * s0.\"sign\") AS \"bounces\"\nFROM \"sessions_v2\" AS s0\nWHERE s0.\"site_id\" = {$0:Int64}\nGROUP BY\n    \"date\",\n    s0.\"utm_source\",\n    s0.\"utm_campaign\",\n    s0.\"utm_medium\",\n    s0.\"utm_content\",\n    s0.\"utm_term\"\nORDER BY \"date\"",
+                                                        "author": {
+                                                            "login": "ruslandoga"
+                                                        },
+                                                        "url": "https://github.com/ruslandoga/analytics/pull/160#discussion_r1387419281",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0d0b032",
+                                                            "authoredDate": "2023-11-01T11:31:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "WITH \"e\" AS (\n    SELECT\n        toDate(se0.\"timestamp\") AS \"date\",\n        uniq(se0.\"user_id\") AS \"visitors\",\n        countIf(se0.\"name\"='pageview') AS \"pageviews\"\n    FROM \"events_v2\" AS se0\n    WHERE (se0.\"site_id\" = {$0:Int64})\n    GROUP BY \"date\"\n    ORDER BY \"date\"\n),\"s\" AS (\n    SELECT\n        toDate(ss0.\"start\") AS \"date\",\n        sum(ss0.\"is_bounce\" * ss0.\"sign\") AS \"bounces\",\n        sum(ss0.\"sign\") AS \"visits\",\n        toUInt32(round(sum(ss0.\"duration\" * ss0.\"sign\") / sum(ss0.\"sign\"))) AS \"visit_duration\"\n    FROM \"sessions_v2\" AS ss0\n    WHERE (ss0.\"site_id\" = {$1:Int64})\n    GROUP BY \"date\"\n    ORDER BY \"date\"\n) SELECT\n    coalesce(e0.\"date\",s1.\"date\") AS \"date\",\n    e0.\"visitors\",\n    e0.\"pageviews\",\n    s1.\"bounces\",\n    s1.\"visits\",\n    s1.\"visit_duration\"\nFROM \"e\" AS e0\nFULL OUTER JOIN \"s\" AS s1 ON e0.\"date\" = s1.\"date\"\nORDER BY \"date\"",
+                                                        "author": {
+                                                            "login": "ruslandoga"
+                                                        },
+                                                        "url": "https://github.com/ruslandoga/analytics/pull/160#discussion_r1387421305",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0d0b032",
+                                                            "authoredDate": "2023-11-01T11:31:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "SELECT\n    toDate(s0.\"timestamp\") AS \"date\",\n    s0.\"pathname\" AS \"path\",\n    any(s0.\"hostname\") AS \"hostname\",\n    sum(greatest(s0.\"next_timestamp\" - s0.\"timestamp\",0)) AS \"time_on_page\",\n    countIf(s0.\"next_timestamp\"=0) AS \"exits\",\n    countIf(s0.\"name\"='pageview') AS \"pageviews\",\n    uniq(s0.\"user_id\") AS \"visitors\" \nFROM (\n    SELECT\n        se0.\"timestamp\" AS \"timestamp\",\n        leadInFrame(se0.\"timestamp\") OVER (\n            PARTITION BY se0.\"session_id\" \n            ORDER BY se0.\"timestamp\" \n            ROWS BETWEEN CURRENT ROW AND 1 FOLLOWING\n        ) AS \"next_timestamp\",\n        se0.\"pathname\" AS \"pathname\",\n        se0.\"hostname\" AS \"hostname\",\n        se0.\"name\" AS \"name\",\n        se0.\"user_id\" AS \"user_id\"\n    FROM \"events_v2\" AS se0\n    WHERE (se0.\"site_id\" = {$0:Int64})\n) AS s0\nGROUP BY \"date\", s0.\"pathname\" \nORDER BY \"date\"",
+                                                        "author": {
+                                                            "login": "ruslandoga"
+                                                        },
+                                                        "url": "https://github.com/ruslandoga/analytics/pull/160#discussion_r1387424798",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0d0b032",
+                                                            "authoredDate": "2023-11-01T11:31:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "SELECT\n    toDate(s0.\"start\") AS \"date\",\n    s0.\"entry_page\",\n    uniq(s0.\"user_id\") AS \"visitors\",\n    sum(s0.\"sign\") AS \"entrances\",\n    toUInt32(round(sum(s0.\"duration\" * s0.\"sign\") / sum(s0.\"sign\"))) AS \"visit_duration\",\n    sum(s0.\"is_bounce\" * s0.\"sign\") AS \"bounces\"\nFROM \"sessions_v2\" AS s0\nWHERE (s0.\"site_id\" = {$0:Int64})\nGROUP BY \"date\", s0.\"entry_page\"\nORDER BY \"date\"",
+                                                        "author": {
+                                                            "login": "ruslandoga"
+                                                        },
+                                                        "url": "https://github.com/ruslandoga/analytics/pull/160#discussion_r1387425974",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0d0b032",
+                                                            "authoredDate": "2023-11-01T11:31:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "SELECT\n    toDate(s0.\"start\") AS \"date\",\n    s0.\"exit_page\",\n    uniq(s0.\"user_id\") AS \"visitors\",\n    sum(s0.\"sign\") AS \"exits\"\nFROM \"sessions_v2\" AS s0\nWHERE (s0.\"site_id\" = {$0:Int64})\nGROUP BY \"date\", s0.\"exit_page\"\nORDER BY \"date\"",
+                                                        "author": {
+                                                            "login": "ruslandoga"
+                                                        },
+                                                        "url": "https://github.com/ruslandoga/analytics/pull/160#discussion_r1387426472",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0d0b032",
+                                                            "authoredDate": "2023-11-01T11:31:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "SELECT\n    toDate(s0.\"start\") AS \"date\",\n    s0.\"country_code\" AS \"country\",\n    concatWithSeparator('-',s0.\"subdivision1_code\",s0.\"subdivision2_code\") AS \"region\",\n    s0.\"city_geoname_id\" AS \"city\",\n    uniq(s0.\"user_id\") AS \"visitors\",\n    sum(s0.\"sign\") AS \"visits\",\n    toUInt32(round(sum(s0.\"duration\" * s0.\"sign\") / sum(s0.\"sign\"))) AS \"visit_duration\",\n    sum(s0.\"is_bounce\" * s0.\"sign\") AS \"bounces\" \nFROM \"sessions_v2\" AS s0\nWHERE (s0.\"site_id\" = {$0:Int64})\nGROUP BY \"date\", s0.\"country_code\", \"region\", s0.\"city_geoname_id\"\nORDER BY \"date\"",
+                                                        "author": {
+                                                            "login": "ruslandoga"
+                                                        },
+                                                        "url": "https://github.com/ruslandoga/analytics/pull/160#discussion_r1387512147",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0d0b032",
+                                                            "authoredDate": "2023-11-01T11:31:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "SELECT\n    toDate(s0.\"start\") AS \"date\",\n    s0.\"screen_size\" AS \"device\",\n    uniq(s0.\"user_id\") AS \"visitors\",\n    sum(s0.\"sign\") AS \"visits\",\n    toUInt32(round(sum(s0.\"duration\" * s0.\"sign\") / sum(s0.\"sign\"))) AS \"visit_duration\",\n    sum(s0.\"is_bounce\" * s0.\"sign\") AS \"bounces\"\nFROM \"sessions_v2\" AS s0\nWHERE (s0.\"site_id\" = {$0:Int64})\nGROUP BY \"date\", s0.\"screen_size\"\nORDER BY \"date\"",
+                                                        "author": {
+                                                            "login": "ruslandoga"
+                                                        },
+                                                        "url": "https://github.com/ruslandoga/analytics/pull/160#discussion_r1387512815",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0d0b032",
+                                                            "authoredDate": "2023-11-01T11:31:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "SELECT\n    toDate(s0.\"start\") AS \"date\",\n    s0.\"browser\",\n    uniq(s0.\"user_id\") AS \"visitors\",\n    sum(s0.\"sign\") AS \"visits\",\n    toUInt32(round(sum(s0.\"duration\" * s0.\"sign\") / sum(s0.\"sign\"))) AS \"visit_duration\",\n    sum(s0.\"is_bounce\" * s0.\"sign\") AS \"bounces\"\nFROM \"sessions_v2\" AS s0\nWHERE (s0.\"site_id\" = {$0:Int64})\nGROUP BY \"date\", s0.\"browser\"\nORDER BY \"date\"",
+                                                        "author": {
+                                                            "login": "ruslandoga"
+                                                        },
+                                                        "url": "https://github.com/ruslandoga/analytics/pull/160#discussion_r1387513509",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0d0b032",
+                                                            "authoredDate": "2023-11-01T11:31:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "SELECT\n    toDate(s0.\"start\") AS \"date\",\n    s0.\"operating_system\",\n    uniq(s0.\"user_id\") AS \"visitors\",\n    sum(s0.\"sign\") AS \"visits\",\n    toUInt32(round(sum(s0.\"duration\" * s0.\"sign\") / sum(s0.\"sign\"))) AS \"visit_duration\",\n    sum(s0.\"is_bounce\" * s0.\"sign\") AS \"bounces\"\nFROM \"sessions_v2\" AS s0\nWHERE (s0.\"site_id\" = {$0:Int64})\nGROUP BY \"date\", s0.\"operating_system\"\nORDER BY \"date\"",
+                                                        "author": {
+                                                            "login": "ruslandoga"
+                                                        },
+                                                        "url": "https://github.com/ruslandoga/analytics/pull/160#discussion_r1387514107",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0d0b032",
+                                                            "authoredDate": "2023-11-01T11:31:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

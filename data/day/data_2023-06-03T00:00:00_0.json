@@ -1,0 +1,1538 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 1684,
+                        "title": "k-quants",
+                        "repository": {
+                            "nameWithOwner": "ggerganov/llama.cpp",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2023-06-03T15:24:31Z",
+                        "mergedAt": "2023-06-05T19:56:19Z",
+                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "ikawrakow"
+                        },
+                        "editor": {
+                            "login": "ikawrakow"
+                        },
+                        "body": "### What\r\n\r\nThis PR adds a series of 2-6 bit quantization methods, along with quantization mixes, as proposed in #1240 and #1256. Scalar, `AVX2`, `ARM_NEON`, and `CUDA` implementations are provided.\r\n\r\n### Why\r\n\r\nThis is best explained with the following graph, which shows perplexity on the `wikitext` dataset as a function of model size:\r\n![ppl_vs_size](https://github.com/ggerganov/llama.cpp/assets/48489457/07aa49f0-4951-407f-9789-0b5a01ce95b8)\r\n\r\nNote that the x-axis (model size in GiB) is logarithmic. The various circles on the graph show the perplexity of different quantization mixes added by this PR (see details below for explanation). The different colors indicate the LLaMA variant used (7B in black, 13B in red, 30B in blue, 65B in magenta). The solid squares in the corresponding color represent (model size, perplexity) for the original `fp16` model. The dashed lines are added for convenience to allow for a better judgement of how closely the quantized models approach the `fp16` perplexity. As we can see from this graph, generation performance as measured by perplexity is basically a fairly smooth function of quantized model size, and the quantization types added by the PR allow the user to pick the best performing quantized model, given the limits of their compute resources (in terms of being able to fully load the model into memory, but also in terms of inference speed, which tends to depend on the model size). As a specific example, the 2-bit quantization of the 30B model fits on the 16 GB RTX 4080 GPU that I have available, while the others do not, resulting in a large difference in inference performance. \r\n\r\nPerhaps worth noting is that the 6-bit quantized perplexity is within `0.1%` or better from the original `fp16` model.\r\n\r\nAnother interesting observation is that the relative quantization error (as measured by perplexity) **does not decrease** with increasing number of weights in the base model, as one might hypothesize based on the lower quantization error observed at 13B compared to 7B (see, e.g., [this table on the main page](https://github.com/ggerganov/llama.cpp#quantization)). The 13B model is indeed somehow better amenable to quantization, but relative quantization error goes back to the 7B level for the 30B and 65B models. This is illustrated with the following graph, which represents an alternative view of the data in the above graph, by showing the relative difference to the `fp16` model in percent. Note that now the x-axis, being the ratio of the quantized size to the `fp16` model size, is linear, while the y-axis (percent error) is logarithmic. \r\n \r\n![ppl_vs_size_relative](https://github.com/ggerganov/llama.cpp/assets/48489457/365b503c-086a-4f41-8a7a-3c0957f75219)\r\n\r\n\r\n### How (Details)\r\n\r\nIn the existing `ggml` quantization types we have \"type-0\" (`Q4_0`, `Q5_0`) and \"type-1\" (`Q4_1`, `Q5_1`). In \"type-0\", weights `w` are obtained from quants `q` using `w = d * q`, where `d` is the block scale. In \"type-1\", weights are given by `w = d * q + m`, where `m` is the block minimum. I use this to describe the quantizations being added by this PR.\r\n\r\nThe following new quantization types are added to `ggml`:\r\n*  `GGML_TYPE_Q2_K` - \"type-1\" 2-bit quantization in super-blocks containing 16 blocks, each block having 16 weight. Block scales and mins are quantized with 4 bits. This ends up effectively using `2.5625` bits per weight (bpw)\r\n*  `GGML_TYPE_Q3_K` - \"type-0\" 3-bit quantization in super-blocks containing 16 blocks, each block having 16 weights. Scales are quantized with 6 bits. This end up using `3.4375` bpw.\r\n*  `GGML_TYPE_Q4_K` - \"type-1\" 4-bit quantization in super-blocks containing 8 blocks, each block having 32 weights. Scales and mins are quantized with 6 bits. This ends up using `4.5` bpw.\r\n* `GGML_TYPE_Q5_K` - \"type-1\" 5-bit quantization. Same super-block structure as `GGML_TYPE_Q4_K` resulting in `5.5` bpw\r\n* `GGML_TYPE_Q6_K` - \"type-0\" 6-bit quantization. Super-blocks with 16 blocks, each block having 16 weights. Scales are quantized with 8 bits. This ends up using `6.5625` bpw\r\n* `GGML_TYPE_Q8_K` - \"type-0\" 8-bit quantization. Only used for quantizing intermediate results. The difference to the existing `Q8_0` is that the block size is 256. All 2-6 bit dot products are implemented for this quantization type.\r\n\r\nThis is exposed via `llama.cpp` quantization types that define various \"quantization mixes\" as follows:\r\n* `LLAMA_FTYPE_MOSTLY_Q2_K` - uses `GGML_TYPE_Q4_K` for the `attention.vw` and `feed_forward.w2` tensors, `GGML_TYPE_Q2_K` for the other tensors.\r\n* `LLAMA_FTYPE_MOSTLY_Q3_K_S` - uses `GGML_TYPE_Q3_K` for all tensors\r\n* `LLAMA_FTYPE_MOSTLY_Q3_K_M` - uses `GGML_TYPE_Q4_K` for the `attention.wv`, `attention.wo`, and `feed_forward.w2` tensors, else `GGML_TYPE_Q3_K`\r\n* `LLAMA_FTYPE_MOSTLY_Q3_K_L` - uses `GGML_TYPE_Q5_K` for the `attention.wv`, `attention.wo`, and `feed_forward.w2` tensors, else `GGML_TYPE_Q3_K`\r\n* `LLAMA_FTYPE_MOSTLY_Q4_K_S` - uses `GGML_TYPE_Q4_K` for all tensors\r\n* `LLAMA_FTYPE_MOSTLY_Q4_K_M` - uses `GGML_TYPE_Q6_K` for half of the `attention.wv` and `feed_forward.w2` tensors, else  `GGML_TYPE_Q4_K`\r\n* `LLAMA_FTYPE_MOSTLY_Q5_K_S` - uses `GGML_TYPE_Q5_K` for all tensors\r\n* `LLAMA_FTYPE_MOSTLY_Q5_K_M` - uses `GGML_TYPE_Q6_K` for half of the `attention.wv` and `feed_forward.w2` tensors, else  `GGML_TYPE_Q5_K`\r\n* `LLAMA_FTYPE_MOSTLY_Q6_K`- uses 6-bit quantization (`GGML_TYPE_Q8_K`) for all tensors\r\n\r\nNot mentioned explicitly above is the fact that with this PR, all quantization variants use 6-bit quantization for the `output.weight` tensor. This lowers the perplexity of, e.g., `Q4_0` by about `0.03` at 7B.\r\n\r\nThe code is quite lengthy, so it is added via separate files `k_quants.h, k_qunats.c` instead of being added to `ggml.c`. I think that it would be better to also factor out all other quantization types from `ggml.c`, but that is up to @ggerganov to decide.\r\n\r\n### Performance\r\n\r\nThe following table summarizes the performance results (perplexity, model size, run time for single token prediction). It is basically designed after the corresponding table on the [main page](https://github.com/ggerganov/llama.cpp#quantization)).\r\n\r\n| Model|Measure|F16|Q2_K|Q3_K_S |Q3_K_M |Q3_K_L|Q4_K_S|Q4_K_M |Q5_K_S|Q5_K_M|Q6_K|\r\n|-:|-:|-:|-:|-:|-:|-:|-:|-:|-:|-:|-:|\r\n|    7B | perplexity            | 5.9066 | 6.7764 | 6.4571   | 6.1503   | 6.0869   | 6.0215   | 5.9601 | 5.9419 | 5.9208 | 5.9110|\r\n|    7B | file size             |  13.0G |  2.67G |  2.75G   |  3.06G   |  3.35G   |  3.56G   |  3.80G |  4.33G |  4.45G |  5.15G|\r\n|    7B | ms/tok@4th, M2 Max  |    116 |     56 |   81     |     69   |     76   |     50   |  55    |  70    |  71    |  75   |   \r\n|    7B | ms/tok@8th, M2 Max  |    111 |     36 |     46   |     36   |     46   |     36   |  40    |  44    |  46    |  51   |   \r\n|    7B | ms/tok@4th, RTX-4080|     60 |   15.5 |   18.6   |   17.0   |   17.7   |  15.5    |  16.0  |  16.7  |  16.9  |  18.3 |\r\n|    7B | ms/tok@4th, Ryzen7950X   |    214 |   57   |   58     |   61     |   67     |  68      |  71    |  81    |  82    |  93   |   \r\n|   13B | perplexity            | 5.2543 | 5.8545 | 5.6033   | 5.4498   | 5.4063   | 5.3404   | 5.3002 | 5.2785 | 5.2638 | 5.2568|\r\n|   13B | file size             |  25.0G |  5.13G |  5.27G   |  5.88G   |  6.45G   |  6.80G   |  7.32G | 8.36G  | 8.60G  | 9.95G |\r\n|   13B | ms/tok@4th, M2 Max  |  216   |   103  |   156    |    148   |   144    |   95     |  102   |  132   |  134   |  142  |\r\n|   13B | ms/tok@8th, M2 Max  |  213   |    67  |    83    |   77     |    83    |   68     |   73   |   81   |   84   |  95   |   \r\n|   13B | ms/tok@4th, RTX-4080|  -  |   25.3 |   29.2   |   29.3   |   25.5   |   26.2   |  26.2  | 28.6   |  28.9  |  30.0 |\r\n|   13B | ms/tok@4th, Ryzen7950X   |  414   |   109  |   113    |   118    |   129    |   130    |  137   |  156   |  161   |  180  |\r\n\r\nI realize the above table is not easy to read, so adding a shortened version that shows a subset of the above data:\r\n\r\n| Model | Measure               | F16    | Q2_K   | Q3_K_M   | Q4_K_S   | Q5_K_S | Q6_K  |\r\n|------:|-----------------------|-------:|-------:|---------:|---------:|-------:|-------|\r\n|    7B | perplexity            | 5.9066 | 6.7764 | 6.1503   | 6.0215   | 5.9419 | 5.9110|\r\n|    7B | file size             |  13.0G |  2.67G |  3.06G   |  3.56G   |  4.33G |  5.15G|\r\n|    7B | ms/tok @ 4th, M2 Max  |    116 |     56 |     69   |     50   |  70    |  75   |   \r\n|    7B | ms/tok @ 8th, M2 Max  |    111 |     36 |     36   |     36   |  44    |  51   |   \r\n|    7B | ms/tok @ 4th, RTX-4080|     60 |   15.5 |   17.0   |  15.5    |  16.7  |  18.3 |\r\n|    7B | ms/tok @ 4th, Ryzen   |    214 |   57   |   61     |  68      |  81    |  93   |   \r\n|   13B | perplexity            | 5.2543 | 5.8545 | 5.4498   | 5.3404   | 5.2785 | 5.2568|\r\n|   13B | file size             |  25.0G |  5.13G |  5.88G   |  6.80G   | 8.36G  | 9.95G |\r\n|   13B | ms/tok @ 4th, M2 Max  |  216   |   103  |    148   |   95     |  132   |  142  |\r\n|   13B | ms/tok @ 8th, M2 Max  |  213   |    67  |   77     |   68     |   81   |  95   |   \r\n|   13B | ms/tok @ 4th, RTX-4080|  -  |   25.3 |   29.3   |   26.2   | 28.6   |  30.0 |\r\n|   13B | ms/tok @ 4th, Ryzen   |  414   |   109  |   118    |   130    |  156   |  180  |\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-06-03T17:13:28Z",
+                                    "bodyText": "@ikawrakow This is very exciting!\nJust wondering, have you experimented at all with determining which layers/tensors have the most effect on perplexity? I actually did a little bit of experimentation with just completely skipping layers and the effect on perplexity:\n\n\n\nlabel\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n\n\n\n\nskip none\n4.45\n4.94\n5.82\n6.48\n6.58\n6.50\n6.69\n6.80\n7.14\n7.38\n\n\nskip 5th\n5.14\n5.82\n6.61\n7.18\n7.30\n7.28\n7.54\n7.61\n8.05\n8.34\n\n\nskip 20th\n5.14\n5.66\n6.64\n7.58\n7.57\n7.43\n7.57\n7.66\n8.06\n8.33\n\n\nskip 30th\n4.66\n5.15\n5.98\n6.70\n6.75\n6.65\n6.89\n7.02\n7.41\n7.68\n\n\nskip 5-10\n20.37\n29.92\n33.17\n36.22\n35.57\n37.92\n38.29\n39.74\n40.93\n42.83\n\n\nskip 20-25\n11.18\n12.28\n12.66\n14.49\n14.35\n13.86\n13.79\n13.95\n14.59\n14.98\n\n\nskip 25-30\n8.38\n9.70\n10.75\n12.49\n12.80\n12.26\n13.00\n13.38\n13.99\n14.64\n\n\n\nThat's using a 7b Q4_0 quantized LLaMA model and only letting the perplexity run for the first 10 chunks (out of the normal 655). From that, it seems like it can make a pretty big difference which layers are skipped (or, presumably, have their quality reduced by quantization).\nIt's probably not super important, but in that table \"5th\" would mean tensor 4 if you start counting from 0.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1575078090",
+                                    "author": {
+                                        "login": "KerfuffleV2"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-03T18:57:41Z",
+                                    "bodyText": "Just wondering, have you experimented at all with determining which layers/tensors have the most effect on perplexity?\n\n@KerfuffleV2 This is a good question, thank you. Yes, I looked at this in issue #1256. See the table near the top that shows the change in perplexity if we start with a 2-bit quantization and then quantize one tensor type with a higher number of bits. I have done quite a bit of experimentation since I posted this issue, and I can confirm that feed_forward.w2 and attention.wv are by far the most important tensors. I'm a total beginner in this domain, so I will not attempt an explanation why this might be the case. But this PR makes use of this observation. For instance, in LLAMA_FTYPE_MOSTLY_Q2_K all feed_forward.w2 and attention.wv tensors are quantize with 4 bits. In a similar way, when LLAMA_FTYPE_MOSTLY_Q4_K_M is used, half of the layers of these two tensors are quantized with 6 bits. The best strategy for doing so is to use 6 bits in the first and last 1/8 of the layers, and in every 3rd layer in-between. In this way one gets 90% of the improvement achievable by quantizing all feed_forward.w2 and attention.wv layers with 6 bits, while using only half of the extra bits.\nAs for completely skipping layers, no, I have not tried this. So, I guess, this is something to be explored.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1575129084",
+                                    "author": {
+                                        "login": "ikawrakow"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-03T19:10:06Z",
+                                    "bodyText": "Thanks for the reply!\n\nAs for completely skipping layers, no, I have not tried this. So, I guess, this is something to be explored.\n\nJust to be clear, I wasn't recommending doing that. Even though there seems to be variation in how important the layers are (in terms of increasing perplexity) it still seemed like skipping them entirely increased it too much to be worthwhile. That was just an experiment I performed to get a sense of which layers were more important.\nOne thing I didn't try though was just repeating a layer instead of skipping it (this wouldn't increase performance but could reduce memory consumption). My intuition tells me this is probably unlikely to be worthwhile but you never know until you try.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1575136744",
+                                    "author": {
+                                        "login": "KerfuffleV2"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-03T23:13:28Z",
+                                    "bodyText": "I added the original q4, q5, and q8 perplexities and sizes to this chart for ease of comparison. These numbers look great!\nThe Q3 quant looks particularly interesting since it might allow the 30B model to fit on a 16G machine and the 65B on a 32G machine. Perplexity wise the numbers are also pretty close to Q4_0 and don't have the huge drop in quality that some researchers claim about 3 bit quants.\n\n\n\nModel\nMeasure\nF16\nQ2_K\nQ3_K_M\nQ4_0\nQ4_1\nQ4_K_S\nQ5_0\nQ5_1\nQ5_K_S\nQ6_K\nQ8_0\n\n\n\n\n7B\nperplexity\n5.9066\n6.7764\n6.1503\n6.1565\n6.0912\n6.0215\n5.9862\n5.9481\n5.9419\n5.9110\n5.9070\n\n\n7B\nfile size\n13.0G\n2.67G\n3.06G\n3.5G\n3.9G\n3.56G\n4.3G\n4.7G\n4.33G\n5.15G\n6.7G\n\n\n13B\nperplexity\n5.2543\n5.8545\n5.4498\n5.3860\n5.3608\n5.3404\n5.2856\n5.2706\n5.2785\n5.2568\n5.2548\n\n\n13B\nfile size\n25.0G\n5.13G\n5.88G\n6.8G\n7.6G\n6.80G\n8.3G\n9.1G\n8.36G\n9.95G\n13G\n\n\n\n@ikawrakow do you happen to have performance results for the original quants on your hardware as well?",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1575255541",
+                                    "author": null
+                                },
+                                {
+                                    "createdAt": "2023-06-04T06:25:57Z",
+                                    "bodyText": "@eiery Here are the performance numbers for the existing ggml quantization types on M2 Max, Ryzen 7950X, and RTX-4080 in the Ryzen box using cuBLAS:\n\n\n\nModel\nMeasure\nQ4_0\nQ4_1\nQ5_0\nQ5_1\nQ8_0\n\n\n\n\n7B\nms/tok @ 4th, M2 Max\n51\n67\n71\n77\n65\n\n\n7B\nms/tok @ 8th, M2 Max\n36\n41\n44\n47\n62\n\n\n7B\nms/tok @ 4th, RTX-4080\n15.9\n16.3\n21.9\n21.9\n19.7\n\n\n7B\nms/tok @ 4th, Ryzen\n78\n81\n93\n95\n120\n\n\n13B\nms/tok @ 4th, M2 Max\n95\n127\n133\n145\n121\n\n\n13B\nms/tok @ 8th, M2 Max\n67\n74\n81\n87\n116\n\n\n13B\nms/tok @ 4th, RTX-4080\n26.2\n27.1\n37.3\n37.9\n33.8\n\n\n13B\nms/tok @ 4th, Ryzen\n147\n153\n176\n182\n232\n\n\n\nI also corrected a few glitches in the table you posted above.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1575420793",
+                                    "author": {
+                                        "login": "ikawrakow"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-04T12:59:48Z",
+                                    "bodyText": "nvcc doesn't support -Ofast (at least version 12.1) so compilation currently fails when cuBLAS is enabled.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1575560892",
+                                    "author": {
+                                        "login": "KerfuffleV2"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-05T02:26:38Z",
+                                    "bodyText": "Q2_K with 30B barely works on my 16GB of RAM. I had to use the default context size of 512 over my usual 2048 as the increased kv self size caused llama.cpp to turn into a swapping mess (10 seconds/token \ud83d\ude22).\nllama_model_load_internal: format     = ggjt v3 (latest)\nllama_model_load_internal: n_vocab    = 32000\nllama_model_load_internal: n_ctx      = 512\nllama_model_load_internal: n_embd     = 6656\nllama_model_load_internal: n_mult     = 256\nllama_model_load_internal: n_head     = 52\nllama_model_load_internal: n_layer    = 60\nllama_model_load_internal: n_rot      = 128\nllama_model_load_internal: ftype      = 10 (mostly Q2_K)\nllama_model_load_internal: n_ff       = 17920\nllama_model_load_internal: n_parts    = 1\nllama_model_load_internal: model size = 30B\nllama_model_load_internal: ggml ctx size =    0.13 MB\nllama_model_load_internal: mem required  = 15373.92 MB (+ 3124.00 MB per state)\n.\nllama_init_from_file: kv self size  =  780.00 MB\n\nsystem_info: n_threads = 4 / 4 | AVX = 1 | AVX2 = 1 | AVX512 = 0 | AVX512_VBMI = 0 | AVX512_VNNI = 0 | FMA = 1 | NEON = 0 | ARM_FMA = 0 | F16C = 1 | FP16_VA = 0 | WASM_SIMD = 0 | BLAS = 1 | SSE3 = 1 | VSX = 0 | \n...\nllama_print_timings:        load time = 66778.42 ms\nllama_print_timings:      sample time =    35.08 ms /    50 runs   (    0.70 ms per token)\nllama_print_timings: prompt eval time = 63742.85 ms /    99 tokens (  643.87 ms per token)\nllama_print_timings:        eval time = 44270.04 ms /    49 runs   (  903.47 ms per token)\nllama_print_timings:       total time = 111121.22 ms\n\nQ3_K_S reported a bit more memory use mem required  = 15715.99 MB (+ 3124.00 MB per state) but that extra 500mb was enough to hit swap and cause eval times of 3-5 seconds per token. 30B Q2 runs pretty slowly compared to what I see on the same machine with 7B/13B but it's the first time 30B is actually usable on my computer. Congrats!",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1575947394",
+                                    "author": null
+                                },
+                                {
+                                    "createdAt": "2023-06-05T04:33:07Z",
+                                    "bodyText": "Q3_K_S reported a bit more memory use mem required = 15715.99 MB (+ 3124.00 MB per state) but that extra 500mb was enough to hit swap and cause eval times of 3-5 seconds per token. 30B Q2 runs pretty slowly compared to what I see on the same machine with 7B/13B but it's the first time 30B is actually usable on my computer. Congrats!\n\nYou ran a model in a widely available consumer configuration that used to need data center/server-grade hardware to run not too long ago.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1576027568",
+                                    "author": {
+                                        "login": "Midaychi"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-05T06:01:34Z",
+                                    "bodyText": "Has anyone tested Q3_K_M with an 65B model? Would it fit into 32 GB ram?\nQ6_K almost perform identical to FP16, with only 40% the memory use. It will make 30B widely accessible, since they now fit into 32 GB, without significant performance loss.\nIt\u2019s really impressive, thanks for all the hard work!",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1576093558",
+                                    "author": {
+                                        "login": "EwoutH"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-05T08:27:23Z",
+                                    "bodyText": "Has anyone tested Q3_K_M with an 65B model? Would it fit into 32 GB ram?\nQ6_K almost perform identical to FP16, with only 40% the memory use. It will make 30B widely accessible, since they now fit into 32 GB, without significant performance loss.\nIt\u2019s really impressive, thanks for all the hard work!\n\nGoing by the second chart it might be between 20-30 ?",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1576344728",
+                                    "author": {
+                                        "login": "Midaychi"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-05T10:52:18Z",
+                                    "bodyText": "Given the interest in running the 30B and 65B models using these quantization methods, here is a table with model sizes in GiB:\n\n\n\nModel\nQ2_K\nQ3_K_S\nQ3_K_M\nQ3_K_L\nQ4_K_S\nQ4_K_M\nQ5_K_S\nQ5_K_M\nQ6_K\n\n\n\n\n30B\n12.76\n13.10\n14.64\n16.09\n17.10\n18.27\n20.86\n21.46\n24.85\n\n\n65B\n25.57\n26.23\n29.34\n32.27\n34.27\n36.65\n41.84\n43.06\n49.88\n\n\n\nBut keep in mind that ggml needs some extra memory to store intermediate results while evaluating the computation graph, so a model being less than 16 / 32 GiB, does not imply that it will be possible to run it without swapping on a 16 / 32 GB system. For instance, here is what I see when running the Q3_K_S on a system with 64 GB RAM:\nllama_model_load_internal: format     = ggjt v3 (latest)\nllama_model_load_internal: n_vocab    = 32000\nllama_model_load_internal: n_ctx      = 2048\nllama_model_load_internal: n_embd     = 8192\nllama_model_load_internal: n_mult     = 256\nllama_model_load_internal: n_head     = 64\nllama_model_load_internal: n_layer    = 80\nllama_model_load_internal: n_rot      = 128\nllama_model_load_internal: ftype      = 11 (mostly Q3_K - Small)\nllama_model_load_internal: n_ff       = 22016\nllama_model_load_internal: n_parts    = 1\nllama_model_load_internal: model size = 65B\nllama_model_load_internal: ggml ctx size =    0,18 MB\nllama_model_load_internal: mem required  = 30439,21 MB (+ 5120,00 MB per state)\n\nSo, this will lead to some swapping on a 32GB system.\nFor the 30B Q6_K model I get\nllama.cpp: loading model from junk.bin\nllama_model_load_internal: format     = ggjt v3 (latest)\nllama_model_load_internal: n_vocab    = 32000\nllama_model_load_internal: n_ctx      = 2048\nllama_model_load_internal: n_embd     = 6656\nllama_model_load_internal: n_mult     = 256\nllama_model_load_internal: n_head     = 52\nllama_model_load_internal: n_layer    = 60\nllama_model_load_internal: n_rot      = 128\nllama_model_load_internal: ftype      = 18 (mostly Q6_K)\nllama_model_load_internal: n_ff       = 17920\nllama_model_load_internal: n_parts    = 1\nllama_model_load_internal: model size = 30B\nllama_model_load_internal: ggml ctx size =    0,13 MB\nllama_model_load_internal: mem required  = 27754,32 MB (+ 3124,00 MB per state)\n\nSo, this should run fine on 32GB.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1576565430",
+                                    "author": {
+                                        "login": "ikawrakow"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-06T04:06:13Z",
+                                    "bodyText": "You forgot to do (or at least just mention) the OpenCL kernels. It would be nice if we could keep the two gpu implementations at feature parity in what models they support, without playing catch-up after each PR that touches the quantizations.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1577872012",
+                                    "author": {
+                                        "login": "0cc4m"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-06T11:45:21Z",
+                                    "bodyText": "Amazing work guys!\nMy first model is up that uses the new types. https://huggingface.co/TheBloke/Selfee-13B-GGML\nIt's a lot :)\n\nNot sure if I'm going to upload every type for every model.  Probably I'll only do q2 and q3 for 33B and 65B for example.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1578585886",
+                                    "author": {
+                                        "login": "TheBloke"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-06T11:46:48Z",
+                                    "bodyText": "It is a shame that q4_0, q4_1, q5_0, q5_1 and q8_0 had to change such that newly made files will no longer work with older llama.cpp code.  I didn't realise that when I made that model.\nGiven that the latest llama.cpp can load older q4_0 etc models (which I'm really pleased about!), I think for the next week or two I will make those 'original' quant types using llama.cpp from yesterday, and use the latest llama.cpp only for the new k-quants.  That will help compatibility until all the UIs and libraries update.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1578589820",
+                                    "author": {
+                                        "login": "TheBloke"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-06T18:24:07Z",
+                                    "bodyText": "In case it helps anyone compare, I combined some of the information:\n7B\n\n\n\ntype\nppl increase\nppl 13b to 7b %\nfile size\n\n\n\n\nq2_k\n0.8698\n>100%\n2.67GB\n\n\nq3_ks\n0.5505\n84.4%\n2.75GB\n\n\nq3_km\n0.2437\n37.4%\n3.06GB\n\n\nq3_kl\n0.1803\n27.6%\n3.35GB\n\n\nq4_0\n0.2499\n38.3%\n3.5GB\n\n\nq4_1\n0.1846\n28.3%\n3.9GB\n\n\nq4_ks\n0.1149\n17.6%\n3.56GB\n\n\nq4_km\n0.0535\n8.2%\n3.80GB\n\n\nq5_0\n0.0796\n12.2%\n4.3GB\n\n\nq5_1\n0.0415\n6.36%\n4.7GB\n\n\nq5_ks\n0.0353\n5.41%\n4.33GB\n\n\nq5_km\n0.0142\n2.18%\n4.45GB\n\n\nq6_k\n0.0044\n0.67%\n5.15GB\n\n\nk8_0\n0.0004\n0.061%\n6.7GB\n\n\n\n13B\n\n\n\ntype\nppl increase\nppl 13b to 7b %\nfile size\n\n\n\n\nq2_k\n0.6002\n92.0%\n5.13GB\n\n\nq3_ks\n0.349\n53.5%\n5.27GB\n\n\nq3_km\n0.1955\n30.0%\n5.88GB\n\n\nq3_kl\n0.152\n23.3%\n6.45GB\n\n\nq4_0\n0.1317\n20.2%\n6.8GB\n\n\nq4_1\n0.1065\n16.3%\n7.6GB\n\n\nq4_ks\n0.0861\n13.2%\n6.8GB\n\n\nq4_km\n0.0459\n7.04%\n7.32GB\n\n\nq5_0\n0.0313\n4.8%\n8.3GB\n\n\nq5_1\n0.0163\n2.5%\n9.1GB\n\n\nq5_ks\n0.0242\n3.71%\n8.36GB\n\n\nq5_km\n0.0095\n1.46%\n8.60GB\n\n\nq6_k\n0.0025\n0.38%\n9.95GB\n\n\nk8_0\n0.0005\n0.07%\n13GB\n\n\n\n\nppl increase is relative to f16. One way to evaluate whether an increase is noticeable it so took at the perplexity increase between a f16 13B model and a 7B model: 0.6523. Most people would say there's a noticeable difference between the same model in 7B vs 13B flavors. In other words for 7B q5_ks increase perplexity about 1/18th of the difference between a 7B and a 13B. q6_k increases it by about 1/150th of the difference between a 7B and a 13B - well past the range any human could notice a change.\nBased on this, the perplexity increase for q2_k vs the next higher q3_km is 4x for 7B models and 3x for 13B models. I think the only time you'd want to use it is if it enables going up to the next size of model - but only if it's >7B and even that is borderline. It may be more worthwhile for 13B to 33B, 33B to 65B, etc.\nI bolded the quantization types that are worth using (i.e. there isn't one with an equivalent file size with the same or better results). Not sure if it's a fluke, but q5_1 did better than q5_k_s with 13B but not 7B.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1579252501",
+                                    "author": {
+                                        "login": "KerfuffleV2"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-07T04:49:12Z",
+                                    "bodyText": "hi @ikawrakow , very amazing work!\nAny paper shows how to do k-quant like what you did!\nThank you!",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1579882751",
+                                    "author": {
+                                        "login": "AlvL1225"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-07T06:36:59Z",
+                                    "bodyText": "Could someone please explain why the file sizes of q2_k and q3_k are not as small as expected?\nThe q2_k model has 2.5625 bits per weight, while the q4_k model has 4.5 bits per weight. However, their file sizes do not correspond proportionally to this.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1579989790",
+                                    "author": {
+                                        "login": "shouyiwang"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-07T07:56:51Z",
+                                    "bodyText": "Hello @AlvL1225 No, there is no paper on this.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1580141487",
+                                    "author": {
+                                        "login": "ikawrakow"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-07T08:01:56Z",
+                                    "bodyText": "Could someone please explain why the file sizes of q2_k and q3_k are not as small as expected? The q2_k model has 2.5625 bits per weight, while the q4_k model has 4.5 bits per weight. However, their file sizes do not correspond proportionally to this.\n\nQ2_K is a quantization mix as explained in the PR. The attention.wv, attention.wo and feed_forward.w2 tensors are quantized with 4 bits (Q4_K) when using Q2_K. Without doing so, the perplexity becomes very high (around 9.0 for the 7B model). This is also discussed in #1256",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1580149980",
+                                    "author": {
+                                        "login": "ikawrakow"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-07T08:11:58Z",
+                                    "bodyText": "@ikawrakow Do you happen to have the perplexity data for models over 13B anywhere? If possible, I'd like to add that information to my list here: #1684 (comment)\nUnfortunately, on my hardware doing it myself on something like a 33b would take a billion years.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1580167881",
+                                    "author": {
+                                        "login": "KerfuffleV2"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-07T08:50:39Z",
+                                    "bodyText": "Could someone please explain why the file sizes of q2_k and q3_k are not as small as expected? The q2_k model has 2.5625 bits per weight, while the q4_k model has 4.5 bits per weight. However, their file sizes do not correspond proportionally to this.\n\nQ2_K is a quantization mix as explained in the PR. The attention.wv, attention.wo and feed_forward.w2 tensors are quantized with 4 bits (Q4_K) when using Q2_K. Without doing so, the perplexity becomes very high (around 9.0 for the 7B model). This is also discussed in #1256\n\nSo The \"2.5625 bits per weight\" is not the final figure for Q2_K? I think the figure is around 3.3-3.4?",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1580228365",
+                                    "author": {
+                                        "login": "shouyiwang"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-07T09:24:31Z",
+                                    "bodyText": "So The \"2.5625 bits per weight\" is not the final figure for Q2_K? I think the figure is around 3.3-3.4?\n\nThe figure is 2.5625 bpw for the tensors quantized with 2 bits and 4.5 bpw for the tensors quantized with 4 bits. The specific quantization mix exposed as LLAMA_FTYPE_MOSTLY_Q2_K results in\n((11008 + 2*4096)*4.5 + (2*11008 + 2*4096)*2.5625)/(3*11008 + 4*4096) = 3.315 bpw\n\nfor the LLaMA 7B model (ignoring 1-d tensors, which always remain as f32 in llama.cpp).",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1580288924",
+                                    "author": {
+                                        "login": "ikawrakow"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-07T09:42:39Z",
+                                    "bodyText": "@ikawrakow Thanks for explaining!",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1580319704",
+                                    "author": {
+                                        "login": "shouyiwang"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-07T10:40:20Z",
+                                    "bodyText": "I tried Q2_K that is literally entirely Q2_K and a 65B Guanaco model was obviously confused, and perplexity shot up like 1.5 full units compared to the regular Q2_K version. Speed was very good because over 90 % of the model could run on RTX 4090 GPU, though.\nI think perplexity is not a completely reliable indicator of model's conversation and writing ability, but based on this experience, I would conclude that it correlates with it well enough. At least a massive jumps like these are too much.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1580483173",
+                                    "author": {
+                                        "login": "alankila"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-07T18:25:45Z",
+                                    "bodyText": "llama.cpp: loading model from /models/llm/selfee-13b.ggmlv3.q2_K.bin\n[1]    3143959 floating point exception (core dumped)  ./bin/main -m /models/llm/selfee-13b.ggmlv3.q2_K.bin -s 1 -t 6 -p '..'\n\nuh...",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1581309767",
+                                    "author": {
+                                        "login": "Alumniminium"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-07T18:42:08Z",
+                                    "bodyText": "@Alumniminium Try compiling with LLAMA_DEBUG=1 and run in gdb. To fix the issue, the developers will probably need to know where the problem occurred.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1581332105",
+                                    "author": {
+                                        "login": "KerfuffleV2"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-07T21:03:35Z",
+                                    "bodyText": "I tried Q2_K that is literally entirely Q2_K and a 65B Guanaco model was obviously confused, and perplexity shot up like 1.5 full units compared to the regular Q2_K version. Speed was very good because over 90 % of the model could run on RTX 4090 GPU, though.\nI think perplexity is not a completely reliable indicator of model's conversation and writing ability, but based on this experience, I would conclude that it correlates with it well enough. At least a massive jumps like these are too much.\n\nSo in essence is Q2 useless on 65B models?",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1581509156",
+                                    "author": {
+                                        "login": "bbecausereasonss"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-07T22:30:46Z",
+                                    "bodyText": "Q2 is useless everywhere  ;)\nAt least any variant Q4 is much better now.\nFor instance q4_k_m is comparable to old q5_1 which is impressive!\nWe have speed of q4 also smaller model and precision of q5_1 for me that is unbelievable !",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1581597642",
+                                    "author": {
+                                        "login": "mirek190"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-07T23:48:38Z",
+                                    "bodyText": "I'm curious which model will be best to load on a M1 16core 32RAM",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1581662529",
+                                    "author": {
+                                        "login": "bbecausereasonss"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-08T01:14:20Z",
+                                    "bodyText": "I'm curious which model will be best to load on a M1 16core 32RAM\n\nCurrently, only Q4.0 is compatible with Apple Silicon. Your options are limited, so try to find a Q4.0 GGML for the 33B models.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1581742837",
+                                    "author": {
+                                        "login": "shouyiwang"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-08T16:13:07Z",
+                                    "bodyText": "So in essence is Q2 useless on 65B models?\n\nI did not say that, and there is no Q2 as such. There is \"mostly Q2_K\" which is called Q2_K, and it works as advertised. I said that Q2_K which is not doing some important tensors in higher Q4_K precision receives a very noticeable perplexity hit. The model is clearly unable to follow discussion very well.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1582956345",
+                                    "author": {
+                                        "login": "alankila"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-08T16:22:30Z",
+                                    "bodyText": ".. yes we assume that just look on the graph \ud83d\ude01\nhttps://user-images.githubusercontent.com/48489457/243093269-07aa49f0-4951-407f-9789-0b5a01ce95b8.png",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1582985190",
+                                    "author": {
+                                        "login": "mirek190"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-08T17:27:23Z",
+                                    "bodyText": "Does that mean that 2 bit version (8 GB) of 65B model is better than 32 bit (65 GB) 33B model ?\n\nThe size is on a logarithmic scale so the Q2_K 65B is 27.3GB.\n\n.. yes we assume that just look on the graph\n\nAre we looking at the same graph? The Q2_K 30B has much lower perplexity than the full quality 13B even if it's a bit bigger. The Q2_K 13B has both lower perplexity than the full quality 7B and is smaller than the Q6_K as well.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1583064877",
+                                    "author": {
+                                        "login": "KerfuffleV2"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-08T17:31:05Z",
+                                    "bodyText": "You are correct. I was looking at it incorrectly.\n\u2026\nOn Thu, 8 Jun 2023 at 10:57 PM, Kerfuffle ***@***.***> wrote:\n Does that mean that 2 bit version (8 GB) of 65B model is better than 32\n bit (65 GB) 33B model ?\n\n The size is on a logarithmic scale so the Q2_K 65B is 27.3GB.\n\n .. yes we assume that just look on the graph\n\n Are we looking at the same graph? The Q2_K 30B has much lower perplexity\n than the full quality 13B even if it's a bit bigger. The Q2_K 13B has\n both lower perplexity than the full quality 7B and is smaller than the\n Q6_K as well.\n\n \u2014\n Reply to this email directly, view it on GitHub\n <#1684 (comment)>,\n or unsubscribe\n <https://github.com/notifications/unsubscribe-auth/AAXGU4CLSYT25BUF5T4TTJDXKIDQPANCNFSM6AAAAAAYZLHGCA>\n .\n You are receiving this because you commented.Message ID: <ggerganov/llama.\n ***@***.***>",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1583068984",
+                                    "author": {
+                                        "login": "okpatil4u"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-08T17:39:08Z",
+                                    "bodyText": "I only comparing to full fp16 prepexity on each molel size and q2_k looks bad comprising to q4_k for instance or q5._k.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1583077516",
+                                    "author": {
+                                        "login": "mirek190"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-08T17:48:31Z",
+                                    "bodyText": "I only comparing to full fp16 prepexity on each molel size and q2_k looks bad comprising to q4_k for instance or q5._k.\n\nErr, more perplexity is worse. You want to minimize perplexity, generally speaking (perplexity isn't the be-all end-all of course). Q2_K has lower perplexity than the full quality model of the next smaller parameter size in every case on that graph.\nI agree it's pretty borderline in the 65B and 13B cases (and there's nothing to compare 7B with) but it looks like it definitely could be worth using for 33B if that lets you go from a 13B to the 33B.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1583089289",
+                                    "author": {
+                                        "login": "KerfuffleV2"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-08T18:24:56Z",
+                                    "bodyText": "Of course you can use q2_k is not good but useable more or less ... best speed  is q4_k_m not ( for me )  which has precision of old q5_1 as well.\nThat old one is much slower and additionally I can put much more layers on GPU  now  ... that's crazy\nI really suprise and shocked that q2_k is even useable... I remember tests with original q2 where model was behaving like drunk :)",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1583134327",
+                                    "author": {
+                                        "login": "mirek190"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-09T21:09:15Z",
+                                    "bodyText": "so k-quants is not compatible with apple silicon ? Thanks",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1585132014",
+                                    "author": {
+                                        "login": "x4080"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-09T21:10:58Z",
+                                    "bodyText": "so k-quants is not compatible with apple silicon ? Thanks\n\nyes, not yet.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1585133284",
+                                    "author": {
+                                        "login": "bbecausereasonss"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-09T21:49:45Z",
+                                    "bodyText": "Any indication about what needs to be done to get them working on Apple Silicon? I can play around with it.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1585162134",
+                                    "author": {
+                                        "login": "pbronez"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-10T13:39:59Z",
+                                    "bodyText": "Hi, I'm kind of new to all this but have looked into things a bit.\nWhat I see in the graph at the top is that there's no free lunch, but there are iterative improvements that can be made. These findings certainly look very interesting.\nI have two questions though. So you're basically \"lobotomising\" the models to some degree. 1) Has anyone here attempted to improve these again afterwards by fine-tuning on (part of) the original data?\nAnd wouldn't it be better/\"more fair\" to compare perplexity after such a step? (of course no fine-tuning on the perplexity test data.)\nAlso, as far as i've seen, for the positional embedding this is using some kind of rotary function, i.e. it's not separate. 2) How sensitive is that to quantisation? I'm not looking for numbers or hard facts here, just a general impression from people who have gained some experience with different quantisations.\n\nThat said, @ikawrakow thank you very much that you not only did the work but also added these detailed explanations, including the graphs. It was enlightening.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1585669119",
+                                    "author": {
+                                        "login": "cosmic-snow"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-10T14:11:14Z",
+                                    "bodyText": "@pbronez\n\nAny indication about what needs to be done to get them working on Apple Silicon? I can play around with it.\n\nOn the ik/q3_k_metal  branch there is a non-working implementation, see here. I have been staring at this code for I don't know how long and don't see the bug. I also re-implemented a few times without success. I guess, I'm making the same mistake each time. I have spent more time on this than Q2_K, Q4_K, Q5_L and Q6_K combined. I guess this is how it goes sometimes. One simply does not see the bug and needs a fresh set of eyes.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1585681145",
+                                    "author": {
+                                        "login": "ikawrakow"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-10T21:17:43Z",
+                                    "bodyText": "@ikawrakow I asked GPT4 this problem in 2 ways. Hope it will give you some insights:\nhttps://chat.openai.com/share/18251255-6a86-4acf-88ed-34f591e542b5\nhttps://chat.openai.com/share/fde90ee9-29ec-4102-a1fa-51f83573ea1b",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1585817943",
+                                    "author": {
+                                        "login": "shouyiwang"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-11T00:44:43Z",
+                                    "bodyText": "I made several tests comparing quality answers between q2k and q4k_m.\nIn short q2k is almost useless in quality .\nmodel wizardlm-30b-uncensored.ggmlv3\nSimple task :\nsolve this equation and explain each step 2Y-12=-16\nanswer is y=-2\n3 answers - each time the model was reloaded\nq2k answers\nTo solve the equation 2Y - 12 = -16, we need to isolate the variable Y on one side of the equation.\nFirst, we can start by adding 12 to both sides of the equation:\n2Y - 12 + 12 = -16 + 12\nSimplifying the left side and rearranging:\n2Y = -4\nNext, we can add 12 to both sides again:\n2Y + 12 = -4 + 12\nSimplifying the left side:\n2Y = 8\nFinally, we can divide both sides by 2:\nY = 4\nTherefore, the solution to the equation is Y = 4. This means that when x = -12, y = 4.\n\nStep 1: Subtract 12 from both sides of the equation to isolate the variable Y.\n2Y - 12 - 12 = -16 - 12\nSimplifying:\n2Y = -28\nStep 2: Divide both sides by 2 to solve for Y.\n2Y/2 = (-28)/2\nSimplifying:\nY = -7\nTherefore, the solution is Y = -7. This means that when X = 12, Y is equal to -7.\n\nFirst, we need to isolate the variable Y on one side of the equation.\n2Y - 12 = -16\nWe can start by adding 12 to both sides of the equation to get:\n2Y = 0\nNext, we can divide both sides of the equation by 2 to isolate Y:\nY = 0\nTherefore, the solution is Y = 0. This means that when x = 12, y = 0.\n\nq2k - all 3 answers FAIL\n3 answers - each time the model was reloaded\nq4k_m answers\nStep 1: Isolate the variable term (Y) by adding 12 to both sides of the equation:\n2Y - 12 + 12 = -16 + 12\nSimplifying the left side:\n2Y = -4\nStep 2: Divide both sides by 2 to isolate Y:\n2Y/2 = (-4)/2\nSimplifying:\nY = -2\nTherefore, the solution is Y = -2. This means that if we substitute -2 for Y in the original equation, it will be true:\n2(-2) - 12 = -16\n-4 - 12 = -16\n-16 = -16\nThis checks out!\n\nFirst, we need to isolate the variable Y on one side of the equation. We can do this by adding 12 to both sides of the equation:\n2Y - 12 + 12 = -16 + 12\nSimplifying the left side of the equation:\n2Y = -4\nNext, we can solve for Y by dividing both sides of the equation by 2:\n2Y/2 = (-4)/2\nSimplifying:\nY = -2\nTherefore, the solution to the equation 2Y-12=-16 is Y = -2.\n\nTo solve the equation 2Y - 12 = -16, we need to isolate the variable Y on one side of the equation. Here are the steps to do that:\nStep 1: Subtract 12 from both sides of the equation to isolate the coefficient of Y:\n2Y - 12 - 12 = -16 - 12\nSimplifying, we get:\n2Y = -4\nStep 2: Divide both sides by 2 to isolate Y:\n2Y/2 = (-4)/2\nSimplifying, we get:\nY = -2\nTherefore, the solution to the equation 2Y - 12 = -16 is Y = -2. This means that if we plug in -2 for Y, the left side of the equation will equal the right side of the equation.\n\nq4k_m - all 3 answers PASS\nMark is faster than Mary , Mary is faster than Joe. Is Joe faster than Mark?\nq2k   - 3 answers\nNo, Joe is not faster than Mark.\nBased on the given information, we cannot determine whether Joe is faster than Mark or not. We only know that Mark is faster than Mary and Mary is faster than Joe.\nNo, Joe is not faster than Mark.\n\nq2k - 2 answers FAIL , 1 PASS\nq4k_m   - 3 answers\nJoe is faster than Mark. The relationship between Mark and Mary is that Mark is faster than Mary. The relationship between Mary and Joe is that Mary is faster than Joe. Therefore, we can say that if Mark is faster than Mary and Mary is faster than Joe, then Mark must be faster than Joe as well.\nBased on the information given, we can create a series of comparisons:\n\nMark > Mary\nMary > Joe\nMark > Joe (?)\nSince we know that Mary is faster than Joe, we can eliminate option 3 and conclude that Mark is indeed faster than Joe.\n\nNo, Joe is not faster than Mark because if Mary is faster than Joe and Mark is faster than Mary, then it follows that Mark is faster than Joe.\n\nq4k_m - all 3 answers PASS\nConclusion\nq2k is almost useless  on the other hand q4k_m ha as high answers quality as old q5_1 ... means very good , almost indistinguishable from fp16 model.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1585884963",
+                                    "author": {
+                                        "login": "mirek190"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-11T01:32:31Z",
+                                    "bodyText": "@mirek190 I agree.\nAlthough q3_ks is only slightly larger than q2_k, it is q2_k that may seem to be the most popular choice who wants to try larger models, because its status as the smallest of the options. It should be abandoned.\nAnd with so many quants available, it may be beneficial to narrow down the choices and provide a general recommendation for using only 3-4 of them.\nJust look at the The Bloke\u2019s GGML repos, over 10 versions available for each model. Too many choices will provide too much confusion for new comers.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1585950817",
+                                    "author": {
+                                        "login": "shouyiwang"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-11T07:03:37Z",
+                                    "bodyText": "Yes ...  Too many right now.\nOld versions\nq4, q4_1, q5, q5_1, q8 - where useful and performance actually are for testing q4 and q5_1.\nNew versions\nq2k, q3w, q4w, q5w, q6w and each with possibility variants s ,m ,l .\nFor testing I noticed useful from new versions is q4k_m which has quality answers as good as old q5_1 and is as fast as old q4 and q5k_m which still is faster than old q5 but has nearly prepexity of fp16 or old q8.\nAlso 30b models q4km and q5km can fully be placed in VRAM now  ( cheap rtx 3090 with 24 GB VRAM ) where i have token below 100 ms right now and still very high quality models with nearlyas low prepexity as fp16 models !",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1586046280",
+                                    "author": {
+                                        "login": "mirek190"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-23T16:43:10Z",
+                                    "bodyText": "I have been using 5_1 and been happy with it for 30B and 65B.\nWould I get greater speeds as well as even better accuracy/perplexity by using  Q5k_m instead of 5_1? Or does 5_1 still have any benefits for 30B and 65B in Ooba?",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1604536586",
+                                    "author": {
+                                        "login": "viperwasp"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-23T16:53:45Z",
+                                    "bodyText": "Nope ...only for older llama.cpp compatibility",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1604549318",
+                                    "author": {
+                                        "login": "mirek190"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-23T18:29:02Z",
+                                    "bodyText": "Thanks I guess I am switching over to Q5k_m since it's better than 5_1!\nDo any of the graphs or charts on this page directly compare Q5k_m to 5_1? Like a given model's perplexity score for these two?",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1604683896",
+                                    "author": {
+                                        "login": "viperwasp"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-24T22:35:28Z",
+                                    "bodyText": "look here https://github.com/ggerganov/llama.cpp#quantization",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1605758827",
+                                    "author": {
+                                        "login": "mirek190"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-25T00:04:39Z",
+                                    "bodyText": "look here https://github.com/ggerganov/llama.cpp#quantization\n\nWhat am I looking for?",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1605783103",
+                                    "author": {
+                                        "login": "viperwasp"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-25T07:46:57Z",
+                                    "bodyText": "You wanted to compare Q5k_m to 5_1 ?",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1605916879",
+                                    "author": {
+                                        "login": "mirek190"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-25T20:36:11Z",
+                                    "bodyText": "You wanted to compare Q5k_m to 5_1 ?\n\nYes word on the street is Q5k_m has better perplexity however some people were saying how they felt like they got better results with the older quant styles. The 4_0,4_1,5_0,5_1 etc. But I imagine that's just personal taste and small sample size.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1606255054",
+                                    "author": {
+                                        "login": "viperwasp"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-26T06:48:46Z",
+                                    "bodyText": "@ikawrakow Hi, I tested various quantified performance on the A30 graphics card, and the results are as follows:\n\nWhat puzzles me is that the performance of fp16 on the A30 is basically same as the k-quan performance, which does not replicate your results on the 4080\uff1a fp16 is 60ms, and q4 is 16ms.\nWhat causes this phenomenon, the hardware characteristics of the gpu itself?",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1606788257",
+                                    "author": {
+                                        "login": "zhaohb"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-26T07:52:07Z",
+                                    "bodyText": "@zhaohb There have been several big improvements in the GPU code since this PR was made (see e.g. #1827 and #1898). On latest master I measure 22.5 ms/token for fp16 and 8.4 ms/token for Q4_K_S quantized 7B model on the RTX-4080. Token prediction is memory bound even on a GPU and the memory bandwidth of the A30 is higher than the 4080, so I guess this partially explains why the gap is smaller in your measurements. Other than that, my best guess is that the integer performance of the A30 is not quite as good, but that's just a wild guess.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1606906116",
+                                    "author": {
+                                        "login": "ikawrakow"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-26T08:28:55Z",
+                                    "bodyText": "@ikawrakow yes, the memory bandwidth of the A30 is higher than the 4080, A30 is 933G/s, 4080 is 716.8 GB/s, and they are all pcie 4.0, so I think it's reasonable that the A30 should be faster than 4080, but the latest master A30 is 16ms and the 4080 is 8.4ms for Q4_K_S quantized 7B model.\nStill confusing to me.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1606964349",
+                                    "author": {
+                                        "login": "zhaohb"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-26T14:34:17Z",
+                                    "bodyText": "I have rtx 3090 ( more than 1,1 TB/s Vram overclocked )  and have 14.06 ms per token for 7B q4k_m model with the newest build.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1607620150",
+                                    "author": {
+                                        "login": "mirek190"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-27T01:18:25Z",
+                                    "bodyText": "@ikawrakow @mirek190 can you share test command?",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1608560555",
+                                    "author": {
+                                        "login": "zhaohb"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-27T06:36:59Z",
+                                    "bodyText": "@zhaohb The command line I use is this\n./main -m insert_model_here -p \"I believe the meaning of life is\" -c 2048 --ignore-eos -n 128 -s 1234 -t 1 -ngl 100\n\nThis is when the model fully fits in the GPU VRAM. If the model does not completely fit, then the -ngl parameter will contain the number of layers that do fit, and -t will be typically 4...8 on my system, depending on quantization and model size. When measuring the performance of the dot product implementation for some quantization, I prefer to use relatively short answers, but not too short to avoid too big fluctuations in time measurement, so -n 128. When measuring performance I prefer to run several times to have a more reliable time measurement, and I want each run to be the same, so I explicitly set the random number seed (-s 1234).\nOther things that can affect CUDA performance are\n\nLLAMA_CUDA_KQUANTS_ITER for k-quants. This should be set to 2 on a newer GPU\nLLAMA_CUDA_DMMV_X and LLAMA_CUDA_DMMV_Y for not quantized and Q4_0...Q5_1. 64 and 2 typically performs better on a newer GPU than the default 32/1.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1608883001",
+                                    "author": {
+                                        "login": "ikawrakow"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-27T09:26:28Z",
+                                    "bodyText": "@zhaohb The command line I use is this\n./main -m insert_model_here -p \"I believe the meaning of life is\" -c 2048 --ignore-eos -n 128 -s 1234 -t 1 -ngl 100\n\nThis is when the model fully fits in the GPU VRAM. If the model does not completely fit, then the -ngl parameter will contain the number of layers that do fit, and -t will be typically 4...8 on my system, depending on quantization and model size. When measuring the performance of the dot product implementation for some quantization, I prefer to use relatively short answers, but not too short to avoid too big fluctuations in time measurement, so -n 128. When measuring performance I prefer to run several times to have a more reliable time measurement, and I want each run to be the same, so I explicitly set the random number seed (-s 1234).\nOther things that can affect CUDA performance are\n* `LLAMA_CUDA_KQUANTS_ITER` for k-quants. This should be set to 2 on a newer GPU\n\n* `LLAMA_CUDA_DMMV_X` and `LLAMA_CUDA_DMMV_Y` for not quantized and `Q4_0...Q5_1`. 64 and 2 typically performs better on a newer GPU than the default 32/1.\n\n\nQuestion I use Oobabooga not llama.cpp. For 13B I use GPTQ. 30B and up I use GGML. How much of this is still relevant in Oobabooga? With a 4080 GPU and 64GB of Ram. I know it like shares a backend or something?\nAny suggestions on what kind of GGML Quant to use? 5_1 or is the new 5K_M or whatever it's called still the \"best?\" If you don't know since it's not llama that is fine. To be honest most of is jargon to me. I've learned a lot but beyond understanding the base principals I don't know much.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1609126244",
+                                    "author": {
+                                        "login": "viperwasp"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-28T06:37:02Z",
+                                    "bodyText": "@ikawrakow thank you so much for sharing.\nI tested it again with 3090 and got the following results:\n\nThey used the same compilation parameters:\n make LLAMA_CUBLAS=1 LLAMA_CUDA_DMMV_X=64 LLAMA_CUDA_DMMV_Y=2 -j 32\nand we can see that the performance is very different, so can suspect that the gpu inference is unfriendly to the A30",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1610848169",
+                                    "author": {
+                                        "login": "zhaohb"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-17T16:05:46Z",
+                                    "bodyText": "@ikawrakow I'm putting together a presentation on llama.cpp and I will include k-quants. What do you want to be cited as? Also if you want to look over what I'm putting in the presentation beforehand please provide me with a way to send it to you.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1638441857",
+                                    "author": {
+                                        "login": "JohannesGaessler"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-06T22:09:59Z",
+                                    "bodyText": "Are the block scale and minimum calculated using least squares on the superblocks?",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1666979145",
+                                    "author": {
+                                        "login": "RonanKMcGovern"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-06T22:15:54Z",
+                                    "bodyText": "Separate Q - comparing ggml k_m to GPTQ:\n\nI suppose GPTQ with large 128 groups is simpler than ggml and that\u2019s why it runs faster?\nGPTQ also actively corrects (using training data) to keep the Hessian of the loss function similar. So perplexity is maybe better - although hard to tell how well that generalizes outside the quantisation dataset?",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1666980184",
+                                    "author": {
+                                        "login": "RonanKMcGovern"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-07T07:08:18Z",
+                                    "bodyText": "I suppose GPTQ with large 128 groups is simpler than ggml and that\u2019s why it runs faster?\n\nThe last time I checked (on Linux) llama.cpp is faster than AutoGPTQ and about the same speed as ExLlama for token generation. On Windows llama.cpp performance is currently worse by a factor of ~2 but that is caused by the much higher kernel launch overhead on Windows. Prompt processing using llama.cpp is currently noticeably slower than ExLlama (on all OSs) but this is not due to the quantization format because currently by default both llama.cpp and ExLlama dequantize the entire weight matrix only once per matrix matrix multiplication.\nMore generally, I've tried rearranging the quantized data to spatially separate the quantized values and the scales (which I think is how the data is stored in GPTQ) but this did not improve performance. I interpreted this as cache locality being more important than memory alignment (or I just did it wrong).",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1667306156",
+                                    "author": {
+                                        "login": "JohannesGaessler"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-07T08:48:57Z",
+                                    "bodyText": "The last time I checked (on Linux) llama.cpp is faster than AutoGPTQ and about the same speed as ExLlama for token generation.\n\nYeah I was inferencing using transformers in Colab with T4. That may have caused specific issues as doesn't leverage llamaccp",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1667455627",
+                                    "author": {
+                                        "login": "RonanKMcGovern"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-11T18:25:39Z",
+                                    "bodyText": "On Windows llama.cpp performance is currently worse by a factor of ~2 but that is caused by the much higher kernel launch overhead on Windows.\n\nThat's a bit hard to believe. Do you have data to back this up? If so, is there any way to circumvent these slowdowns? Most people are running Windows after all.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1675197557",
+                                    "author": {
+                                        "login": "Dampfinchen"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-11T18:48:13Z",
+                                    "bodyText": "Do you have data to back this up?\n\nI'll get to expanding the GPU section of my blog soon and I'll put numbers there.\n\nIf so, is there any way to circumvent these slowdowns? Most people are running Windows after all.\n\nYou can go to settings -> System -> Graphics Settings and enable hardware-accelerated GPU scheduling which somewhat helps but honestly the best solution is to just use Linux.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1675220267",
+                                    "author": {
+                                        "login": "JohannesGaessler"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-11T18:50:53Z",
+                                    "bodyText": "Also the CUDA rework by slaren will apparently reduce kernel launch overhead: #2230 (comment)",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1675222814",
+                                    "author": {
+                                        "login": "JohannesGaessler"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-12T00:02:36Z",
+                                    "bodyText": "I suppose GPTQ with large 128 groups is simpler than ggml and that\u2019s why it runs faster?\n\n\nJust to address this:\n\nThe GPTQ speed-up has to do with the use of special quantized-matrix - full precision-vector kernels that reduce the bandwidth/fetching required compared to having the matrices in full precision. Where memory bandwidth is rate limiting, this allows for for significant speed ups. This is my understanding from the paper.\n\nI don't see why ggml couldn't take this approach too: #2585 (comment)",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1675544864",
+                                    "author": {
+                                        "login": "RonanKMcGovern"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-14T10:23:52Z",
+                                    "bodyText": "More generally, I've tried rearranging the quantized data to spatially separate the quantized values and the scales (which I think is how the data is stored in GPTQ) but this did not improve performance. I interpreted this as cache locality being more important than memory alignment (or I just did it wrong).\n\nI also did some testing of a similar setup in llama2.scala, to figure out whether being able to use  _mm256_load_si256 over _mm256_loadu_si256 could have any impact but I didn't find much (on Ryzen 4800H which should be quite similar to your 3700X). The problem is that it is easy to get things wrong slightly and also hard to debug. My thinking was that it surely cannot be beneficial to load data into SIMD vectors splitting cache lines but maybe the CPU backend has enough resources these days for it not to matter (or the load latency is already masked so that a small latency hit does not add to the critical path)? Also, even if the cache lines are split, we will still be able to use the data in the next iteration directly from cache?",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1677067968",
+                                    "author": {
+                                        "login": "jrudolph"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-09T06:15:20Z",
+                                    "bodyText": "@ikawrakow  Hi, I have a question about the naming convention. Do _S, _M, and _L stand for Small, Medium, and Large (refer to the model size)?",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1752399502",
+                                    "author": {
+                                        "login": "yiliu30"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-09T08:43:11Z",
+                                    "bodyText": "Yes",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1752573337",
+                                    "author": {
+                                        "login": "mirek190"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-02T09:25:36Z",
+                                    "bodyText": "I would like to produce a k-quantized version of some files (the distil-whisper models, but the question applies to any LLM). Is there a reference implementation of the quantizer somewhere?\nI could look at the ggml-quants.c contents and work it out from there, but even then I'd like a reference implementation to compare against.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1873781129",
+                                    "author": {
+                                        "login": "PoignardAzur"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-16T12:52:02Z",
+                                    "bodyText": "amzing work.",
+                                    "url": "https://github.com/ggerganov/llama.cpp/pull/1684#issuecomment-1893680929",
+                                    "author": {
+                                        "login": "qwerr0"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "clang-tidy made some suggestions\nThere were too many comments to post at once. Showing the first 25 out of 39. Check the log or trigger a new build to see more.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                           if (name && strcmp(argv[i], name) == 0) break;\n          \n          \n            \n                           if (name && strcmp(argv[i], name) == 0) { break;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215605995",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    if (x[i] < min) min = x[i];\n          \n          \n            \n                    if (x[i] < min) { min = x[i];\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215605998",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    if (x[i] > max) max = x[i];\n          \n          \n            \n                    if (x[i] > max) { max = x[i];\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215605999",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    for (int i = 0; i < n; ++i) L[i] = 0;\n          \n          \n            \n                    for (int i = 0; i < n; ++i) { L[i] = 0;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606001",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                if (min > 0) min = 0;\n          \n          \n            \n                if (min > 0) { min = 0;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606004",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    if (min > 0) min = 0;\n          \n          \n            \n                    if (min > 0) { min = 0;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606006",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    if (!did_change) break;\n          \n          \n            \n                    if (!did_change) { break;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606008",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        for (int j = 0; j < QK_K/16; ++j) y[i].scales[j] = 0;\n          \n          \n            \n                        for (int j = 0; j < QK_K/16; ++j) { y[i].scales[j] = 0;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606010",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        if (!d) continue;\n          \n          \n            \n                        if (!d) { continue;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606012",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    float dl, ml;\n          \n          \n            \n                    float dl;\n          \n          \n            \n                    float ml;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606015",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                            for (int l = 0; l < 16; ++l) *y++ = dl * ((int8_t)((q[l] >> shift) & 3)) - ml;\n          \n          \n            \n                            for (int l = 0; l < 16; ++l) { *y++ = dl * ((int8_t)((q[l] >> shift) & 3)) - ml;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606017",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                            for (int l = 0; l < 16; ++l) *y++ = dl * ((int8_t)((q[l+16] >> shift) & 3)) - ml;\n          \n          \n            \n                            for (int l = 0; l < 16; ++l) { *y++ = dl * ((int8_t)((q[l+16] >> shift) & 3)) - ml;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606018",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: pointer parameter 'hist' can be pointer to const [readability-non-const-parameter]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            size_t ggml_quantize_q2_K(const float * restrict src, void * restrict dst, int n, int k, int64_t * restrict hist) {\n          \n          \n            \n            size_t ggml_quantize_q2_K(const float * restrict src, void * restrict dst, int n, int k, const int64_t * restrict hist) {\n          \n      \n    \n    \n  \n\nk_quants.h:116:\n- size_t ggml_quantize_q2_K(const float * src, void * dst, int n, int k, int64_t * hist);\n+ size_t ggml_quantize_q2_K(const float * src, void * dst, int n, int k, const int64_t * hist);",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606019",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: pointer parameter 'hist' can be pointer to const [readability-non-const-parameter]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            size_t ggml_quantize_q3_K(const float * restrict src, void * restrict dst, int n, int k, int64_t * restrict hist) {\n          \n          \n            \n            size_t ggml_quantize_q3_K(const float * restrict src, void * restrict dst, int n, int k, const int64_t * restrict hist) {\n          \n      \n    \n    \n  \n\nk_quants.h:117:\n- size_t ggml_quantize_q3_K(const float * src, void * dst, int n, int k, int64_t * hist);\n+ size_t ggml_quantize_q3_K(const float * src, void * dst, int n, int k, const int64_t * hist);",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606021",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    uint8_t sc, m;\n          \n          \n            \n                    uint8_t sc;\n          \n          \n            \n                    uint8_t m;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606024",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        if (!d) continue;\n          \n          \n            \n                        if (!d) { continue;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606025",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        for (int l = 0; l < 32; ++l) *q++ = L[j + l] | (L[j + l + 32] << 4);\n          \n          \n            \n                        for (int l = 0; l < 32; ++l) { *q++ = L[j + l] | (L[j + l + 32] << 4);\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606026",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    uint8_t sc, m;\n          \n          \n            \n                    uint8_t sc;\n          \n          \n            \n                    uint8_t m;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606027",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        for (int l = 0; l < 32; ++l) *y++ = d1 * (q[l] & 0xF) - m1;\n          \n          \n            \n                        for (int l = 0; l < 32; ++l) { *y++ = d1 * (q[l] & 0xF) - m1;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606030",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        for (int l = 0; l < 32; ++l) *y++ = d2 * (q[l]  >> 4) - m2;\n          \n          \n            \n                        for (int l = 0; l < 32; ++l) { *y++ = d2 * (q[l]  >> 4) - m2;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606032",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: pointer parameter 'hist' can be pointer to const [readability-non-const-parameter]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            size_t ggml_quantize_q4_K(const float * restrict src, void * restrict dst, int n, int k, int64_t * restrict hist) {\n          \n          \n            \n            size_t ggml_quantize_q4_K(const float * restrict src, void * restrict dst, int n, int k, const int64_t * restrict hist) {\n          \n      \n    \n    \n  \n\nk_quants.h:118:\n- size_t ggml_quantize_q4_K(const float * src, void * dst, int n, int k, int64_t * hist);\n+ size_t ggml_quantize_q4_K(const float * src, void * dst, int n, int k, const int64_t * hist);",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606034",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    uint8_t sc, m;\n          \n          \n            \n                    uint8_t sc;\n          \n          \n            \n                    uint8_t m;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606035",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        if (!d) continue;\n          \n          \n            \n                        if (!d) { continue;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606037",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    uint8_t m1 = 1, m2 = 2;\n          \n          \n            \n                    uint8_t m1 = 1;\n          \n          \n            \n                    uint8_t m2 = 2;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606038",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    uint8_t sc, m;\n          \n          \n            \n                    uint8_t sc;\n          \n          \n            \n                    uint8_t m;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215606040",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8f5d42d",
+                                                            "authoredDate": "2023-06-03T11:46:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "clang-tidy made some suggestions",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    uint8_t u1 = 1, u2 = 2;\n          \n          \n            \n                    uint8_t u1 = 1;\n          \n          \n            \n                    uint8_t u2 = 2;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215616554",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6ef1382",
+                                                            "authoredDate": "2023-06-03T15:41:45Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        for (int l = 0; l < 32; ++l) *y++ = d1 * ((ql[l] & 0xF) + (qh[l] & u1 ? 16 : 0)) - m1;\n          \n          \n            \n                        for (int l = 0; l < 32; ++l) { *y++ = d1 * ((ql[l] & 0xF) + (qh[l] & u1 ? 16 : 0)) - m1;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215616555",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6ef1382",
+                                                            "authoredDate": "2023-06-03T15:41:45Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        for (int l = 0; l < 32; ++l) *y++ = d2 * ((ql[l]  >> 4) + (qh[l] & u2 ? 16 : 0)) - m2;\n          \n          \n            \n                        for (int l = 0; l < 32; ++l) { *y++ = d2 * ((ql[l]  >> 4) + (qh[l] & u2 ? 16 : 0)) - m2;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215616556",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6ef1382",
+                                                            "authoredDate": "2023-06-03T15:41:45Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: pointer parameter 'hist' can be pointer to const [readability-non-const-parameter]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            size_t ggml_quantize_q5_K(const float * restrict src, void * restrict dst, int n, int k, int64_t * restrict hist) {\n          \n          \n            \n            size_t ggml_quantize_q5_K(const float * restrict src, void * restrict dst, int n, int k, const int64_t * restrict hist) {\n          \n      \n    \n    \n  \n\nk_quants.h:119:\n- size_t ggml_quantize_q5_K(const float * src, void * dst, int n, int k, int64_t * hist);\n+ size_t ggml_quantize_q5_K(const float * src, void * dst, int n, int k, const int64_t * hist);",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215616557",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6ef1382",
+                                                            "authoredDate": "2023-06-03T15:41:45Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: pointer parameter 'hist' can be pointer to const [readability-non-const-parameter]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            size_t ggml_quantize_q6_K(const float * src, void * dst, int n, int k, int64_t * hist) {\n          \n          \n            \n            size_t ggml_quantize_q6_K(const float * src, void * dst, int n, int k, const int64_t * hist) {\n          \n      \n    \n    \n  \n\nk_quants.h:120:\n- size_t ggml_quantize_q6_K(const float * src, void * dst, int n, int k, int64_t * hist);\n+ size_t ggml_quantize_q6_K(const float * src, void * dst, int n, int k, const int64_t * hist);",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1215616558",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6ef1382",
+                                                            "authoredDate": "2023-06-03T15:41:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "clang-tidy made some suggestions",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        else if (tensor.name.find(\"attention.wv.weight\") != std::string::npos) {\n          \n          \n            \n                            if      (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_M || ftype == LLAMA_FTYPE_MOSTLY_Q2_K) new_type = GGML_TYPE_Q4_K;\n          \n          \n            \n                            if      (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_M || ftype == LLAMA_FTYPE_MOSTLY_Q2_K) { new_type = GGML_TYPE_Q4_K;\n          \n          \n            \n                            } else if (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_L) new_type = GGML_TYPE_Q5_K;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1216761083",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32a5f3a",
+                                                            "authoredDate": "2023-06-04T14:35:56Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                            if      (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_M || ftype == LLAMA_FTYPE_MOSTLY_Q2_K) new_type = GGML_TYPE_Q4_K;\n          \n          \n            \n                            else if (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_L) new_type = GGML_TYPE_Q5_K;\n          \n          \n            \n                            else if (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_L) { new_type = GGML_TYPE_Q5_K;\n          \n          \n            \n                            } else if ((ftype == LLAMA_FTYPE_MOSTLY_Q4_K_M || ftype == LLAMA_FTYPE_MOSTLY_Q5_K_M) &&",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1216761088",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32a5f3a",
+                                                            "authoredDate": "2023-06-04T14:35:56Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                                     (i_attention_wv < n_attention_wv/8 || i_attention_wv >= 7*n_attention_wv/8 ||\n          \n          \n            \n                                     (i_attention_wv - n_attention_wv/8)%3 == 2)) { new_type = GGML_TYPE_Q6_K;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1216761092",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32a5f3a",
+                                                            "authoredDate": "2023-06-04T14:35:56Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        else if (tensor.name.find(\"feed_forward.w2.weight\") != std::string::npos) {\n          \n          \n            \n                            if      (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_M || ftype == LLAMA_FTYPE_MOSTLY_Q2_K) new_type = GGML_TYPE_Q4_K;\n          \n          \n            \n                            if      (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_M || ftype == LLAMA_FTYPE_MOSTLY_Q2_K) { new_type = GGML_TYPE_Q4_K;\n          \n          \n            \n                            } else if (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_L) new_type = GGML_TYPE_Q5_K;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1216761096",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32a5f3a",
+                                                            "authoredDate": "2023-06-04T14:35:56Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                            if      (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_M || ftype == LLAMA_FTYPE_MOSTLY_Q2_K) new_type = GGML_TYPE_Q4_K;\n          \n          \n            \n                            else if (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_L) new_type = GGML_TYPE_Q5_K;\n          \n          \n            \n                            else if (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_L) { new_type = GGML_TYPE_Q5_K;\n          \n          \n            \n                            } else if ((ftype == LLAMA_FTYPE_MOSTLY_Q4_K_M || ftype == LLAMA_FTYPE_MOSTLY_Q5_K_M) &&",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1216761097",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32a5f3a",
+                                                            "authoredDate": "2023-06-04T14:35:56Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                                     (i_feed_forward_w2 < n_feed_forward_w2/8 || i_feed_forward_w2 >= 7*n_feed_forward_w2/8 ||\n          \n          \n            \n                                     (i_feed_forward_w2 - n_feed_forward_w2/8)%3 == 2)) { new_type = GGML_TYPE_Q6_K;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1216761105",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32a5f3a",
+                                                            "authoredDate": "2023-06-04T14:35:56Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        else if (tensor.name.find(\"attention.wo.weight\") != std::string::npos) {\n          \n          \n            \n                            if      (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_M || ftype == LLAMA_FTYPE_MOSTLY_Q2_K) new_type = GGML_TYPE_Q4_K;\n          \n          \n            \n                            if      (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_M || ftype == LLAMA_FTYPE_MOSTLY_Q2_K) { new_type = GGML_TYPE_Q4_K;\n          \n          \n            \n                            } else if (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_L) new_type = GGML_TYPE_Q5_K;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1216761108",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32a5f3a",
+                                                            "authoredDate": "2023-06-04T14:35:56Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                            if      (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_M || ftype == LLAMA_FTYPE_MOSTLY_Q2_K) new_type = GGML_TYPE_Q4_K;\n          \n          \n            \n                            else if (ftype == LLAMA_FTYPE_MOSTLY_Q3_K_L) { new_type = GGML_TYPE_Q5_K;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1216761111",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "32a5f3a",
+                                                            "authoredDate": "2023-06-04T14:35:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "clang-tidy made some suggestions\nThere were too many comments to post at once. Showing the first 25 out of 38. Check the log or trigger a new build to see more.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    if (x[i] < min) min = x[i];\n          \n          \n            \n                    if (x[i] < min) { min = x[i];\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533337",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    if (x[i] > max) max = x[i];\n          \n          \n            \n                    if (x[i] > max) { max = x[i];\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533342",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    for (int i = 0; i < n; ++i) L[i] = 0;\n          \n          \n            \n                    for (int i = 0; i < n; ++i) { L[i] = 0;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533349",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                if (min > 0) min = 0;\n          \n          \n            \n                if (min > 0) { min = 0;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533355",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    if (min > 0) min = 0;\n          \n          \n            \n                    if (min > 0) { min = 0;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533358",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    if (!did_change) break;\n          \n          \n            \n                    if (!did_change) { break;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533361",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        for (int j = 0; j < QK_K/16; ++j) y[i].scales[j] = 0;\n          \n          \n            \n                        for (int j = 0; j < QK_K/16; ++j) { y[i].scales[j] = 0;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533364",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        if (!d) continue;\n          \n          \n            \n                        if (!d) { continue;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533365",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    float dl, ml;\n          \n          \n            \n                    float dl;\n          \n          \n            \n                    float ml;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533373",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                            for (int l = 0; l < 16; ++l) *y++ = dl * ((int8_t)((q[l] >> shift) & 3)) - ml;\n          \n          \n            \n                            for (int l = 0; l < 16; ++l) { *y++ = dl * ((int8_t)((q[l] >> shift) & 3)) - ml;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533382",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                            for (int l = 0; l < 16; ++l) *y++ = dl * ((int8_t)((q[l+16] >> shift) & 3)) - ml;\n          \n          \n            \n                            for (int l = 0; l < 16; ++l) { *y++ = dl * ((int8_t)((q[l+16] >> shift) & 3)) - ml;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533386",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: pointer parameter 'hist' can be pointer to const [readability-non-const-parameter]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            size_t ggml_quantize_q2_k(const float * restrict src, void * restrict dst, int n, int k, int64_t * restrict hist) {\n          \n          \n            \n            size_t ggml_quantize_q2_k(const float * restrict src, void * restrict dst, int n, int k, const int64_t * restrict hist) {\n          \n      \n    \n    \n  \n\nggml-quants-k.h:116:\n- size_t ggml_quantize_q2_k(const float * src, void * dst, int n, int k, int64_t * hist);\n+ size_t ggml_quantize_q2_k(const float * src, void * dst, int n, int k, const int64_t * hist);",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533390",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: pointer parameter 'hist' can be pointer to const [readability-non-const-parameter]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            size_t ggml_quantize_q3_k(const float * restrict src, void * restrict dst, int n, int k, int64_t * restrict hist) {\n          \n          \n            \n            size_t ggml_quantize_q3_k(const float * restrict src, void * restrict dst, int n, int k, const int64_t * restrict hist) {\n          \n      \n    \n    \n  \n\nggml-quants-k.h:117:\n- size_t ggml_quantize_q3_k(const float * src, void * dst, int n, int k, int64_t * hist);\n+ size_t ggml_quantize_q3_k(const float * src, void * dst, int n, int k, const int64_t * hist);",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533394",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    uint8_t sc, m;\n          \n          \n            \n                    uint8_t sc;\n          \n          \n            \n                    uint8_t m;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533398",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        if (!d) continue;\n          \n          \n            \n                        if (!d) { continue;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533403",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        for (int l = 0; l < 32; ++l) *q++ = L[j + l] | (L[j + l + 32] << 4);\n          \n          \n            \n                        for (int l = 0; l < 32; ++l) { *q++ = L[j + l] | (L[j + l + 32] << 4);\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533406",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    uint8_t sc, m;\n          \n          \n            \n                    uint8_t sc;\n          \n          \n            \n                    uint8_t m;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533410",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        for (int l = 0; l < 32; ++l) *y++ = d1 * (q[l] & 0xF) - m1;\n          \n          \n            \n                        for (int l = 0; l < 32; ++l) { *y++ = d1 * (q[l] & 0xF) - m1;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533416",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        for (int l = 0; l < 32; ++l) *y++ = d2 * (q[l]  >> 4) - m2;\n          \n          \n            \n                        for (int l = 0; l < 32; ++l) { *y++ = d2 * (q[l]  >> 4) - m2;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533424",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: pointer parameter 'hist' can be pointer to const [readability-non-const-parameter]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            size_t ggml_quantize_q4_k(const float * restrict src, void * restrict dst, int n, int k, int64_t * restrict hist) {\n          \n          \n            \n            size_t ggml_quantize_q4_k(const float * restrict src, void * restrict dst, int n, int k, const int64_t * restrict hist) {\n          \n      \n    \n    \n  \n\nggml-quants-k.h:118:\n- size_t ggml_quantize_q4_k(const float * src, void * dst, int n, int k, int64_t * hist);\n+ size_t ggml_quantize_q4_k(const float * src, void * dst, int n, int k, const int64_t * hist);",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533428",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    uint8_t sc, m;\n          \n          \n            \n                    uint8_t sc;\n          \n          \n            \n                    uint8_t m;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533433",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: statement should be inside braces [readability-braces-around-statements]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        if (!d) continue;\n          \n          \n            \n                        if (!d) { continue;\n          \n          \n            \n            }",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533437",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    uint8_t m1 = 1, m2 = 2;\n          \n          \n            \n                    uint8_t m1 = 1;\n          \n          \n            \n                    uint8_t m2 = 2;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533444",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    uint8_t sc, m;\n          \n          \n            \n                    uint8_t sc;\n          \n          \n            \n                    uint8_t m;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533449",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "warning: multiple declarations in a single statement reduces readability [readability-isolate-declaration]\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    uint8_t u1 = 1, u2 = 2;\n          \n          \n            \n                    uint8_t u1 = 1;\n          \n          \n            \n                    uint8_t u2 = 2;",
+                                                        "author": {
+                                                            "login": "github-actions"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1218533453",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Helpful",
+                                                        "author": {
+                                                            "login": "fleszar1"
+                                                        },
+                                                        "url": "https://github.com/ggerganov/llama.cpp/pull/1684#discussion_r1222832182",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af275fa",
+                                                            "authoredDate": "2023-06-05T19:54:21Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

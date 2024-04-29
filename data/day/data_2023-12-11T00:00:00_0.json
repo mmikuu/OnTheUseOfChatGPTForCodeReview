@@ -1,0 +1,378 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 405,
+                        "title": "fix: Add cleanups in device,vlan and ports e2e tests to stabilise the CI pipeline",
+                        "repository": {
+                            "nameWithOwner": "equinix/metal-cli",
+                            "primaryLanguage": {
+                                "name": "Go"
+                            }
+                        },
+                        "createdAt": "2023-12-11T20:48:11Z",
+                        "mergedAt": "2023-12-18T19:04:38Z",
+                        "url": "https://github.com/equinix/metal-cli/pull/405",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "aayushrangwala"
+                        },
+                        "editor": {
+                            "login": "displague"
+                        },
+                        "body": "fixes https://github.com/equinix/metal-cli/issues/343\r\nfixes https://github.com/equinix/metal-cli/issues/387",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-18T19:04:35Z",
+                                    "bodyText": "E2E test failures were about availability and the ability to access resources that were no longer available. Nothing tied to these changes.",
+                                    "url": "https://github.com/equinix/metal-cli/pull/405#issuecomment-1861359511",
+                                    "author": {
+                                        "login": "displague"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-18T19:07:44Z",
+                                    "bodyText": "I was anxious to capture the testing improvements and refactors and my last comment (and merge) was oblivious to the premise of this PR, to address the device-related E2E test failures.  We still have some and I'll reopen the tracking issue to say as much.",
+                                    "url": "https://github.com/equinix/metal-cli/pull/405#issuecomment-1861367012",
+                                    "author": {
+                                        "login": "displague"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I believe that all of the occurrences of:\nt.Error(err)\nreturn\n\ncan be replaced by the following which provides additional logging context:\nt.Fatal(err)\n\nhttps://pkg.go.dev/testing#T.Fatal",
+                                                        "author": {
+                                                            "login": "displague"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1425608248",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "A few more points are discussed here, https://chat.openai.com/share/4d97fa93-08b7-4e4d-8a7c-2343394a6ffe\n\nwe could handle the Close() and remapping of Stdout in a defer call so that it happens in error conditions\nthere are potential error conditions that are not being checked by the tests",
+                                                        "author": {
+                                                            "login": "displague"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1425616429",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's use the existing GenerateRandomString function (defined above) rather than adding a second function to serve the same purpose.",
+                                                        "author": {
+                                                            "login": "ctreatma"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1425690277",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The random string should be generated once at the start of a test, and the same value should be used in all resource names for the test (so the test project and the test devices in that project should have the same random string in their names).",
+                                                        "author": {
+                                                            "login": "ctreatma"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1425692400",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The project name prefix here should be passed in, not hard-coded to metal-cli-test-project; I see a couple orphaned projects from these tests, but I can't tell which tests they came from because of the generic prefix.",
+                                                        "author": {
+                                                            "login": "ctreatma"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1425696908",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@aayushrangwala good call using t.Cleanup instead of defer. \ud83d\udc4d",
+                                                        "author": {
+                                                            "login": "displague"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1426728877",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ah right didnt notice as it recently got merged I guess",
+                                                        "author": {
+                                                            "login": "aayushrangwala"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1427393975",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done",
+                                                        "author": {
+                                                            "login": "aayushrangwala"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1427877700",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Right. Fixed",
+                                                        "author": {
+                                                            "login": "aayushrangwala"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1427879480",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes right. Fixed",
+                                                        "author": {
+                                                            "login": "aayushrangwala"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1427886518",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The signature and implementation of this function shouldn't change; it should be used as-is.",
+                                                        "author": {
+                                                            "login": "ctreatma"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1430368927",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8919638",
+                                                            "authoredDate": "2023-12-15T11:48:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "panic: runtime error: slice bounds out of range [:5] with length 4\nThe base64 encoding produces less characters as is unnecessary for this task. Here's a simplified approach that doesn't panic:\nfunc GenerateRandomString(length int) string {\n\tcharSet := \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\"\n\trand.Seed(time.Now().UnixNano()) // seeding could happen outside of this function, in the test runner construction / init\n\tresult := make([]byte, length)\n\tfor i := range result {\n\t\tresult[i] = charSet[rand.Intn(len(charSet))]\n\t}\n\treturn string(result)\n}",
+                                                        "author": {
+                                                            "login": "displague"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1430375492",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8919638",
+                                                            "authoredDate": "2023-12-15T11:48:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The problem with the original function was that it would error out on smaller sized lengths - 5 for example. Somewhere in the history of this PR the random string length was modified from 32 to 5 and the E2E tests started failing.  We have seen more restrictive resource lengths introduced in the EM API, specifically around tags. I don't know if that was a motivation for the initial change.\nOnce the E2E tests started failing, I took a look at what would be needed to fix the base64-based GenerateRandomString function. The complexity hid the problem. As rewritten, the function can not fall into an error condition so the signature was modified to remove the unused error.  If we are ok with accepting that change in this PR, we'll see the echo of that change in this PR.\nhttps://go.dev/play/p/Z2zkdK5lSEU",
+                                                        "author": {
+                                                            "login": "displague"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1430516772",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8919638",
+                                                            "authoredDate": "2023-12-15T11:48:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "approving contingent on tests (which seem to be stuck)",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

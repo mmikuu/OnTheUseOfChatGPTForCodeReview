@@ -1,0 +1,335 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 157,
+                        "title": "LRU Vector Store Policy",
+                        "repository": {
+                            "nameWithOwner": "pyspark-ai/pyspark-ai",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-10-08T14:32:14Z",
+                        "mergedAt": "2023-10-11T17:43:30Z",
+                        "url": "https://github.com/pyspark-ai/pyspark-ai/pull/157",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "asl3"
+                        },
+                        "editor": {
+                            "login": "asl3"
+                        },
+                        "body": "Implement an LRU vector store policy which evicts disk-stored vector files once the vector store directory exceeds a set maximum size\r\n\r\n### Tests\r\nAdded tests to `tests/test_ai_tools.py`",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Shall we make it an Int? What's the unit here, KB?",
+                                                        "author": {
+                                                            "login": "gengliangwang"
+                                                        },
+                                                        "url": "https://github.com/pyspark-ai/pyspark-ai/pull/157#discussion_r1350608505",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd1858b",
+                                                            "authoredDate": "2023-10-08T14:30:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "1M is just too small",
+                                                        "author": {
+                                                            "login": "gengliangwang"
+                                                        },
+                                                        "url": "https://github.com/pyspark-ai/pyspark-ai/pull/157#discussion_r1350609265",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd1858b",
+                                                            "authoredDate": "2023-10-08T14:30:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We need to load the existing index files under the file path into the OrderedDict. The files under vector_file_dir can be reused after restarting PySparkAI.\n(You can also refer some of the code from https://chat.openai.com/share/2bd66613-5dc1-427e-9277-fb45b317438a)",
+                                                        "author": {
+                                                            "login": "gengliangwang"
+                                                        },
+                                                        "url": "https://github.com/pyspark-ai/pyspark-ai/pull/157#discussion_r1350628753",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd1858b",
+                                                            "authoredDate": "2023-10-08T14:30:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Note: the implementation works best with a single thread. It's hard to support such a system with multiple threads anyway.",
+                                                        "author": {
+                                                            "login": "gengliangwang"
+                                                        },
+                                                        "url": "https://github.com/pyspark-ai/pyspark-ai/pull/157#discussion_r1350647494",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd1858b",
+                                                            "authoredDate": "2023-10-08T14:30:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "shall we make vector_store_max_size smaller and check if there is a file/files evicted?",
+                                                        "author": {
+                                                            "login": "gengliangwang"
+                                                        },
+                                                        "url": "https://github.com/pyspark-ai/pyspark-ai/pull/157#discussion_r1350653893",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd1858b",
+                                                            "authoredDate": "2023-10-08T14:30:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Or let's keep it as float, but the unit can be GB or MB so that is it might be easier to use.",
+                                                        "author": {
+                                                            "login": "gengliangwang"
+                                                        },
+                                                        "url": "https://github.com/pyspark-ai/pyspark-ai/pull/157#discussion_r1350660649",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd1858b",
+                                                            "authoredDate": "2023-10-08T14:30:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "1000000GB is too big. Let's make it 16GB by default.",
+                                                        "author": {
+                                                            "login": "gengliangwang"
+                                                        },
+                                                        "url": "https://github.com/pyspark-ai/pyspark-ai/pull/157#discussion_r1351149526",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0f894ee",
+                                                            "authoredDate": "2023-10-10T00:47:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "we should either use os.path.getsize in all the code, or all use LRUVectorStore.get_file_size_gb in all the code.",
+                                                        "author": {
+                                                            "login": "gengliangwang"
+                                                        },
+                                                        "url": "https://github.com/pyspark-ai/pyspark-ai/pull/157#discussion_r1351358910",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0f894ee",
+                                                            "authoredDate": "2023-10-10T00:47:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Does this returns GB?",
+                                                        "author": {
+                                                            "login": "gengliangwang"
+                                                        },
+                                                        "url": "https://github.com/pyspark-ai/pyspark-ai/pull/157#discussion_r1351359084",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0f894ee",
+                                                            "authoredDate": "2023-10-10T00:47:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "nit: let mock method get_file_size_gb  and make it always return 1. Then we can test maximum 2GB limit and creating 3 files, the first created file should be evicted.",
+                                                        "author": {
+                                                            "login": "gengliangwang"
+                                                        },
+                                                        "url": "https://github.com/pyspark-ai/pyspark-ai/pull/157#discussion_r1351364348",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0f894ee",
+                                                            "authoredDate": "2023-10-10T00:47:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "ah it's bytes, to avoid fp arithmetic errors -- fixed",
+                                                        "author": {
+                                                            "login": "asl3"
+                                                        },
+                                                        "url": "https://github.com/pyspark-ai/pyspark-ai/pull/157#discussion_r1352347444",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0f894ee",
+                                                            "authoredDate": "2023-10-10T00:47:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What if curr_file_size is larger than the max size limit? It will be added to the store and then everything will be deleted..",
+                                                        "author": {
+                                                            "login": "gengliangwang"
+                                                        },
+                                                        "url": "https://github.com/pyspark-ai/pyspark-ai/pull/157#discussion_r1353027453",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d534fba",
+                                                            "authoredDate": "2023-10-10T13:14:28Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

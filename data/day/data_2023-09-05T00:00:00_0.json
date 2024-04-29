@@ -1,0 +1,390 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 1,
+                        "title": "Add design docs",
+                        "repository": {
+                            "nameWithOwner": "Maagan-Michael/mm-portal",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-09-05T17:25:50Z",
+                        "mergedAt": "2023-11-24T09:18:43Z",
+                        "url": "https://github.com/Maagan-Michael/mm-portal/pull/1",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "inbarbarkai"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-07T09:51:06Z",
+                                    "bodyText": "I'm looking at all the possible ways of generating documentation, there are several:\n\nUsing some online converter that doesn't require any GH Actions: https://github.com/jonashackt/plantuml-markdown - requires separating the UML from the Markdown.\nGH Actions (Which I'm still trying to understand how to deploy to GitHub Pages/Wiki when done): https://github.com/marketplace/actions/generate-plantuml - it only creates SVG out of the UMLs you already have and replaces the @plantuml expression with the SVG that was generated next to it.\nSwitch to GitLab.\nSwitch to Mermain.",
+                                    "url": "https://github.com/Maagan-Michael/mm-portal/pull/1#issuecomment-1709854847",
+                                    "author": {
+                                        "login": "yarons"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-07T11:10:54Z",
+                                    "bodyText": "Mermaid does not support the features I used in PlantUML.\nI don't see myself changing tools to write documentation.\nI have no issue with separating the diagrams from the markdown, just point me to an explanation on how.",
+                                    "url": "https://github.com/Maagan-Michael/mm-portal/pull/1#issuecomment-1709961726",
+                                    "author": {
+                                        "login": "inbarbarkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-08T04:48:51Z",
+                                    "bodyText": "OK So we're looking at options 1 or 2.\nThe link in option 1 explaining the separation assuming we're choosing this path.\nOption number 2 creates an additional folder for the generated SVG files and links the relevant sections in the MD to this SVG image as an external resource.\nThose 2 links explain everything we need to do to make it work, I'll just need to adjust it for some tests and possibly set your branch to the documentation branch instead of the main one.\nThe official GitHub Pages offering focuses on Jekyll, which is pretty neat and also has a plugin that supports PlantUML.\nThis is my ChatGPT about this subject (I narrowed down the option and for some reason the implementation transformed drastically): https://chat.openai.com/share/47acfe3b-be0d-4bc5-94df-d9a891805262",
+                                    "url": "https://github.com/Maagan-Michael/mm-portal/pull/1#issuecomment-1711069283",
+                                    "author": {
+                                        "login": "yarons"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-10T07:20:08Z",
+                                    "bodyText": "As discussed, we'll skip the first option to avoid collisions due to branch naming, I'll work on that.",
+                                    "url": "https://github.com/Maagan-Michael/mm-portal/pull/1#issuecomment-1712737266",
+                                    "author": {
+                                        "login": "yarons"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "As discussed, it looks great, I'd like to talk to you about the current architecture and what are the advantages of this proposal, thanks :)",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 102,
+                        "title": "Refactor wrap-rust bindings to use wrap::prelude::*",
+                        "repository": {
+                            "nameWithOwner": "polywrap/wrap-abi-bindgen",
+                            "primaryLanguage": {
+                                "name": "Rust"
+                            }
+                        },
+                        "createdAt": "2023-09-05T15:17:12Z",
+                        "mergedAt": "2023-09-08T11:51:41Z",
+                        "url": "https://github.com/polywrap/wrap-abi-bindgen/pull/102",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "krisbitney"
+                        },
+                        "editor": {
+                            "login": "krisbitney"
+                        },
+                        "body": "Closes https://github.com/polywrap/rust-client/issues/237",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-05T20:54:49Z",
+                                    "bodyText": "also i think that it would be super useful if, when updating wraps codegen; we can also update the wrap test harness just to check that it works; wdyt?",
+                                    "url": "https://github.com/polywrap/wrap-abi-bindgen/pull/102#issuecomment-1707297870",
+                                    "author": {
+                                        "login": "cbrzn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-05T23:30:59Z",
+                                    "bodyText": "also i think that it would be super useful if, when updating wraps codegen; we can also update the wrap test harness just to check that it works; wdyt?\n\nThis for sure!",
+                                    "url": "https://github.com/polywrap/wrap-abi-bindgen/pull/102#issuecomment-1707439368",
+                                    "author": {
+                                        "login": "dOrgJelli"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-06T07:57:39Z",
+                                    "bodyText": "have you contemplated the case where two wraps has a type that has the exact same name? it happens here for example https://github.com/polywrap/wrap-test-harness/blob/master/cases/subinvoke/02-consumer/implementations/rs/lib.rs#L7\n\nI think namespacing solves this already, right?",
+                                    "url": "https://github.com/polywrap/wrap-abi-bindgen/pull/102#issuecomment-1707854869",
+                                    "author": {
+                                        "login": "krisbitney"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-06T07:57:55Z",
+                                    "bodyText": "also i think that it would be super useful if, when updating wraps codegen; we can also update the wrap test harness just to check that it works; wdyt?\n\nGreat idea",
+                                    "url": "https://github.com/polywrap/wrap-abi-bindgen/pull/102#issuecomment-1707855252",
+                                    "author": {
+                                        "login": "krisbitney"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-06T09:29:17Z",
+                                    "bodyText": "LGTM! This is a breaking change, so I think we should consider how to best handle that. Happy to chat on a call about this.\nI think we will need to increase wrap-rust-abi-bindgen@1.0.0 to ...@2.0.0. With the current polywrap CLI we'll need to release a new breaking change there 0.12.0.\nA potentially better way to do this is to have the bindgen URI within the polywrap.yaml manifest. Maybe something like:\nsource:\n  module: Cargo.toml\n  schema: ./polywrap.graphql\ncodegen:\n  abi_bindgen: wrapscan.io/polywrap/wrap-rust-abi-bindgen@2\n\nAll of that makes sense. I like the idea of adding a url to the manifest.\nI think this is a really small breaking change. I'm not sure a major version increase is necessary. I think this is more of a 1.0.0 -> 1.1.0 change.\nWhen someone updates their wrap, they just need to change this:\npub mod wrap;\npub use wrap::*;\nto this:\npub mod wrap;\npub use wrap::prelude::*;\nAnd possibly a few other imports. Everything else works the same. It is still possible to do something like use wrap::module::Module.\nWhat do you think?",
+                                    "url": "https://github.com/polywrap/wrap-abi-bindgen/pull/102#issuecomment-1707993953",
+                                    "author": {
+                                        "login": "krisbitney"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-06T10:15:07Z",
+                                    "bodyText": "have you contemplated the case where two wraps has a type that has the exact same name? it happens here for example https://github.com/polywrap/wrap-test-harness/blob/master/cases/subinvoke/02-consumer/implementations/rs/lib.rs#L7\n\nI think namespacing solves this already, right?\n\nI am not sure (I think not if you ask me); that's why I think we should make sure of that in tests",
+                                    "url": "https://github.com/polywrap/wrap-abi-bindgen/pull/102#issuecomment-1708061823",
+                                    "author": {
+                                        "login": "cbrzn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-06T10:51:14Z",
+                                    "bodyText": "have you contemplated the case where two wraps has a type that has the exact same name? it happens here for example https://github.com/polywrap/wrap-test-harness/blob/master/cases/subinvoke/02-consumer/implementations/rs/lib.rs#L7\n\nI think namespacing solves this already, right?\n\nI am not sure (I think not if you ask me); that's why I think we should make sure of that in tests\n\nOkay. I am working on testing everything in the wrap test harness right now and will set up a PR that includes the changes necessary to prepare for the update.\nIn the example you shared, one of the add_and_increment methods is behind the ImportedInvokeModule namespace. So there is no conflict. This PR doesn't change that.\nfn add_and_increment(args: ArgsAddAndIncrement) -> Result<i32, String> {\n        Ok(ImportedInvokeModule::add_and_increment(",
+                                    "url": "https://github.com/polywrap/wrap-abi-bindgen/pull/102#issuecomment-1708113823",
+                                    "author": {
+                                        "login": "krisbitney"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-06T11:47:28Z",
+                                    "bodyText": "All sounds good @krisbitney, although I would say that if this change requires users to \"fix\" their wraps if they upgrade, then it is indeed a major version increase. But if wrap & wrap::* still work and no rebuild would be required in that scenario, then I can see how this is a feature rather than a breaking change.",
+                                    "url": "https://github.com/polywrap/wrap-abi-bindgen/pull/102#issuecomment-1708188660",
+                                    "author": {
+                                        "login": "dOrgJelli"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-06T11:52:20Z",
+                                    "bodyText": "All sounds good @krisbitney, although I would say that if this change requires users to \"fix\" their wraps if they upgrade, then it is indeed a major version increase. But if wrap & wrap::* still work and no rebuild would be required in that scenario, then I can see how this is a feature rather than a breaking change.\n\nGotcha, okay. Using use wrap::* no longer works for the re-exports that have been moved to prelude. I changed the version to 2.0.0.",
+                                    "url": "https://github.com/polywrap/wrap-abi-bindgen/pull/102#issuecomment-1708195129",
+                                    "author": {
+                                        "login": "krisbitney"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-06T12:28:20Z",
+                                    "bodyText": "Okay. I am working on testing everything in the wrap test harness right now and will set up a PR that includes the changes necessary to prepare for the update.\nIn the example you shared, one of the add_and_increment methods is behind the ImportedInvokeModule namespace. So there is no conflict. This PR doesn't change that.\nfn add_and_increment(args: ArgsAddAndIncrement) -> Result<i32, String> {\n        Ok(ImportedInvokeModule::add_and_increment(\n\n@krisbitney what I mean is that we have two ArgsAddAndIncrement; one being imported normal and the other one being imported using namespace; my thought is that; if we import everything in the prelude would this two ArgsAddAndIncrement conflict? Hope this makes more sense \ud83d\ude04",
+                                    "url": "https://github.com/polywrap/wrap-abi-bindgen/pull/102#issuecomment-1708252250",
+                                    "author": {
+                                        "login": "cbrzn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-06T12:59:26Z",
+                                    "bodyText": "Okay. I am working on testing everything in the wrap test harness right now and will set up a PR that includes the changes necessary to prepare for the update.\nIn the example you shared, one of the add_and_increment methods is behind the ImportedInvokeModule namespace. So there is no conflict. This PR doesn't change that.\nfn add_and_increment(args: ArgsAddAndIncrement) -> Result<i32, String> {\n        Ok(ImportedInvokeModule::add_and_increment(\n\n@krisbitney what I mean is that we have two ArgsAddAndIncrement; one being imported normal and the other one being imported using namespace; my thought is that; if we import everything in the prelude would this two ArgsAddAndIncrement conflict? Hope this makes more sense \ud83d\ude04\n\nOkay, I see. I want to emphasize the module structure has not changed. The types that were already being re-exported under wrap::* have just been moved to wrap::prelude::*.\nWhen we import wraps, the bindings will still prepend their namespaces to their type names. For example, AnotherObject in the TestImport wrap will become:\npub struct TestImportAnotherObject {\n    pub prop: String,\n}\nWhen we look at types from imported wraps in prelude.rs in the Sanity-000 test case, we can see that everything has TestImport or test_import in its name:\npub use super::imported::test_import_object::TestImportObject;\npub use super::imported::test_import_another_object::TestImportAnotherObject;\npub use super::imported::test_import_enum::{\n    get_test_import_enum_key,\n    get_test_import_enum_value,\n    sanitize_test_import_enum_value,\n    TestImportEnum\n};\npub use super::imported::test_import_enum_return::{\n    get_test_import_enum_return_key,\n    get_test_import_enum_return_value,\n    sanitize_test_import_enum_return_value,\n    TestImportEnumReturn\n};\npub use super::imported::test_import_env::TestImportEnv;\npub use super::imported::test_import_module::TestImportModule;\npub use super::test_import::TestImport;\nIn the example you shared, where the root wrap and its import had methods of the same name, there will be no issue because methods are not re-exported. Only the imported module is re-exported.",
+                                    "url": "https://github.com/polywrap/wrap-abi-bindgen/pull/102#issuecomment-1708306022",
+                                    "author": {
+                                        "login": "krisbitney"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-06T13:03:40Z",
+                                    "bodyText": "Maybe I misunderstood what I was supposed to do and didn't re-export everything as I was supposed to?",
+                                    "url": "https://github.com/polywrap/wrap-abi-bindgen/pull/102#issuecomment-1708315233",
+                                    "author": {
+                                        "login": "krisbitney"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-06T13:04:29Z",
+                                    "bodyText": "Here is how the wrap test harness will change: polywrap/wrap-test-harness#82",
+                                    "url": "https://github.com/polywrap/wrap-abi-bindgen/pull/102#issuecomment-1708318003",
+                                    "author": {
+                                        "login": "krisbitney"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "have you contemplated the case where two wraps has a type that has the exact same name? it happens here for example https://github.com/polywrap/wrap-test-harness/blob/master/cases/subinvoke/02-consumer/implementations/rs/lib.rs#L7",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM! This is a breaking change, so I think we should consider how to best handle that. Happy to chat on a call about this.\nI think we will need to increase wrap-rust-abi-bindgen@1.0.0 to ...@2.0.0. With the current polywrap CLI we'll need to release a new breaking change there 0.12.0.\nA potentially better way to do this is to have the bindgen URI within the polywrap.yaml manifest. Maybe something like:\nsource:\n  module: Cargo.toml\n  schema: ./polywrap.graphql\ncodegen:\n  abi_bindgen: wrapscan.io/polywrap/wrap-rust-abi-bindgen@2",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "All looks good to me! Also talked to @cbrzn yesterday and he agreed using prelude::* is indeed best practice: https://github.com/search?q=prelude%3A%3A*&type=code\nhttps://chat.openai.com/share/7152e9f6-c685-4c0b-b37b-e0dd8ac04f08",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 54172,
+                        "title": "Top Toolbar: Prevent the focus outline of the button from being cut off",
+                        "repository": {
+                            "nameWithOwner": "WordPress/gutenberg",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-09-05T04:17:40Z",
+                        "mergedAt": "2023-09-06T13:36:45Z",
+                        "url": "https://github.com/WordPress/gutenberg/pull/54172",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "t-hamano"
+                        },
+                        "editor": {
+                            "login": "t-hamano"
+                        },
+                        "body": "## What?\r\nThis PR prevents the focus outline of the device preview button from cutting off when the top toolbar is enabled.\r\n\r\n### Site Editor\r\n\r\n#### Before\r\n\r\n![site-editor-before](https://github.com/WordPress/gutenberg/assets/54422211/5934072a-d095-43d3-a8d2-fe65d9edb10a)\r\n\r\n#### After\r\n\r\n![site-editor-after](https://github.com/WordPress/gutenberg/assets/54422211/afbf8d88-8a25-4a09-8917-15c2f26c75b4)\r\n\r\n### Post Editor\r\n\r\n#### Before\r\n\r\n![post-editor-before](https://github.com/WordPress/gutenberg/assets/54422211/e28b1960-da31-4a0e-89a4-eb77ab9fc65b)\r\n\r\n#### After\r\n\r\n![post-editor-after](https://github.com/WordPress/gutenberg/assets/54422211/399ad873-508b-4f68-945a-ca8250249186)\r\n\r\n## Why?\r\n\r\n### Site Editor\r\n\r\nThe fixed toolbar dynamically has its own width, minus the total width of the other UI in the header, margins, etc. However, when the first button (device preview button) in the right header is focused, the outline has a width of 2px, so it is hidden under the top toolbar.\r\n\r\n### Post Editor\r\n\r\nThe Post Editor is a little more complicated. In #47177, the sidebar now always has the scrollbar to prevent sidebar UI shifting. At the same time, `scrollbar-gutter: stable;` was added to align the header icons with the sidebar. This will push the right-hand header to the left by the width of the scrollbar. As a result, even if the top toolbar has the correct width, it will overlap by the width of this scrollbar.\r\n\r\n## How?\r\n\r\n### Site Editor\r\n\r\nWhen calculating the fixed toolbar width, I took the outline into account and subtracted 2px.\r\n\r\n### Post Editor\r\n\r\nRemoved `scrollbar-gutter:stable` from the right header. This causes problems in Windows OS and Mac OS (where scrollbars are always set to appear), where the scrollbar has a physical width that prevents the header and sidebar icons from aligning.\r\n\r\nHowever, this approach also has the effect of removing unnecessary spacing on the right side of the header when the sidebar is not displayed.\r\n\r\nSo far I haven't found an approach that would ideally solve everything, so if anyone has any ideas, I'd love to hear them.\r\n\r\n## Testing Instructions\r\n\r\n- Enable top toolbar.\r\n- Select a block.\r\n- Focus the device preview button.\r\n- Make sure the outline is not cut off.\r\n- Check in both the Post Editor and the Site Editor.\r\n\r\nNote: I've noticed an issue with the widget editor where the top toolbar obscures the header on the right. I would like to address this issue in another PR.\r\n\r\n![widget-editor](https://github.com/WordPress/gutenberg/assets/54422211/eb862f00-61ba-46b1-b8d1-030d1e0ff129)\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-05T06:14:31Z",
+                                    "bodyText": "Size Change: -46 B (0%)\nTotal Size: 1.51 MB\n\n\n\nFilename\nSize\nChange\n\n\n\n\nbuild/block-editor/index.min.js\n214 kB\n+5 B (0%)\n\n\nbuild/edit-post/style-rtl.css\n7.6 kB\n-26 B (0%)\n\n\nbuild/edit-post/style.css\n7.59 kB\n-25 B (0%)\n\n\n\n\u2139\ufe0f View Unchanged\n\n\n\nFilename\nSize\n\n\n\n\nbuild/a11y/index.min.js\n955 B\n\n\nbuild/annotations/index.min.js\n2.69 kB\n\n\nbuild/api-fetch/index.min.js\n2.28 kB\n\n\nbuild/autop/index.min.js\n2.1 kB\n\n\nbuild/blob/index.min.js\n451 B\n\n\nbuild/block-directory/index.min.js\n7.01 kB\n\n\nbuild/block-directory/style-rtl.css\n1.02 kB\n\n\nbuild/block-directory/style.css\n1.02 kB\n\n\nbuild/block-editor/content-rtl.css\n4.25 kB\n\n\nbuild/block-editor/content.css\n4.24 kB\n\n\nbuild/block-editor/default-editor-styles-rtl.css\n381 B\n\n\nbuild/block-editor/default-editor-styles.css\n381 B\n\n\nbuild/block-editor/style-rtl.css\n15 kB\n\n\nbuild/block-editor/style.css\n15 kB\n\n\nbuild/block-library/blocks/archives/editor-rtl.css\n61 B\n\n\nbuild/block-library/blocks/archives/editor.css\n60 B\n\n\nbuild/block-library/blocks/archives/style-rtl.css\n90 B\n\n\nbuild/block-library/blocks/archives/style.css\n90 B\n\n\nbuild/block-library/blocks/audio/editor-rtl.css\n150 B\n\n\nbuild/block-library/blocks/audio/editor.css\n150 B\n\n\nbuild/block-library/blocks/audio/style-rtl.css\n122 B\n\n\nbuild/block-library/blocks/audio/style.css\n122 B\n\n\nbuild/block-library/blocks/audio/theme-rtl.css\n126 B\n\n\nbuild/block-library/blocks/audio/theme.css\n126 B\n\n\nbuild/block-library/blocks/avatar/editor-rtl.css\n116 B\n\n\nbuild/block-library/blocks/avatar/editor.css\n116 B\n\n\nbuild/block-library/blocks/avatar/style-rtl.css\n104 B\n\n\nbuild/block-library/blocks/avatar/style.css\n104 B\n\n\nbuild/block-library/blocks/block/editor-rtl.css\n305 B\n\n\nbuild/block-library/blocks/block/editor.css\n305 B\n\n\nbuild/block-library/blocks/button/editor-rtl.css\n584 B\n\n\nbuild/block-library/blocks/button/editor.css\n582 B\n\n\nbuild/block-library/blocks/button/style-rtl.css\n629 B\n\n\nbuild/block-library/blocks/button/style.css\n628 B\n\n\nbuild/block-library/blocks/buttons/editor-rtl.css\n337 B\n\n\nbuild/block-library/blocks/buttons/editor.css\n337 B\n\n\nbuild/block-library/blocks/buttons/style-rtl.css\n332 B\n\n\nbuild/block-library/blocks/buttons/style.css\n332 B\n\n\nbuild/block-library/blocks/calendar/style-rtl.css\n239 B\n\n\nbuild/block-library/blocks/calendar/style.css\n239 B\n\n\nbuild/block-library/blocks/categories/editor-rtl.css\n113 B\n\n\nbuild/block-library/blocks/categories/editor.css\n112 B\n\n\nbuild/block-library/blocks/categories/style-rtl.css\n124 B\n\n\nbuild/block-library/blocks/categories/style.css\n124 B\n\n\nbuild/block-library/blocks/code/editor-rtl.css\n53 B\n\n\nbuild/block-library/blocks/code/editor.css\n53 B\n\n\nbuild/block-library/blocks/code/style-rtl.css\n121 B\n\n\nbuild/block-library/blocks/code/style.css\n121 B\n\n\nbuild/block-library/blocks/code/theme-rtl.css\n124 B\n\n\nbuild/block-library/blocks/code/theme.css\n124 B\n\n\nbuild/block-library/blocks/columns/editor-rtl.css\n108 B\n\n\nbuild/block-library/blocks/columns/editor.css\n108 B\n\n\nbuild/block-library/blocks/columns/style-rtl.css\n421 B\n\n\nbuild/block-library/blocks/columns/style.css\n421 B\n\n\nbuild/block-library/blocks/comment-author-avatar/editor-rtl.css\n125 B\n\n\nbuild/block-library/blocks/comment-author-avatar/editor.css\n125 B\n\n\nbuild/block-library/blocks/comment-content/style-rtl.css\n92 B\n\n\nbuild/block-library/blocks/comment-content/style.css\n92 B\n\n\nbuild/block-library/blocks/comment-template/style-rtl.css\n199 B\n\n\nbuild/block-library/blocks/comment-template/style.css\n198 B\n\n\nbuild/block-library/blocks/comments-pagination-numbers/editor-rtl.css\n123 B\n\n\nbuild/block-library/blocks/comments-pagination-numbers/editor.css\n121 B\n\n\nbuild/block-library/blocks/comments-pagination/editor-rtl.css\n222 B\n\n\nbuild/block-library/blocks/comments-pagination/editor.css\n209 B\n\n\nbuild/block-library/blocks/comments-pagination/style-rtl.css\n235 B\n\n\nbuild/block-library/blocks/comments-pagination/style.css\n231 B\n\n\nbuild/block-library/blocks/comments-title/editor-rtl.css\n75 B\n\n\nbuild/block-library/blocks/comments-title/editor.css\n75 B\n\n\nbuild/block-library/blocks/comments/editor-rtl.css\n840 B\n\n\nbuild/block-library/blocks/comments/editor.css\n839 B\n\n\nbuild/block-library/blocks/comments/style-rtl.css\n637 B\n\n\nbuild/block-library/blocks/comments/style.css\n636 B\n\n\nbuild/block-library/blocks/cover/editor-rtl.css\n647 B\n\n\nbuild/block-library/blocks/cover/editor.css\n650 B\n\n\nbuild/block-library/blocks/cover/style-rtl.css\n1.63 kB\n\n\nbuild/block-library/blocks/cover/style.css\n1.62 kB\n\n\nbuild/block-library/blocks/details/editor-rtl.css\n65 B\n\n\nbuild/block-library/blocks/details/editor.css\n65 B\n\n\nbuild/block-library/blocks/details/style-rtl.css\n98 B\n\n\nbuild/block-library/blocks/details/style.css\n98 B\n\n\nbuild/block-library/blocks/embed/editor-rtl.css\n293 B\n\n\nbuild/block-library/blocks/embed/editor.css\n293 B\n\n\nbuild/block-library/blocks/embed/style-rtl.css\n410 B\n\n\nbuild/block-library/blocks/embed/style.css\n410 B\n\n\nbuild/block-library/blocks/embed/theme-rtl.css\n126 B\n\n\nbuild/block-library/blocks/embed/theme.css\n126 B\n\n\nbuild/block-library/blocks/file/editor-rtl.css\n316 B\n\n\nbuild/block-library/blocks/file/editor.css\n316 B\n\n\nbuild/block-library/blocks/file/style-rtl.css\n280 B\n\n\nbuild/block-library/blocks/file/style.css\n281 B\n\n\nbuild/block-library/blocks/file/view-interactivity.min.js\n317 B\n\n\nbuild/block-library/blocks/file/view.min.js\n375 B\n\n\nbuild/block-library/blocks/footnotes/style-rtl.css\n201 B\n\n\nbuild/block-library/blocks/footnotes/style.css\n199 B\n\n\nbuild/block-library/blocks/freeform/editor-rtl.css\n2.61 kB\n\n\nbuild/block-library/blocks/freeform/editor.css\n2.61 kB\n\n\nbuild/block-library/blocks/gallery/editor-rtl.css\n947 B\n\n\nbuild/block-library/blocks/gallery/editor.css\n952 B\n\n\nbuild/block-library/blocks/gallery/style-rtl.css\n1.53 kB\n\n\nbuild/block-library/blocks/gallery/style.css\n1.53 kB\n\n\nbuild/block-library/blocks/gallery/theme-rtl.css\n108 B\n\n\nbuild/block-library/blocks/gallery/theme.css\n108 B\n\n\nbuild/block-library/blocks/group/editor-rtl.css\n654 B\n\n\nbuild/block-library/blocks/group/editor.css\n654 B\n\n\nbuild/block-library/blocks/group/style-rtl.css\n57 B\n\n\nbuild/block-library/blocks/group/style.css\n57 B\n\n\nbuild/block-library/blocks/group/theme-rtl.css\n78 B\n\n\nbuild/block-library/blocks/group/theme.css\n78 B\n\n\nbuild/block-library/blocks/heading/style-rtl.css\n76 B\n\n\nbuild/block-library/blocks/heading/style.css\n76 B\n\n\nbuild/block-library/blocks/html/editor-rtl.css\n336 B\n\n\nbuild/block-library/blocks/html/editor.css\n337 B\n\n\nbuild/block-library/blocks/image/editor-rtl.css\n834 B\n\n\nbuild/block-library/blocks/image/editor.css\n833 B\n\n\nbuild/block-library/blocks/image/style-rtl.css\n1.42 kB\n\n\nbuild/block-library/blocks/image/style.css\n1.41 kB\n\n\nbuild/block-library/blocks/image/theme-rtl.css\n126 B\n\n\nbuild/block-library/blocks/image/theme.css\n126 B\n\n\nbuild/block-library/blocks/image/view-interactivity.min.js\n1.83 kB\n\n\nbuild/block-library/blocks/latest-comments/style-rtl.css\n357 B\n\n\nbuild/block-library/blocks/latest-comments/style.css\n357 B\n\n\nbuild/block-library/blocks/latest-posts/editor-rtl.css\n213 B\n\n\nbuild/block-library/blocks/latest-posts/editor.css\n212 B\n\n\nbuild/block-library/blocks/latest-posts/style-rtl.css\n478 B\n\n\nbuild/block-library/blocks/latest-posts/style.css\n478 B\n\n\nbuild/block-library/blocks/list/style-rtl.css\n88 B\n\n\nbuild/block-library/blocks/list/style.css\n88 B\n\n\nbuild/block-library/blocks/media-text/editor-rtl.css\n266 B\n\n\nbuild/block-library/blocks/media-text/editor.css\n263 B\n\n\nbuild/block-library/blocks/media-text/style-rtl.css\n505 B\n\n\nbuild/block-library/blocks/media-text/style.css\n503 B\n\n\nbuild/block-library/blocks/more/editor-rtl.css\n431 B\n\n\nbuild/block-library/blocks/more/editor.css\n431 B\n\n\nbuild/block-library/blocks/navigation-link/editor-rtl.css\n712 B\n\n\nbuild/block-library/blocks/navigation-link/editor.css\n711 B\n\n\nbuild/block-library/blocks/navigation-link/style-rtl.css\n115 B\n\n\nbuild/block-library/blocks/navigation-link/style.css\n115 B\n\n\nbuild/block-library/blocks/navigation-submenu/editor-rtl.css\n296 B\n\n\nbuild/block-library/blocks/navigation-submenu/editor.css\n295 B\n\n\nbuild/block-library/blocks/navigation/editor-rtl.css\n2.26 kB\n\n\nbuild/block-library/blocks/navigation/editor.css\n2.26 kB\n\n\nbuild/block-library/blocks/navigation/style-rtl.css\n2.23 kB\n\n\nbuild/block-library/blocks/navigation/style.css\n2.22 kB\n\n\nbuild/block-library/blocks/navigation/view-interactivity.min.js\n988 B\n\n\nbuild/block-library/blocks/navigation/view-modal.min.js\n2.85 kB\n\n\nbuild/block-library/blocks/navigation/view.min.js\n469 B\n\n\nbuild/block-library/blocks/nextpage/editor-rtl.css\n395 B\n\n\nbuild/block-library/blocks/nextpage/editor.css\n395 B\n\n\nbuild/block-library/blocks/page-list/editor-rtl.css\n401 B\n\n\nbuild/block-library/blocks/page-list/editor.css\n401 B\n\n\nbuild/block-library/blocks/page-list/style-rtl.css\n175 B\n\n\nbuild/block-library/blocks/page-list/style.css\n175 B\n\n\nbuild/block-library/blocks/paragraph/editor-rtl.css\n235 B\n\n\nbuild/block-library/blocks/paragraph/editor.css\n235 B\n\n\nbuild/block-library/blocks/paragraph/style-rtl.css\n335 B\n\n\nbuild/block-library/blocks/paragraph/style.css\n335 B\n\n\nbuild/block-library/blocks/post-author/style-rtl.css\n175 B\n\n\nbuild/block-library/blocks/post-author/style.css\n176 B\n\n\nbuild/block-library/blocks/post-comments-form/editor-rtl.css\n96 B\n\n\nbuild/block-library/blocks/post-comments-form/editor.css\n96 B\n\n\nbuild/block-library/blocks/post-comments-form/style-rtl.css\n508 B\n\n\nbuild/block-library/blocks/post-comments-form/style.css\n508 B\n\n\nbuild/block-library/blocks/post-date/style-rtl.css\n61 B\n\n\nbuild/block-library/blocks/post-date/style.css\n61 B\n\n\nbuild/block-library/blocks/post-excerpt/editor-rtl.css\n71 B\n\n\nbuild/block-library/blocks/post-excerpt/editor.css\n71 B\n\n\nbuild/block-library/blocks/post-excerpt/style-rtl.css\n141 B\n\n\nbuild/block-library/blocks/post-excerpt/style.css\n141 B\n\n\nbuild/block-library/blocks/post-featured-image/editor-rtl.css\n588 B\n\n\nbuild/block-library/blocks/post-featured-image/editor.css\n586 B\n\n\nbuild/block-library/blocks/post-featured-image/style-rtl.css\n319 B\n\n\nbuild/block-library/blocks/post-featured-image/style.css\n319 B\n\n\nbuild/block-library/blocks/post-navigation-link/style-rtl.css\n215 B\n\n\nbuild/block-library/blocks/post-navigation-link/style.css\n214 B\n\n\nbuild/block-library/blocks/post-template/editor-rtl.css\n99 B\n\n\nbuild/block-library/blocks/post-template/editor.css\n98 B\n\n\nbuild/block-library/blocks/post-template/style-rtl.css\n314 B\n\n\nbuild/block-library/blocks/post-template/style.css\n314 B\n\n\nbuild/block-library/blocks/post-terms/style-rtl.css\n96 B\n\n\nbuild/block-library/blocks/post-terms/style.css\n96 B\n\n\nbuild/block-library/blocks/post-time-to-read/style-rtl.css\n69 B\n\n\nbuild/block-library/blocks/post-time-to-read/style.css\n69 B\n\n\nbuild/block-library/blocks/post-title/style-rtl.css\n100 B\n\n\nbuild/block-library/blocks/post-title/style.css\n100 B\n\n\nbuild/block-library/blocks/preformatted/style-rtl.css\n125 B\n\n\nbuild/block-library/blocks/preformatted/style.css\n125 B\n\n\nbuild/block-library/blocks/pullquote/editor-rtl.css\n135 B\n\n\nbuild/block-library/blocks/pullquote/editor.css\n135 B\n\n\nbuild/block-library/blocks/pullquote/style-rtl.css\n335 B\n\n\nbuild/block-library/blocks/pullquote/style.css\n335 B\n\n\nbuild/block-library/blocks/pullquote/theme-rtl.css\n168 B\n\n\nbuild/block-library/blocks/pullquote/theme.css\n168 B\n\n\nbuild/block-library/blocks/query-pagination-numbers/editor-rtl.css\n122 B\n\n\nbuild/block-library/blocks/query-pagination-numbers/editor.css\n121 B\n\n\nbuild/block-library/blocks/query-pagination/editor-rtl.css\n221 B\n\n\nbuild/block-library/blocks/query-pagination/editor.css\n211 B\n\n\nbuild/block-library/blocks/query-pagination/style-rtl.css\n302 B\n\n\nbuild/block-library/blocks/query-pagination/style.css\n299 B\n\n\nbuild/block-library/blocks/query-title/style-rtl.css\n63 B\n\n\nbuild/block-library/blocks/query-title/style.css\n63 B\n\n\nbuild/block-library/blocks/query/editor-rtl.css\n450 B\n\n\nbuild/block-library/blocks/query/editor.css\n449 B\n\n\nbuild/block-library/blocks/query/style-rtl.css\n370 B\n\n\nbuild/block-library/blocks/query/style.css\n368 B\n\n\nbuild/block-library/blocks/query/view.min.js\n559 B\n\n\nbuild/block-library/blocks/quote/style-rtl.css\n222 B\n\n\nbuild/block-library/blocks/quote/style.css\n222 B\n\n\nbuild/block-library/blocks/quote/theme-rtl.css\n223 B\n\n\nbuild/block-library/blocks/quote/theme.css\n226 B\n\n\nbuild/block-library/blocks/read-more/style-rtl.css\n132 B\n\n\nbuild/block-library/blocks/read-more/style.css\n132 B\n\n\nbuild/block-library/blocks/rss/editor-rtl.css\n149 B\n\n\nbuild/block-library/blocks/rss/editor.css\n149 B\n\n\nbuild/block-library/blocks/rss/style-rtl.css\n289 B\n\n\nbuild/block-library/blocks/rss/style.css\n288 B\n\n\nbuild/block-library/blocks/search/editor-rtl.css\n178 B\n\n\nbuild/block-library/blocks/search/editor.css\n178 B\n\n\nbuild/block-library/blocks/search/style-rtl.css\n607 B\n\n\nbuild/block-library/blocks/search/style.css\n607 B\n\n\nbuild/block-library/blocks/search/theme-rtl.css\n114 B\n\n\nbuild/block-library/blocks/search/theme.css\n114 B\n\n\nbuild/block-library/blocks/search/view.min.js\n631 B\n\n\nbuild/block-library/blocks/separator/editor-rtl.css\n146 B\n\n\nbuild/block-library/blocks/separator/editor.css\n146 B\n\n\nbuild/block-library/blocks/separator/style-rtl.css\n234 B\n\n\nbuild/block-library/blocks/separator/style.css\n234 B\n\n\nbuild/block-library/blocks/separator/theme-rtl.css\n194 B\n\n\nbuild/block-library/blocks/separator/theme.css\n194 B\n\n\nbuild/block-library/blocks/shortcode/editor-rtl.css\n323 B\n\n\nbuild/block-library/blocks/shortcode/editor.css\n323 B\n\n\nbuild/block-library/blocks/site-logo/editor-rtl.css\n754 B\n\n\nbuild/block-library/blocks/site-logo/editor.css\n754 B\n\n\nbuild/block-library/blocks/site-logo/style-rtl.css\n204 B\n\n\nbuild/block-library/blocks/site-logo/style.css\n204 B\n\n\nbuild/block-library/blocks/site-tagline/editor-rtl.css\n86 B\n\n\nbuild/block-library/blocks/site-tagline/editor.css\n86 B\n\n\nbuild/block-library/blocks/site-title/editor-rtl.css\n116 B\n\n\nbuild/block-library/blocks/site-title/editor.css\n116 B\n\n\nbuild/block-library/blocks/site-title/style-rtl.css\n57 B\n\n\nbuild/block-library/blocks/site-title/style.css\n57 B\n\n\nbuild/block-library/blocks/social-link/editor-rtl.css\n184 B\n\n\nbuild/block-library/blocks/social-link/editor.css\n184 B\n\n\nbuild/block-library/blocks/social-links/editor-rtl.css\n682 B\n\n\nbuild/block-library/blocks/social-links/editor.css\n681 B\n\n\nbuild/block-library/blocks/social-links/style-rtl.css\n1.44 kB\n\n\nbuild/block-library/blocks/social-links/style.css\n1.43 kB\n\n\nbuild/block-library/blocks/spacer/editor-rtl.css\n348 B\n\n\nbuild/block-library/blocks/spacer/editor.css\n348 B\n\n\nbuild/block-library/blocks/spacer/style-rtl.css\n48 B\n\n\nbuild/block-library/blocks/spacer/style.css\n48 B\n\n\nbuild/block-library/blocks/table/editor-rtl.css\n432 B\n\n\nbuild/block-library/blocks/table/editor.css\n432 B\n\n\nbuild/block-library/blocks/table/style-rtl.css\n639 B\n\n\nbuild/block-library/blocks/table/style.css\n639 B\n\n\nbuild/block-library/blocks/table/theme-rtl.css\n146 B\n\n\nbuild/block-library/blocks/table/theme.css\n146 B\n\n\nbuild/block-library/blocks/tag-cloud/style-rtl.css\n251 B\n\n\nbuild/block-library/blocks/tag-cloud/style.css\n253 B\n\n\nbuild/block-library/blocks/template-part/editor-rtl.css\n403 B\n\n\nbuild/block-library/blocks/template-part/editor.css\n403 B\n\n\nbuild/block-library/blocks/template-part/theme-rtl.css\n101 B\n\n\nbuild/block-library/blocks/template-part/theme.css\n101 B\n\n\nbuild/block-library/blocks/term-description/style-rtl.css\n111 B\n\n\nbuild/block-library/blocks/term-description/style.css\n111 B\n\n\nbuild/block-library/blocks/text-columns/editor-rtl.css\n95 B\n\n\nbuild/block-library/blocks/text-columns/editor.css\n95 B\n\n\nbuild/block-library/blocks/text-columns/style-rtl.css\n166 B\n\n\nbuild/block-library/blocks/text-columns/style.css\n166 B\n\n\nbuild/block-library/blocks/verse/style-rtl.css\n99 B\n\n\nbuild/block-library/blocks/verse/style.css\n99 B\n\n\nbuild/block-library/blocks/video/editor-rtl.css\n552 B\n\n\nbuild/block-library/blocks/video/editor.css\n555 B\n\n\nbuild/block-library/blocks/video/style-rtl.css\n185 B\n\n\nbuild/block-library/blocks/video/style.css\n185 B\n\n\nbuild/block-library/blocks/video/theme-rtl.css\n126 B\n\n\nbuild/block-library/blocks/video/theme.css\n126 B\n\n\nbuild/block-library/classic-rtl.css\n179 B\n\n\nbuild/block-library/classic.css\n179 B\n\n\nbuild/block-library/common-rtl.css\n1.1 kB\n\n\nbuild/block-library/common.css\n1.1 kB\n\n\nbuild/block-library/editor-elements-rtl.css\n75 B\n\n\nbuild/block-library/editor-elements.css\n75 B\n\n\nbuild/block-library/editor-rtl.css\n12.2 kB\n\n\nbuild/block-library/editor.css\n12.1 kB\n\n\nbuild/block-library/elements-rtl.css\n54 B\n\n\nbuild/block-library/elements.css\n54 B\n\n\nbuild/block-library/index.min.js\n203 kB\n\n\nbuild/block-library/reset-rtl.css\n478 B\n\n\nbuild/block-library/reset.css\n478 B\n\n\nbuild/block-library/style-rtl.css\n13.8 kB\n\n\nbuild/block-library/style.css\n13.8 kB\n\n\nbuild/block-library/theme-rtl.css\n688 B\n\n\nbuild/block-library/theme.css\n693 B\n\n\nbuild/block-serialization-default-parser/index.min.js\n1.12 kB\n\n\nbuild/block-serialization-spec-parser/index.min.js\n2.87 kB\n\n\nbuild/blocks/index.min.js\n51.4 kB\n\n\nbuild/commands/index.min.js\n15.5 kB\n\n\nbuild/commands/style-rtl.css\n932 B\n\n\nbuild/commands/style.css\n929 B\n\n\nbuild/components/index.min.js\n246 kB\n\n\nbuild/components/style-rtl.css\n11.8 kB\n\n\nbuild/components/style.css\n11.8 kB\n\n\nbuild/compose/index.min.js\n12.1 kB\n\n\nbuild/core-commands/index.min.js\n2.6 kB\n\n\nbuild/core-data/index.min.js\n16.8 kB\n\n\nbuild/customize-widgets/index.min.js\n12 kB\n\n\nbuild/customize-widgets/style-rtl.css\n1.46 kB\n\n\nbuild/customize-widgets/style.css\n1.45 kB\n\n\nbuild/data-controls/index.min.js\n640 B\n\n\nbuild/data/index.min.js\n8.38 kB\n\n\nbuild/date/index.min.js\n17.8 kB\n\n\nbuild/deprecated/index.min.js\n451 B\n\n\nbuild/dom-ready/index.min.js\n324 B\n\n\nbuild/dom/index.min.js\n4.64 kB\n\n\nbuild/edit-post/classic-rtl.css\n544 B\n\n\nbuild/edit-post/classic.css\n545 B\n\n\nbuild/edit-post/index.min.js\n35.5 kB\n\n\nbuild/edit-site/index.min.js\n90.9 kB\n\n\nbuild/edit-site/style-rtl.css\n13.2 kB\n\n\nbuild/edit-site/style.css\n13.2 kB\n\n\nbuild/edit-widgets/index.min.js\n16.9 kB\n\n\nbuild/edit-widgets/style-rtl.css\n4.52 kB\n\n\nbuild/edit-widgets/style.css\n4.52 kB\n\n\nbuild/editor/index.min.js\n45.5 kB\n\n\nbuild/editor/style-rtl.css\n3.53 kB\n\n\nbuild/editor/style.css\n3.52 kB\n\n\nbuild/element/index.min.js\n4.82 kB\n\n\nbuild/escape-html/index.min.js\n537 B\n\n\nbuild/format-library/index.min.js\n7.73 kB\n\n\nbuild/format-library/style-rtl.css\n554 B\n\n\nbuild/format-library/style.css\n553 B\n\n\nbuild/hooks/index.min.js\n1.55 kB\n\n\nbuild/html-entities/index.min.js\n448 B\n\n\nbuild/i18n/index.min.js\n3.58 kB\n\n\nbuild/interactivity/index.min.js\n11.2 kB\n\n\nbuild/is-shallow-equal/index.min.js\n527 B\n\n\nbuild/keyboard-shortcuts/index.min.js\n1.72 kB\n\n\nbuild/keycodes/index.min.js\n1.87 kB\n\n\nbuild/list-reusable-blocks/index.min.js\n2.2 kB\n\n\nbuild/list-reusable-blocks/style-rtl.css\n836 B\n\n\nbuild/list-reusable-blocks/style.css\n836 B\n\n\nbuild/media-utils/index.min.js\n2.9 kB\n\n\nbuild/notices/index.min.js\n948 B\n\n\nbuild/nux/index.min.js\n1.99 kB\n\n\nbuild/nux/style-rtl.css\n735 B\n\n\nbuild/nux/style.css\n732 B\n\n\nbuild/patterns/index.min.js\n2.71 kB\n\n\nbuild/patterns/style-rtl.css\n240 B\n\n\nbuild/patterns/style.css\n240 B\n\n\nbuild/plugins/index.min.js\n1.79 kB\n\n\nbuild/preferences-persistence/index.min.js\n1.84 kB\n\n\nbuild/preferences/index.min.js\n1.24 kB\n\n\nbuild/primitives/index.min.js\n943 B\n\n\nbuild/priority-queue/index.min.js\n1.52 kB\n\n\nbuild/private-apis/index.min.js\n958 B\n\n\nbuild/react-i18n/index.min.js\n615 B\n\n\nbuild/react-refresh-entry/index.min.js\n9.47 kB\n\n\nbuild/react-refresh-runtime/index.min.js\n7.31 kB\n\n\nbuild/redux-routine/index.min.js\n2.7 kB\n\n\nbuild/reusable-blocks/index.min.js\n2.7 kB\n\n\nbuild/reusable-blocks/style-rtl.css\n243 B\n\n\nbuild/reusable-blocks/style.css\n243 B\n\n\nbuild/rich-text/index.min.js\n11 kB\n\n\nbuild/router/index.min.js\n1.78 kB\n\n\nbuild/server-side-render/index.min.js\n1.94 kB\n\n\nbuild/shortcode/index.min.js\n1.39 kB\n\n\nbuild/style-engine/index.min.js\n1.85 kB\n\n\nbuild/sync/index.min.js\n53.8 kB\n\n\nbuild/token-list/index.min.js\n582 B\n\n\nbuild/url/index.min.js\n3.73 kB\n\n\nbuild/vendors/inert-polyfill.min.js\n2.48 kB\n\n\nbuild/vendors/react-dom.min.js\n41.8 kB\n\n\nbuild/vendors/react.min.js\n4.02 kB\n\n\nbuild/viewport/index.min.js\n958 B\n\n\nbuild/warning/index.min.js\n249 B\n\n\nbuild/widgets/index.min.js\n7.16 kB\n\n\nbuild/widgets/style-rtl.css\n1.15 kB\n\n\nbuild/widgets/style.css\n1.16 kB\n\n\nbuild/wordcount/index.min.js\n1.02 kB\n\n\n\n\ncompressed-size-action",
+                                    "url": "https://github.com/WordPress/gutenberg/pull/54172#issuecomment-1706004065",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-06T12:53:58Z",
+                                    "bodyText": "Thanks for the review, @draganescu!\nThis problem is probably unique to WIndows, where the scrollbar has a physical width. I believe we can safely merge this PR, but if there are other issues I would be happy to address them in a follow-up!",
+                                    "url": "https://github.com/WordPress/gutenberg/pull/54172#issuecomment-1708296816",
+                                    "author": {
+                                        "login": "t-hamano"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Padding is included in the width value, so it shouldn't be necessary in the first place.",
+                                                        "author": {
+                                                            "login": "t-hamano"
+                                                        },
+                                                        "url": "https://github.com/WordPress/gutenberg/pull/54172#discussion_r1315393742",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f377768",
+                                                            "authoredDate": "2023-09-05T04:16:44Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't understand the connection between the two changes. If the 10 px extra width solves the focus ring issue why do we need to remove this tweak? As far as I know this was added to prevent thr ugly jumping around when scrollbars appear.",
+                                                        "author": {
+                                                            "login": "draganescu"
+                                                        },
+                                                        "url": "https://github.com/WordPress/gutenberg/pull/54172#discussion_r1315812432",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d0c20a7",
+                                                            "authoredDate": "2023-09-05T04:16:44Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The scrollbars in the sidebar are defined elsewhere and are not affected by removing this CSS. This CSS affects the header. The following screencast might help you understand why this style must be removed.\nWe could take this scrollbar width into account when calculating the width of the fixed toolbar, but this is a bit tricky. See ChatGPT's answer for more details \ud83d\ude05: https://chat.openai.com/share/08933117-0064-4de0-ae71-747550c00c55\n\n  \n    \n    \n\n    69cfa5fbf4f583a9a3b06352be25178b.mp4",
+                                                        "author": {
+                                                            "login": "t-hamano"
+                                                        },
+                                                        "url": "https://github.com/WordPress/gutenberg/pull/54172#discussion_r1315892415",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d0c20a7",
+                                                            "authoredDate": "2023-09-05T04:16:44Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "I can't reproduce the problem on OSX but OTOH the PR does not break anything either for me so \ud83d\udc4c\ud83c\udffb",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

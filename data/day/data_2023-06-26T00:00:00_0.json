@@ -1,0 +1,1040 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 2403,
+                        "title": "feat: use adaptive icons for android app",
+                        "repository": {
+                            "nameWithOwner": "GaloyMoney/galoy-mobile",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-06-26T19:34:38Z",
+                        "mergedAt": "2023-06-26T19:55:49Z",
+                        "url": "https://github.com/GaloyMoney/galoy-mobile/pull/2403",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "sandipndev"
+                        },
+                        "editor": null,
+                        "body": "ChatGPT conversation to find out about Adaptive Icons: https://chat.openai.com/share/7c39121a-a5b0-46b8-b623-a95d78d71ef1",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 48576,
+                        "title": "Update deleted_at on destroy",
+                        "repository": {
+                            "nameWithOwner": "rails/rails",
+                            "primaryLanguage": {
+                                "name": "Ruby"
+                            }
+                        },
+                        "createdAt": "2023-06-26T05:30:36Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/rails/rails/pull/48576",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "lazaronixon"
+                        },
+                        "editor": {
+                            "login": "lazaronixon"
+                        },
+                        "body": "### Motivation / Background\r\n\r\nTimestamp `deleted_at` on destroy instead of actually deleting the record. \r\n\r\nIf suppliers table has a field named deleted_at:\r\n\r\n```ruby\r\nsupplier.destroy\r\n#=> UPDATE \"suppliers\" SET \"deleted_at\" = ? WHERE \"suppliers\".\"id\" = ?\r\n\r\nsupplier.delete\r\n#=> DELETE FROM \"suppliers\" WHERE \"suppliers\".\"id\" = ?\r\n```\r\nSoft deletion can be turned off by setting:\r\n```ruby\r\nconfig.active_record.soft_delete = false\r\n```\r\n\r\n### Checklist\r\n\r\nBefore submitting the PR make sure the following are checked:\r\n\r\n* [x] This Pull Request is related to one change. Changes that are unrelated should be opened in separate PRs.\r\n* [x] Commit message has a detailed description of what changed and why. If this PR fixes a related issue include it in the commit message. Ex: `[Fix #issue-number]`\r\n* [x] Tests are added or updated if you fix a bug or add a feature.\r\n* [x] CHANGELOG files are updated for the changed libraries if there is a behavior change or additional feature. Minor bug fixes and documentation changes should not be included.\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-06-26T16:38:39Z",
+                                    "bodyText": "Thank you for the pull request but I don't think we should be implementing soft deletion silently like this. I'd not even implement it using deleted_at.\nBut I do think it would be a nice addition, so what do you think on:\n\nIt should not be automatic. We would need to explicitly enable the config per model to tell soft deletion is enabled.\nUsing only a timestamp to declare a record as deleted might be non-performant for applications. We probably need a boolean for this.\nWe need a way to do hard deletion while running callbacks now that destroy doesn't do it anymore for models that use soft deletion\nWe probably need a way to do soft deletion on :depend option in association without running callbacks, since the only way to do that would be delete_all, which would hard delete.\n\nSoft deletion is very trick as well. For the boolean we could go with two options and both would make sense, so it maybe we should accept both. Here is some explanation about this problem that we have in our private soft deletion library.\nWhy should we use is_not_deleted instead of is_deleted?\nis_deleted\nIn this example, we want to make sure that a shop can only be associated to one partner at a time. In some databases deleted_at and is_deleted is not enough to enforce uniqueness over 3 columns:\n\n\n\nid\npartner_id\nshop_id\ndeleted_at\nis_deleted\n\n\n\n\n2\n123\n3453\nNULL\nFALSE\n\n\n2\n456\n3453\nNULL\nFALSE\n\n\n1\n123\n3453\n2016-06-06\nTRUE\n\n\n\nGiven these columns, it is impossible to enforce using a UNIQUE KEY because:\n\nUsing only is_deleted for the key means one can have max 1 deleted record and 1 not deleted\ndeleted_at is NULL when not deleted, and NULL != NULL, so it cannot enforce uniqueness by itself, so we use is_deleted too which means:\n\nThat the records with partner_id 123 and 456 would not detect that we have shop_id 3453 associated to two records.\nThis happens because we check across shop_id, deleted_at, and is_deleted, which gives us [3453, NULL, FALSE] and [3453, NULL, FALSE] which evaluates to be not equal and therefore unique.\n\n\n\nis_not_deleted\nUsing a is_not_deleted column instead allows us to do all the same things. If is_not_deleted is true when the record is not deleted, and nil when deleted, we can enforce uniqueness.\n\n\n\nid\npartner_id\nshop_id\ndeleted_at\nis_not_deleted\n\n\n\n\n2\n123\n3453\nNULL\nTRUE\n\n\n2\n456\n3453\nNULL\nTRUE\n\n\n1\n123\n3453\n2016-06-06\nNULL\n\n\n\nGiven these columns, it is possible to enforce using a UNIQUE KEY because we check across shop_id and is_not_deleted, which gives us [3453, TRUE] and [3453, TRUE] which evaluates to be equal and therefore not unique.\nWhile this index ensures a shop can only be associated with one partner at a time for non-deleted records, it still allows us to have multiple deleted records for a given shop_id:\n\n\n\nid\npartner_id\nshop_id\ndeleted_at\nis_not_deleted\n\n\n\n\n2\n123\n3453\nNULL\nTRUE\n\n\n2\n456\n3453\n2016-06-06\nNULL\n\n\n1\n123\n3453\n2016-06-06\nNULL\n\n\n\nFor the two deleted records with the same shop_id, we would be evaluating [3453, NULL] and [3453, NULL] which is not equal and therefore unique.\nAnother example\nA good example is if someone registers example.com domain, we will record that in the database. While they are using that domain, no one else should be able to register it. Once they have deleted that domain, someone else should now be able to use it.\nIn this case, we want to have one active instance of the domain at a time - e.g one instance of example.com that is_not_deleted. Once we change is_not_deleted to NULL, we can then add another instance of example.com to another record.\nis_deleted would not work here as NULL != NULL so the unique index would not catch that two records both had example.com, whereas is_not_deleted would catch that two records have is_not_deleted set to TRUE.\nTherefore, in this instance, we can add a unique index over the columns is_not_deleted and domain.\n\nAll this to say, I like the feature, but I think the implementation is too simple, even for the simplest of the use cases. Do you want to work in solving the problems I described above, so we can move forward with this PR?",
+                                    "url": "https://github.com/rails/rails/pull/48576#issuecomment-1607839055",
+                                    "author": {
+                                        "login": "rafaelfranca"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-27T04:52:06Z",
+                                    "bodyText": "It\u2019s a lot of stuff, but I\u2019ll try to work on something\u2026 \ud83d\udc4d",
+                                    "url": "https://github.com/rails/rails/pull/48576#issuecomment-1608794087",
+                                    "author": {
+                                        "login": "lazaronixon"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-30T10:13:42Z",
+                                    "bodyText": "@rafaelfranca i have doubts about the utility of soft delete, although it seems to be industry practice. it leads to complications both in terms of database design and queries (it could admit a mandatory where clause just to handle the exclusion of soft deleted records). i think after a lot of years in the field, we might be getting data on soft deletion and whether or not it should be enshrined in a framework. @brandur wrote a fine argument contra soft delete here: https://brandur.org/soft-deletion. and just because it's the fad, i consulted the chatgpt oracle, and it seems to not like soft deletion too: https://chat.openai.com/share/336be4fa-dd38-4d58-a40b-09334742e129.",
+                                    "url": "https://github.com/rails/rails/pull/48576#issuecomment-1614443487",
+                                    "author": {
+                                        "login": "yawboakye"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-30T15:11:20Z",
+                                    "bodyText": "Hey @yawboakye  I\u2019ve thought about that ideia of a trash table before\u2026 In rails we could implement it in two fashion ways\u2026\n1 - Add a new field type and create a child class for each model. ex. Projects::Trash < Projects.\n2 - Add a new table named Trash with a polymorphic association, and use it like a blacklist.\nCons:\n1 - Add a new column and child class for each model.\n2 - Default scope with joins to Trash table.(maybe less performant).\nIn both cases I think it would be difficult to be accepted by the rails core team. \ud83d\ude2c",
+                                    "url": "https://github.com/rails/rails/pull/48576#issuecomment-1614797272",
+                                    "author": {
+                                        "login": "lazaronixon"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T20:27:42Z",
+                                    "bodyText": "I\u2019m convinced it\u2019s not a good solution after all, I\u2019ll end up creating a gem maybe using delegated types Archivable,Trashable\u2026 Something like this, maybe some day I submit I PR to merge it. Thanks guys learned a lot through the comments\u2026",
+                                    "url": "https://github.com/rails/rails/pull/48576#issuecomment-1616090287",
+                                    "author": {
+                                        "login": "lazaronixon"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 65,
+                        "title": "register_models() plugin hook",
+                        "repository": {
+                            "nameWithOwner": "simonw/llm",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-06-26T14:44:40Z",
+                        "mergedAt": "2023-07-10T15:39:01Z",
+                        "url": "https://github.com/simonw/llm/pull/65",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "simonw"
+                        },
+                        "editor": {
+                            "login": "simonw"
+                        },
+                        "body": "- #53\r\n\r\nTODO:\r\n\r\n- Get continue mode working again - now https://github.com/simonw/llm/issues/85\r\n- [x] Get logging to the database working again\r\n- [x] Write documentation\r\n- [x] Figure out how to handle setting the OpenAI API key\r\n- [x] Demonstrate the design works with a PaLM 2 plugin prototype, refs #20 \r\n- ~Prototype of functions support to further validate the design~\r\n- [x] Get all the tests passing again\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-06-26T15:38:47Z",
+                                    "bodyText": "For continue mode, it's all about building the prompt.\nHere's the current implementation:\n\n  \n    \n      llm/llm/cli.py\n    \n    \n        Lines 176 to 184\n      in\n      9190051\n    \n  \n  \n    \n\n        \n          \n           chat_id, history = get_history(_continue) \n        \n\n        \n          \n           history_model = None \n        \n\n        \n          \n           if history: \n        \n\n        \n          \n               for entry in history: \n        \n\n        \n          \n                   if entry.get(\"system\"): \n        \n\n        \n          \n                       messages.append({\"role\": \"system\", \"content\": entry[\"system\"]}) \n        \n\n        \n          \n                   messages.append({\"role\": \"user\", \"content\": entry[\"prompt\"]}) \n        \n\n        \n          \n                   messages.append({\"role\": \"assistant\", \"content\": entry[\"response\"]}) \n        \n\n        \n          \n                   history_model = entry[\"model\"] \n        \n    \n  \n\n\nThe key bit of get_history() is this:\n\n  \n    \n      llm/llm/cli.py\n    \n    \n        Lines 552 to 555\n      in\n      9190051\n    \n  \n  \n    \n\n        \n          \n           rows = db[\"log\"].rows_where( \n        \n\n        \n          \n               \"id = ? or chat_id = ?\", [chat_id, chat_id], order_by=\"id\" \n        \n\n        \n          \n           ) \n        \n\n        \n          \n           return chat_id, rows \n        \n    \n  \n\n\nSo maybe this is all about building a prompt an alternative way, perhaps like this:\n# History is a list of logged messages:\nprompt = Prompt.from_history(history, prompt, system)",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1607738664",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-26T15:40:18Z",
+                                    "bodyText": "OpenAI chat models work by building up that messages= array, but other models could potentially also support conversations through custom prompt assembly - by putting together a User: X\\nAssistant: Y\\nUser: Z\\nAssistant: string for example.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1607740856",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-26T15:42:48Z",
+                                    "bodyText": "It looks like PaLM2 has a separate chat mode, which is mainly documented through code examples:\nhttps://github.com/GoogleCloudPlatform/python-docs-samples/blob/main/generative_ai/chat.py\nhttps://console.cloud.google.com/vertex-ai/publishers/google/model-garden/text-bison?project=cloud-vision-ocr-382418",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1607744605",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-26T15:54:57Z",
+                                    "bodyText": "Untangling chat mode for PaLM 2 is a bigger job than I want to take on right now - more notes here: #20 (comment)",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1607766019",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-26T22:27:49Z",
+                                    "bodyText": "I'm not happy with how streaming works yet.\nI think models should have the following methods:\n\n.prompt(...) - run a prompt and return the response\n.stream(...) - run a prompt and return an object that can be used to iterate over a streaming response\n.chain(...) - run a prompt with the ability for it to trigger additional prompt executions (needed for things like OpenAI functions). Returns an iterator over those prompt responses.\n.chain_stream(...) - same again, but each returned object can also be iterated over to obtain tokens from a stream.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1608405869",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T15:24:16Z",
+                                    "bodyText": "I was contemplating if a Model even needs to be a class - could I instead define it purely in terms of functions?\nThen I remembered that there are some LLMs that run locally that have significant startup costs (loading data into memory/the GPU) - which is a good fit for a class, because that way they can be loaded once and then reused for subsequent calls to .prompt() and suchlike.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1615960756",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T15:43:06Z",
+                                    "bodyText": "Copying in some miscellaneous notes I made on the API design:\nThe streaming vs not streaming thing still feels a bit ugly.\nThe key problem I'm trying to solve is providing a generic interface to an LLM that will enable the following:\n\nCLI access through the same tool\nComparison prompts across multiple LLMs\nUnified storage of prompts in SQLite\nWeb interface for all of them\nUnified prompt template interface\nThe continue conversation feature\nBasic secret key management\n\nI want the simplest possible API to implement in order to solve all of these - adding new models should be as easy as possible.\nSo maybe two methods: prompt(...) and stream(...)\nPerhaps have a Model and StreamingModel(Model) class - models can subclass either, if you subclass StreamingModel then you have to implement both methods.\nIf there is ever a model that only does streaming the subclass can still implement prompt() and have that call stream().\nMaybe Prompt and Response could be inner classes on the Model subclass:\nclass VertexModel(Model):\n    class Options(Model.Options):\n        temperature: float\n    class Response:\n        ..\nPrompt andResponse chould be responsible for turning themselves into loggable records.\nIt would be good to have a Python library utility mechanism for this logging, since then users could log prompts that their app is using easily.\nMaybe it's the Model that manages logging since that can see both prompt and response?\nLogging should be off by default but easy to opt into, maybe by providing a Log instance or callback?\nA Record dataclass might be good for representing that. And a llm.log.Database class that can write those to SQLite.\nSo the internals documentation ends up covering these concepts:\n\nModel\nTemplate\nPrompt\nResponse\nResult\nLogger?\nKey\nalias\n\nFor OpenAI functions I could introduce a .sequence() method which can run more then one prompt (or .multi() or .chain()).\nSo the API for a model is\nresponse = model.prompt(...)\nOr\nfor chunk in model.stream(...)\n\nfor response in model.chain(...):\n    print(response.text())\nMaybe this:\nfor response in model.chain_stream(...):\n    for token in response:\n        print(token, end=\"\")\nI'm going with response.text() and not response.text because you cannot await a property.\nWhat abstraction could I build so other chains can be easily constructed? Like there's a thing where the user gets to define a function that takes a response and decides if there should be another prompt (which the functions stuff can then be built on):\ndef next(response, prompt):\n    return None # or str or Prompt\n\nmodel.chain(next)\n\nmodel.chain(lambda response: \"fact check this: $input\", once=True)\nSo once=True means only do the chain function once. Or should they be the default and use repeat=True to keep it going?",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1615966485",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T15:43:43Z",
+                                    "bodyText": "I'm going to try a bit of documentation-driven development here.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1615966647",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T15:51:15Z",
+                                    "bodyText": "Here's that first draft of the internals documentation - next step, actually implement what's described there: https://github.com/simonw/llm/blob/c2ec8a9c60ac38d152ed48ba8c7c067c8d2c9859/docs/python-api.md",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1615969733",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T17:47:32Z",
+                                    "bodyText": "The default implementation of continue mode can be really basic: it just grabs the text version of the prompts and responses from the previous messages into a list and joins them with newlines.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616018070",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T17:59:09Z",
+                                    "bodyText": "I'm still not clear on the best way to truncate messages in continue mode, right now I'm going to leave that and allow the model to return an error - but it would be good to have a strategy for that involving automatic truncating later on.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616021169",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T18:00:56Z",
+                                    "bodyText": "I don't think I should solve continuation mode until I've re-implemented logging to the database.\nAlthough... I do want continue mode to be possible even without having database logging, at least at the Python API layer.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616022446",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T18:07:26Z",
+                                    "bodyText": "Got all the tests passing, partly by disabling the DB logging test.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616026073",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T18:13:04Z",
+                                    "bodyText": "E       AssertionError: assert 'id          ...03T20:26:40\\n' == 'id          ...03T13:26:40\\n'\nE         Skipping 89 identical leading characters in diff, use -v to show\nE         - 020-05-03T13:26:40\nE         ?           ^^\nE         + 020-05-03T20:26:40\nE         ?           ^^\nE         - babbage:2020-05-03    openai      2020-05-03T13:26:40\nE         ?                                              ^^\nE         + babbage:2020-05-03    openai      2020-05-03T20:26:40\nE         ?                                              ^^\n\nI think that test fails because of timezone differences between GitHub Actions and my laptop.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616032345",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T18:15:48Z",
+                                    "bodyText": "Docs can also be previewed here: https://llm--65.org.readthedocs.build/en/65/python-api.html",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616033556",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T18:18:58Z",
+                                    "bodyText": "I think a Response should have a .prompt property that leads back to the prompt used for that response.\nMaybe there should be a way in which these chain together, for the purposes of modeling conversations in situations where the SQLite log isn't being used?\nThen perhaps you could do this:\nresponse = model.prompt(\"Ten names for a pet pelican\")\nprint(response.text())\nresponse2 = response.reply(\"Make them more grandiose\")\nprint(response2.text())\nProblem with .reply() is: is that the same thing as .prompt() or .stream() or something else?\nDoes it make sense for that reply() method to exist on Response as opposed to on Model or even on Prompt?",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616034439",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T18:20:31Z",
+                                    "bodyText": "Another option: the model itself could keep a in-memory cache of its previous prompts, such that you can then reply via the model.\nI'm not keen on this though, because the conversation state shouldn't be shared by every user of the model instance in a situation like llm web where the model may be serving multiple conversations at once.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616034806",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T18:22:58Z",
+                                    "bodyText": "The current signature for Response: \n  \n    \n      llm/llm/models.py\n    \n    \n        Lines 28 to 33\n      in\n      69ce584\n    \n  \n  \n    \n\n        \n          \n           class Response(ABC): \n        \n\n        \n          \n               def __init__(self, prompt: Prompt): \n        \n\n        \n          \n                   self.prompt = prompt \n        \n\n        \n          \n                   self._chunks = [] \n        \n\n        \n          \n                   self._debug = {} \n        \n\n        \n          \n                   self._done = False \n        \n    \n  \n\n\nIf it also grew a .model property for tracking the model instance that created it, it would have enough to execute replies to itself.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616035448",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T18:24:30Z",
+                                    "bodyText": "What would this look like if everything was represented in terms of chains of Prompts and Responses? Those chains could then be serialized and deserialized to SQLite, or to JSON or other formats too.\nEspecially when function start coming into play, there's something very interesting about storing a high fidelity representation of the full sequence of prompts and responses that got to the most recent state.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616035754",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T18:26:14Z",
+                                    "bodyText": "Whether or not something should stream is currently a property of the Response. That works: the .reply() method could pass on the streaming state to the next prompt that is executed.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616036178",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T18:31:08Z",
+                                    "bodyText": "_______________ ERROR collecting tests/test_cli_openai_models.py _______________\nImportError while importing test module '/home/runner/work/llm/llm/tests/test_cli_openai_models.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\n/opt/hostedtoolcache/Python/3.8.17/x64/lib/python3.8/importlib/__init__.py:127: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\ntests/test_cli_openai_models.py:2: in <module>\n    from llm.cli import cli\n/opt/hostedtoolcache/Python/3.8.17/x64/lib/python3.8/site-packages/llm/cli.py:7: in <module>\n    from .plugins import pm, get_plugins, get_model_aliases, get_models_with_aliases\n/opt/hostedtoolcache/Python/3.8.17/x64/lib/python3.8/site-packages/llm/plugins.py:21: in <module>\n    mod = importlib.import_module(plugin)\n/opt/hostedtoolcache/Python/3.8.17/x64/lib/python3.8/importlib/__init__.py:127: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\nE   ModuleNotFoundError: No module named 'llm.default_plugins'",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616037146",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T18:35:26Z",
+                                    "bodyText": "Something very broken there. I tried python setup.py sdist and then installing llm into a fresh virtualenv:\npip install ~/Dropbox/Development/llm/dist/llm-0.4.1.tar.gz\n\nAnd I get this error when I run it:\n% llm --help\nTraceback (most recent call last):\n  File \"/Users/simon/.local/share/virtualenvs/foop-q39PfZK-/bin/llm\", line 5, in <module>\n    from llm.cli import cli\n  File \"/Users/simon/.local/share/virtualenvs/foop-q39PfZK-/lib/python3.11/site-packages/llm/cli.py\", line 7, in <module>\n    from .plugins import pm, get_plugins, get_model_aliases, get_models_with_aliases\n  File \"/Users/simon/.local/share/virtualenvs/foop-q39PfZK-/lib/python3.11/site-packages/llm/plugins.py\", line 21, in <module>\n    mod = importlib.import_module(plugin)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.11/3.11.4_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/importlib/__init__.py\", line 126, in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nModuleNotFoundError: No module named 'llm.default_plugins'",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616039464",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T18:58:11Z",
+                                    "bodyText": "Fixed the setup.py bundling issue. Tests all pass now!",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616051124",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T19:00:42Z",
+                                    "bodyText": "Now that some models live in llm.default_models.openai_models they are pretty inconvenient to import.\nI'm tempted to add this helper:\nfrom llm import get_model\ngpt4 = get_model(\"gpt-4\")\nThis will provide Python API level access to both the model plugins mechanism and the aliases mechanism.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616052023",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T19:10:40Z",
+                                    "bodyText": "Prototype of reply():\ndiff --git a/llm/default_plugins/openai_models.py b/llm/default_plugins/openai_models.py\nindex aff8c26..6e2bac3 100644\n--- a/llm/default_plugins/openai_models.py\n+++ b/llm/default_plugins/openai_models.py\n@@ -62,8 +62,7 @@ def register_commands(cli):\n \n class ChatResponse(Response):\n     def __init__(self, prompt, model, stream, key):\n-        super().__init__(prompt, model)\n-        self.stream = stream\n+        super().__init__(prompt, model, stream)\n         self.key = key\n \n     def iter_prompt(self):\ndiff --git a/llm/default_plugins/vertex_models.py b/llm/default_plugins/vertex_models.py\nindex c59130c..aeb22de 100644\n--- a/llm/default_plugins/vertex_models.py\n+++ b/llm/default_plugins/vertex_models.py\n@@ -11,7 +11,7 @@ def register_models(register):\n class VertexResponse(Response):\n     def __init__(self, prompt, model, key):\n         self.key = key\n-        super().__init__(prompt, model)\n+        super().__init__(prompt, model, stream=False)\n \n     def iter_prompt(self):\n         url = (\ndiff --git a/llm/models.py b/llm/models.py\nindex f6cae4a..bb3ec3f 100644\n--- a/llm/models.py\n+++ b/llm/models.py\n@@ -26,13 +26,26 @@ class OptionsError(Exception):\n \n \n class Response(ABC):\n-    def __init__(self, prompt: Prompt, model: \"Model\"):\n+    def __init__(self, prompt: Prompt, model: \"Model\", stream: bool):\n         self.prompt = prompt\n         self.model = model\n+        self.stream = stream\n         self._chunks = []\n         self._debug = {}\n         self._done = False\n \n+    def reply(self, prompt, system=None, **options):\n+        new_prompt = self.prompt.prompt + \"\\n\" + prompt\n+        return self.model.execute(\n+            Prompt(\n+                new_prompt,\n+                system=system or self.prompt.system or None,\n+                model=self.model,\n+                options=options,\n+            ),\n+            stream=self.stream,\n+        )\n+\n     def __iter__(self):\n         if self._done:\n             return self._chunks\nI tried it out:\n>>> from llm.default_plugins.openai_models import Chat\n>>> gpt4 = Chat(\"gpt-4\")\n>>> r = gpt4.prompt(\"three names for a pelican\")\n>>> r.text()\n'1. Peter the Pelican\\n2. Patty the Pelican \\n3. Percy the Pelican'\n>>> r.reply('2 more and  make them majestic')\n<llm.default_plugins.openai_models.ChatResponse object at 0x103c9f6d0>\n>>> r2 = _\n>>> r2.text()\n'1. Crested Skysurfer\\n2. Coastal Guardian\\n3. Piercing Bill\\n4. Sovereign Sea Drake\\n5. Crowned Aquatic Phoenix'\n>>> r2.prompt\nPrompt(prompt='three names for a pelican\\n2 more and  make them majestic', model=<llm.default_plugins.openai_models.Chat object at 0x10244e990>, system=None, prompt_json=None, options={})\nThat's not quite right, I forgot to include both the previous prompt and the previous response.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616054810",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T19:13:33Z",
+                                    "bodyText": "This is better:\n    def reply(self, prompt, system=None, **options):\n        new_prompt = [self.prompt.prompt, self.text(), prompt]\n        return self.model.execute(\n            Prompt(\n                \"\\n\".join(new_prompt),\n                system=system or self.prompt.system or None,\n                model=self.model,\n                options=options,\n            ),\n            stream=self.stream,\n        )\n>>> from llm.default_plugins.openai_models import Chat\n>>> gpt4 = Chat(\"gpt-4\")\n>>> r = gpt4.prompt(\"three names for a pelican\")\n>>> list(r)\n['1. Seabird\\n2. Water bird\\n3. Pelecanus (genus name)']\n>>> r2 = r.reply('2 more and  make them majestic')\n>>> for token in r2: print(token)\n... \n4. Ocean Sovereign\n5. Sky Monarch\n>>> r2.text()\n'4. Ocean Sovereign\\n5. Sky Monarch'\n>>> print(r2.prompt.prompt)\nthree names for a pelican\n1. Seabird\n2. Water bird\n3. Pelecanus (genus name)\n2 more and  make them majestic\nThis default strategy of joining them with \\n does work, but the OpenAI Chat APIs should do it more like this instead:\nmessages = []\nfor entry in history:\n    if entry.get(\"system\"):\n        messages.append({\"role\": \"system\", \"content\": entry[\"system\"]})\n    messages.append({\"role\": \"user\", \"content\": entry[\"prompt\"]})\n    messages.append({\"role\": \"assistant\", \"content\": entry[\"response\"]})",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616055710",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T19:14:43Z",
+                                    "bodyText": "Maybe .reply() should be even simpler than that - it just takes a prompt, with the system prompt and options from the previous prompt always being reused.\nIf you want to go fancier than that you need to assemble it yourself.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616056026",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T19:15:28Z",
+                                    "bodyText": "I can't remember why I decided that .stream() and .prompt() should exist separately - why not just have .prompt() and it always returns  a Response which can be iterated over or have .text() called on it?",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616056219",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T19:17:31Z",
+                                    "bodyText": "I could have an assemble_conversation() method on Response which can be over-ridden by a ChatResponse subclass.\nChallenge though is that I really need to be storing the original JSON used by those Chat prompts - my previous code reassembled it from SQLite logs, but if I want to be able to assemble it from just in-memory Python classes I need to rethink how it works.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616056779",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T19:20:31Z",
+                                    "bodyText": "PaLM 2 has its own way of representing prompts as well.\nIt's infuriatingly hard to figure out what that representation looks like, because they really want you to use one of their various client libraries rather than telling you how their HTTP+JSON API works, but there's a clue in here: https://github.com/google/generative-ai-docs/blob/main/site/en/tutorials/chat_quickstart.ipynb\n[{'author': '0', 'content': 'Hello'},\n {'author': '1', 'content': 'Hi there! How can I help you today?'},\n {'author': '0', 'content': \"Just chillin'\"},\n {'author': '1',\n  'content': \"That's great! Chilling is a great way to relax and de-stress. I hope you're having a good day.\"}]",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616057421",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-01T20:12:44Z",
+                                    "bodyText": "Extracted the PaLM stuff out into a separate plugin: https://github.com/simonw/llm-palm",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616086144",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-02T05:48:32Z",
+                                    "bodyText": "A sticking point for me now is the database schema design. I think I should be storing a bunch more stuff in JSON for the more complicated model prompts.\nI was worried about space... but no, that's not worth worrying about at all. I think I should optimize for storing as much detail as possible in SQLite - if people find their database growing too large as a result I can provide tools later on for cleaning up old data, or archiving it out, or even dropping the detailed JSON from older records in favour of just storing the text prompt and text response.\nI doubt many people will ever notice even if their LLM database grows to 100s of MBs.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616388965",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-02T05:49:47Z",
+                                    "bodyText": "Bonus: if I'm storing verbose JSON, I can implement conversations using JUST the previous prompt - I won't need to crawl back through the history to build up the prior conversation snippets.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616389146",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-02T17:18:54Z",
+                                    "bodyText": "Here's the current Prompt class design:\n\n  \n    \n      llm/llm/models.py\n    \n    \n        Lines 8 to 21\n      in\n      e1d2a71\n    \n  \n  \n    \n\n        \n          \n           @dataclass \n        \n\n        \n          \n           class Prompt: \n        \n\n        \n          \n               prompt: str \n        \n\n        \n          \n               model: \"Model\" \n        \n\n        \n          \n               system: Optional[str] \n        \n\n        \n          \n               prompt_json: Optional[str] \n        \n\n        \n          \n               options: Dict[str, Any] \n        \n\n        \n          \n            \n        \n\n        \n          \n               def __init__(self, prompt, model, system=None, prompt_json=None, options=None): \n        \n\n        \n          \n                   self.prompt = prompt \n        \n\n        \n          \n                   self.model = model \n        \n\n        \n          \n                   self.system = system \n        \n\n        \n          \n                   self.prompt_json = prompt_json \n        \n\n        \n          \n                   self.options = options or {} \n        \n    \n  \n\n\nI could add a to_log() method which turns that into something suitable to be stored in SQLite or elsewhere.\nThe Response class is going to be more complicated because responses differ much more extensively between models. But models are already expected to subclass Response.\nMaybe they should be expected to subclass Prompt too? The current design attempts to be flexible enough that they don't need to, but I'm not at all convinced that will hold up as I start adding features like OpenID functions. Right now I'd have to cram all of the function stuff into that one prompt_json property.\nAs a reminder, here's the current SQL schema for the log table, which I should probably reconsider as well:\n\n  \n    \n      llm/docs/logging.md\n    \n    \n        Lines 78 to 88\n      in\n      e1d2a71\n    \n  \n  \n    \n\n        \n          \n           CREATE TABLE \"log\" ( \n        \n\n        \n          \n             [id] INTEGER PRIMARY KEY, \n        \n\n        \n          \n             [model] TEXT, \n        \n\n        \n          \n             [timestamp] TEXT, \n        \n\n        \n          \n             [prompt] TEXT, \n        \n\n        \n          \n             [system] TEXT, \n        \n\n        \n          \n             [response] TEXT, \n        \n\n        \n          \n             [chat_id] INTEGER REFERENCES [log]([id]), \n        \n\n        \n          \n             [debug] TEXT, \n        \n\n        \n          \n             [duration_ms] INTEGER \n        \n\n        \n          \n           );",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616739435",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-02T17:19:35Z",
+                                    "bodyText": "I think the Prompt class has nothing to do with logging at all - it all happens on the Response class, which has a self.prompt it can use to access details of the associated prompt.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616739546",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-02T17:23:11Z",
+                                    "bodyText": "I started with this on Response:\n    @abstractmethod\n    def to_log(self) -> Dict[str, Any]:\n        \"Return a dict of data to log\"\n        pass\nBut then I realized that since this record will usually be written to a SQLite table with a fixed schema, it would be better to have it return a dataclass:\n    @abstractmethod\n    def to_log(self) -> LogMessage:\n        \"Return a LogMessage of data to log\"\n        pass\nMaybe this:\n@dataclass\nclass LogMessage:\n    model: str  # Actually the model.model_id string\n    prompt: str  # Simplified string version of prompt\n    system: Optional[str]  # Simplified string of system prompt\n    options: Dict[str, Any]  # Any options e.g. temperature\n    prompt_json: str # Detailed JSON of prompt\n    response: str # Simplified string version of response\n    response_json: str # Detailed JSON of response\n    chat_id: int  # ID of chat, if this is part of one\n    debug_json: str  # Any debug info returned by the model\nAbsent from this: the timestamp and the duration_ms - both of which are stored in the database but are automatically derived, so don't need to be included in this LogMessage.\nThough maybe there's a LogMessageDetailed class that subclasses LogMessage and includes those, for when they are loaded back out of the database later?",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616740328",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-02T17:29:17Z",
+                                    "bodyText": "Aside: this makes me think it might be cool if sqlite-utils had a way of working with dataclasses rather than just dicts, and knew how to create a SQLite table to match a dataclass and maybe how to code-generate dataclasses for a specific table schema (dynamically or even using code-generation that can be written to disk, for better editor integrations).",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616742529",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-02T23:39:02Z",
+                                    "bodyText": "Here's a log entry (currently in the log2 table) for this prompt:\nllm '2 dog emojis'",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616996684",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-02T23:39:59Z",
+                                    "bodyText": "The prompt_json and response_json fields are obviously wrong. Still trying to get my head around how those should work.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1616997214",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-02T23:51:47Z",
+                                    "bodyText": "I'm going to implement -o/--option for the OpenAI model to help decide how the database rows should work.\n\n#63",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1617005205",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T00:47:51Z",
+                                    "bodyText": "Test PaLM message logged like this:\nllm -m palm 'two dog emojis",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1617061297",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T01:33:06Z",
+                                    "bodyText": "The key to figuring out what should go in the prompt_json logging field is to think about how conversation history mode used to work:\n    if history:\n        for entry in history:\n            if entry.get(\"system\"):\n                messages.append({\"role\": \"system\", \"content\": entry[\"system\"]})\n            messages.append({\"role\": \"user\", \"content\": entry[\"prompt\"]})\n            messages.append({\"role\": \"assistant\", \"content\": entry[\"response\"]})\n            history_model = entry[\"model\"]\n    if system:\n        messages.append({\"role\": \"system\", \"content\": system})\n    messages.append({\"role\": \"user\", \"content\": prompt})\nThat's the JSON that should be stored (as {\"messages\": [...]}, so we can add a \"functions\" key later on).\nAnd the bonus here is that I can simplify how -c mode works: it always pulls the most recent message sent to the same model - or if --chat is passed it uses that message. It copies the logged prompt_json and response from that and uses those to construct the new, longer prompt JSON.\nIt doesn't need to consult previous history because each logged prompt has all of the information in it already.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1617092719",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T01:35:29Z",
+                                    "bodyText": "Or... maybe I just log the full JSON that would be sent and recieved from the API. According to https://platform.openai.com/docs/api-reference/making-requests\n{\n     \"model\": \"gpt-3.5-turbo\",\n     \"messages\": [{\"role\": \"user\", \"content\": \"Say this is a test!\"}],\n     \"temperature\": 0.7\n}\nAnd for the response:\n{\n   \"id\":\"chatcmpl-abc123\",\n   \"object\":\"chat.completion\",\n   \"created\":1677858242,\n   \"model\":\"gpt-3.5-turbo-0301\",\n   \"usage\":{\n      \"prompt_tokens\":13,\n      \"completion_tokens\":7,\n      \"total_tokens\":20\n   },\n   \"choices\":[\n      {\n         \"message\":{\n            \"role\":\"assistant\",\n            \"content\":\"\\n\\nThis is a test!\"\n         },\n         \"finish_reason\":\"stop\",\n         \"index\":0\n      }\n   ]\n}\nThere's a little bit of duplicate information in there, but maybe I should stop worrying so much about database storage space and ship the feature already!",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1617094037",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T01:36:56Z",
+                                    "bodyText": "The challenge is what to store here for streaming mode, where the JSON comes in as separate chunks. I'm not too excited about storing those chunks, they're pretty verbose for large responses.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1617096283",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T01:37:12Z",
+                                    "bodyText": "Another challenge: how to get the OpenAI client libraries to expose that raw JSON to me?",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1617096431",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T01:38:06Z",
+                                    "bodyText": "https://github.com/openai/openai-python/blob/041bf5a8ec54da19aad0169671793c2078bd6173/openai/openai_response.py looks promising:\nfrom typing import Optional\n\n\nclass OpenAIResponse:\n    def __init__(self, data, headers):\n        self._headers = headers\n        self.data = data\n\n    @property\n    def request_id(self) -> Optional[str]:\n        return self._headers.get(\"request-id\")\n\n    @property\n    def retry_after(self) -> Optional[int]:\n        try:\n            return int(self._headers.get(\"retry-after\"))\n        except TypeError:\n            return None\n\n    @property\n    def operation_location(self) -> Optional[str]:\n        return self._headers.get(\"operation-location\")\n\n    @property\n    def organization(self) -> Optional[str]:\n        return self._headers.get(\"OpenAI-Organization\")\n\n    @property\n    def response_ms(self) -> Optional[int]:\n        h = self._headers.get(\"Openai-Processing-Ms\")\n        return None if h is None else round(float(h))",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1617096903",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T01:40:23Z",
+                                    "bodyText": "https://github.com/openai/openai-python/blob/041bf5a8ec54da19aad0169671793c2078bd6173/openai/openai_object.py#L189-L208\n        if stream:\n            assert not isinstance(response, OpenAIResponse)  # must be an iterator\n            return (\n                util.convert_to_openai_object(\n                    line,\n                    api_key,\n                    self.api_version,\n                    self.organization,\n                    plain_old_data=plain_old_data,\n                )\n                for line in response\n            )\n        else:\n            return util.convert_to_openai_object(\n                response,\n                api_key,\n                self.api_version,\n                self.organization,\n                plain_old_data=plain_old_data,\n            )\nhttps://github.com/openai/openai-python/blob/041bf5a8ec54da19aad0169671793c2078bd6173/openai/util.py#L101 is that convert_to_openai_object() function.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1617098317",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T01:45:42Z",
+                                    "bodyText": "Found this with the debugger - response is a neat object:\npprint(response.to_dict_recursive())\n{'choices': [{'finish_reason': 'stop',\n              'index': 0,\n              'message': {'content': 'One.', 'role': 'assistant'}}],\n 'created': 1688348674,\n 'id': 'chatcmpl-7Y2uAWr7wggQVcH485MDmA7JCvOLj',\n 'model': 'gpt-4-0613',\n 'object': 'chat.completion',\n 'usage': {'completion_tokens': 2, 'prompt_tokens': 9, 'total_tokens': 11}}",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1617101372",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T01:51:27Z",
+                                    "bodyText": "For the streaming one, I captured all chunks for this prompt:\nllm 'say dog twice.'\nThen used a breakpoin() to run this:\nprint(json.dumps([chunk.to_dict_recursive() for chunk in chunks], indent=2))\nAnd got:\n[\n  {\n    \"id\": \"chatcmpl-7Y2yYxKw3ujWjJdTWHCRs3XzN08FB\",\n    \"object\": \"chat.completion.chunk\",\n    \"created\": 1688348946,\n    \"model\": \"gpt-4-0613\",\n    \"choices\": [\n      {\n        \"index\": 0,\n        \"delta\": {\n          \"role\": \"assistant\",\n          \"content\": \"\"\n        },\n        \"finish_reason\": null\n      }\n    ]\n  },\n  {\n    \"id\": \"chatcmpl-7Y2yYxKw3ujWjJdTWHCRs3XzN08FB\",\n    \"object\": \"chat.completion.chunk\",\n    \"created\": 1688348946,\n    \"model\": \"gpt-4-0613\",\n    \"choices\": [\n      {\n        \"index\": 0,\n        \"delta\": {\n          \"content\": \"Dog\"\n        },\n        \"finish_reason\": null\n      }\n    ]\n  },\n  {\n    \"id\": \"chatcmpl-7Y2yYxKw3ujWjJdTWHCRs3XzN08FB\",\n    \"object\": \"chat.completion.chunk\",\n    \"created\": 1688348946,\n    \"model\": \"gpt-4-0613\",\n    \"choices\": [\n      {\n        \"index\": 0,\n        \"delta\": {\n          \"content\": \",\"\n        },\n        \"finish_reason\": null\n      }\n    ]\n  },\n  {\n    \"id\": \"chatcmpl-7Y2yYxKw3ujWjJdTWHCRs3XzN08FB\",\n    \"object\": \"chat.completion.chunk\",\n    \"created\": 1688348946,\n    \"model\": \"gpt-4-0613\",\n    \"choices\": [\n      {\n        \"index\": 0,\n        \"delta\": {\n          \"content\": \" dog\"\n        },\n        \"finish_reason\": null\n      }\n    ]\n  },\n  {\n    \"id\": \"chatcmpl-7Y2yYxKw3ujWjJdTWHCRs3XzN08FB\",\n    \"object\": \"chat.completion.chunk\",\n    \"created\": 1688348946,\n    \"model\": \"gpt-4-0613\",\n    \"choices\": [\n      {\n        \"index\": 0,\n        \"delta\": {\n          \"content\": \".\"\n        },\n        \"finish_reason\": null\n      }\n    ]\n  },\n  {\n    \"id\": \"chatcmpl-7Y2yYxKw3ujWjJdTWHCRs3XzN08FB\",\n    \"object\": \"chat.completion.chunk\",\n    \"created\": 1688348946,\n    \"model\": \"gpt-4-0613\",\n    \"choices\": [\n      {\n        \"index\": 0,\n        \"delta\": {},\n        \"finish_reason\": \"stop\"\n      }\n    ]\n  }\n]",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1617104608",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T01:56:02Z",
+                                    "bodyText": "Got Code Interpreter to write code to build a single object out of that for me: https://chat.openai.com/share/c8d2accd-798b-41b0-937e-18014151c79a",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1617107094",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T01:59:47Z",
+                                    "bodyText": "After combining chunks it looks like this in the logs:",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1617109452",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T02:03:46Z",
+                                    "bodyText": "And saving prompt JSON too:",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1617111620",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T05:45:54Z",
+                                    "bodyText": "To land this I need to:\n\nImplement --continue/--chat\nImplement a migration to the new database schema\nAdd tests for the new database schema",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1617396528",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T06:06:40Z",
+                                    "bodyText": "I don't like timestamp_utc as the column names - it hints at an integer. datetime_utc would be better.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1617416093",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T13:27:11Z",
+                                    "bodyText": "OK, I think I understand the database schema now:\n\nid - incrementing ID\nmodel - model ID string\nprompt - simple string version of the prompt\nsystem - simple string version of the system prompt (if set)\noptions_json - JSON dictionary of options that were set\nprompt_json - detailed JSON version of the prompt, with enough information to repeat it and to build an ongoing conversation in case of replies\nresponse - simple string version of the response\nresponse_json - high fidelity JSON version of the response, which should also encapsulate enough information to continue the conversation if necessary\nreply_to_id - foreign key ID reference to the message this was a reply to (or null)\nchat_id - foreign key ID reference to the first message in the thread, if part of a thread\ndebug_json - any debug information that came back (Update: dropped this)\nduration_ms - duration measured for prompt, as integer ms\ndatetime_utc - an ISO UTC datestamp string of when this was recorded\n\nI've made a few changes here:\n\noptions  is now called options_json for consistency with the other JSON fields\nAdded reply_to_id to explicitly track the previous message in a conversation\nchat_id is now a denormalized field - it could be figured out by following reply_to_id back multiple times, but I think having a single ID for the conversation will be more convenient. This is the ID that will be passed to --chat so you can continue a conversation without constantly having to update that parameter to the ID of the most recent message\nRenamed timestamp_utc to datetime_utc\n\nOne open question: should I drop debug_json? If I'm storing the whole response in response_json maybe that covers the same ground?",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1618260704",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T13:37:05Z",
+                                    "bodyText": "Confirmed: debug_json duplicates information from response_json - I'm going to drop it entirely:",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1618279718",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T13:40:51Z",
+                                    "bodyText": "I need to rewrite or replace the existing log() function.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1618290213",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T13:52:28Z",
+                                    "bodyText": "I'm renaming the log table to logs because that is what the command and file are called.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1618326909",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T13:53:59Z",
+                                    "bodyText": "Now I need to write the migration to upgrade the existing log table.\nHere is the old log and the new logs schema:\nsqlite-utils schema \"$(llm logs path)\" log logs\nCREATE TABLE \"log\" (\n   [id] INTEGER PRIMARY KEY,\n   [model] TEXT,\n   [timestamp] TEXT,\n   [prompt] TEXT,\n   [system] TEXT,\n   [response] TEXT,\n   [chat_id] INTEGER REFERENCES [log]([id])\n, [debug] TEXT, [duration_ms] INTEGER, [prompt_json] TEXT)\nCREATE TABLE [logs] (\n   [id] INTEGER PRIMARY KEY,\n   [model] TEXT,\n   [prompt] TEXT,\n   [system] TEXT,\n   [options_json] TEXT,\n   [prompt_json] TEXT,\n   [response] TEXT,\n   [response_json] TEXT,\n   [reply_to_id] TEXT,\n   [chat_id] TEXT,\n   [duration_ms] INTEGER,\n   [datetime_utc] TEXT\n)\nExcept those types are wrong, should be:\n   [reply_to_id] INTEGER,\n   [chat_id] INTEGER,",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1618331989",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T13:57:42Z",
+                                    "bodyText": "I don't like how sqlite-utils added columns cause the schema to look a bit ugly.\nI just spotted that a fix for this is to run transform() after the column has been added:\n>>> import sqlite_utils\n>>> db = sqlite_utils.Database(memory=True)\n>>> db[\"log\"].insert({\"id\": 1, \"name\": \"Hello\", \"age\": 31}, pk=\"id\")\n<Table log (id, name, age)>\n>>> db[\"log\"].insert({\"name\": \"Hello\", \"age\": 31, 'weight':3.5}, alter=True)\n<Table log (id, name, age, weight)>\n>>> print(db[\"log\"].schema)\nCREATE TABLE [log] (\n   [id] INTEGER PRIMARY KEY,\n   [name] TEXT,\n   [age] INTEGER\n, [weight] FLOAT)\n>>> db[\"log\"].transform(rename={\"name\": \"name2\"})\n<Table log (id, name2, age, weight)>\n>>> print(db[\"log\"].schema)\nCREATE TABLE \"log\" (\n   [id] INTEGER PRIMARY KEY,\n   [name2] TEXT,\n   [age] INTEGER,\n   [weight] FLOAT\n)",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1618343905",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T13:58:51Z",
+                                    "bodyText": "... and it turns out running .transform() with no arguments still fixes the format of the schema!\n>>> db[\"log\"].add_column(\"foo\", str)\n<Table log (id, name2, age, weight, foo)>\n>>> db[\"log\"].add_column(\"bar\", str)\n<Table log (id, name2, age, weight, foo, bar)>\n>>> db[\"log\"].add_column(\"baz\", str)\n<Table log (id, name2, age, weight, foo, bar, baz)>\n>>> print(db[\"log\"].schema)\nCREATE TABLE \"log\" (\n   [id] INTEGER PRIMARY KEY,\n   [name2] TEXT,\n   [age] INTEGER,\n   [weight] FLOAT\n, [foo] TEXT, [bar] TEXT, [baz] TEXT)\n>>> db[\"log\"].transform()\n<Table log (id, name2, age, weight, foo, bar, baz)>\n>>> print(db[\"log\"].schema)\nCREATE TABLE \"log\" (\n   [id] INTEGER PRIMARY KEY,\n   [name2] TEXT,\n   [age] INTEGER,\n   [weight] FLOAT,\n   [foo] TEXT,\n   [bar] TEXT,\n   [baz] TEXT\n)",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1618347727",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T14:01:11Z",
+                                    "bodyText": "It looks like in my local database the prompt_json was added to log even though it's not in the migrations.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1618355266",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T14:07:24Z",
+                                    "bodyText": "I find myself wanting two new features in sqlite-utils:\n\nThe ability to have the new transformed table set to a specific name, while keeping the old table around\nThe ability to rename a table (sqlite-utils doesn't have a table rename function at all right now)",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1618375042",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T14:09:53Z",
+                                    "bodyText": "I'm going to make the changes to the old log table and then rename it to logs.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1618383044",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T14:30:38Z",
+                                    "bodyText": "Schema after those migrations: \n  \n    \n      llm/docs/logging.md\n    \n    \n        Lines 78 to 91\n      in\n      1d5c429\n    \n  \n  \n    \n\n        \n          \n           CREATE TABLE \"logs\" ( \n        \n\n        \n          \n             [id] INTEGER PRIMARY KEY, \n        \n\n        \n          \n             [model] TEXT, \n        \n\n        \n          \n             [prompt] TEXT, \n        \n\n        \n          \n             [system] TEXT, \n        \n\n        \n          \n             [prompt_json] TEXT, \n        \n\n        \n          \n             [options_json] TEXT, \n        \n\n        \n          \n             [response] TEXT, \n        \n\n        \n          \n             [response_json] TEXT, \n        \n\n        \n          \n             [reply_to_id] INTEGER REFERENCES [logs]([id]), \n        \n\n        \n          \n             [chat_id] INTEGER REFERENCES [logs]([id]), \n        \n\n        \n          \n             [duration_ms] INTEGER, \n        \n\n        \n          \n             [datetime_utc] TEXT \n        \n\n        \n          \n           );",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1618451198",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T14:41:07Z",
+                                    "bodyText": "Still needed:\n\nThe conversation mode, including recording reply_to_id and chat_id\nTests for database logging\nllm-palm updates for latest logging scheme\nDocumentation",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1618486344",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T17:12:10Z",
+                                    "bodyText": "This bit is out of date now: \n  \n    \n      llm/docs/python-api.md\n    \n    \n        Lines 18 to 28\n      in\n      5652b52\n    \n  \n  \n    \n\n        \n          \n           ## Model \n        \n\n        \n          \n            \n        \n\n        \n          \n           The `Model` class is an abstract base class that needs to be subclassed to provide a concrete implementation. Different LLMs will use different implementations of this class. \n        \n\n        \n          \n            \n        \n\n        \n          \n           Model instances provide the following methods: \n        \n\n        \n          \n            \n        \n\n        \n          \n           - `prompt(prompt: str, ...options) -> Prompt` - a convenience wrapper which creates a `Prompt` instance and then executes it. This is the most common way to use LLM models. \n        \n\n        \n          \n           - `stream(prompt: str) -> Response` - a convenient wrapper for `.execute(..., stream=True)`. \n        \n\n        \n          \n           - `execute(prompt: Prompt, stream: bool) -> Response` - execute a prepared Prompt instance against the model and return a `Response`, streaming or not-streaming. \n        \n\n        \n          \n            \n        \n\n        \n          \n           Models usually return subclasses of `Response` that are specific to that model.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1618904231",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-03T17:12:58Z",
+                                    "bodyText": "This bit too - there are some extra methods now: \n  \n    \n      llm/docs/python-api.md\n    \n    \n        Lines 30 to 34\n      in\n      5652b52\n    \n  \n  \n    \n\n        \n          \n           ## Response \n        \n\n        \n          \n            \n        \n\n        \n          \n           The response from an LLM. This could encapusulate a string of text, but for streaming APIs this class will be iterable, with each iteration yielding a short string of text as it is generated. \n        \n\n        \n          \n            \n        \n\n        \n          \n           Calling `.text()` will return the full text of the response, waiting for the stream to stop executing if necessary.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1618904986",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-04T00:40:21Z",
+                                    "bodyText": "Made a start on the docs:\nLLM model plugin documentation\nTo add support for a different language model in LLM you need to implement a subclass of the llm.Model class.\nYour model class will do the following:\n\nImplement model_id(self) as a method that returns a unique string identifying your model. This will be logged in the database and used with the llm -m/--model option to select your model, so it should aim to be unique even when combined with other LLM plugins.\nOptionally specify options that can be passed to your model, if there are any - things like temperature and top_p. These are provided on an Options inner class.\nImplement an inner class called Response that subclasses llm.Response - this class will be responsible for executing prompts and returning or streaming the response.\nOptionally specify if it needs an API key retrieved from LLM key storage or from an environment variable\n\nMost of your model's work will happen in the Response subclass, most specifically in the iter_prompt() method.\nThis method should return an iterator over strings. Models that stream content can use this method to return tokens as they become available - models which can't stream should instead return an iterator which produces a single string with the full result.\nIf the underlying model returns more detailed information about the response, that information can be added to the ._response_json dictionary. This will be logged to the database when the prompt completes.\nHere's a basic example of an implementation for the Google PaLM 2 model, using Google's google-generativeai library:\n# code goes here ...\nRegistering your models\nYour plugin should provide an implementation of the register_models() plugin hook which registers one or more instances of the model with the LLM tool.\nThe simplest version of registration looks like this:\nfrom llm import hookimpl\n\n@hookimpl\ndef register_models(register):\n    register(CustomModel())\nYou can call register multiple times to register multiple models. If your model constructor takes different backend model IDs you could call register() like this:\n@hookimpl\ndef register_models(register):\n    register(CustomModel(\"text-alpha-001\"))\n    register(CustomModel(\"text-beta-001\"))\nIf a model should be made available via some aliases you can pass those to register() like this:\nregister(CustomModel(\n    \"text-alpha-001\",\n    aliases=(\"alpha\", \"alpha1\")\n))\nUsers will then be able to use your model like this:\nllm \"say hi\" -m alpha\nllm \"say hi\" -m alpha1",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1619299593",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-04T00:41:09Z",
+                                    "bodyText": "I'm going to see what it looks like if I move the Response class to be an inner class on Model.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1619300080",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-04T00:55:15Z",
+                                    "bodyText": "I'm reconsidering if the Prompt class is necessary at all now. I think maybe I can get everything done with:\n\nOptions - validating and transmitting the options passed to a particular model\nModel - the model itself, mainly for setup for things like API keys and keep stuff in-memory for larger on-device models\nResponse - the response to a prompt, which also encapsulates whatever the prompt was\n\nThe model.prompt(...) method takes whatever stuff the prompt accepts and returns a Response that is ready to execute when it gets iterated on - or has .text() or similar called on it.\nSo what's the purpose of the prompt class? Right now it looks like this:\n\n  \n    \n      llm/llm/models.py\n    \n    \n        Lines 10 to 23\n      in\n      4b6f08a\n    \n  \n  \n    \n\n        \n          \n           @dataclass \n        \n\n        \n          \n           class Prompt: \n        \n\n        \n          \n               prompt: str \n        \n\n        \n          \n               model: \"Model\" \n        \n\n        \n          \n               system: Optional[str] \n        \n\n        \n          \n               prompt_json: Optional[str] \n        \n\n        \n          \n               options: Dict[str, Any] \n        \n\n        \n          \n            \n        \n\n        \n          \n               def __init__(self, prompt, model, system=None, prompt_json=None, options=None): \n        \n\n        \n          \n                   self.prompt = prompt \n        \n\n        \n          \n                   self.model = model \n        \n\n        \n          \n                   self.system = system \n        \n\n        \n          \n                   self.prompt_json = prompt_json \n        \n\n        \n          \n                   self.options = options or {} \n        \n    \n  \n\n\nI guess the real answer here comes down to how stuff like OpenAI Functions work.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1619310460",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-04T02:00:26Z",
+                                    "bodyText": "I remember the point of the Prompt object - it's so that a Template can return a Prompt rather than having to produce a bunch of text and system and options and soon function definitions as well.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1619352894",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-04T04:26:14Z",
+                                    "bodyText": "Had an idea for a demo model (for use in the documentation) - llm-markov, a simple markov chain generator.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1619458464",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-04T04:54:59Z",
+                                    "bodyText": "OK, the Markov chain example is a plugin now: https://github.com/simonw/llm-markov\nI can copy https://github.com/simonw/llm-markov/blob/main/llm_markov/__init__.py directly into the documentation.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1619486252",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-04T05:05:03Z",
+                                    "bodyText": "I have two example plugins now:\n\nhttps://github.com/simonw/llm-palm\nhttps://github.com/simonw/llm-markov\n\nI haven't released either of them to PyPI, will do that after I ship the changes from this PR.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1619493678",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-04T05:06:27Z",
+                                    "bodyText": "Looking at this code:\nhttps://github.com/simonw/llm-markov/blob/c871593fbd0675d8230eaa5c72ac04bc89a28920/llm_markov/__init__.py#L57-L58\n    def execute(self, prompt: Prompt, stream: bool = True) -> Response:\n        return self.Response(prompt, self, stream)\nThere's no reason that couldn't be the default implementation on the base Model class.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1619495349",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-04T21:39:13Z",
+                                    "bodyText": "I'd like to make options validation errors a bit neater. Related:\n\npydantic/pydantic#6441",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1620772269",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-04T22:10:05Z",
+                                    "bodyText": "Tip from that Pydantic issue - I should try:\nexc_info.value.errors(include_url=False)",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1620789372",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-04T22:40:55Z",
+                                    "bodyText": "(Pdb) ex.errors()\n[{'type': 'extra_forbidden', 'loc': ('foo',), 'msg': 'Extra inputs are not permitted', 'input': 'bar', 'url': 'https://errors.pydantic.dev/2.0.1/v/extra_forbidden'}]\n(Pdb) ex.errors(include_url=False)\n[{'type': 'extra_forbidden', 'loc': ('foo',), 'msg': 'Extra inputs are not permitted', 'input': 'bar'}]",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1620801582",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-07T03:40:08Z",
+                                    "bodyText": "I'm getting these errors in CI:\nllm/cli.py:30: error: Argument 1 has incompatible type \"Callable[[], Any]\"; expected <nothing>  [arg-type]\nllm/cli.py:54: error: Argument 1 has incompatible type \"Callable[[Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any], Any]\"; expected <nothing>  [arg-type]\nllm/cli.py:323: error: Argument 1 has incompatible type \"Callable[[Any, Any], Any]\"; expected <nothing>  [arg-type]\nllm/cli.py:364: error: Argument 1 has incompatible type \"Callable[[Any, Any, Any], Any]\"; expected <nothing>  [arg-type]\nllm/cli.py:413: error: Argument 1 has incompatible type \"Callable[[Any], Any]\"; expected <nothing>  [arg-type]\nllm/cli.py:474: error: Argument 1 has incompatible type \"Callable[[Any], Any]\"; expected <nothing>  [arg-type]\nllm/cli.py:488: error: Argument 1 has incompatible type \"Callable[[Any], Any]\"; expected <nothing>  [arg-type]\nllm/cli.py:507: error: Argument 1 has incompatible type \"Callable[[Any, Any, Any], Any]\"; expected <nothing>  [arg-type]\nllm/cli.py:530: error: Argument 1 has incompatible type \"Callable[[Any, Any], Any]\"; expected <nothing>  [arg-type]\nFound 9 errors in 1 file (checked 12 source files)\n\nBut not on my laptop for some reason.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1624623292",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-07T03:45:19Z",
+                                    "bodyText": "Deleting and recreating the virtual environment on my laptop (with pip install -e '.[test]' again) helped me recreate the errors.\ntypes-click seems to fix it.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1624630331",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-07T03:45:55Z",
+                                    "bodyText": "I wrote a VERY detailed tutorial, which helped me iron out all sorts of kinks in the API: https://github.com/simonw/llm/blob/a64b83adb599e285b5d6fc1ff786daef1f60118c/docs/tutorial-model-plugin.md",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1624631017",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-07T03:47:07Z",
+                                    "bodyText": "I really want to merge this thing, but it's still broken --continue mode.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1624632461",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-07T03:47:47Z",
+                                    "bodyText": "Here's the rendered tutorial: https://llm--65.org.readthedocs.build/en/65/tutorial-model-plugin.html",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1624633269",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-08T02:39:54Z",
+                                    "bodyText": "Now have three plugins that use this new hook:\n\nhttps://github.com/simonw/llm-palm\nhttps://github.com/simonw/llm-markov\nhttps://github.com/simonw/llm-mpt30b",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1626529293",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-08T03:30:42Z",
+                                    "bodyText": "I think the key to implementing continue mode is to realize that a response needs to be able to round-trip to the SQLite database - so a logs record is actually everything that needs to be stored in order to re-inflate a full Response object along with the prompt and options that were used to create it.\nThen Response can have a reply() method which knows how to construct a new prompt combining together the previous prompt/response and the new prompt.\nDifferent models will need to provide different implementations of the code that combines prompts and responses together. We have three different ways of doing that already.\nFor OpenAI it's:\nmessages = []\nmessages.append({\"role\": \"system\", \"content\": previous_prompt.system})\nmessages.append({\"role\": \"user\", \"content\": prevous_prompt.prompt})\nmessages.append({\"role\": \"assistant\", \"content\": previous_response.text()})\nmessages.append({\"role\": \"assistant\", \"content\": prompt.prompt})\nFor PaLM it's:\n messages = [{'author': '0', 'content': 'Hello'},\n {'author': '1', 'content': 'Hi there! How can I help you today?'},\n {'author': '0', 'content': \"Just chillin'\"},\n {'author': '1',\n  'content': \"That's great! Chilling is a great way to relax and de-stress. I hope you're having a good day.\"}]\nWith system provided as the context= argument.\nFor MPT30B it's:\nprompt_lines = [\n    # System prompt\n    f\"<|im_start|>system\\n{system_prompt}<|im_end|>\\n\",\n    # User prompt\n    f\"<|im_start|>user\\n{prompt.prompt}<|im_end|>\\n\",\n    # Start of assistant prompt\n    f\"<|im_start|>assistant\\n\",\n    f\"{self.text()}\\n\"\n    f\"<|im_start|>user\\n{prompt.prompt}<|im_end|>\\n\"\n    f\"<|im_start|>assistant\\n\"\n]\nprompt_text = \"\".join(prompt_lines)",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1626670374",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-09T04:21:00Z",
+                                    "bodyText": "On thinking further about the --continue challenge, I'm beginning to reconsider the core data structures involved.\nIt strikes me that there's a key concept here which isn't being captured: that of a conversation.\nChatGPT has these - it calls them \"chats\". A chat is a bundle of ordered messages. They have an ID and an optional title (which ChatGPT picks itself but the user can then edit) - they are the units that can be shared, e.g. https://chat.openai.com/share/00d0ce07-deab-4d51-be84-e5e20aa07039 (a long-running conversation where I brainstormed names to use for this and other related concepts).\nI thought about a bunch of different names for these - threads, sequences, chats - but I think I'm going to go with \"conversation\".\nSo a conversation is an ordered sequence of X - where X could be one of the following nouns:\n\nmessage\nresponse\nreply\nitem\nround\nstep\ncompletion\n\nThe challenge with picking this name is that at actually represents a pair: there's a prompt, and then there's the response from the LLM to that prompt.\nI think I'm going to say that a conversation is a collection of completions.\nA prompt is always the first half of a completion (the response is the second half). That completion may end up comprising multiple messages - a system message, a user message, then an assistant message for example. The thing that makes it a completion is that it was sent to the LLM and the response from the LLM was then persisted.\nIn the common case of only running a single prompt (llm \"three names for a pet skunk\" for example) that's still a conversation, it's just a conversation that ended after the first completion.\nI think I log conversations and completions to the database - potentially via a plugin hook which will allow users to swap out alternative persistence layers, though that one can come later.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1627600131",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-09T04:21:39Z",
+                                    "bodyText": "If I'm making that radical a change to the DB schema I'm tempted to just leave log/logs as it is - users who upgrade to llm 0.5 will keep their old table but get new tables for the new design.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1627600261",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-09T04:23:02Z",
+                                    "bodyText": "If I do model conversations at the persistence level I think it will be easier to implement --continue efficiently - previously I was planning to serialize the entire and prompt to a logs entry every single time, with that prompt getting longer and longer (and more heavily duplicated) every time a new message was added to that conversation.\nWith conversations as a high level concept I'm more comfortable with an efficient database design where the prompt has to be assembled from multiple rows every time a completion is generated.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1627600487",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-09T04:26:34Z",
+                                    "bodyText": "To recap then, the concepts LLM will deal with are:\n\nModels are GPT-4, MPT-30B, Falcon 7B etc.\nConversations are a sequence of completions (prompt-and-responses) to a model\nCompletions are single round-trip completions sent to a model - a prompt, options and the associated response\nPrompts are the data provided by the user each turn - usually a text prompt and occasionally a text system prompt\nResponses are the fully detailed responses that come back from the model\nOptions are the additional options sent as part of a completion\n\nAlso:\n\nTemplates are templates that can be used to create a prompt (potentially including a system prompt), some of which take additional parameters\n\nI'm still not 100% sure how this terminology works with functions - where you send a prompt, the LLM replies with a demand to run a function, then you execute that function and send its answer as part of the next prompt back to the LLM.\nI think that just means that a request-to-run-a-function is a form of response, and a results-from-a-function is a form of prompt.\nMaybe there's another concept here: a Chain is when you set up an automated continuation of a conversation. The most obvious form of chain is the implementation of functions, where the system automatically executes function requests from the model and continues them by sending the response back again - but there may well be other custom chains later on (like implementations of the reAct pattern for models that don't have function support baked into them.)",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1627601153",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-09T04:45:24Z",
+                                    "bodyText": "I'm messing around with these as the in-memory structures:\n@dataclass\nclass Conversation:\n    id: str = field(default_factory=lambda: str(ULID()).lower())\n    name: Optional[str] = None\n    model: Optional[str] = None\n    completions: List[\"Completion\"] = field(default_factory=list)\n\n\n@dataclass\nclass Completion:\n    id: str = field(default_factory=lambda: str(ULID()).lower())\n    conversation: Conversation = None\n    prompt: Prompt = None\n    prompt_json: Dict[str, Any] = None\n    options_json: Dict[str, Any] = None\n    response: str = None\n    response_json: Dict[str, Any] = None\n\n    def __post_init__(self):\n        if self.conversation is not None:\n            self.conversation.completions.append(self)\nTrying out ULIDs from https://pypi.org/project/python-ulid/ - which are neat in that they incorporate a timestamp as well as a UUID-style random element, so they can be sorted alphabetically to sort in time order.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1627603666",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-09T04:46:04Z",
+                                    "bodyText": "So maybe the .reply() method ends up on the Conversation, not on the Completion or Response.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1627603743",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-09T05:08:53Z",
+                                    "bodyText": "From a Python API point of view, I think you can instantiate a model and fire off prompts and get back responses directly... but if you want to hook into the conversation persistence layer you should do so by using llm.Conversation() instead.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1627606671",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-09T05:10:58Z",
+                                    "bodyText": "So the simplest way to use the Python API would be:\nimport llm\ngpt4 = llm.get_model(\"gpt-4\")\nprint(gpt4.prompt(\"3 names for a pet llama\").text())\nAnd a more complex way would be:\nimport llm\nconversation = llm.Conversation.for_model(\"gpt-4\")\none = conversation.prompt(\"3 names for a pet llama\")\nprint(one.text())\ntwo = conversation.prompt(\"2 more\")\nprint(two.text())\nThis feels a bit like the concept of a session in requests and httpx - where you can do httpx.get() directly but if you want to persist cookies in between multiple requests you use with httpx.Client() as client and then client.get().",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1627607029",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-09T05:13:16Z",
+                                    "bodyText": "Crucial detail: a conversation can be rehydrated from persistent storage and continued. That's how -c mode for the llm CLI tool will work. It's likely how chat mode in the web UI will work too.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1627607420",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-09T05:15:15Z",
+                                    "bodyText": "Next question: where does the custom logic go for assembling a new prompt to follow-up a previous one? As described in:\n\n#65 (comment)\n\nDoes that go on Model or Prompt or Conversation or Response?\nI'm tempted to put it on Model or Response simply because those are the main class that the model plugin author is already subclassing.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1627607877",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-09T05:26:06Z",
+                                    "bodyText": "I'm going to put it on Model because Response on its own doesn't necessarily have all of the information it needs - it might not have the full Conversation needed to build up the entire complex prompt.\nMaybe this:\ndef combined_prompt(self, conversation, prompt, system, ...):`\nOther names:\n\nextend_prompt()\ncontinue_prompt()\ncontinue_conversation()\n\nCurrent model methods are prompt() and execute().\nSo maybe prompt_continue(conversation, ...)",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1627609984",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-09T22:28:10Z",
+                                    "bodyText": "Another option: conversation becomes an optional argument to the existing model.prompt(...) method.",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1627844417",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-09T22:28:36Z",
+                                    "bodyText": "Added a fourth plugin using this hook:\n\nhttps://github.com/simonw/llm-gpt4all",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1627844515",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-09T23:24:43Z",
+                                    "bodyText": "Another concept:\nr1 = gpt4.prompt(\n    \"What is the meaning of life?\",\n)\nprint(r1.text())\n\nr2 = gpt4.prompt(\n    \"Are you sure about that?\",\n    conversation=[r1],\n)\nprint(r2.text())\n\nr3 = gpt4.prompt(\n    \"Clarify further\",\n    conversation=[r1, r2],\n)\nprint(r3.text())\nHere conversation= can be a straight up list of previous responses. Maybe it can be that OR a Conversation dataclass instance.\nThis could support response.reply(...) being an alias for self.model.prompt(..., conversation=[self]).\nProbably not though, because that could give the misleading impression that replying to a prompt automatically includes more than just the last response in consideration. But maybe it should? It's very unintuitive for reply() to NOT include the previous conversation.\nSo I think response.reply() is not a method but conversation.reply() is - and that's syntactic sugar for model.prompt(..., conversation=self).",
+                                    "url": "https://github.com/simonw/llm/pull/65#issuecomment-1627859327",
+                                    "author": {
+                                        "login": "simonw"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "At what point does a model get to do this?\nKeys are available via this mechanism at the moment: \n  \n    \n      llm/llm/cli.py\n    \n    \n        Lines 483 to 505\n      in\n      e7e49e5\n    \n  \n  \n    \n\n        \n          \n           def get_key(key_arg, default_key, env_var=None): \n        \n\n        \n          \n               keys = load_keys() \n        \n\n        \n          \n               if key_arg in keys: \n        \n\n        \n          \n                   return keys[key_arg] \n        \n\n        \n          \n               if env_var and os.environ.get(env_var): \n        \n\n        \n          \n                   return os.environ[env_var] \n        \n\n        \n          \n               if key_arg: \n        \n\n        \n          \n                   return key_arg \n        \n\n        \n          \n               default = keys.get(default_key) \n        \n\n        \n          \n               if not default: \n        \n\n        \n          \n                   message = \"No key found - add one using 'llm keys set {}'\".format(default_key) \n        \n\n        \n          \n                   if env_var: \n        \n\n        \n          \n                       message += \" or set the {} environment variable\".format(env_var) \n        \n\n        \n          \n                   raise click.ClickException(message) \n        \n\n        \n          \n               return default \n        \n\n        \n          \n            \n        \n\n        \n          \n            \n        \n\n        \n          \n           def load_keys(): \n        \n\n        \n          \n               path = pathlib.Path(keys_path()) \n        \n\n        \n          \n               if path.exists(): \n        \n\n        \n          \n                   return json.loads(path.read_text()) \n        \n\n        \n          \n               else: \n        \n\n        \n          \n                   return {} \n        \n    \n  \n\n\nThis allows --key to be used as well. Some models won't have keys though.\nThe key needs to be available at the point at which the prompt is executed. It could be passed to the .prompt() method, but it feels cleaner for it to go to the model itself.\nI'd like to optimize for the case where people use llm independent of the CLI tool:\nfrom llm.openai_models import Chat\ngpt4 = Chat(\"gpt-4\")\nresponse = gpt4.prompt(\"3 names for an otter\").text\nWhat would be the neatest way for a key to be passed there? Probably to the the Chat() constructor:\ngpt4 = Chat(\"gpt-4\", key=\"sk...\")",
+                                                        "author": {
+                                                            "login": "simonw"
+                                                        },
+                                                        "url": "https://github.com/simonw/llm/pull/65#discussion_r1242331843",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b5b8d95",
+                                                            "authoredDate": "2023-06-26T14:43:46Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If I do that though it conflicts a bit with how the CLI tool works, since that gets a dict of model instances back from get_model_aliases(). These have already been instantiated, so when do they get passed their key?",
+                                                        "author": {
+                                                            "login": "simonw"
+                                                        },
+                                                        "url": "https://github.com/simonw/llm/pull/65#discussion_r1242333605",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b5b8d95",
+                                                            "authoredDate": "2023-06-26T14:43:46Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I like the idea that a model subclass (Chat in this case) knows if it needs a key AND knows what the default name of that key (the name stored in the keys.json file) should be.\nThat way you can either pass it a key when you instantiate it, or there's a mechanism by which the CLI harness knows how to give it a key later.",
+                                                        "author": {
+                                                            "login": "simonw"
+                                                        },
+                                                        "url": "https://github.com/simonw/llm/pull/65#discussion_r1242335917",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b5b8d95",
+                                                            "authoredDate": "2023-06-26T14:43:46Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

@@ -1,0 +1,72 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 16,
+                        "title": "Update docker.sh to add a check for existing image before building",
+                        "repository": {
+                            "nameWithOwner": "ykdojo/kaguya",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-06-24T04:00:07Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/ykdojo/kaguya/pull/16",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "tianlelyd"
+                        },
+                        "editor": null,
+                        "body": "- Added a check to see if the Docker image already exists before building it. This is to optimize the script by avoiding unnecessary image builds, which can be time-consuming, and directly using the existing image if it's already available.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-06-24T04:26:19Z",
+                                    "bodyText": "Actually the original one should be okay because Docker should be able to simply use the cached layers to create the image. So no extra storage should be consumed at every subsequent build after the first one\nhttps://chat.openai.com/share/bb9fe10b-dbb6-4f65-83ab-9b22b92f5edb",
+                                    "url": "https://github.com/ykdojo/kaguya/pull/16#issuecomment-1605260386",
+                                    "author": {
+                                        "login": "ykdojo"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-24T05:35:18Z",
+                                    "bodyText": "It is true that docker will use caching and will not consume too many resources, but because the process will be built every time, it will bring more waiting time to users! I would have tested about 4s longer, which would have been unnecessary",
+                                    "url": "https://github.com/ykdojo/kaguya/pull/16#issuecomment-1605275292",
+                                    "author": {
+                                        "login": "tianlelyd"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-24T06:40:32Z",
+                                    "bodyText": "Interesting. What about when someone wants to develop Kaguya and change Dockerfile and things though?",
+                                    "url": "https://github.com/ykdojo/kaguya/pull/16#issuecomment-1605289675",
+                                    "author": {
+                                        "login": "ykdojo"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

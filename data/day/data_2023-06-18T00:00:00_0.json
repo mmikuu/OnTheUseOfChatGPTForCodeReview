@@ -1,0 +1,1441 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 50,
+                        "title": "Access key check updates",
+                        "repository": {
+                            "nameWithOwner": "4dn-dcic/foursight-core",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-06-18T18:52:54Z",
+                        "mergedAt": "2023-07-16T14:00:03Z",
+                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "dmichaels-harvard"
+                        },
+                        "editor": {
+                            "login": "dmichaels-harvard"
+                        },
+                        "body": "The main thing here is fix for access key status/refresh check. But bunch of miscellaneous UI related improvements as well.",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This file is not yet used. It is in progress refactor and just wanted it checked in for safe keeping.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1233359880",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "052c846",
+                                                            "authoredDate": "2023-06-18T18:37:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "These changes generally look great but I would investigate the need for prevent_action vs. using allow_action prior to merge\n...\nI think we need this extra/new flag because this is a new/different situation - where a check runs/succeeds but where we do NOT want to automatically run the associated action AND/BUT we also want to allow the user to manually run the associated action.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Definitely should go in utils no?",
+                                                        "author": {
+                                                            "login": "willronchetti"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238545038",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Move to utils with the other s3 client/resource?",
+                                                        "author": {
+                                                            "login": "willronchetti"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238545516",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "user?",
+                                                        "author": {
+                                                            "login": "willronchetti"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238560947",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I would add a comment in this loop indicating that the email ordering above is VERY important to maintain because it is the foursight keys that are used for these operations and if you refresh them (ie: patch to deleted) out of order here, all future requests will fail.",
+                                                        "author": {
+                                                            "login": "willronchetti"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238564807",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Reasoning for commenting out?",
+                                                        "author": {
+                                                            "login": "willronchetti"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238565698",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "May be worth doing or even having a separate button/UI element for this info so its not being displayed by default",
+                                                        "author": {
+                                                            "login": "willronchetti"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238571618",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is this necessary with allow_action? Doesn't allow_action do the same thing? ie: set allow_action to false in the check when you don't want it to run?",
+                                                        "author": {
+                                                            "login": "willronchetti"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238576264",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Seems like good candidate for helper",
+                                                        "author": {
+                                                            "login": "willronchetti"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238618989",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Same deal here should be able to refactor into helper",
+                                                        "author": {
+                                                            "login": "willronchetti"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238619800",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "May not be practical but does IsArray really guarantee this is JSON? Couldn't it be some other inner value that is not JSON?",
+                                                        "author": {
+                                                            "login": "willronchetti"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238640060",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Now using the @function_cache decorator instead; will delete commented out code.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238657063",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, thanks.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238657822",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I have a dcicutils branch not yet in review with these changes centralized there.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238667744",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Right, got it (after out Slack exchange).",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238670395",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I have a dcicutils branch not yet in review with these changes centralized there.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238680020",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes but this situation is different/new - where a check runs/succeeds but we do NOT want to automatically run the associated action AND/BUT we ALSO want to ALLOW the user to MANUALLY run the associated action. I don't think there is an existing mechanism in place for this.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238831457",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes indeed.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238866136",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, refactoring some of this out, thanks.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1238879369",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Not sure what you mean, about \"some inner value\" ...",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1239715901",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Just passing a few comments through. I will work more on this review today/Thursday.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It's really critical that this be done through dcicutils because ff_mocks needs to mock these and cannot know about them the way you've written it. That won't matter to dcicutils itself, but it does matter if anything in this code calls the ff_mocks (and there may be places I would argue it should because ff_mocks does useful setup you don't want to have to duplicate). So if you're going to do it this way, please set up and use a a utils beta sooner rather than later that moves all support for anything you're isolating in this way, so presumably the boto_sqs stuff as well.\nI do have a bit of hesitation about doing it this way instead of just monkey-patching boto3.resource and boto3.client to something that wraps the original definition. The reasons that argue for that are (1) there could conceivably be calls inside system code that accesses these things and wants to be consistent - not sure if that can happen so maybe not a concern, (2) it's way more modular, (3) less likelihood that someone uninformed with our practices will make a patch that doesn't realize they have to do this.\nAnother strategy would be to fully replace use of boto3 itself within our sources with some other class that just knows to call boto3 in most cases but that substitutes appropriate support where it wants to. This would mean that you didn't have to know which boto3 functions are overridden and which not.\nI'm a little worried this is destroys the look-and-feel of ordinary AWS programming and makes the code less palatable to an open-source community.\nI wonder if we should just propose the change to the AWS community. Although there are security considerations. Hijacking an application by re-pointing its environment to an ersatz environ might be easier than some other exploits.  It might be that any such proposal shouldn't be to use an environment variable but instead to just allow programmatic override (vaguely equivalent to monkey patching, and then we could add the environment variable as a way to get the value, but others could use either hard-wired code or access to a config file. More options.) Something like boto3.set_s3_url(...) or something like that where we could get our arg from an env var, but others could use their own scheme. Is there really not such a feature already?\nIssues of where this is homed aside, I think this will suffice for now, but I'm uneasy about it.\n(What I should do is make a way for a downstream library to extend the mocking behavior without making a utils replacement. I think that could easily be done. But for now that's the way.)\nI do like the functionality this gets. I just feel like the syntactic mechanism is ugly because it replaces an object-oriented thing with a non-object-oriented thing in a way that is going to feel unmotivated and inflexible and that may not be really general-purpose because it's too easy to have something that's not participating in the illusion if there is code that calls these behind its own abstraction walls. That's a serious impediment to correct operation.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1246429878",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Same comment as for boto_s3.py",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1246434774",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "As to naming, I'm wondering if it shouldn't have boto3 (not just boto) in its name so that searches for boto3 in the code would turn it up. If you change the order of tokens, using boto3_client_sqs, then searches for 'boto3.client.*sqs' can find boto3.client('sqs') and boto3.client(\"sqs\"). This may not matter, but I'm trained to think about grep kinds of things as part of naming to promote systems with good discovery. In the Lisp community there's a function \"apropos\" that one uses to find all the defined names with a given string in any module. It doesn't search sources, it searches the in-memory set of names for each package (vaguely like a module).\nAlternatively, a name like mockable_boto3_sqs_client might give a sense of why the function was being called.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1246463189",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Same naming comment. I won't keep repeating that comment, but it applies in the boto_s3 module as well.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1246463577",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, I see the concern. ChatGPT suggests there is a way to do this - setting up (localstack versions of) endpoint URL globally, so we do not have to change existing boto3 code to create client/resource objects - , but not sure, haven't yet tried it - https://chat.openai.com/share/49417c2c-0b99-4040-b38c-5ada37e080f5",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1246494968",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "if i understand what you're saying in all these comments, and it seems pretty clear: should we then affirmatively double-check that we can access under a different key and that the key being deleted is in fact a different uuid, etc?",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1246980588",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Whether this is a good rewrite depends on the result of the other long comment I made about what paradigm to use. I won't mark these in detail.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1246984960",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can we abstract this into a generator function that does this so we don't have to have loops like this all over the place/",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1246987331",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I would like not to have any calls amid other code to something like now.strftime with a random string you could get wrong. Is there not a function that does this? can we make one?",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1246989282",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Feels like this should be a subroutine that can be independently tested i all the various cases.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247145224",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Did you mean to do this both unconditionally and conditionally right after that?",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247146901",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Instead of response[\"foursight\"][...] = in every call, you can say response_foursight = response[\"foursight\"] and just access more directly. Maybe it's a wash. A lot of people like this kind of thing. Feels inefficient to me from before I programmed in Python and found no one cares about efficiency, oddly. You'd think given the constraints of the language they'd have to care more.\nLikewise, these things where you repeatedly access the foursight_header_json[\"auth\"] can be collected into header_resources = foursight_header_json.get(\"resources\", {}) so you don't have to keep repeating that part. It can sometimes make things a little easier to read. The function calls really make it messy. And it's not good style to not have a space after comma. PEP8 is going to beat you up.\n(Doing it this way might also make you ask yourself why you're going back and forth doing a bit of auth here and a bit of auth there with identity in the middle.)",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247166373",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is _put_accounts_file_data guaranteed to always succeed?\nI ask because in the next function, _get_accounts_file_data has error situations that are passively conveyed, suggesting that whoever wrote that code is not planning to imperatively raise errors when they happen.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247169042",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is there some reason we don't just raise some sort of NotFound error and then have a global handler for that which takes the text of the message if it continues onward untrapped and puts it into a 404 as a response?  Is it personal choice or does React require this? I just imagine similar special-cases of 404 strewn all over. Maybe that's not a concern.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247170810",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "For example if this failed, wouldn't the error rise to the top and become an error response? Or is it that it will just never fail? Talking to a network, that always seems unlikely to me. YMMV.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247172480",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why eastern time and not user local time? Do we not know their tz? I ran across interesting timezone issues while in Arizona, not with this but other modules, so it's on my mind. Users trying to use this open source software at other locations will notice.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247173500",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "So is it the case that allow_action is really action_manually_requested and that prevent_action is really inhibit_automatic_action such that the action would run if action_manually_requested or (check_succeeded and not inhibit_automatic_action) or something like that? Sometimes I think good naming helps make these things make more sense. I presume that if this logic is not correct, it's because I haven't named things in the way that best represents the distinctions you're trying to make.\n\nMore like allow_action is really allow_action_to_be_manually_run_and_also_automatically_run_action_after_successful_check and prevent_action is inhibit_action_from_automatically_running. I.e. allow_action currently embodies two different things (allowing manual run by user, and enabling automatic run of action after successful check run), and the prevent_action is mean to disable the second part (running automatically after successful check run).",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247534998",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c255694",
+                                                            "authoredDate": "2023-06-22T13:23:11Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm assuming you're busy backing out of this.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247537990",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If this is going to return a value, should select and unselect also return a value? I'm not sure. Maybe not. But I figured I'd ask.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247540267",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is it necessary that these names be different? It feels like an extra name just adds weird complexity. I think I would have named them both FindLongestCommonInitialSubstring or both LongestCommonInitialSubstring.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247544104",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm not positive I am using the right syntax here, but is there some reason you don't do\nconst tdStyle = { verticalAlign: \"top\", paddingRight: \"6pt\", paddingTop: \"4pt\", paddingBottom: \"8pt\" };\nconst tdStyleNoWrap = {...tdStyle,whiteSpace:\"nowrap\"};\n\nabove and then later use (untested):\n<td style={{tdStyleNoWrap}}>\n\n?",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247549505",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe add a comment reminding readers like me what ?all=true achieves here?",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247551405",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe a comment reminding people like me what ?all=true does here?",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247552553",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I might call this variable borderStyle or maybeDotted or dottedOrSolid.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247554616",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yep, good call, thanks.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247735298",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Got it",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247736282",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sounds good.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247770223",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yep",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247770452",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sounds good",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247771187",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247772174",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think we could do something like this (raising a 404 related exception), yes, will make comment to that effect.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247787691",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If this (or any API handler function) raises an exception there is common handling for this in the @route decorator.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247789138",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Not guaranteed to succeed (but certainly generally should); if it fails should see indication in UI. The _get_accounts_file_data is different and is catching a (certain, no-key) exception because it is okay for the accounts file not to exist, not really an error, just means no account info available (and we indicate that in the UI).",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247791915",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I sure hear you about \"no one cares about efficiency\" anymore, it seems, but I've largely drunk the kool-aid and stopped worrying about it too much in Python. I can clean this up a bit though.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247794136",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Not sure exactly what you mean ... if no environments from init_environment we make the same call but with a different (default) environ.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247796596",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Made TODO comment to this effect for now.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247798837",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Oh weird, that one is just a mistake, should just be datetime_to_string(now)",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247815105",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeah, these are gone now, using the monkey patching thing for this.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247815505",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sounds good. Actually, I should probably update dcicutils.secret_utils._all_secrets (and also there, it is not taking pagination into account - I forget where but I think I did run into a situation where I needed it, i.e. where there where more the 100 results (though now that I say it that seems unlikely)).",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247848406",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Right, this stuff is being superseded by the monkey patching based approach.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247849606",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This stuff is being superseded by the monkey patching based approach.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247849862",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247885506",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Changed this to use local time.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1248018803",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Oh realized that when running in AWS (as opposed to locally), at least they way I'm getting the local timezone, it is UTC - which from a UX POV is not really what we want - not sure of right solution.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1248043048",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "I had a lot of comments that I'd ask you to go through carefully, but I don't recall any of them being a blocker.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You're searching each time? Does this get slow? It has an n^2 kind of look to it. (well, n*m). I guess these are just reliably small numbers? I'm kind of surprised there's not a table that just lets you ask for the check by name from a table...",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1247996089",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If I read this right (and as you know I've not been recently programming in JS, so I could be wrong), if props.group.checks is not present (a 'checks' entry is not in props.group), you'll get 'undefined', so the math will result in NaN, so the && expression will return NaN. Is that a valid return value inside the braces? Does it show up to the user as NaN or are false values just never shown?",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1248006632",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What are top and bottom telling me here? The distinction between 6pt and 7pt seems so tiny...\nI looked in Components.js and they seem to be the marginTop and marginBottom but I still didn't get what was going on and decided to just ask rather than diving deeper.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1248012290",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "So the redaction happens on the server side (I'm hoping)? Maybe a comment somewhere explaining that kind of detail, or even more generally something at top of this file explaining the philosophy of what this implements and why it is trustably secure.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1248019276",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1aea9cc",
+                                                            "authoredDate": "2023-06-30T03:30:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I see. Well, it looks like it doesn't check that the default env is in fact different, but I missed that you were looking up a (potentially) different env to use.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1248024726",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In a different PR? I still see them in my review copy here.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1248027754",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "do you want isNaN(value) in this list? You definitely do not want value != NaN (which will always return true, even for NaN, to my horror -- I think this is a JS mis-design based on a misreading of the IEEE standard).",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1248039504",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9e97a5",
+                                                            "authoredDate": "2023-06-30T15:21:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "s/onece/ones/ ?",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1248040649",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9e97a5",
+                                                            "authoredDate": "2023-06-30T15:21:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Not to fix in this moment, but I just want to say I'd so much rather you have a style sheet somewhere that defines some standard presentation modes and then use use <small class='...'> or some more abstract way of packaging it entirely, rather than detailing the style details inline everywhere.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1248049185",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9e97a5",
+                                                            "authoredDate": "2023-06-30T15:21:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Does this making the 4pt inside the underscoring or other link decoration? If not, why its this spacing part of the link and not a thin space (&thinsp;) or something? Just curious.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1248051181",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9e97a5",
+                                                            "authoredDate": "2023-06-30T15:21:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "why is this floating? just curious.\nactually, while i'm asking, why is it a small and not a span with point size info? it's not a change to make locally, but I was taught that things like small and whatnot are ways to the characteristics of something but they are not building blocks of layout (span for horizontal and div for vertical, mostly, though also p, ul, etc. in more specialized ways). while you can make anything float, it just looks odd to my eye. this is not a request for change.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1248056552",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9e97a5",
+                                                            "authoredDate": "2023-06-30T15:21:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Changing to have API return UTC and do display to local on client-side/browser in React.",
+                                                        "author": {
+                                                            "login": "dmichaels-harvard"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1248863045",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "af1c2bd",
+                                                            "authoredDate": "2023-06-28T17:50:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Please don't import in the middle of a function.\nExcept to avoid circularity, all imports should be at toplevel and at the top of the file, though even the \"it avoids a circularity\" imports are probably signs something is structured wrong.",
+                                                        "author": {
+                                                            "login": "netsettler"
+                                                        },
+                                                        "url": "https://github.com/4dn-dcic/foursight-core/pull/50#discussion_r1248066338",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "10b9d2b",
+                                                            "authoredDate": "2023-06-30T15:58:33Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

@@ -1,0 +1,198 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 228,
+                        "title": "feat: add `/securities` route to get all securities to display to the user ",
+                        "repository": {
+                            "nameWithOwner": "maybe-finance/maybe",
+                            "primaryLanguage": {
+                                "name": "Ruby"
+                            }
+                        },
+                        "createdAt": "2024-01-25T18:58:16Z",
+                        "mergedAt": "2024-02-02T14:50:53Z",
+                        "url": "https://github.com/maybe-finance/maybe/pull/228",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "crnsh"
+                        },
+                        "editor": null,
+                        "body": "This is in preparation to solve #131 and the first step of #215.\r\n- Adds a `/securities` endpoint to get all securities (only symbol and exchangeName) from the database.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2024-01-25T20:31:38Z",
+                                    "bodyText": "A TypeScript repo without semi-colons? Who's in charge here? Lol.\n\nhttps://chat.openai.com/share/dffc98d6-e9ea-4513-8914-d431c2a3cae6",
+                                    "url": "https://github.com/maybe-finance/maybe/pull/228#issuecomment-1910953300",
+                                    "author": {
+                                        "login": "crnsh"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-25T20:34:31Z",
+                                    "bodyText": "A TypeScript repo without semi-colons? Who's in charge here? Lol.\n\nhttps://chat.openai.com/share/dffc98d6-e9ea-4513-8914-d431c2a3cae6\n\nOof, got me good there, I apologize for my tone. Let me try again...\nInteresting choice to omit semi-colons in this TypeScript repository. Could someone share the reasoning behind this decision?\nxD",
+                                    "url": "https://github.com/maybe-finance/maybe/pull/228#issuecomment-1910956881",
+                                    "author": {
+                                        "login": "gamedevsam"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "A TypeScript repo without semi-colons? Who's in charge here? Lol.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is this a placeholder or full implementation? Just curious on if you're planning to get all and filter client side or add some query params for searching (similar to institutions). I'm guessing this is setting up for the add investment form?",
+                                                        "author": {
+                                                            "login": "tmyracle"
+                                                        },
+                                                        "url": "https://github.com/maybe-finance/maybe/pull/228#discussion_r1467886241",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e0585e",
+                                                            "authoredDate": "2024-01-25T19:15:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeah this is for setting up the investment form. I'll have two Listbox elements for picking a stock. One selects the exchange, and then the stocks of that exchange are available in the other Listbox (this happens after selecting / creating an account).\nThat's why I'll need all stocks, so this is the complete implementation. If I need something else I'll create another PR but it seems that this is all I need for the backend part of #131.",
+                                                        "author": {
+                                                            "login": "crnsh"
+                                                        },
+                                                        "url": "https://github.com/maybe-finance/maybe/pull/228#discussion_r1467923661",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e0585e",
+                                                            "authoredDate": "2024-01-25T19:15:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can we get away with only one Listbox? I wonder how many people know the exchange vs just the ticker or company name. I'm imagining a single listbox and each result displays the relevant info needed to select the right security (name, ticker, exchange). Would be great to be able to search by ticker or name so I can just type Apple or Samsara and get the result I'm looking for.",
+                                                        "author": {
+                                                            "login": "tmyracle"
+                                                        },
+                                                        "url": "https://github.com/maybe-finance/maybe/pull/228#discussion_r1467941804",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e0585e",
+                                                            "authoredDate": "2024-01-25T19:15:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeah that's actually a better idea. Search by symbol and then disambiguate with exchange.\nEven with this approach I'll need all the stocks though",
+                                                        "author": {
+                                                            "login": "crnsh"
+                                                        },
+                                                        "url": "https://github.com/maybe-finance/maybe/pull/228#discussion_r1467944955",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e0585e",
+                                                            "authoredDate": "2024-01-25T19:15:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sending all of the 11k securities (and more in the future) to the client is going to have negative performance implications. I'd check the implementation of institution router and institution service for how server-side search is implemented elsewhere in the app. There should be an initial batch sent to the client (current standard is 50 results, see the enum PageSize in account-types.ts) and the search (debounced) should return the results that match the query using postgres full-text search.",
+                                                        "author": {
+                                                            "login": "tmyracle"
+                                                        },
+                                                        "url": "https://github.com/maybe-finance/maybe/pull/228#discussion_r1468636041",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e0585e",
+                                                            "authoredDate": "2024-01-25T19:15:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

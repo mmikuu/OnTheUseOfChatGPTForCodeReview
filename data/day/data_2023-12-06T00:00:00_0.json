@@ -1,0 +1,825 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 2,
+                        "title": "ChatGPT4 recommendations",
+                        "repository": {
+                            "nameWithOwner": "AronNovak/dug-ai-webdev",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-12-06T20:48:32Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/AronNovak/dug-ai-webdev/pull/2",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "AronNovak"
+                        },
+                        "editor": null,
+                        "body": "https://chat.openai.com/share/0709fc72-0b64-4ce6-85f6-69690aab8618",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 33135,
+                        "title": "(Draft) Update GitHbub JSON Schema with GPT",
+                        "repository": {
+                            "nameWithOwner": "airbytehq/airbyte",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-06T05:02:58Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/airbytehq/airbyte/pull/33135",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "aaronsteers"
+                        },
+                        "editor": {
+                            "login": "aaronsteers"
+                        },
+                        "body": "This is an experiment in using GPT to update our JSON schema annotations, especially 'description' properties and foreign key annotations.\r\n\r\nChatGPT convo: https://chat.openai.com/share/c9a65430-d4cb-4dd7-9871-1dd2593d4907",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-06T05:03:03Z",
+                                    "bodyText": "The latest updates on your projects. Learn more about Vercel for Git \u2197\ufe0e\n1 Ignored Deployment\n\n\n\nName\nStatus\nPreview\nComments\nUpdated (UTC)\n\n\n\n\nairbyte-docs\n\u2b1c\ufe0f Ignored (Inspect)\nVisit Preview\n\nDec 6, 2023 5:25am",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33135#issuecomment-1842091259",
+                                    "author": {
+                                        "login": "vercel"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-06T05:03:18Z",
+                                    "bodyText": "Before Merging a Connector Pull Request\nWow! What a great pull request you have here! \ud83c\udf89\nTo merge this PR, ensure the following has been done/considered for each connector added or updated:\n\n PR name follows PR naming conventions\n Breaking changes are considered. If a Breaking Change is being introduced, ensure an Airbyte engineer has created a Breaking Change Plan.\n Connector version has been incremented in the Dockerfile and metadata.yaml according to our Semantic Versioning for Connectors guidelines\n You've updated the connector's metadata.yaml file any other relevant changes, including a breakingChanges entry for major version bumps. See metadata.yaml docs\n Secrets in the connector's spec are annotated with airbyte_secret\n All documentation files are up to date. (README.md, bootstrap.md, docs.md, etc...)\n Changelog updated in docs/integrations/<source or destination>/<name>.md with an entry for the new version. See changelog example\n Migration guide updated in docs/integrations/<source or destination>/<name>-migrations.md with an entry for the new version, if the version is a breaking change. See migration guide example\n If set, you've ensured the icon is present in the platform-internal repo. (Docs)\n\nIf the checklist is complete, but the CI check is failing,\n\n\nCheck for hidden checklists in your PR description\n\n\nToggle the github label checklist-action-run on/off to re-run the checklist CI.",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33135#issuecomment-1842091544",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-06T05:15:04Z",
+                                    "bodyText": "A few observations on this first draft. cc @flash1293\n\nThere are other foreign keys that appear to be missed. Probably with some prompting the GPT can fix the omissions.\n(Nit.) The added description field should ideally be rendered before the properties declaration of subnodes.\n\nUpdate: I asked the GPT to put description first in the annotations. This had two positive benefits: (1) easier to review - because description is adjacent to stream name, and (2) fewer lines changes because the trailing comma no longer causes the prior line to appear modified.\nOverall, descriptions look good.",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33135#issuecomment-1842100058",
+                                    "author": {
+                                        "login": "aaronsteers"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-06T09:33:04Z",
+                                    "bodyText": "Some thoughts from an information-theoretical perspective:\n\nIf the descriptions are created solely based on the existing schema (plus a static prompt), then they have to be derived from the schema itself plus whatever \"internal\" knowledge the LLM has\nWhen these descriptions are used for SQL generation by an LLM, it has access to the schema via the table structure plus the internal knowledge of the LLM\nAssuming the same LLM is used for description generation and SQL generation (e.g. OpenAI), no net-new information is injected into the system, it just becomes a special prompting technique (\"describe the schema in your own words, then use your own description to generate the SQL query\", but in two different places in the pipeline)\nWhile such a prompting technique can help a little bit, there's a certain upper limit of the performance enhancements that can be achieved this way. By giving the description-generating LLM access to the docs via RAG, we can add \"real\" new information to the process that should make these descriptions more relevant.\n\nOr did you imagine this to be an \"assistant\" use case, where the LLM comes up with the first draft and then the user edits and fixes issues (which is the actual information add)?",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33135#issuecomment-1842511779",
+                                    "author": {
+                                        "login": "flash1293"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-06T13:22:14Z",
+                                    "bodyText": "@flash1293 great comment. I thought a lot about that and have some additional thoughts on why it's useful to have this \"self-feeding\" documentation.\n\nusing LLMs to generate documentation is usually a win because you invested compute to present the information with more clarity\nit's easier for the human in the loop to see and correct \"understanding\" problems of the LLM\n\nthat being said I love the idea to enrich the generation process with some ground truth/fundamental documentation (e.g. docs from the API that were used to pull the data)\n@aaronsteers the documentation in general looks good. I like that FK relationships are also modelled. However, as an outside consumer I'm not sure how I would get access to it. Will this be propaged to the target system, e.g. as Snowflake comments and constraints?",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33135#issuecomment-1842868961",
+                                    "author": {
+                                        "login": "zurferr"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-06T14:39:52Z",
+                                    "bodyText": "@flash1293 - To your points:\nFirst, yes, you are correct that the same LLM would have access to the same information later in the pipeline, so doing it at this stage has limited benefit.\nSecond, also yes, one of the advantages of doing it at this stage is that we can manually code review the proposals and tweak/fix anything that is incorrect. Later in the pipeline, this would have to be performed by each of n consumers, who are more interested in expedited results and less interested in making a permanent artifact. Whereas here we can focus on incremental improvements to the central artifacts, making available to all downstream consumers and focusing on the accuracy and relative value-add we can create at this stage.\nThird point: the ideal way to do this is when we also have sample data available to the LLM, for instance the first 5 or 500 rows. In this particular case, we get away with not needing sample data for this source (GitHub), just because GPT already comes pre-trained with information about how Git works, how GitHub works, and (to some extent) how the GitHub REST APIs work. To your point, for most other sources, we wouldn't expect to get good quality annotations without also providing the LLM sample data to read from, and/or a copy of the REST API's documentation pages.\n@zurferr - To your question of how one would be access to this, the short answer is we don't know yet. But here are a few ideas:\n\nThe airbyte source connector would include these in its generated \"catalog\" JSON. Currently that wouldn't get populated downstream anywhere, but we could consider deliberately storing it somewhere.\nWe have internally discussed (for databases that support comments), an option where the destination connector might write table and column comments based on these annotations. Example: https://docs.snowflake.com/en/sql-reference/sql/comment\nAnother option would be (for us or our users) to use this information to auto-generate dbt sources.yml files. This provides a bridge between Airbyte-provided raw data and downstream transforms that consume it. Example here: https://docs.getdbt.com/docs/build/sources#testing-and-documenting-sources\nI know you guys (Dot) are working on DotML. In theory, these could feed into a DotML file, although admittedly that requires a few more jumps, since DotML is most likely going to want descriptions and metadata about final/business tables rather than the raw data here in these source-provided tables. It's a step in the right direction, at least, but admittedly it wouldn't yet give a bridge all the way to those use cases.",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33135#issuecomment-1843019346",
+                                    "author": {
+                                        "login": "aaronsteers"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 28,
+                        "title": "Add sessions to the game",
+                        "repository": {
+                            "nameWithOwner": "Just-for-fun-Developers/Bomberman",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-12-06T01:09:12Z",
+                        "mergedAt": "2023-12-07T14:02:30Z",
+                        "url": "https://github.com/Just-for-fun-Developers/Bomberman/pull/28",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "kentyucra"
+                        },
+                        "editor": null,
+                        "body": "- Added a navbar\r\n- Added a section to show session hash\r\n- Added the ability to add sessions (socket rooms)\r\n- Small bugs are introduced\r\n\r\nReference: https://chat.openai.com/share/d4f3ace0-7e36-4a40-bad3-4d70b356c476",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 400,
+                        "title": "Add code interpreter module",
+                        "repository": {
+                            "nameWithOwner": "camel-ai/camel",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-06T14:36:07Z",
+                        "mergedAt": "2024-01-14T16:59:58Z",
+                        "url": "https://github.com/camel-ai/camel/pull/400",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "dandansamax"
+                        },
+                        "editor": {
+                            "login": "dandansamax"
+                        },
+                        "body": "## Description\r\n\r\nAdd a new submodule `code interpreter` that enable the enable automatic code execution of agents. This module contains two interpreter implementations. \r\n\r\n* `internal_python_interpreter` is the old interpreter that running in current python environment.\r\n* `subprocess_interpreter` is a newly added interpreter using python `subprocess` feature, creating a new process to execute various languages in the OS environment. It currently supports `python` and `bash` scripts and can add more languages in the future.\r\n\r\nThese two interpreters can be used by the embodied agent. Refer to `camel/agents/embodied_agent.py`.\r\n\r\n## Example\r\n\r\nResults of `examples/embodiment/code_execution.py`:\r\n\r\nUser input: \"Write a bash script to install numpy, then write a python script to compute dot produce of [2,3] and [4,5] and print the result.\"\r\n\r\nCode block 1:\r\n``` bash\r\n#!/bin/bash\r\n\r\n# Check if pip is installed\r\nif ! command -v pip &> /dev/null\r\nthen\r\n    echo \"pip could not be found, installing...\"\r\n    sudo apt install python3-pip\r\nfi\r\n\r\n# Install numpy\r\npip install numpy\r\n```\r\n\r\ncode block 2:\r\n``` python\r\nimport numpy as np\r\n\r\n# Define the vectors\r\nvector1 = np.array([2, 3])\r\nvector2 = np.array([4, 5])\r\n\r\n# Compute the dot product\r\ndot_product = np.dot(vector1, vector2)\r\n\r\n# Print the result\r\nprint(\"The dot product is:\", dot_product)\r\n```\r\n\r\nExecute results:\r\n```\r\n> Executed Results:\r\nExecuting code block 0: {\r\nstdout: Requirement already satisfied: numpy in /home/dandan/.cache/pypoetry/virtualenvs/camel-wbWDp8RV-py3.8/lib/python3.8/site-packages (1.24.4)\r\n\r\nstderr: \r\n}\r\nExecuting code block 1: {\r\nstdout: The dot product is: 23\r\n\r\nstderr: \r\n}\r\n```\r\n\r\n## Motivation and Context\r\n\r\nclose #331 and #332.\r\n\r\n- [x] I have raised an issue to propose this change ([required](https://github.com/camel-ai/camel/issues) for new features and bug fixes)\r\n\r\n## Types of changes\r\n\r\nWhat types of changes does your code introduce? Put an `x` in all the boxes that apply:\r\n\r\n- [ ] Bug fix (non-breaking change which fixes an issue)\r\n- [x] New feature (non-breaking change which adds core functionality)\r\n- [ ] Breaking change (fix or feature that would cause existing functionality to change)\r\n- [ ] Documentation (update in the documentation)\r\n- [x] Example (update in the folder of example)\r\n\r\n## Checklist\r\n\r\nGo over all the following points, and put an `x` in all the boxes that apply.\r\nIf you are unsure about any of these, don't hesitate to ask. We are here to help!\r\n\r\n- [x] I have read the [CONTRIBUTION](https://github.com/camel-ai/camel/blob/master/CONTRIBUTING.md) guide. (**required**)\r\n- [ ] My change requires a change to the documentation.\r\n- [x] I have updated the tests accordingly. (*required for a bug fix or a new feature*)\r\n- [ ] I have updated the documentation accordingly.\r\n",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "In general LGTM, left some comments",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                _CODE_EXTENTION = {\n          \n          \n            \n                _CODE_EXTENSION = {",
+                                                        "author": {
+                                                            "login": "zechengz"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1422036404",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1a650f9",
+                                                            "authoredDate": "2023-12-07T12:21:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "nit: change to some more interpretable name such as confirm_execution?",
+                                                        "author": {
+                                                            "login": "zechengz"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1422039622",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1a650f9",
+                                                            "authoredDate": "2023-12-07T12:21:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                        print(f\"The following {code_type} code will run in your computer:\")\n          \n          \n            \n                        print(f\"The following {code_type} code will run on your computer:\")",
+                                                        "author": {
+                                                            "login": "zechengz"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1422040919",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1a650f9",
+                                                            "authoredDate": "2023-12-07T12:21:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It will be better if we can define Enum for code type somewhere",
+                                                        "author": {
+                                                            "login": "zechengz"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1422041313",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1a650f9",
+                                                            "authoredDate": "2023-12-07T12:21:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Just curious, creating the temp file in this way will system give user the execution permission? See this https://chat.openai.com/share/14b5a1fb-50e5-4335-9eee-565ce83661e5",
+                                                        "author": {
+                                                            "login": "zechengz"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1422043521",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1a650f9",
+                                                            "authoredDate": "2023-12-07T12:21:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "After using Enum we can remove this.",
+                                                        "author": {
+                                                            "login": "zechengz"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1422043979",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1a650f9",
+                                                            "authoredDate": "2023-12-07T12:21:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe dot product?\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                             \"dot produce of [2,3] and [4,5] and print the result.\"),\n          \n          \n            \n                             \"dot product of [2,3] and [4,5] and print the result.\"),",
+                                                        "author": {
+                                                            "login": "zechengz"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1422045873",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1a650f9",
+                                                            "authoredDate": "2023-12-07T12:21:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We use python temp.py and bash temp.sh to execute the code, so I think not giving execution permission doesn't affect.",
+                                                        "author": {
+                                                            "login": "dandansamax"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1422403489",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1a650f9",
+                                                            "authoredDate": "2023-12-07T12:21:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Using too many Enums may cause large import statements in user code. Also the string representation can give more flexibility (\"python3\", \"py\", or \"python\" can be accepted). I think it's better to keep code_type as string.",
+                                                        "author": {
+                                                            "login": "dandansamax"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1447139500",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1a650f9",
+                                                            "authoredDate": "2023-12-07T12:21:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Good idea! Thanks. Changed to require_confirm.",
+                                                        "author": {
+                                                            "login": "dandansamax"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1447141794",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1a650f9",
+                                                            "authoredDate": "2023-12-07T12:21:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Thanks @dandansamax. Looks amazing overall! Two things to be consider in the future:\n\nhow to can the agent use interpreter as tool\nhow to make the ChatAgent use interpreter\nadd an ipython interpreter to save the generation as ipython notebook run it: https://chat.openai.com/c/aa1544a6-3454-4169-889d-885c782a470c\n\nSome other errors need to be fixed since the rename of action_space in the EmbodiedAgent:\n\n  \n    \n      camel/examples/embodiment/hugging_face_tool.py\n    \n    \n         Line 38\n      in\n      b95288b\n    \n  \n  \n    \n\n        \n          \n           embodied_agent = EmbodiedAgent( \n        \n    \n  \n\n\n\n  \n    \n      camel/test/agents/test_embodied_agent.py\n    \n    \n         Line 33\n      in\n      b95288b\n    \n  \n  \n    \n\n        \n          \n           agent = EmbodiedAgent( \n        \n    \n  \n\n\nGetting error when I run the example:\nERROR: Could not install packages due to an OSError: [Errno 13] Permission denied: '/usr/local/bin/f2py'\nConsider using the `--user` option or check the permissions.\n\nWARNING: There was an error checking the latest version of pip.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's use the create_new_instance method to create the new system_message.",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448340027",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                    r\"\"\"\n          \n          \n            \n                    Executes the given code based on its type.\n          \n          \n            \n                    r\"\"\"Executes the given code based on its type.",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448348872",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                    tool_agents (List[BaseToolAgent], optinal): The tools agents to use in\n          \n          \n            \n                    tool_agents (List[BaseToolAgent], optional): The tools agents to use in",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448351848",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                        the emboied agent. (default: :obj:`None`)\n          \n          \n            \n                        the embodied agent. (default: :obj:`None`)",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448352359",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "set_action_space may be a bit confusing since it is update. How about:\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                def set_action_space(self, action_space: Dict[str, Any]) -> None:\n          \n          \n            \n                    r\"\"\"Sets action space for *python* interpreter\"\"\"\n          \n          \n            \n                    self.action_space.update(action_space)\n          \n          \n            \n                def update_action_space(self, action_space: Dict[str, Any]) -> None:\n          \n          \n            \n                    r\"\"\"Updates action space for *python* interpreter\"\"\"\n          \n          \n            \n                    self.action_space.update(action_space)",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448367142",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Not sure if we want to raise an error here since sometime the user wants to skip code or wants to regenerate code. How about a warming?",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448405147",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                _CODE_EXTENSION = {\n          \n          \n            \n                _CODE_EXTENSION_MAPPING = {",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448416749",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                _CODE_TYPE = {\n          \n          \n            \n                _CODE_TYPE_MAPPING = {",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448417041",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                    raise RuntimeError(\"SubprocessInterpreter doesn't support \"\n          \n          \n            \n                    raise InterpreterError(\"SubprocessInterpreter doesn't support \"",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448420283",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                def set_action_space(self, action_space: Dict[str, Any]) -> None:\n          \n          \n            \n                    r\"\"\"Sets action space for *python* interpreter\"\"\"\n          \n          \n            \n                def update_action_space(self, action_space: Dict[str, Any]) -> None:\n          \n          \n            \n                    r\"\"\"Updates action space for *python* interpreter\"\"\"",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448421163",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is here a typo?",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448422520",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This assert does not give much helpful informaiton about the test",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448430677",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Should we keep this and use SubprocessInterpreter by default? Keeping execute makes it easier for the user to run code in my opinion.",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448435261",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Because this test prints nothing to stderr, this assertion just makes sure the output follows the format.",
+                                                        "author": {
+                                                            "login": "dandansamax"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448874780",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is not an interpreter error. I defined InterpreterError as \"Exception raised for errors that can be solved by regenerating code\". The purpose of this exception is to identify the errors in the llm-generated code, but not in the product code. Here the error is from misconfiguration, so it should be a RuntimeError.",
+                                                        "author": {
+                                                            "login": "dandansamax"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448880206",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "emmm, IMO, the developer must handle the InterpreterError in the agent, normally by feeding the error message back to the llm. This behaviour is similar to the error caused by faults in the generated code which should be properly solved but not skipped.",
+                                                        "author": {
+                                                            "login": "dandansamax"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448886826",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think it's a little strange to import Interpreter in the Prompt level in a engineer view. We can find a better way to do it. An idea is to provide a default code running function that accept CodePrompt as the argument.",
+                                                        "author": {
+                                                            "login": "dandansamax"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1448902605",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "However, here if we raise an error the error message is not sent to the agent right? I still think we should not raise an error here. Because there are many cases the user would choose to skip some codes based on their preference.",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1449402935",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thanks. It makes sense.",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1449403535",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I would prefer keeping the execute method in CodePrompt since this could easier for the users. They can just execute the code with worring about what Interpreter to use.",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1451372066",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It was also used and in the previous document. It would be better to keep it for backward compatibility.",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1451372933",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The error message should be sent to the agent and this behaviour should be implemented in the ChatAgent level. If the code interepreter returns nothing to the agent, the agent will be confused.",
+                                                        "author": {
+                                                            "login": "dandansamax"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1451573686",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Okay, it can be useful.\n\nIt was also used and in the previous document. It would be better to keep it for backward compatibility.\n\nHowever, even if we keep the function, the function arguments will be changed, so backward compatibility cannot be kept.",
+                                                        "author": {
+                                                            "login": "dandansamax"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1451575394",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You are right. But let's change it and fix the docs: https://camel-ai.github.io/camel/get_started/code_prompt.html.",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1451670040",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Thanks @dandansamax. It looks awesome. I did some small fixes. Please feel free to merge it if you think it is ok.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sounds good. We can add feature to handle InterpreterError later on.",
+                                                        "author": {
+                                                            "login": "lightaime"
+                                                        },
+                                                        "url": "https://github.com/camel-ai/camel/pull/400#discussion_r1451733099",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6aee69e",
+                                                            "authoredDate": "2024-01-10T09:58:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjQ=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 4
+        }
+    }
+}

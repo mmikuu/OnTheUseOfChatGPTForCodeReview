@@ -1,0 +1,722 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 287,
+                        "title": "[DERCBOT-661] RAG : indexing tools",
+                        "repository": {
+                            "nameWithOwner": "CreditMutuelArkea/tock",
+                            "primaryLanguage": {
+                                "name": "Kotlin"
+                            }
+                        },
+                        "createdAt": "2024-01-02T14:08:24Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "GuirriecP"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2024-02-05T14:37:19Z",
+                                    "bodyText": "PR a remplacer par : #305",
+                                    "url": "https://github.com/CreditMutuelArkea/tock/pull/287#issuecomment-1927148255",
+                                    "author": {
+                                        "login": "Benvii"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Thanks, some improvements can be done.\n\n  Pre-commit hooks should be applied here also : https://pre-commit.com/hooks.html",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Module name should be more explicit (if someday we want to publish it an pypi) for instance tock-llm-indexing-tools, would be more aligned with the existing tock-py : https://github.com/theopenconversationkit/tock-py/blob/master/setup.py#L26",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452166798",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "also ignore embeddings.json files to prevent some developper from commiting their API keys\n prefer putting  specific  .gitignore files in the package folder, in llm/orchestrator-server/",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452226026",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Remove this file it should be named __init__.py if you really want an init file",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452226869",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can you update it to langchain 0.1.0",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452312102",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You should only use the abstraction layer BaseEMSetting not OpenAIEMSetting nor AzureOpenAIEMSetting",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452314539",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is already handled by get_em_factory, simply load the configuration as a BaseEMSetting format.",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452316714",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Use a logger.info here",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452373905",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It's better to explicitly list all arguments with their type so that you can have a better documentation support :\ndef index_documents(input_csv: string, index_name: string, ....) -> str:\nDocument input types and return types using typing.",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452384328",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "When formatting logs you should not use f-strings, because arguments are always evaluated before calling the logger, this means that the string rendering occurs even if we are in INFO mode and not DEBUG. Let the logger do the formatting (we call it lazy logging) for you using arguments and this format :\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                logging.debug(f\"Beginning indexation session {session_uuid} at '{formatted_datetime}'\")\n          \n          \n            \n                logging.debug(\"Beginning indexation session %s at '%s'\", session_uuid, formatted_datetime)\n          \n      \n    \n    \n  \n\nGood reference about it : https://medium.com/flowe-ita/logging-should-be-lazy-bc6ac9816906",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452392940",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You could put this while in a function called tag_chunks, also this kind of data processing could be easily done using pandas in a more efficient way  like this :\nimport pandas as pd\n\n# Example data: list of dictionaries\ndata = [\n    {\"doc_uuid\": \"A\", \"other_key\": \"value1\"},\n    {\"doc_uuid\": \"B\", \"other_key\": \"value2\"},\n    {\"doc_uuid\": \"A\", \"other_key\": \"value3\"},\n    {\"doc_uuid\": \"B\", \"other_key\": \"value4\"},\n    {\"doc_uuid\": \"C\", \"other_key\": \"value5\"},\n    # Add more dictionaries as needed\n]\n\n# Create DataFrame\ndf = pd.DataFrame(data)\n\n# Group by 'doc_uuid' and generate incremental index\ndf['chunk'] = df.groupby('doc_uuid').cumcount()\n\n# Convert the DataFrame to a list of dictionaries\nflattened_data = df.to_dict('records')\n\nflattened_data\nThis this chatgpt : https://chat.openai.com/share/639aade3-aaca-47ba-9c29-09638e0d428e",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452417328",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Add typing for the function.\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            def index_name_is_valid(index_name):\n          \n          \n            \n            def index_name_is_valid(index_name: str) -> bool:",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452426885",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You are loading 2 times the configuration file, if you parse it using the TypeAdapter if the provider is unknown it will automatically through an exception.\nYou should parse it in the main them passe an EMSetting to your indexing function.",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452429497",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It's better to explicitly list all arguments with their type so that you can have a better documentation support.",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452435130",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Add parameters types.",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452435862",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why is it unverified ?",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1452438478",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Upgraded to langchain 0.1.0 (0.1.4 in lock file), added langchain-community ^0.0.16.",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1472974432",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1473036846",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1473059483",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done (changed to tock-llm-indexing-tools)",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1473061280",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "BaseEMSetting cannot be instantiated from concrete json dict, and get_em_factory discriminates based on class type, so this cannot be done.\nMaybe a mixup between BaseEMSetting and EMSetting?",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481474971",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "As designed (asked by Mohamed) : without the '-v' option, the script prints the indexation session id (this is not a log line).\nCan you confirm?",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481478328",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "By design: the method is proposed as an importable convenience that does the same, but the script is supposed to be used via its docopt-documented CLI. The goal was not to double the same comments (douvbling maintainance).\nCan you confirm?",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481485228",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Duly noted, read the article.\nDo you confirm I shall rewrite all logs in the 3 scripts? (perf is not a priority, and this can easily introduce bugs)",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481503781",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done (use pandas to update metadata).",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481587989",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481588996",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "By design: checks in main are meant to be fail-soon CLI args-checks (valid JSON inputed by script user), they are then passed along to the heavy-processing index_documents() method.\nWhat do you think?",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481600615",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "idem #287 (comment)",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481603268",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481606087",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I can't seem to remember: removed it.",
+                                                        "author": {
+                                                            "login": "GuirriecP"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1481621714",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ok we will see in the futur",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1494821866",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Hum ok but it can be splitted, I will post a comment about it in my review.",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1495485042",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't see the change about it.",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1495490759",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "hum ok usually we don't like doing the same stuff several time ^^",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1497180745",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ok",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1497184095",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ok thanks :)",
+                                                        "author": {
+                                                            "login": "Benvii"
+                                                        },
+                                                        "url": "https://github.com/CreditMutuelArkea/tock/pull/287#discussion_r1497186442",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "63969ad",
+                                                            "authoredDate": "2024-01-08T08:09:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

@@ -1,0 +1,753 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 11281,
+                        "title": "Make Transaction Processing Faster (faster wallet load)",
+                        "repository": {
+                            "nameWithOwner": "zkSNACKs/WalletWasabi",
+                            "primaryLanguage": {
+                                "name": "C#"
+                            }
+                        },
+                        "createdAt": "2023-08-14T15:49:07Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/zkSNACKs/WalletWasabi/pull/11281",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "nopara73"
+                        },
+                        "editor": null,
+                        "body": "12% transaction processing speed increase",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-08-15T07:23:46Z",
+                                    "bodyText": "I'm not happy with this. I was hoping we'd get to 50% or something here.",
+                                    "url": "https://github.com/zkSNACKs/WalletWasabi/pull/11281#issuecomment-1678524309",
+                                    "author": {
+                                        "login": "nopara73"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-15T09:09:18Z",
+                                    "bodyText": "https://chat.openai.com/share/9eee2d11-72be-4008-9662-743cfce09a45",
+                                    "url": "https://github.com/zkSNACKs/WalletWasabi/pull/11281#issuecomment-1678631953",
+                                    "author": {
+                                        "login": "nopara73"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-15T09:09:56Z",
+                                    "bodyText": "Given the measurements, the primary areas to focus on are sections B, D, and G, which together account for almost 98% of the processing time. Here's a refined list of optimizations based on the measurements:\n\nSection B (29.69%):\n\nThis section likely corresponds to the initial setup and checks in the ProcessNoLock method. The multiple lookups (TransactionStore.TryGetTransaction, Coins.AsAllCoinsView().CreatedBy(txId).Any(), etc.) are potential culprits.\nOptimize the lookups. Ensure data structures used (like CoinsRegistry and AllTransactionStore) are efficient for the operations you're performing.\nReduce the number of LINQ operations. For instance, the !Coins.AsAllCoinsView().CreatedBy(txId).Any() check can be optimized.\nSection D (44.80%):\n\nThis section seems to be the most time-consuming and might correspond to the handling of double-spent transactions and the related logic in ProcessNoLock.\nOptimize the loops that deal with double-spent transactions. Avoid nested loops if possible.\nReduce the number of LINQ operations, especially in the double-spent transactions handling.\nIf there are recursive calls or deep loops in this section, ensure they're optimized.\nSection G (23.29%):\n\nThis section likely corresponds to the latter part of the ProcessNoLock method, where coins are being updated, and the BlockchainAnalyzer.Analyze is called.\nEnsure the BlockchainAnalyzer.Analyze method is optimized, especially if it involves complex computations.\nOptimize the coin updates, especially the operations on the CoinsRegistry.",
+                                    "url": "https://github.com/zkSNACKs/WalletWasabi/pull/11281#issuecomment-1678632614",
+                                    "author": {
+                                        "login": "nopara73"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-15T09:11:47Z",
+                                    "bodyText": "#11287",
+                                    "url": "https://github.com/zkSNACKs/WalletWasabi/pull/11281#issuecomment-1678634658",
+                                    "author": {
+                                        "login": "nopara73"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Nice",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Downgrade?",
+                                                        "author": {
+                                                            "login": "MaxHillebrand"
+                                                        },
+                                                        "url": "https://github.com/zkSNACKs/WalletWasabi/pull/11281#discussion_r1293675166",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "06b3c79",
+                                                            "authoredDate": "2023-08-14T15:48:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "IDK what kind of shit that is",
+                                                        "author": {
+                                                            "login": "nopara73"
+                                                        },
+                                                        "url": "https://github.com/zkSNACKs/WalletWasabi/pull/11281#discussion_r1294268560",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "06b3c79",
+                                                            "authoredDate": "2023-08-14T15:48:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 45,
+                        "title": "Add OSM Notes Layer",
+                        "repository": {
+                            "nameWithOwner": "FixMyBerlin/atlas-app",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-08-14T07:32:55Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "ohrie"
+                        },
+                        "editor": null,
+                        "body": "**Please do not merge**\r\n\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-08-14T07:33:38Z",
+                                    "bodyText": "@tordans K\u00f6nntest du ein kleines Code Review machen :) ?  Aber bitte nicht mergen.",
+                                    "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#issuecomment-1676821957",
+                                    "author": {
+                                        "login": "ohrie"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Sorry, hat l\u00e4nger gedauert. Schaut gut aus. Feedback in den Kommentaren.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "flex ist immer ein block element, daher DIV statt SPAN.\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                            <span className=\"flex\">\n          \n          \n            \n                              {statusIcon}\n          \n          \n            \n                              {!!objectId && (\n          \n          \n            \n                                <span\n          \n          \n            \n                                  className={clsx(\n          \n          \n            \n                                    'rounded  px-1 py-0 font-mono',\n          \n          \n            \n                                    open ? 'bg-white' : 'bg-gray-100'\n          \n          \n            \n                                  )}\n          \n          \n            \n                                >\n          \n          \n            \n                                  #{objectId}\n          \n          \n            \n                                </span>\n          \n          \n            \n                              )}\n          \n          \n            \n                            </span>\n          \n          \n            \n                            <div className=\"flex\">\n          \n          \n            \n                              {statusIcon}\n          \n          \n            \n                              {!!objectId && (\n          \n          \n            \n                                <span\n          \n          \n            \n                                  className={clsx(\n          \n          \n            \n                                    'rounded  px-1 py-0 font-mono',\n          \n          \n            \n                                    open ? 'bg-white' : 'bg-gray-100'\n          \n          \n            \n                                  )}\n          \n          \n            \n                                >\n          \n          \n            \n                                  #{objectId}\n          \n          \n            \n                                </span>\n          \n          \n            \n                              )}\n          \n          \n            \n                            </div>",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1293601178",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Vorschlag:\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            export type InspectorOsmNoteFeature = {\n          \n          \n            \n              properties: GeoJSON.GeoJsonProperties\n          \n          \n            \n              geometry?: maplibregl.GeoJSONFeature['geometry']\n          \n          \n            \n            }\n          \n          \n            \n            export type InspectorOsmNoteFeature = Omit<InspectorDataFeature, \"sourceKey\">\n          \n      \n    \n    \n  \n\nhttps://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1293605037",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Wir haben ja schon das if (isDataset) weiter unten, was IMO das gleiche macht wie die Notes, n\u00e4mlich ein anderes Inspector-Modul anzeigen je nach Daten-Typ. K\u00f6nnen wir das auch f\u00fcr Notes machen? Dann w\u00e4re die if-else-Exposure Area kleiner, n\u00e4mlich nur der if-Block beim returnen. Ich k\u00f6nnte mir nur vorstellen, dass dann ggf. die Notes nicht alle oben einsortiert werden sondern zwischen den Daten, je nach Reihenfolge die uns maplibre liefert. Wenn das ein Problem ist, w\u00fcrde ich aber eher eine \"sortedInspectorFeature\" machen, so die NOtes nach oben sortiert werden.",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1293609746",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "FYI ich war hier etwas grob unterwegs. Ich vermute, es gibt noch mehr Stati aber hatte es nicht gepr\u00fcft.",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1293610514",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n              // if (!sourceKey || !properties) return null\n          \n          \n            \n            \n          \n          \n            \n              // The documentedKeys info is placed on the source object\n          \n          \n            \n              // const sourceId = extractDataIdIdFromDataKey(sourceKey) as DatasetIds\n          \n          \n            \n              // const sourceData = sourcesDatasets.find((dataset) => dataset.id == sourceId)\n          \n          \n            \n            \n          \n          \n            \n              // if (typeof sourceData === 'undefined') return null\n          \n          \n            \n              // if (!sourceData.inspector.enabled) return null",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1293610851",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Das green tut gerade nichts, oder?\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        <CheckIcon className=\"green h-5 w-5\" aria-hidden=\"true\" />\n          \n          \n            \n                        <CheckIcon className=\"bg-green-500 h-5 w-5\" aria-hidden=\"true\" />\n          \n      \n    \n    \n  \n\nK\u00f6nnte aber auch text-green-500 sein\u2026",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1293611898",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Weiter oben https://github.com/FixMyBerlin/atlas-app/pull/45/files#diff-8d08334f72ca74ab49a921fec462adaef2f393d07578fc62b92b34e63f869a70R44 haben wir das ja ohne Split. Ist das Split wirklich n\u00f6tig? Dann vermutlich auch f\u00fcr oben?",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1293613308",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Vielleicht ist das aber auch der Moment, wo wir https://date-fns.org/ in der App einf\u00fchren. Das m\u00fcsste eine bessere Parsing Funktion liefern \u2026 und gibt uns dann vor allem auch die M\u00f6glichkeit zu sagen \"vor 5 Stunden\", was ich ziemlich hilfreich finde f\u00fcr diese Kommentar-Datums-Elemente.",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1293614693",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Das dompurify ist sicher smart. An dieser Stelle k\u00f6nnte wir es auch lassen, da OSM nur Markdown erlaubt und das HTML von OSM auf Basis vom Markdown entsteht. Zumindest war ich davon ausgegangen.\nEin andere Weg die Library zu umgehen w\u00e4re <Markdown markdown={comment.text} /> zu verwenden und das Markdown selbst zu parsen. Das hatte ich nicht gemacht zuerst, weil wir dann die Verantwortung f\u00fcr das Parsen \u00fcbernehmen und es kleine Unterschiede geben kann\u2026 \u2014 W\u00e4re auch weiter daf\u00fcr, es nicht zu tun.\nSind ja immerhin 700kb\u2026 https://www.npmjs.com/package/dompurify\nMein Fazit: Lass es uns lassen wie es ist, ist die Arbeit nicht wert :)",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1293616706",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Das k\u00f6nnten wir sp\u00e4ter noch translaten \u00fcber ein Object.",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294726685",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Der Name ist etwas abstrakt. Geht es hier nicht immer um die OSM Notes? <SourceLayerOsmNotes />?",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294727789",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Habe mich noch nicht tiefer rein gedacht, aber h\u00e4tte erwartet, dass wir hier useQuery verwenden, um einen internen Cache der Daten zu haben und Handling wie isLoading u.\u00e4.",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294733973",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Wir haben bisher die event Listener immer \u00fcber die react-map-gl Hooks aktiviert/deaktivert.\nIch w\u00fcrde eher so etwa erwartet wie \u2026\n<MapGl\nid=\"mainMap\"\n\u2026\nonMoveEnd={handleMoveEnd} />\nUnd in handleMoveEnd dann ein if(!osmNotes) return.",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294744709",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ich meine mich zu erinnern, dass GeoJSON sources keinen source source-layer haben; das kann also einfach raus.",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294747214",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Alternativ zu dem conditional hier, k\u00f6nntest du unten sagen layout: {      visibility: osmNotes ? 'visible' : 'hidden',\u2026.\nBin unsicher, wie der Guard am besten w\u00e4re. W\u00fcrde man vielleicht auch die <Source /> nur rendern wollen, wenn osmNotes an ist?\nIch meine, dass wir zur Zeit mit den externen Datens\u00e4tzen (den mbtiles) das Problem haben, dass sie immer im network tab auftauchen, auch wenn sie eigentlich gar nicht aktiv sind (f\u00fcr die Region). Habe noch nicht gepr\u00fcft woran das liegt.",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294760310",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                <section className=\"mr-2\">\n          \n          \n            \n                <section>",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294765993",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                    <div className=\"absolute top-3 left-5 z-10 flex\">\n          \n          \n            \n                    <div className=\"absolute top-3 left-5 z-10 flex gap-2\">\n          \n      \n    \n    \n  \n\nlieber hier als unten als mr-2, da hier generisch",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294766515",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ist das wirklich n\u00f6tig?",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294768985",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                      <div className=\"h-5 w-5\">\n          \n          \n            \n                        <PlusIcon />\n          \n          \n            \n                      </div>\n          \n          \n            \n                      <PlusIcon className=\"h-5 w-5\" />\n          \n          \n            \n                      <span class=\"sr-only\">Neuen Hinweis auf openstreetmap.org auf der Karte erstellen</span>\n          \n      \n    \n    \n  \n\nDas mit dem className m\u00fcsste IMO so genauso klappen.",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294775322",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                      <div className=\"h-5 w-5\">\n          \n          \n            \n                        {osmNotesLoaded && <ChatBubbleLeftRightIcon />}\n          \n          \n            \n                        {!osmNotesLoaded && <SmallSpinner />}\n          \n          \n            \n                      </div>\n          \n          \n            \n                      {osmNotesLoaded ? <ChatBubbleLeftRightIcon className=\"h-5 w-5\" /> : <SmallSpinner className=\"h-5 w-5\" />}\n          \n      \n    \n    \n  \n\nM\u00fcsste gleich sein.",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294776884",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Die Barrel files sollten nur .ts sein.",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294777560",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Das f\u00fchlt sich falsch an, weil kein dependency array. Das wird also bei jedem Render ausgel\u00f6st, richtig? Es m\u00fcsste doch mit dependency array auch klappen?\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              useEffect(() => {\n          \n          \n            \n                if (parentWrapperRef.current) {\n          \n          \n            \n                  setHeight(parentWrapperRef.current.clientHeight)\n          \n          \n            \n                }\n          \n          \n            \n              })\n          \n          \n            \n              useEffect(() => {\n          \n          \n            \n                if (parentWrapperRef.current) {\n          \n          \n            \n                  setHeight(parentWrapperRef.current.clientHeight)\n          \n          \n            \n                }\n          \n          \n            \n              }, [parentWrapperRef.current])",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294780418",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                    className={`tooltip hyphens-nonte w-max cursor-default select-none break-keep rounded bg-gray-900 p-2 text-white shadow-md`}\n          \n          \n            \n                    className={`tooltip hyphens-none cursor-default select-none break-keep rounded bg-gray-900 p-2 text-white shadow-md`}\n          \n      \n    \n    \n  \n\nDas w-max gibt es IMO so nicht",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294781890",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ich versuche ja Dinge in den .css files zu vermeiden, sondern die Dinge sch\u00f6n contained zu halten.\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                <div className={clsx('has-tooltip', className)} ref={parentWrapperRef}>\n          \n          \n            \n                <div className={clsx('has-tooltip', className)} ref={parentWrapperRef}>\n          \n      \n    \n    \n  \n\nIch glaube fast, in diesem Fall k\u00f6nnte ein useState es gut lesbar machen.\nDu kannst es aber IMO auch vollst\u00e4ndig mit TW machen:\nhttps://play.tailwindcss.com/MJHzCxpIQN\n<div class=\"group/tooltip cursor-help border border-red-200\">\n  <span class=\"absolute top-2 hidden cursor-default select-none hyphens-none break-keep rounded border bg-gray-900 p-2 text-white shadow-md group-hover/tooltip:z-50 group-hover/tooltip:block\">Foo</span>\n\n  Lorem Ipsum\n</div>",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294792489",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \n          \n          \n            \n              .tooltip {\n          \n          \n            \n                @apply absolute hidden;\n          \n          \n            \n              }\n          \n          \n            \n            \n          \n          \n            \n              .has-tooltip:hover .tooltip {\n          \n          \n            \n                @apply z-50 block;\n          \n          \n            \n              }\n          \n      \n    \n    \n  \n\nSiehe oben",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1294792757",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "OSM gibt uns allerdings ein HTML zur\u00fcck. Aber selbst Markdown darf ja HTML enthalten und damit w\u00e4re es aus meiner Sicht sicherheitskritisch.\nKurios, dass es 700 Kb sind!",
+                                                        "author": {
+                                                            "login": "ohrie"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1295473123",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Bisher schon, ja. Aber ich wollte es generischer formulieren, weil ja \u00fcbergeordnet GeoJSON dynamisch geladen werden und dann angezeigt werden. ^^",
+                                                        "author": {
+                                                            "login": "ohrie"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1295474081",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Guter Punkt.",
+                                                        "author": {
+                                                            "login": "ohrie"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1295474436",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "w-max gibt es :) Siehe https://tailwindcss.com/docs/width",
+                                                        "author": {
+                                                            "login": "ohrie"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1295480669",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ok, danke. Das muss ich mir nochmal genauer anschauen :)",
+                                                        "author": {
+                                                            "login": "ohrie"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1295502857",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Danke, dachte gap gibts nur bei grids",
+                                                        "author": {
+                                                            "login": "ohrie"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1295503512",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Das mit useState habe ich nicht verstanden. Wo sollte ich das ben\u00f6tigen?",
+                                                        "author": {
+                                                            "login": "ohrie"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1295542797",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Das Problem ist, dass mir https://wiki.openstreetmap.org/wiki/API_v0.6#Map_Notes_API das nicht sagt. Ich finde keine Beschreibung der verschieden m\u00f6glichen Stati :(",
+                                                        "author": {
+                                                            "login": "ohrie"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1295576812",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Habe es etwas ver\u00e4ndert.",
+                                                        "author": {
+                                                            "login": "ohrie"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1295577510",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Hoffen wir, dass ChatGPT wei\u00df, wovon es spricht :) https://chat.openai.com/share/3351b7ee-9222-4d67-9f08-74168428f2cc",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1301612702",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ignoriert\u2026",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1301765531",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "FYI, das musste ich umbauen; ich glaube, das hat nicht funktioniert vorher; zumindest war es buggy als ich eben dran gearbeitet habe. Meine Vermutung ist, dass react-map-gl gar keine .on-events erlaubt.",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1301767847",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "gelassen wie es ist; es ist smarter die layer gar nicht auszugeben und es gibt keine fehlermeldung.",
+                                                        "author": {
+                                                            "login": "tordans"
+                                                        },
+                                                        "url": "https://github.com/FixMyBerlin/atlas-app/pull/45#discussion_r1301768698",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d672c6e",
+                                                            "authoredDate": "2023-08-09T13:14:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjI=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 2
+        }
+    }
+}

@@ -1,0 +1,64 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 245,
+                        "title": "replace amazon iframe",
+                        "repository": {
+                            "nameWithOwner": "abekoh/blog-v3",
+                            "primaryLanguage": {
+                                "name": "Astro"
+                            }
+                        },
+                        "createdAt": "2024-01-28T08:48:20Z",
+                        "mergedAt": "2024-01-28T08:53:33Z",
+                        "url": "https://github.com/abekoh/blog-v3/pull/245",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "abekoh"
+                        },
+                        "editor": null,
+                        "body": "- replace\n- update modified\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2024-01-28T08:49:08Z",
+                                    "bodyText": "\u5229\u7528\u3057\u305f\u30b9\u30af\u30ea\u30d7\u30c8\nhttps://chat.openai.com/share/5810de29-db86-493e-b66a-f9b661abb637\nimport os\nimport re\n\ndef replace_iframe_with_a_tag(directory):\n    # \u6b63\u898f\u8868\u73fe\u3067iframe\u30bf\u30b0\u3092\u898b\u3064\u3051\u308b\n    iframe_regex = re.compile(\n        r'<iframe[^>]*src=\"//rcm-fe\\.amazon-adsystem\\.com/e/cm\\?[^\"]*asins=([0-9A-Za-z]+)[^\"]*\"[^>]*>.*?</iframe>',\n        re.DOTALL\n    )\n\n    # \u6307\u5b9a\u3055\u308c\u305f\u30c7\u30a3\u30ec\u30af\u30c8\u30ea\u5185\u306e\u5168.md\u30d5\u30a1\u30a4\u30eb\u3092\u63a2\u3059\n    for filename in os.listdir(directory):\n        if filename.endswith('.md'):\n            filepath = os.path.join(directory, filename)\n\n            # \u30d5\u30a1\u30a4\u30eb\u3092\u8aad\u307f\u8fbc\u3080\n            with open(filepath, 'r', encoding='utf-8') as file:\n                content = file.read()\n\n            # iframe\u30bf\u30b0\u3092\u63a2\u3057\u3001\u7f6e\u304d\u63db\u3048\u308b\n            new_content, replacements = iframe_regex.subn(\n                lambda m: f'<a href=\"https://www.amazon.co.jp/dp/{m.group(1)}\">https://www.amazon.co.jp/dp/{m.group(1)}</a>',\n                content\n            )\n\n            # \u7f6e\u304d\u63db\u3048\u304c\u884c\u308f\u308c\u305f\u5834\u5408\u3001\u30d5\u30a1\u30a4\u30eb\u3092\u4e0a\u66f8\u304d\u3059\u308b\n            if replacements > 0:\n                with open(filepath, 'w', encoding='utf-8') as file:\n                    file.write(new_content)\n\n    return \"Completed. Replaced iframe tags in .md files.\"\n\n# \u3053\u306e\u95a2\u6570\u3092\u5b9f\u884c\u3059\u308b\u524d\u306b\u3001\u6b63\u3057\u3044\u30c7\u30a3\u30ec\u30af\u30c8\u30ea\u30d1\u30b9\u3092\u6307\u5b9a\u3057\u3066\u304f\u3060\u3055\u3044\nreplace_iframe_with_a_tag('./src/content/posts')",
+                                    "url": "https://github.com/abekoh/blog-v3/pull/245#issuecomment-1913519079",
+                                    "author": {
+                                        "login": "abekoh"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-28T08:49:24Z",
+                                    "bodyText": "Deploying with \u00a0 \u00a0Cloudflare Pages\nLatest commit: \n362d1ea\n\nStatus:\u00a0\u2705\u00a0 Deploy successful!\nPreview URL:\nhttps://bc6cfe8b.blog-v3-1mm.pages.dev\n\nBranch Preview URL:\nhttps://replace-amazon-iframe.blog-v3-1mm.pages.dev\n\n\nView logs",
+                                    "url": "https://github.com/abekoh/blog-v3/pull/245#issuecomment-1913519130",
+                                    "author": {
+                                        "login": "cloudflare-pages"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

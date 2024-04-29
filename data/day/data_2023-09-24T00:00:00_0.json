@@ -1,0 +1,437 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 266,
+                        "title": "Add test for multiple entries that have shared code",
+                        "repository": {
+                            "nameWithOwner": "huozhi/bunchee",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-09-24T18:20:19Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/huozhi/bunchee/pull/266",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "thgh"
+                        },
+                        "editor": null,
+                        "body": "Related to #265",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-25T14:18:23Z",
+                                    "bodyText": "OK, that's my last force push! (I pushed over your commits, feel free to take over!)",
+                                    "url": "https://github.com/huozhi/bunchee/pull/266#issuecomment-1733805680",
+                                    "author": {
+                                        "login": "thgh"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-25T15:02:30Z",
+                                    "bodyText": "Thanks for updating, I'ld like to keep reviewing and not touch the code to avoid more conflicts",
+                                    "url": "https://github.com/huozhi/bunchee/pull/266#issuecomment-1733901984",
+                                    "author": {
+                                        "login": "huozhi"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-29T08:08:45Z",
+                                    "bodyText": "I don't think I want to cover this use case in test\n\nHi @huozhi which config would you suggest to mark \"internal\" dependencies? Or is this usecase out of scope?\nI agree that --external should be used for external dependencies and not internal code. I would hope this usecase could be supported with zero-config, but I'm not aware of multi-entry code-sharing features in Rollup.\nI have a workaround like this: bunchee --target es2022 --external ./index &&  sed -i '' \\\"s/'\\\\.\\\\/index'/'\\\\.\\\\/index\\\\.mjs'/g\\\" bundle/server.mjs bundle/bin.mjs && sed -i '' \\\"s/'\\\\.\\\\/index'/'\\\\.\\\\/index\\\\.cjs'/g\\\" bundle/server.cjs bundle/bin.cjs\nLooks like it is possible: https://chat.openai.com/share/8a08b0c6-d5c4-476d-a086-a0053cd8c185",
+                                    "url": "https://github.com/huozhi/bunchee/pull/266#issuecomment-1740483575",
+                                    "author": {
+                                        "login": "thgh"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-29T12:14:30Z",
+                                    "bodyText": "@thgh relative files shouldn't be external dependency as they could cause path mismatching after output into different dist path, also explained in #265 (comment)\nThe case you mentioned in that thread seems like it's a single bin file in ESM format?\n \"bin\": {\n    \"mypkg\": \"dist/bin.mjs\"\n  },\n\nI think you could also build that one separately as it only has a separate file? But I imagine inside bin it should still import the modul with module name. So when it runs nodejs could resolve it properly with exports mapping",
+                                    "url": "https://github.com/huozhi/bunchee/pull/266#issuecomment-1740793646",
+                                    "author": {
+                                        "login": "huozhi"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-29T12:23:06Z",
+                                    "bodyText": "I think bunchee could support this \"bin\" case as a new feature, like if you want to have a binary build, bunchee should also build it for you.",
+                                    "url": "https://github.com/huozhi/bunchee/pull/266#issuecomment-1740806455",
+                                    "author": {
+                                        "login": "huozhi"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T15:14:08Z",
+                                    "bodyText": "We've landed a change about \"bin\" field support in #282 . To some extent, this has addressed the issue. Stay tuned!",
+                                    "url": "https://github.com/huozhi/bunchee/pull/266#issuecomment-1837512474",
+                                    "author": {
+                                        "login": "huozhi"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-24T01:51:52Z",
+                                    "bodyText": "@thgh This improvement is supported in 4.2.0, you can directly import the source code, for instance import ./server export into ./index like you did. And it will be treated as external for index's bundle",
+                                    "url": "https://github.com/huozhi/bunchee/pull/266#issuecomment-1868412086",
+                                    "author": {
+                                        "login": "huozhi"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-26T09:55:33Z",
+                                    "bodyText": "Hi, I can't seem to get bunchee to work anymore, as if it doesn't recognize typescript.\n$ bunchee\n1: import { Server } from 'node:http'\n2: import type { AddressInfo } from 'node:net'\n               ^\n3: import { resolve } from 'node:path'\n \u2a2f RollupError: Expected ',', got '{'\n    at error (/.../node_modules/rollup/dist/shared/parseAst.js:279:30)\n    at nodeConverters (/.../node_modules/rollup/dist/shared/parseAst.js:2147:9)\n    at convertNode (/.../node_modules/rollup/dist/shared/parseAst.js:1032:12)\n    ...\n\nNote, just tried out pkgroll which worked on second try (after one helpful error message). It also handles entries with shared code, it's faster and handles mjs+cjs outputs. Could be interesting to join forces!",
+                                    "url": "https://github.com/huozhi/bunchee/pull/266#issuecomment-1869420665",
+                                    "author": {
+                                        "login": "thgh"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-27T14:06:39Z",
+                                    "bodyText": "@thgh Hey thanks for the feedback, would love too see more details of the code you're running.\nI tested bunchee with an empty tsconfig.json and a package.json it works well.\n{\n  \"exports\": \"./index.js\",\n  \"devDependencies\": {\n    \"@types/node\": \"^20.10.5\",\n    \"bunchee\": \"^4.2.2\",\n    \"typescript\": \"^5.3.3\"\n  }\n}\nimport { Server } from 'node:http'\nimport type { AddressInfo } from 'node:net'\n\nexport {\n    Server,\n    type AddressInfo\n}",
+                                    "url": "https://github.com/huozhi/bunchee/pull/266#issuecomment-1870338323",
+                                    "author": {
+                                        "login": "huozhi"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-28T11:30:57Z",
+                                    "bodyText": "Feel free to check it out: https://github.com/thgh/hivepanel/",
+                                    "url": "https://github.com/huozhi/bunchee/pull/266#issuecomment-1871079750",
+                                    "author": {
+                                        "login": "thgh"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-28T15:22:29Z",
+                                    "bodyText": "Thanks for sharing, very good case! looks like noEmit was overriden by tsconfig.json and needs to support imports alias. Will fix it and support the alias \ud83d\ude4f",
+                                    "url": "https://github.com/huozhi/bunchee/pull/266#issuecomment-1871270046",
+                                    "author": {
+                                        "login": "huozhi"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-29T00:39:53Z",
+                                    "bodyText": "@thgh Looks like it's caused by the missing dependency types from @types/express, it's including few other types as dependencies with <reference>.\nYou can add \"preserveSymlinks\": true, in the tsconfig.json, and use bunchee@4.2.9. I Tested locally it works : )\nBtw if you need to build bin/, need to create the entrypoints for them.\nThanks again for following on this and feedback \ud83d\ude4f",
+                                    "url": "https://github.com/huozhi/bunchee/pull/266#issuecomment-1871647061",
+                                    "author": {
+                                        "login": "huozhi"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's separate the ci.yml change in the different PR \ud83d\ude4f",
+                                                        "author": {
+                                                            "login": "huozhi"
+                                                        },
+                                                        "url": "https://github.com/huozhi/bunchee/pull/266#discussion_r1335952265",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "557fcde",
+                                                            "authoredDate": "2023-09-25T13:57:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We don't have any execution test so far, I have a plan to make for most of test cases later. Would prefer to remove this for now",
+                                                        "author": {
+                                                            "login": "huozhi"
+                                                        },
+                                                        "url": "https://github.com/huozhi/bunchee/pull/266#discussion_r1335953326",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "557fcde",
+                                                            "authoredDate": "2023-09-25T13:57:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "external-entry itself will be added to external by default, it shouldn't require any args",
+                                                        "author": {
+                                                            "login": "huozhi"
+                                                        },
+                                                        "url": "https://github.com/huozhi/bunchee/pull/266#discussion_r1335954664",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "557fcde",
+                                                            "authoredDate": "2023-09-25T13:57:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Oh sorry, was troubleshooting over here didn't think about the actions here.\nWill do!",
+                                                        "author": {
+                                                            "login": "thgh"
+                                                        },
+                                                        "url": "https://github.com/huozhi/bunchee/pull/266#discussion_r1335954995",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "557fcde",
+                                                            "authoredDate": "2023-09-25T13:57:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "you could also add it to tsconfig.json",
+                                                        "author": {
+                                                            "login": "huozhi"
+                                                        },
+                                                        "url": "https://github.com/huozhi/bunchee/pull/266#discussion_r1335955196",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "557fcde",
+                                                            "authoredDate": "2023-09-25T13:57:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I added it because I'm pretty sure ./index is not a valid import specifier in Node 20.",
+                                                        "author": {
+                                                            "login": "thgh"
+                                                        },
+                                                        "url": "https://github.com/huozhi/bunchee/pull/266#discussion_r1335979824",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "557fcde",
+                                                            "authoredDate": "2023-09-25T13:57:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Depending on export conditions, that could be tricky though right?",
+                                                        "author": {
+                                                            "login": "thgh"
+                                                        },
+                                                        "url": "https://github.com/huozhi/bunchee/pull/266#discussion_r1335980404",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "557fcde",
+                                                            "authoredDate": "2023-09-25T13:57:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This will easily break the code if there's import is \"./index\", the external is for 3rd party packages. And after if the dist files are in different folder it will easily break. I don't think I want to conver this use case in test",
+                                                        "author": {
+                                                            "login": "huozhi"
+                                                        },
+                                                        "url": "https://github.com/huozhi/bunchee/pull/266#discussion_r1336017518",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "557fcde",
+                                                            "authoredDate": "2023-09-25T13:57:17Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "this test case is for ['--external', 'external-entry'], which is already covered. should be able to support now. I would prefer to test the output content instead of exeuting the js bundle. The \"./index\" will be bundled into a different file",
+                                                        "author": {
+                                                            "login": "huozhi"
+                                                        },
+                                                        "url": "https://github.com/huozhi/bunchee/pull/266#discussion_r1336019828",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "557fcde",
+                                                            "authoredDate": "2023-09-25T13:57:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe interesting to show a warning that an external thaty starts with ./ is not supported?",
+                                                        "author": {
+                                                            "login": "thgh"
+                                                        },
+                                                        "url": "https://github.com/huozhi/bunchee/pull/266#discussion_r1341823409",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "557fcde",
+                                                            "authoredDate": "2023-09-25T13:57:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It should be supported, I've reached to the rollup-plugin-swc3 maintainer to help investigate the module resolving",
+                                                        "author": {
+                                                            "login": "huozhi"
+                                                        },
+                                                        "url": "https://github.com/huozhi/bunchee/pull/266#discussion_r1341824364",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "557fcde",
+                                                            "authoredDate": "2023-09-25T13:57:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "How exactly?",
+                                                        "author": {
+                                                            "login": "thgh"
+                                                        },
+                                                        "url": "https://github.com/huozhi/bunchee/pull/266#discussion_r1341828222",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "557fcde",
+                                                            "authoredDate": "2023-09-25T13:57:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "alias the package name to index.ts",
+                                                        "author": {
+                                                            "login": "huozhi"
+                                                        },
+                                                        "url": "https://github.com/huozhi/bunchee/pull/266#discussion_r1341831671",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "557fcde",
+                                                            "authoredDate": "2023-09-25T13:57:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "title"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

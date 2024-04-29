@@ -1,0 +1,1267 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 1543,
+                        "title": "Remove .coffee and use .js in the partial that uses it",
+                        "repository": {
+                            "nameWithOwner": "coderdojo-japan/coderdojo.jp",
+                            "primaryLanguage": {
+                                "name": "Ruby"
+                            }
+                        },
+                        "createdAt": "2023-07-04T07:36:25Z",
+                        "mergedAt": "2023-07-04T07:47:10Z",
+                        "url": "https://github.com/coderdojo-japan/coderdojo.jp/pull/1543",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "yasulab"
+                        },
+                        "editor": {
+                            "login": "yasulab"
+                        },
+                        "body": "\u307b\u3068\u3093\u3069\u4f7f\u3063\u3066\u3044\u306a\u3044 CoffeeScript \u3092 JavaScript \u306b\u7f6e\u304d\u63db\u3048\u3066\u3001\u4e00\u65e6\u306f\u4f7f\u3063\u3066\u3044\u308b Partial \u90e8\u5206\u306b\u5f15\u3063\u8d8a\u3057\u3055\u305b\u307e\u3057\u305f\uff08\u4f7f\u3063\u3066\u3044\u308b\u306e\u304c Partial \u3060\u3051\u3060\u3063\u305f\u305f\u3081\uff09\u3002\r\n\r\n\u3064\u3044\u3067\u306b\u30b9\u30de\u30db\u7248\u3067\u8907\u6570\u30bf\u30d6\u3092\u30aa\u30fc\u30d7\u30f3\u3057\u305f\u6642\u306b\u30b9\u30af\u30ed\u30fc\u30eb\u304c\u30d6\u30ec\u308b\u554f\u984c\u3082\u76f4\u3057\u307e\u3057\u305f \ud83d\udee0\ud83d\udca8\u2728\r\n6f368258\r\n\r\n\u53c2\u8003: https://chat.openai.com/share/9216ba8c-61c2-4559-bb0b-1b6765cf2c6b",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 11,
+                        "title": "Get backfilledResults to show non-empty.",
+                        "repository": {
+                            "nameWithOwner": "hoshotakamoto/banzukesurfing",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-07-04T21:34:57Z",
+                        "mergedAt": "2023-07-04T22:01:19Z",
+                        "url": "https://github.com/hoshotakamoto/banzukesurfing/pull/11",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "hoshotakamoto"
+                        },
+                        "editor": {
+                            "login": "hoshotakamoto"
+                        },
+                        "body": "The GPT discussion got us here in a roundabout way but it was thousands of words culminating in a few lines of code change.\r\n\r\nhttps://chat.openai.com/share/77d5c38a-4e11-40c3-b827-6e1cb9eae291\r\n\r\nI apologize if my previous responses may have been unclear. The reason for the uncertainty is that from the provided index.html and game.js files, it wasn't explicitly clear how the game is being initialized on page load. Usually, the game initialization logic would be placed in a separate script file that is referenced in your HTML, or directly in a script tag within the HTML itself. However, this isn't present in the provided index.html.\r\n\r\nGiven your index.html and game.js, I'm assuming the Game class is being automatically initialized upon import of the game.js file. As I suggested earlier, one approach is to create a new initGame function in your game.js file which initializes the game:\r\n\r\n```javascript\r\n// game.js\r\n\r\n// ... existing code ...\r\n\r\nexport function initGame() {\r\n    if (typeof window !== 'undefined') {\r\n        window.game = new Game(true);\r\n    }\r\n}\r\n```\r\n\r\nAnd then in your index.html, add a script to call this function when the window is loaded:\r\n\r\n```html\r\n<!-- index.html -->\r\n\r\n<!-- ... existing code ... -->\r\n\r\n<script type=\"module\">\r\nimport { initGame } from './game.js';\r\n\r\nwindow.onload = function() {\r\n    initGame();\r\n};\r\n</script>\r\n```\r\n\r\nNow, the game will be initialized when the window loads, and not just when game.js is imported. You should update your tests to reflect this new initialization logic.\r\n\r\nAgain, I apologize for any confusion. I hope this clears things up, but feel free to ask any further questions you may have.",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 931,
+                        "title": "\ud83c\udf1fTraining - Event booking component ",
+                        "repository": {
+                            "nameWithOwner": "SSWConsulting/SSW.Website",
+                            "primaryLanguage": {
+                                "name": "HTML"
+                            }
+                        },
+                        "createdAt": "2023-07-04T08:11:24Z",
+                        "mergedAt": "2023-07-05T04:03:23Z",
+                        "url": "https://github.com/SSWConsulting/SSW.Website/pull/931",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "amankumarrr"
+                        },
+                        "editor": {
+                            "login": "amankumarrr"
+                        },
+                        "body": "Fixes #918 \r\n\r\n**Description:**\r\nCreated a new event booking component for the following Div.\r\n<img width=\"429\" alt=\"image\" src=\"https://github.com/SSWConsulting/SSW.Website/assets/71385247/9e7f4a9c-3d0b-4ee0-8084-f5cf455fc292\">\r\n**Figure: Existing Event Booking Component** \r\n\r\n**New component screenshots:**\r\n\r\n<img width=\"662\" alt=\"image\" src=\"https://github.com/SSWConsulting/SSW.Website/assets/71385247/ee5b348a-b676-450f-8b35-49e88b9260f9\">\r\n\r\n**Figure: Full screen in Desktop view** \r\n\r\n<img width=\"661\" alt=\"image\" src=\"https://github.com/SSWConsulting/SSW.Website/assets/71385247/2a54b54c-5e62-4e4a-a150-2cb3dd1b7f35\">\r\n\r\n**Figure: Full screen in Desktop view with 4 events** \r\n\r\n<img width=\"661\" alt=\"image\" src=\"https://github.com/SSWConsulting/SSW.Website/assets/71385247/2373c708-92c1-400c-8a5d-f44d6ab6df37\">\r\n\r\n**Figure: Full screen in Desktop view with 5 events** \r\n\r\n<img width=\"662\" alt=\"image\" src=\"https://github.com/SSWConsulting/SSW.Website/assets/71385247/beeeee75-ca10-4739-9e77-f7878b1ce940\">\r\n\r\n**Figure: Full screen in Desktop view with 6 events** \r\n\r\n<img width=\"274\" alt=\"image\" src=\"https://github.com/SSWConsulting/SSW.Website/assets/71385247/e8917dbc-6de0-4fc0-8c8a-dcb45c02f373\">\r\n\r\n**Figure: Mobile view** \r\n\r\n\r\n<img width=\"609\" alt=\"image\" src=\"https://github.com/SSWConsulting/SSW.Website/assets/71385247/fbe16790-84ed-4151-b76b-a281168d283e\">\r\n\r\n**Figure: iPad or mid screen view** \r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-07-04T08:42:44Z",
+                                    "bodyText": "Deployed changes to https://app-sswwebsite-9eb3-pr-931.azurewebsites.net",
+                                    "url": "https://github.com/SSWConsulting/SSW.Website/pull/931#issuecomment-1619808063",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-04T08:44:20Z",
+                                    "bodyText": "PageSpeed Insights\n\n\n\nCategory\nScore\n\n\n\n\nAccessibility\n89\n\n\nBest practices\n92\n\n\nPerformance\n64\n\n\nSEO\n93\n\n\n\nView the full report https://pagespeed.web.dev/report?url=https://app-sswwebsite-9eb3-pr-931.azurewebsites.net",
+                                    "url": "https://github.com/SSWConsulting/SSW.Website/pull/931#issuecomment-1619810758",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-05T00:57:56Z",
+                                    "bodyText": "Deployed changes to https://app-sswwebsite-9eb3-pr-931.azurewebsites.net",
+                                    "url": "https://github.com/SSWConsulting/SSW.Website/pull/931#issuecomment-1620874309",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-05T00:58:49Z",
+                                    "bodyText": "PageSpeed Insights\n\n\n\nCategory\nScore\n\n\n\n\nAccessibility\n89\n\n\nBest practices\n83\n\n\nPerformance\n36\n\n\nSEO\n93\n\n\n\nView the full report https://pagespeed.web.dev/report?url=https://app-sswwebsite-9eb3-pr-931.azurewebsites.net",
+                                    "url": "https://github.com/SSWConsulting/SSW.Website/pull/931#issuecomment-1620874704",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-05T01:20:56Z",
+                                    "bodyText": "@amankumarrr Thoughts on moving this stuff to the right on mobile",
+                                    "url": "https://github.com/SSWConsulting/SSW.Website/pull/931#issuecomment-1620887743",
+                                    "author": {
+                                        "login": "bradystroud"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-05T01:22:08Z",
+                                    "bodyText": "@amankumarrr Thoughts on moving this stuff to the right on mobile\n\n\nYes that would look good, do you want me to add that?",
+                                    "url": "https://github.com/SSWConsulting/SSW.Website/pull/931#issuecomment-1620888767",
+                                    "author": {
+                                        "login": "amankumarrr"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-05T01:37:46Z",
+                                    "bodyText": "Deployed changes to https://app-sswwebsite-9eb3-pr-931.azurewebsites.net",
+                                    "url": "https://github.com/SSWConsulting/SSW.Website/pull/931#issuecomment-1620897736",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-05T01:40:01Z",
+                                    "bodyText": "PageSpeed Insights\n\n\n\nCategory\nScore\n\n\n\n\nAccessibility\n89\n\n\nBest practices\n83\n\n\nPerformance\n32\n\n\nSEO\n100\n\n\n\nView the full report https://pagespeed.web.dev/report?url=https://app-sswwebsite-9eb3-pr-931.azurewebsites.net",
+                                    "url": "https://github.com/SSWConsulting/SSW.Website/pull/931#issuecomment-1620898819",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-05T03:18:44Z",
+                                    "bodyText": "Deployed changes to https://app-sswwebsite-9eb3-pr-931.azurewebsites.net",
+                                    "url": "https://github.com/SSWConsulting/SSW.Website/pull/931#issuecomment-1620957297",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-05T03:19:23Z",
+                                    "bodyText": "PageSpeed Insights\n\n\n\nCategory\nScore\n\n\n\n\nAccessibility\n89\n\n\nBest practices\n83\n\n\nPerformance\n18\n\n\nSEO\n93\n\n\n\nView the full report https://pagespeed.web.dev/report?url=https://app-sswwebsite-9eb3-pr-931.azurewebsites.net",
+                                    "url": "https://github.com/SSWConsulting/SSW.Website/pull/931#issuecomment-1620957581",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Potentially unsafe external link\nExternal links without noopener/noreferrer are a potential security risk.\nShow more details",
+                                                        "author": {
+                                                            "login": "github-advanced-security"
+                                                        },
+                                                        "url": "https://github.com/SSWConsulting/SSW.Website/pull/931#discussion_r1251672656",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "50f14df",
+                                                            "authoredDate": "2023-07-04T08:16:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "resolved",
+                                                        "author": {
+                                                            "login": "amankumarrr"
+                                                        },
+                                                        "url": "https://github.com/SSWConsulting/SSW.Website/pull/931#discussion_r1252426923",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "50f14df",
+                                                            "authoredDate": "2023-07-04T08:16:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Looking good \ud83d\ude42",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Try use DayJS - We already have it installed\nhttps://chat.openai.com/share/ca2eab25-4e1e-4688-9be5-43a179a0ec4f",
+                                                        "author": {
+                                                            "login": "bradystroud"
+                                                        },
+                                                        "url": "https://github.com/SSWConsulting/SSW.Website/pull/931#discussion_r1252442385",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4fd5d0e",
+                                                            "authoredDate": "2023-07-05T00:42:33Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "done - replaced it",
+                                                        "author": {
+                                                            "login": "amankumarrr"
+                                                        },
+                                                        "url": "https://github.com/SSWConsulting/SSW.Website/pull/931#discussion_r1252447116",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4fd5d0e",
+                                                            "authoredDate": "2023-07-05T00:42:33Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 14,
+                        "title": "Integrate the new user.js into game.js and dedupe logic.",
+                        "repository": {
+                            "nameWithOwner": "hoshotakamoto/banzukesurfing",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-07-04T22:30:52Z",
+                        "mergedAt": "2023-07-04T22:55:51Z",
+                        "url": "https://github.com/hoshotakamoto/banzukesurfing/pull/14",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "hoshotakamoto"
+                        },
+                        "editor": {
+                            "login": "hoshotakamoto"
+                        },
+                        "body": "https://chat.openai.com/share/e250d511-2739-4533-82aa-141aa01e31ad\r\n\r\nI need an updated game.test.js now that game.switchUser is not a method. Also if there is new coverage to add please add it.\r\n\r\nChatGPT\r\nYou're correct, since the switchUser method is now within the User class, we don't need to test it in the Game.test.js anymore. Instead, we'll focus on the game-related methods.\r\n\r\nHere's the updated Game.test.js:\r\n\r\n```javascript\r\nimport 'jest-localstorage-mock';\r\nimport Game from './game.js';\r\n\r\nlet game;\r\n\r\nbeforeEach(() => {\r\n    localStorage.clear();\r\n    // set localStorage values\r\n    localStorage.setItem('user', 'testUser');\r\n    localStorage.setItem('testUser', JSON.stringify({ 'July 2023': '1' }));\r\n\r\n    document.body.innerHTML = `\r\n        <p id=\"user\"></p>\r\n        <select id=\"rikishi\">\r\n            <option value=\"1\">Rikishi 1</option>\r\n            <option value=\"2\">Rikishi 2</option>\r\n        </select>\r\n        <button id=\"startPlayingButton\">Start Playing</button>\r\n        <button id=\"switchUserButton\">Switch User</button>\r\n        <input id=\"userSwitch\" type=\"text\">\r\n        <input id=\"backfillContest\" type=\"text\">\r\n        <input id=\"backfillRikishi\" type=\"text\">\r\n        <button id=\"backfillResultsButton\">Backfill Results</button>\r\n        <div id=\"backfilledResults\"></div>\r\n        <p id=\"feedback\"></p>\r\n    `;\r\n    game = new Game();\r\n});\r\n\r\ntest('check if startPlaying is defined and returns expected value', () => {\r\n    document.querySelector('#rikishi').value = '1';\r\n    const result = game.startPlaying();\r\n    expect(result).toBe(\"You selected: 1\\nPrevious Picks: {\\\"July 2023\\\":\\\"1\\\"}\");\r\n});\r\n\r\ntest('check if backfillResults updates the results in UI', () => {\r\n    document.querySelector('#backfillContest').value = 'May 2023';\r\n    document.querySelector('#backfillRikishi').value = '2';\r\n    game.backfillResults();\r\n    let resultsElement = document.querySelector('#backfilledResults');\r\n    expect(resultsElement.textContent).toContain('May 2023: 2');\r\n});\r\n\r\ntest('check if provideFeedback updates the feedback in UI', () => {\r\n    game.provideFeedback('Test feedback message');\r\n    expect(document.querySelector('#feedback').textContent).toBe('Test feedback message');\r\n});\r\n```\r\n\r\nIn this updated test file, I've removed the test for switchUser since it's no longer a method in the Game class. I've also added a new test for the provideFeedback method, to ensure that the method updates the feedback in the UI as expected.\r\n\r\nThis should cover all the public methods in the Game class. The initialize method is typically not unit tested because it mainly deals with setting up event listeners and initializing UI elements, which are tested individually by the other tests.\r\n\r\nUser\r\ncaught SyntaxError: The requested module './game.js' does not provide an export named 'Game' (at (index):34:18)\r\n\r\nChatGPT\r\nI apologize for the confusion. In the provided script in index.html, the Game class is being imported as a named import. However, in the game.js file, Game is the default export, not a named export.\r\n\r\nHere's how you should correct it:\r\n\r\nChange the import statement in index.html from:\r\n\r\n```html\r\n<script type=\"module\">\r\n    import { Game } from './game.js';\r\n    window.game = new Game();\r\n    window.game.initialize();\r\n</script>\r\n```\r\n\r\nto:\r\n\r\n```html\r\n<script type=\"module\">\r\n    import Game from './game.js';\r\n    window.game = new Game();\r\n    window.game.initialize();\r\n</script>\r\n```\r\n\r\nPlease replace the corresponding line in your index.html file with this one. Now, the Game class should be imported properly as the default export from the game.js file.",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 13,
+                        "title": "Move switchUser over to user.js and test it.",
+                        "repository": {
+                            "nameWithOwner": "hoshotakamoto/banzukesurfing",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-07-04T22:17:32Z",
+                        "mergedAt": "2023-07-04T22:27:12Z",
+                        "url": "https://github.com/hoshotakamoto/banzukesurfing/pull/13",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "hoshotakamoto"
+                        },
+                        "editor": {
+                            "login": "hoshotakamoto"
+                        },
+                        "body": "https://chat.openai.com/share/e250d511-2739-4533-82aa-141aa01e31ad\r\n\r\nGreat, both of these files have been added to my codebase and committed to the main branch. Now tell me how to write the updated game.js and index.html\r\n\r\nChatGPT\r\nPerfect. Here's the updated Game.js class, which imports and utilizes the User class:\r\n\r\ngame.js:\r\n\r\n```javascript\r\nimport User from './user.js';\r\n\r\nexport default class Game {\r\n    constructor() {\r\n        this.user = new User();\r\n    }\r\n\r\n    startPlaying() {\r\n        const rikishi = document.querySelector('#rikishi').value;\r\n        const picks = this.user.getPicks();\r\n        const message = \"You selected: \" + rikishi + \"\\nPrevious Picks: \" + JSON.stringify(picks);\r\n        this.user.updatePicks(rikishi);\r\n        return message;\r\n    }\r\n\r\n    switchUser() {\r\n        const newUser = document.querySelector('#userSwitch').value;\r\n        this.user.switchUser(newUser);\r\n        document.querySelector('#user').textContent = 'Current user: ' + newUser;\r\n    }\r\n\r\n    backfillResults() {\r\n        const contestName = document.querySelector('#backfillContest').value;\r\n        const rikishi = document.querySelector('#backfillRikishi').value;\r\n        this.user.backfillResults(contestName, rikishi);\r\n        this.user.displayBackfilledResults();\r\n    }\r\n\r\n    provideFeedback(message) {\r\n        document.querySelector('#feedback').textContent = message;\r\n    }\r\n\r\n    initialize() {\r\n        const userElement = document.querySelector('#user');\r\n        if (userElement) {\r\n            userElement.textContent = 'Current user: ' + this.user.name;\r\n        }\r\n        this.user.displayBackfilledResults();\r\n\r\n        // Add event listeners\r\n        document.querySelector(\"#startPlayingButton\").addEventListener('click', () => this.startPlaying());\r\n        document.querySelector(\"#switchUserButton\").addEventListener('click', () => this.switchUser());\r\n        document.querySelector(\"#backfillResultsButton\").addEventListener('click', () => this.backfillResults());\r\n    }\r\n}\r\n```\r\n\r\nHere's the updated index.html which now imports both Game and User modules:\r\n\r\n```html\r\n<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <title>Banzuke Surfing Game</title>\r\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>\r\n</head>\r\n<body>\r\n    <h1>Welcome to Banzuke Surfing Game!</h1>\r\n    <p id=\"user\"></p>\r\n    <p>Select your Rikishi and start playing!</p>\r\n    <select id=\"rikishi\">\r\n        <option value=\"1\">Rikishi 1</option>\r\n        <option value=\"2\">Rikishi 2</option>\r\n        <!-- more options here -->\r\n    </select>\r\n    <button id=\"startPlayingButton\">Start Playing</button>\r\n    <hr>\r\n    <h2>Backfilled Results:</h2>\r\n    <div id=\"backfilledResults\"></div>\r\n    <h2>Admin Panel</h2>\r\n    <p>Switch user:</p>\r\n    <input id=\"userSwitch\" type=\"text\">\r\n    <button id=\"switchUserButton\">Switch User</button>\r\n    <p>Backfill contest results:</p>\r\n    <input id=\"backfillContest\" type=\"text\" placeholder=\"Enter contest name\">\r\n    <input id=\"backfillRikishi\" type=\"text\" placeholder=\"Enter rikishi selection\">\r\n    <button id=\"backfillResultsButton\">Backfill Results</button>\r\n    <p id=\"feedback\"></p>\r\n    <script type=\"module\">\r\n        import { Game } from './game.js';\r\n        window.game = new Game();\r\n        window.game.initialize();\r\n    </script>\r\n</body>\r\n</html>\r\n```\r\n\r\nWith these changes, the Game class becomes more streamlined and focuses on game-level behaviors, while the User class takes care of user-related logic and operations. This structure enhances modularity and separation of concerns in your code.\r\n\r\nUser\r\nif my understanding is accurate, then you made no changes to index.html - is that right?\r\n\r\nnow i'd like to understand why do I need switchUser in both modules. Why not let the user set the onclick and game be oblivious?\r\n\r\nChatGPT\r\nYou're correct, my apologies for the confusion - there's no need to make any changes to the index.html file as the changes we made are primarily at the JavaScript level.\r\n\r\nAs for the switchUser function, you're also correct in saying that it can be handled at a more user-focused level. The Game class does not necessarily need to be aware of the user switch action as it's primarily related to the User's state. The Game class's primary concern should be to facilitate game-related actions, and the state of the User (including switching users) could be managed by the User class itself.\r\n\r\nYou can indeed set up the event listener for user switching in the User class, and this can be done when the page is loaded or when a new User instance is created. Here's how you can do that:\r\n\r\n```javascript\r\nexport default class User {\r\n    // ...\r\n\r\n    initialize() {\r\n        this.displayBackfilledResults();\r\n        document.querySelector(\"#user\").textContent = 'Current user: ' + this.name;\r\n\r\n        // Setup event listener for switching users\r\n        document.querySelector(\"#switchUserButton\").addEventListener('click', () => {\r\n            const newUser = document.querySelector('#userSwitch').value;\r\n            this.switchUser(newUser);\r\n            document.querySelector(\"#user\").textContent = 'Current user: ' + newUser;\r\n        });\r\n    }\r\n}\r\n```\r\nAnd in your Game.js, the initialize method:\r\n\r\n```javascript\r\ninitialize() {\r\n    this.user.initialize();\r\n\r\n    // Add event listeners\r\n    document.querySelector(\"#startPlayingButton\").addEventListener('click', () => this.startPlaying());\r\n    document.querySelector(\"#backfillResultsButton\").addEventListener('click', () => this.backfillResults());\r\n}\r\n```\r\n\r\nIn this way, the User class takes care of its own state transitions (including user switching), and the Game class doesn't need to be concerned with that.\r\n\r\nUser\r\nsince you are changing user.js you should be changing user.test.js to reflect the update. in fact for my next PR i will only be bumping user.js and user.test.js - leaving the other files still untouched.\r\n\r\nChatGPT\r\nSure, it makes sense to keep your updates organized. Given the updates to User.js, you'd need to add a test for the initialize method in User.test.js.\r\n\r\nHere's an updated version of User.test.js that includes a test for the initialize method:\r\n\r\n```javascript\r\nimport 'jest-localstorage-mock';\r\nimport User from './user.js';\r\n\r\nlet user;\r\n\r\nbeforeEach(() => {\r\n    localStorage.clear();\r\n    // set localStorage values\r\n    localStorage.setItem('user', 'testUser');\r\n    localStorage.setItem('testUser', JSON.stringify({ 'July 2023': '1' }));\r\n\r\n    document.body.innerHTML = `\r\n        <p id=\"user\"></p>\r\n        <select id=\"rikishi\">\r\n            <option value=\"1\">Rikishi 1</option>\r\n            <option value=\"2\">Rikishi 2</option>\r\n        </select>\r\n        <button id=\"startPlayingButton\">Start Playing</button>\r\n        <button id=\"switchUserButton\">Switch User</button>\r\n        <input id=\"userSwitch\" type=\"text\">\r\n        <input id=\"backfillContest\" type=\"text\">\r\n        <input id=\"backfillRikishi\" type=\"text\">\r\n        <button id=\"backfillResultsButton\">Backfill Results</button>\r\n        <div id=\"backfilledResults\"></div>\r\n        <p id=\"feedback\"></p>\r\n    `;\r\n    user = new User('testUser');\r\n});\r\n\r\n// ... Rest of the tests ...\r\n\r\ntest('check if initialize updates the user in UI and sets event listener', () => {\r\n    user.initialize();\r\n    expect(document.querySelector('#user').textContent).toBe('Current user: testUser');\r\n\r\n    // Test switchUser event listener\r\n    document.querySelector('#userSwitch').value = 'newUser';\r\n    document.querySelector(\"#switchUserButton\").click();\r\n    expect(localStorage.getItem('user')).toBe('newUser');\r\n    expect(document.querySelector('#user').textContent).toBe('Current user: newUser');\r\n});\r\n```\r\n\r\nThis new test first checks if the initialize method updates the current user in the UI. It then simulates a click event on the switchUserButton to test if the event listener for user switching is set up correctly.\r\n\r\nNow your User.test.js file is updated to reflect the changes made in User.js.",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 177,
+                        "title": "Add ConfusionMatrix to EvaluationAPI",
+                        "repository": {
+                            "nameWithOwner": "roboflow/supervision",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-07-04T19:50:59Z",
+                        "mergedAt": "2023-07-21T11:31:26Z",
+                        "url": "https://github.com/roboflow/supervision/pull/177",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "kirilllzaitsev"
+                        },
+                        "editor": null,
+                        "body": "# Description\r\n\r\nPlease include a summary of the change and which issue is fixed or implemented. Please also include relevant motivation and context (e.g. links, docs, tickets etc.).\r\n\r\nList any dependencies that are required for this change.\r\n\r\n## Type of change\r\n\r\nPlease delete options that are not relevant.\r\n\r\n-   [ ] New feature (non-breaking change which adds functionality)\r\n-   [ ] This change requires a documentation update\r\n\r\n## How has this change been tested, please provide a testcase or example of how you tested the change?\r\n\r\nSee test/detection/test_*.py\r\n\r\n## Any specific deployment considerations\r\n\r\nFor example, documentation changes, usability, usage/costs, secrets, etc.\r\n\r\n## Docs\r\n\r\n-   [ ] Docs updated? What were the changes:\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-07-04T20:55:27Z",
+                                    "bodyText": "Hi, @kirilllzaitsev \ud83d\udc4b\ud83c\udffb! Are you ready for an initial review and tests?",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1620733902",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-05T12:06:11Z",
+                                    "bodyText": "Hi, @kirilllzaitsev \ud83d\udc4b\ud83c\udffb! Are you ready for an initial review and tests?\n\n@SkalskiP , hi. I still need to add the benchmark() method and do some cosmetics to the plot(). There are no tests in test_detection.py yet. Working bit by bit.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1621626049",
+                                    "author": {
+                                        "login": "kirilllzaitsev"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-06T20:26:00Z",
+                                    "bodyText": "@SkalskiP, here are some images coming from the plot() function. Please let me know if there is something important to refine.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1624267499",
+                                    "author": {
+                                        "login": "kirilllzaitsev"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-08T10:15:09Z",
+                                    "bodyText": "Hi, @kirilllzaitsev \ud83d\udc4b\ud83c\udffb! Are you ready for an initial review and tests?\n\n@SkalskiP, ready for review. Compared to the feature request in #140, I made the following changes:\n\nadd ConfusionMatrix.from_matrix(): to enrich a vanilla numpy confusion matrix with current and future features of the ConfusionMatrix\nfrom_detections(): rename 'target' -> 'targets'\nplot():\n\n'target_path' -> 'save_path'\nreturn None -> return matplotlib.figure.Figure: to allow users to manage the plot themselves\nadditional args to configure the visual\n\n\n\nAdded tests reside in the test/metrics directory.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1627057840",
+                                    "author": {
+                                        "login": "kirilllzaitsev"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-18T11:44:48Z",
+                                    "bodyText": "Hi, @kirilllzaitsev \ud83d\udc4b\ud83c\udffb! I finally have time to work on the version: 0.12.0 release this week. You can expect PR today.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1640061451",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-19T11:40:36Z",
+                                    "bodyText": "Hi, @kirilllzaitsev; this PR is \ud83d\udd25! There are small changes we still need to do.\n\n\nAdd the import below to supervision.__init__.py so that external users of the library will be able to use sv.ConfusionMatrix import notation.\nfrom supervision.metrics.detection import ConfusionMatrix\n\n\nAdd the configuration below to mkdocs.yml to expose ConfusionMatrix documentation on roboflow.github.io/supervision. Please do it in line 42.\n- Metrics:\n    - Detection: metrics/detection.md\n\n\nIn addition, I left some additional comments on the code.\n\n\n@kirilllzaitsev would you like to join our external contributors Slack channel?",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1641926841",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-19T13:09:32Z",
+                                    "bodyText": "@kirilllzaitsev I'm testing ConfusionMatrix in Colab, and it looks like we are getting Warnings related to the font we used in our plot - WARNING:matplotlib.font_manager:findfont: Generic family 'sans-serif' not found because none of the following families were found: Verdana \n\nIs that part required:\nmatplotlib.rcParams[\"font.family\"] = \"sans-serif\"\nmatplotlib.rcParams[\"font.sans-serif\"] = [\"Verdana\"]",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1642054359",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-19T14:56:59Z",
+                                    "bodyText": "@kirilllzaitsev, we have slight differences between our confusion matrix and the one I got from YOLOv8. I confirmed that they use conf_threshold=0.25 and iou_threshold=0.45. But even when we set the same parameters, we still differ.\nOn our matrix, Predicted is axis x, and True is axis y in YOLOv8 is the other way around.\n\nWhen we transpose YOLOv8 result, here is what we get:\nours = array([[          4,           0,           0,           0,          31],\n              [          0,          21,           6,           0,           0],\n              [          0,           1,         725,           2,          26],\n              [          0,           0,           5,          71,          13],\n              [          0,           1,          29,           4,           0]])\n\nyolo = array([[          4,           0,           0,           0,          31],\n              [          0,          23,           4,           0,           0],\n              [          0,           1,         720,           4,          29],\n              [          0,           0,           4,          73,          12],\n              [          0,           1,          31,           6,           0]])\nNotice that the sum of all elements in the matrix and the sum of all elements in each row is the same. That tells me that the difference must be in the matching mechanism. Overall here is the difference:\n>>> np.abs(ours - yolo)\narray([[0, 0, 0, 0, 0],\n       [0, 2, 2, 0, 0],\n       [0, 0, 5, 2, 3],\n       [0, 0, 1, 2, 1],\n       [0, 0, 2, 2, 0]])\nHere is the link to Colab I used for testing: https://colab.research.google.com/drive/14eezGZfeetpIrBQMH1RmiX-AJR-js3R-?usp=sharing",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1642249580",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-19T21:15:56Z",
+                                    "bodyText": "Awesome work @kirilllzaitsev \ud83d\udd25! We are doing so much progress. I was thinking about the API that we should expose. And if possible I'd love if  you could add one more classmethod:\n@classmethod\ndef from_tensors(\n    cls,\n    predictions: List[np.ndarray],\n    target: List[np.ndarray],\n    classes: List[str],\n    conf_threshold: float = 0.3,\n    iou_threshold: float = 0.5\n) -> ConfusionMatrix:\n    pass\nWhere:\n\npredictions: List[np.ndarray] representing detected objects across all images in the concerned dataset. Each element of predictions list describe a single image and has shape = (M, 6) where M is the number of detected objects. Each row is expected to be in (x_min, y_min, x_max, y_max, class, conf).\ntarget: List[np.ndarray] representing ground-truth objects across all images in the concerned dataset. Each element of target list describe a single image and has shape = (N, 5) where N is the number of ground-truth objects. Each row is expected to be in (x_min, y_min, x_max, y_max, class).\n\nOptimally from_detections would use from_tensors internally.\nThat would allow us to:\n\nImprove testability - we don't need to mock sv.Detections to write unit tests. We can get away with np.arrays.\nMore flexible API - user could use supervision only for model evaluation. They don't need to care about sv.Detections all they use is np.array.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1642769498",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-19T22:18:17Z",
+                                    "bodyText": "@kirilllzaitsev, just let me know when you'll be ready for the next round of reviews or if you need any help.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1642837439",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-19T22:26:31Z",
+                                    "bodyText": "@SkalskiP, hi, thank you! Need to: 1) debug some tests concerning the correctness of the confusion matrix and 2) investigate the issue you had in Colab, with a mismatch when comparing against YOLO results.\nTomorrow should be ready.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1642846454",
+                                    "author": {
+                                        "login": "kirilllzaitsev"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-19T22:41:23Z",
+                                    "bodyText": "@kirilllzaitsev Overall we are moving in the right direction. \ud83d\udd25! We just need to polish a few things. Great work!",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1642858455",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-20T11:42:36Z",
+                                    "bodyText": "@kirilllzaitsev, we have slight differences between our confusion matrix and the one I got from YOLOv8. I confirmed that they use conf_threshold=0.25 and iou_threshold=0.45. But even when we set the same parameters, we still differ.\nOn our matrix, Predicted is axis x, and True is axis y in YOLOv8 is the other way around.\n\nWhen we transpose YOLOv8 result, here is what we get:\nours = array([[          4,           0,           0,           0,          31],\n              [          0,          21,           6,           0,           0],\n              [          0,           1,         725,           2,          26],\n              [          0,           0,           5,          71,          13],\n              [          0,           1,          29,           4,           0]])\n\nyolo = array([[          4,           0,           0,           0,          31],\n              [          0,          23,           4,           0,           0],\n              [          0,           1,         720,           4,          29],\n              [          0,           0,           4,          73,          12],\n              [          0,           1,          31,           6,           0]])\nNotice that the sum of all elements in the matrix and the sum of all elements in each row is the same. That tells me that the difference must be in the matching mechanism. Overall here is the difference:\n>>> np.abs(ours - yolo)\narray([[0, 0, 0, 0, 0],\n       [0, 2, 2, 0, 0],\n       [0, 0, 5, 2, 3],\n       [0, 0, 1, 2, 1],\n       [0, 0, 2, 2, 0]])\nHere is the link to Colab I used for testing: https://colab.research.google.com/drive/14eezGZfeetpIrBQMH1RmiX-AJR-js3R-?usp=sharing\n\nComparing results of IoU calculations from ultralytics and ours for a set of true and predicted boxes for a single image:\n\nultralytics:\n\ntensor([0.8499, 0.9286, 0.8976, 0.8082, 0.8862, 0.8378, 0.8563, 0.8634, 0.9095, 0.8815, 0.9512, 0.8483, 0.9010, 0.9443, 0.8871, 0.8562, 0.7679, 0.8525, 0.9059, 0.8338, 0.8033, 0.8417, 0.9012], dtype=torch.float64)\n\nours:\n\narray([    0.80326,     0.76787,     0.90122,     0.83382,     0.85254,     0.86343,     0.84826,     0.94428,     0.88151,     0.90095,     0.85634,     0.85618,     0.83779,     0.90954,     0.90591,     0.84171,     0.88712,     0.95118,      0.8862,     0.92857,     0.84988,     0.80821,     0.89759])\nValues are quite different which might influence the matching phase where argsort() over IoU is used.\nRunning locally the notebook you shared, with 1 epoch for training the model instead of 10, I get these results:\nours = np.array(\n    [\n        [1, 0, 0, 0, 0],\n        [0, 22, 1, 0, 6],\n        [2, 4, 711, 32, 67],\n        [0, 0, 15, 41, 35],\n        [32, 1, 27, 16, 0],\n    ]\n)\nyolo = np.array(\n    [\n        [1, 0, 0, 0, 0],\n        [0, 19, 5, 0, 7],\n        [2, 6, 694, 26, 101],\n        [0, 0, 26, 48, 64],\n        [32, 2, 27, 15, 0],\n    ]\n)\nnp.abs(ours - yolo)\n\narray([[ 0,  0,  0,  0,  0],\n       [ 0,  3,  4,  0,  1],\n       [ 0,  2, 17,  6, 34],\n       [ 0,  0, 11,  7, 29],\n       [ 0,  1,  0,  1,  0]])\nnp.sum(ours), np.sum(yolo)\n\n(1013, 1075)\n, where the resulting matrices don't match at all.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1643773408",
+                                    "author": {
+                                        "login": "kirilllzaitsev"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-20T12:32:59Z",
+                                    "bodyText": "Comparing results of IoU calculations from ultralytics and ours for a set of true and predicted boxes for a single image:\n\n\nultralytics:\ntensor([0.8499, 0.9286, 0.8976, 0.8082, 0.8862, 0.8378, 0.8563, 0.8634, 0.9095, 0.8815, 0.9512, 0.8483, 0.9010, 0.9443, 0.8871, 0.8562, 0.7679, 0.8525, 0.9059, 0.8338, 0.8033, 0.8417, 0.9012], dtype=torch.float64)\n\n\nours:\narray([ 0.80326, 0.76787, 0.90122, 0.83382, 0.85254, 0.86343, 0.84826, 0.94428, 0.88151, 0.90095, 0.85634, 0.85618, 0.83779, 0.90954, 0.90591, 0.84171, 0.88712, 0.95118, 0.8862, 0.92857, 0.84988, 0.80821, 0.89759])\n\n\n\n@kirilllzaitsev, this is an excellent investigation! If we differ on IoU, we will not get the same results.\nCould you share the code snippet you used to calculate IoU for ultralytics and for us? Did you use box_iou_batch? I'll try to work on it in parallel.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1643843595",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-20T13:25:47Z",
+                                    "bodyText": "Comparing results of IoU calculations from ultralytics and ours for a set of true and predicted boxes for a single image:\n\nultralytics:\ntensor([0.8499, 0.9286, 0.8976, 0.8082, 0.8862, 0.8378, 0.8563, 0.8634, 0.9095, 0.8815, 0.9512, 0.8483, 0.9010, 0.9443, 0.8871, 0.8562, 0.7679, 0.8525, 0.9059, 0.8338, 0.8033, 0.8417, 0.9012], dtype=torch.float64)\nours:\narray([ 0.80326, 0.76787, 0.90122, 0.83382, 0.85254, 0.86343, 0.84826, 0.94428, 0.88151, 0.90095, 0.85634, 0.85618, 0.83779, 0.90954, 0.90591, 0.84171, 0.88712, 0.95118, 0.8862, 0.92857, 0.84988, 0.80821, 0.89759])\n\n\n@kirilllzaitsev, this is an excellent investigation! If we differ on IoU, we will not get the same results.\nCould you share the code snippet you used to calculate IoU for ultralytics and for us? Did you use box_iou_batch? I'll try to work on it in parallel.\n\nI debugged benchmark() using the first sample from the validation dataset in the notebook you shared, setting a breakpoint inside _evaluate_detection_batch. To get the ultralytics values I used box_iou from ultralytics:\nfrom ultralytics.yolo.utils.metrics import box_iou\niou=box_iou(torch.from_numpy(detection_boxes), torch.from_numpy(true_boxes))\nprint(torch.where(iou > 0.25))\nand for ours:\niou_batch = box_iou_batch(\n    boxes_true=true_boxes, boxes_detection=detection_boxes\n)\niou_batch[iou_batch>iou_threshold]",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1643923972",
+                                    "author": {
+                                        "login": "kirilllzaitsev"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-20T13:52:29Z",
+                                    "bodyText": "@kirilllzaitsev Could you share the input that you used? I just pasted both implementations into Code Interpreter and got almost the same results for both functions.https://chat.openai.com/share/acd17c82-87f6-499a-9d09-0b675b4ef4ea\nIf you could share the input numpy array used to create those results, that would be super helpful. We could start to debug.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1643969353",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-20T14:12:29Z",
+                                    "bodyText": "@kirilllzaitsev Could you share the input that you used? I just pasted both implementations into Code Interpreter and got almost the same results for both functions.https://chat.openai.com/share/acd17c82-87f6-499a-9d09-0b675b4ef4ea\nIf you could share the input numpy array used to create those results, that would be super helpful. We could start to debug.\n\ndetections_boxes = np.array([[     1638.8,      557.36,      1664.2,       634.8],\n       [     1005.9,      641.22,      1042.6,       727.3],\n       [     162.18,      495.79,      204.39,      571.12],\n       [     1158.9,      484.44,        1184,       551.7],\n       [     1706.4,       483.9,      1734.4,      557.86],\n       [     1416.2,      357.97,        1436,      417.01],\n       [     235.93,         369,      265.36,      431.33],\n       [     1600.1,      317.87,      1617.4,      373.95],\n       [     1249.6,      399.89,      1274.4,      459.96],\n       [     414.32,      332.96,       436.2,      383.91],\n       [      523.4,      469.03,      555.29,      542.89],\n       [     1223.2,       343.4,      1243.2,      394.17],\n       [     639.72,      396.12,      661.25,      451.59],\n       [       1467,       314.6,      1493.8,      360.99],\n       [     1292.2,      387.02,      1314.9,      451.47],\n       [     1550.3,       363.9,        1571,      419.81],\n       [     811.91,      325.65,      828.43,      366.12],\n       [     808.55,      369.75,      828.88,      423.46],\n       [     1010.7,      366.89,        1033,      424.42],\n       [     1190.5,      319.59,      1208.9,      372.18],\n       [     345.53,      300.27,      363.52,      346.77],\n       [     1009.3,      366.15,      1031.9,      426.33],\n       [     765.76,       305.2,      783.15,      351.31]])\n\ntrue_detections=np.array([[        347,         302,         363,         344,           3],\n       [        813,         321,         830,         366,           2],\n       [        765,         303,         783,         351,           2],\n       [       1191,         322,        1211,         372,           2],\n       [        810,         371,         830,         424,           2],\n       [       1599,         318,        1619,         374,           2],\n       [       1225,         344,        1244,         395,           2],\n       [       1467,         314,        1495,         361,           2],\n       [        416,         331,         436,         384,           2],\n       [        641,         396,         662,         452,           2],\n       [        233,         369,         267,         432,           2],\n       [       1552,         365,        1572,         420,           2],\n       [       1418,         359,        1437,         418,           2],\n       [       1251,         401,        1274,         460,           2],\n       [       1011,         366,        1034,         426,           3],\n       [       1291,         388,        1316,         451,           2],\n       [        523,         468,         555,         544,           2],\n       [       1708,         486,        1735,         557,           2],\n       [       1007,         641,        1044,         727,           2],\n       [       1641,         556,        1665,         633,           2],\n       [       1161,         484,        1187,         552,           2],\n       [        161,         495,         207,         572,           2],\n       [     236.96,         414,      247.59,      425.24,           0]])\n\nfrom ultralytics.yolo.utils.metrics import ConfusionMatrix, DetMetrics, box_iou\nimport torch\niou=box_iou(torch.from_numpy(detection_boxes), torch.from_numpy(true_boxes))\nprint(iou[iou>0.45])\n\n# ours (from within _evaluate_detection_batch)\niou_batch = box_iou_batch(\n    boxes_true=true_boxes, boxes_detection=detection_boxes\n)\nprint(iou_batch[iou_batch>0.45])",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1644002558",
+                                    "author": {
+                                        "login": "kirilllzaitsev"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-20T16:08:02Z",
+                                    "bodyText": "@kirilllzaitsev I just run your test, and it looks like I'm getting exactly the same results for both from ultralytics.yolo.utils.metrics import box_iou and from supervision.detection.utils import box_iou_batch. Here is my code:\nimport torch\n\nimport numpy as np\n\nfrom ultralytics.yolo.utils.metrics import box_iou\nfrom supervision.detection.utils import box_iou_batch\n\ndetection_boxes = np.array([\n    [     1638.8,      557.36,      1664.2,       634.8],\n    [     1005.9,      641.22,      1042.6,       727.3],\n    [     162.18,      495.79,      204.39,      571.12],\n    [     1158.9,      484.44,        1184,       551.7],\n    [     1706.4,       483.9,      1734.4,      557.86],\n    [     1416.2,      357.97,        1436,      417.01],\n    [     235.93,         369,      265.36,      431.33],\n    [     1600.1,      317.87,      1617.4,      373.95],\n    [     1249.6,      399.89,      1274.4,      459.96],\n    [     414.32,      332.96,       436.2,      383.91],\n    [      523.4,      469.03,      555.29,      542.89],\n    [     1223.2,       343.4,      1243.2,      394.17],\n    [     639.72,      396.12,      661.25,      451.59],\n    [       1467,       314.6,      1493.8,      360.99],\n    [     1292.2,      387.02,      1314.9,      451.47],\n    [     1550.3,       363.9,        1571,      419.81],\n    [     811.91,      325.65,      828.43,      366.12],\n    [     808.55,      369.75,      828.88,      423.46],\n    [     1010.7,      366.89,        1033,      424.42],\n    [     1190.5,      319.59,      1208.9,      372.18],\n    [     345.53,      300.27,      363.52,      346.77],\n    [     1009.3,      366.15,      1031.9,      426.33],\n    [     765.76,       305.2,      783.15,      351.31]\n])\n\ntrue_boxes=np.array([\n    [        347,         302,         363,         344,           3],\n    [        813,         321,         830,         366,           2],\n    [        765,         303,         783,         351,           2],\n    [       1191,         322,        1211,         372,           2],\n    [        810,         371,         830,         424,           2],\n    [       1599,         318,        1619,         374,           2],\n    [       1225,         344,        1244,         395,           2],\n    [       1467,         314,        1495,         361,           2],\n    [        416,         331,         436,         384,           2],\n    [        641,         396,         662,         452,           2],\n    [        233,         369,         267,         432,           2],\n    [       1552,         365,        1572,         420,           2],\n    [       1418,         359,        1437,         418,           2],\n    [       1251,         401,        1274,         460,           2],\n    [       1011,         366,        1034,         426,           3],\n    [       1291,         388,        1316,         451,           2],\n    [        523,         468,         555,         544,           2],\n    [       1708,         486,        1735,         557,           2],\n    [       1007,         641,        1044,         727,           2],\n    [       1641,         556,        1665,         633,           2],\n    [       1161,         484,        1187,         552,           2],\n    [        161,         495,         207,         572,           2],\n    [     236.96,         414,      247.59,      425.24,           0]\n])\ntrue_boxes = true_boxes[:,:4]\n\nyolo = box_iou(torch.from_numpy(true_boxes), torch.from_numpy(detection_boxes)).numpy()\nours = box_iou_batch(boxes_true=true_boxes, boxes_detection=detection_boxes)\n\n(yolo - ours).sum()\n# -1.4583973750870172e-09\n\nyolo[yolo>0.45]\n# array([    0.80331,     0.76773,     0.90109,     0.83438,     0.85274,      0.8625,     0.85232,     0.94472,     0.88165,     0.90077,     0.85638,     0.85644,     0.83815,     0.90972,     0.90582,     0.83996,     0.88941,     0.95132,     0.88688,     0.92894,     0.85182,     0.81026,     0.89771])\n\nours[ours>0.45]\n# array([    0.80331,     0.76773,     0.90109,     0.83438,     0.85274,      0.8625,     0.85232,     0.94472,     0.88165,     0.90077,     0.85638,     0.85644,     0.83815,     0.90972,     0.90582,     0.83996,     0.88941,     0.95132,     0.88688,     0.92894,     0.85182,     0.81026,     0.89771])\nNotice the order of arguments. You did:\nbox_iou(torch.from_numpy(detection_boxes), torch.from_numpy(true_boxes))\nI did:\nbox_iou(torch.from_numpy(true_boxes), torch.from_numpy(detection_boxes))\nPlease double-check if my math checks out. But it looks to me the IoU part is okey.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1644201482",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-20T19:33:58Z",
+                                    "bodyText": "@kirilllzaitsev I just run your test, and it looks like I'm getting exactly the same results for both from ultralytics.yolo.utils.metrics import box_iou and from supervision.detection.utils import box_iou_batch. Here is my code:\nimport torch\n\nimport numpy as np\n\nfrom ultralytics.yolo.utils.metrics import box_iou\nfrom supervision.detection.utils import box_iou_batch\n\ndetection_boxes = np.array([\n    [     1638.8,      557.36,      1664.2,       634.8],\n    [     1005.9,      641.22,      1042.6,       727.3],\n    [     162.18,      495.79,      204.39,      571.12],\n    [     1158.9,      484.44,        1184,       551.7],\n    [     1706.4,       483.9,      1734.4,      557.86],\n    [     1416.2,      357.97,        1436,      417.01],\n    [     235.93,         369,      265.36,      431.33],\n    [     1600.1,      317.87,      1617.4,      373.95],\n    [     1249.6,      399.89,      1274.4,      459.96],\n    [     414.32,      332.96,       436.2,      383.91],\n    [      523.4,      469.03,      555.29,      542.89],\n    [     1223.2,       343.4,      1243.2,      394.17],\n    [     639.72,      396.12,      661.25,      451.59],\n    [       1467,       314.6,      1493.8,      360.99],\n    [     1292.2,      387.02,      1314.9,      451.47],\n    [     1550.3,       363.9,        1571,      419.81],\n    [     811.91,      325.65,      828.43,      366.12],\n    [     808.55,      369.75,      828.88,      423.46],\n    [     1010.7,      366.89,        1033,      424.42],\n    [     1190.5,      319.59,      1208.9,      372.18],\n    [     345.53,      300.27,      363.52,      346.77],\n    [     1009.3,      366.15,      1031.9,      426.33],\n    [     765.76,       305.2,      783.15,      351.31]\n])\n\ntrue_boxes=np.array([\n    [        347,         302,         363,         344,           3],\n    [        813,         321,         830,         366,           2],\n    [        765,         303,         783,         351,           2],\n    [       1191,         322,        1211,         372,           2],\n    [        810,         371,         830,         424,           2],\n    [       1599,         318,        1619,         374,           2],\n    [       1225,         344,        1244,         395,           2],\n    [       1467,         314,        1495,         361,           2],\n    [        416,         331,         436,         384,           2],\n    [        641,         396,         662,         452,           2],\n    [        233,         369,         267,         432,           2],\n    [       1552,         365,        1572,         420,           2],\n    [       1418,         359,        1437,         418,           2],\n    [       1251,         401,        1274,         460,           2],\n    [       1011,         366,        1034,         426,           3],\n    [       1291,         388,        1316,         451,           2],\n    [        523,         468,         555,         544,           2],\n    [       1708,         486,        1735,         557,           2],\n    [       1007,         641,        1044,         727,           2],\n    [       1641,         556,        1665,         633,           2],\n    [       1161,         484,        1187,         552,           2],\n    [        161,         495,         207,         572,           2],\n    [     236.96,         414,      247.59,      425.24,           0]\n])\ntrue_boxes = true_boxes[:,:4]\n\nyolo = box_iou(torch.from_numpy(true_boxes), torch.from_numpy(detection_boxes)).numpy()\nours = box_iou_batch(boxes_true=true_boxes, boxes_detection=detection_boxes)\n\n(yolo - ours).sum()\n# -1.4583973750870172e-09\n\nyolo[yolo>0.45]\n# array([    0.80331,     0.76773,     0.90109,     0.83438,     0.85274,      0.8625,     0.85232,     0.94472,     0.88165,     0.90077,     0.85638,     0.85644,     0.83815,     0.90972,     0.90582,     0.83996,     0.88941,     0.95132,     0.88688,     0.92894,     0.85182,     0.81026,     0.89771])\n\nours[ours>0.45]\n# array([    0.80331,     0.76773,     0.90109,     0.83438,     0.85274,      0.8625,     0.85232,     0.94472,     0.88165,     0.90077,     0.85638,     0.85644,     0.83815,     0.90972,     0.90582,     0.83996,     0.88941,     0.95132,     0.88688,     0.92894,     0.85182,     0.81026,     0.89771])\nNotice the order of arguments. You did:\nbox_iou(torch.from_numpy(detection_boxes), torch.from_numpy(true_boxes))\nI did:\nbox_iou(torch.from_numpy(true_boxes), torch.from_numpy(detection_boxes))\nPlease double-check if my math checks out. But it looks to me the IoU part is okey.\n\nIndeed, thanks! Since ConfusionMatrix._evaluate_detection_batch and ultralytics.yolo.utils.metrics.ConfusionMatrix.process_batch are almost identical in the rest of the logic, a hypothesis is that ConfusionMatrix.benchmark is not the reason for the slight mismatch we observe.\nAlso checked if there are some empty predictions for the validation dataset we are using, but there are none.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1644485774",
+                                    "author": {
+                                        "login": "kirilllzaitsev"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-20T22:43:20Z",
+                                    "bodyText": "@kirilllzaitsev, I added a few more comments to your PR. Please make those changes, and we will merge tomorrow. As for the inconsistency between YOLOv8 and our ConfusionMetrix, we should probably handle that in a separate PR.\nI can do that investigation as it looks to be time-consuming.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1644724634",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-21T10:20:06Z",
+                                    "bodyText": "@kirilllzaitsev, let me know when you'll be ready for final review.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1645352389",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-21T10:24:44Z",
+                                    "bodyText": "@SkalskiP, hi, should be fine now",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1645357745",
+                                    "author": {
+                                        "login": "kirilllzaitsev"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-21T10:33:31Z",
+                                    "bodyText": "@kirilllzaitsev I'm looking now \ud83d\udc40",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1645368475",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-21T11:31:21Z",
+                                    "bodyText": "@kirilllzaitsev merging! There are still a few tiny things around docs. But I'll do it myself. I don't want to bother you with that.\nThanks a lot for the contribution! It was indeed a pleasure! I'm sorry I was a bit less responsive last week. \ud83d\ude4f\ud83c\udffb\nI'm curious if you'd like to contribute in the future.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1645439777",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-21T12:26:42Z",
+                                    "bodyText": "@SkalskiP, thanks for your active involvement and all the feedback. I'd love to continue contributing.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1645502574",
+                                    "author": {
+                                        "login": "kirilllzaitsev"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-21T12:31:02Z",
+                                    "bodyText": "@kirilllzaitsev, awesome! I'd love to add you to our Slack channel for Supervision Contributors. I need your email to do that.\nWanna stay in the metrics ecosystem, or do you want to work on something else next release?",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1645507443",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-21T14:55:03Z",
+                                    "bodyText": "Sure, here it is, kzaitsev88@gmail.com.\nNo objections to working on something else. Metrics is also fine.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1645719683",
+                                    "author": {
+                                        "login": "kirilllzaitsev"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-21T15:42:10Z",
+                                    "bodyText": "@kirilllzaitsev, you should get the invite soon. Please look at the Backlog column here and let me know if anything looks interesting.",
+                                    "url": "https://github.com/roboflow/supervision/pull/177#issuecomment-1645781342",
+                                    "author": {
+                                        "login": "SkalskiP"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Hello there, thank you for opening an PR ! \ud83d\ude4f\ud83c\udffb The team was notified and they will get back to you asap.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Please add from __future__ import annotations at the top of the file. We will be able to drop \" here.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1267886097",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2c0905b",
+                                                            "authoredDate": "2023-07-08T10:29:50Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's fix naming target into targets.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1267886924",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2c0905b",
+                                                            "authoredDate": "2023-07-08T10:29:50Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We can't use alias import - import supervision as sv here. It can cause problems after the package is built. Internally we use an explicit import - from supervision.detection.core import Detections.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1267894928",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2c0905b",
+                                                            "authoredDate": "2023-07-08T10:29:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's remove this unused comment.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1267900925",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2c0905b",
+                                                            "authoredDate": "2023-07-08T10:29:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's use explicit import - from supervision.detection.core import Detections, here as well.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1267902247",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2c0905b",
+                                                            "authoredDate": "2023-07-08T10:29:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's use explicit import here as well.\nfrom supervision.detection.core import Detections\nfrom supervision.dataset.core import DetectionDataset",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1267908733",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2c0905b",
+                                                            "authoredDate": "2023-07-08T10:29:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm not sure we need that method. If you think about it it is a very thin layer over dataclass constructor. I'd recommend dropping this class method.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1268663004",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2c0905b",
+                                                            "authoredDate": "2023-07-08T10:29:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "At this point, it is redundant indeed. Removing until good times",
+                                                        "author": {
+                                                            "login": "kirilllzaitsev"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1268670314",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2c0905b",
+                                                            "authoredDate": "2023-07-08T10:29:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Awesome, let's keep it simple. ;)",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1268674432",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2c0905b",
+                                                            "authoredDate": "2023-07-08T10:29:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think that now that we have from_tensors, we don't have to be shy, and we can use pytest.mark.parametrize to provide more edge cases. You no longer need to mock Detection and DetectonDataset, so it should be waaay easier.\nLet's see what will happen when predictions are empty and if targets are empty. Let's experiment with different confidence and iou values. Let's see what happens when we have a perfect match predictions and targets are the same.\nI think you don't have to create those const. Just pass np.array directly inside pytest.mark.parametrize. Same way I done it here.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1268750825",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fccbe6b",
+                                                            "authoredDate": "2023-07-19T22:22:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I agree on testing from_tensors ruthlessly. But what do we do about test_from_detections() and test_benchmark()? They still require those mocks. Do you suggest removing these two tests?",
+                                                        "author": {
+                                                            "login": "kirilllzaitsev"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1268994949",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fccbe6b",
+                                                            "authoredDate": "2023-07-19T22:22:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'd move input validation to from_tensors and confirm the shapes are correct.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1269380401",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bc9fe6f",
+                                                            "authoredDate": "2023-07-20T11:24:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I appreciate that you wanted to add as many unit tests as possible, but here is my recommendation:\n\n\nDrop test_benchmark. It is super inconvenient to test. Looks like the only part of the logic that won't be tested is here:\npredictions = []\ntargets = []\nfor img_name, img in dataset.images.items():\n    predictions.append(callback(img))\n    targets.append(dataset.annotations[img_name])\nI'm okey with that.\n\n\nDrop from_detections tests but wrap logic below into small utility functions. And test those. You will only test conversion from sv.Detection to tesnsors. It should be fairly easy to do.\nnp.concatenate(\n    [\n        prediction.xyxy,\n        np.expand_dims(prediction.class_id, 1),\n        np.expand_dims(prediction.confidence, 1),\n    ],\n    axis=1,\n)\nnp.concatenate(\n    [target.xyxy, np.expand_dims(target.class_id, 1)], axis=1\n)\n\n\nTest from_tensors as much as possible.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1269385741",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fccbe6b",
+                                                            "authoredDate": "2023-07-19T22:22:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "you accidentally left unused import",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1269937977",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a782b1",
+                                                            "authoredDate": "2023-07-20T13:59:50Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Notice that you have a different name for the argument here. It should be targets.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1269939802",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a782b1",
+                                                            "authoredDate": "2023-07-20T13:59:50Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's drop the docstring here. We have a script that processes our code and builds documentation. It is looking for docstings. Given the fact that this method is private, we wouldn't want it to be exposed.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1269946027",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a782b1",
+                                                            "authoredDate": "2023-07-20T13:59:50Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think we should make this static function public. I think it can be very useful on its own.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1269949800",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a782b1",
+                                                            "authoredDate": "2023-07-20T13:59:50Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Also let's use consistent naming conventions and name arguments: predictions and targets.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1269950583",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a782b1",
+                                                            "authoredDate": "2023-07-20T13:59:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Please make it ```python",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1269953241",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a782b1",
+                                                            "authoredDate": "2023-07-20T13:59:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It is an example of external usage, so let's promote import supervision as sv",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1269954711",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a782b1",
+                                                            "authoredDate": "2023-07-20T13:59:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I love it \ud83d\udd25",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1269957563",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a782b1",
+                                                            "authoredDate": "2023-07-20T13:59:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "That one is no longer in use. Let's drop it.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1269961208",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a782b1",
+                                                            "authoredDate": "2023-07-20T13:59:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "That one is no longer in use. Let's drop it.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1269962054",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a782b1",
+                                                            "authoredDate": "2023-07-20T13:59:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "That one is no longer in use. Let's drop it.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1269962127",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a782b1",
+                                                            "authoredDate": "2023-07-20T13:59:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "_evaluate_detection_batch and _drop_extra_matches have docstrings that shouldn't be exposed, yet the methods don't seem straightforward to parse quickly with a human eye. Is there a solution on the documentation builder's side to skip methods that start with an underscore?",
+                                                        "author": {
+                                                            "login": "kirilllzaitsev"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1270474119",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a782b1",
+                                                            "authoredDate": "2023-07-20T13:59:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I agree with making _evaluate_detection_batch public, but the question from above still holds",
+                                                        "author": {
+                                                            "login": "kirilllzaitsev"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1270476042",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a782b1",
+                                                            "authoredDate": "2023-07-20T13:59:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You can get around it with the regular Python comment # at the top of the method body.",
+                                                        "author": {
+                                                            "login": "SkalskiP"
+                                                        },
+                                                        "url": "https://github.com/roboflow/supervision/pull/177#discussion_r1270484753",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a782b1",
+                                                            "authoredDate": "2023-07-20T13:59:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 12,
+                        "title": "Create user.js and user.test.js",
+                        "repository": {
+                            "nameWithOwner": "hoshotakamoto/banzukesurfing",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-07-04T22:07:17Z",
+                        "mergedAt": "2023-07-04T22:12:35Z",
+                        "url": "https://github.com/hoshotakamoto/banzukesurfing/pull/12",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "hoshotakamoto"
+                        },
+                        "editor": {
+                            "login": "hoshotakamoto"
+                        },
+                        "body": "https://chat.openai.com/share/e250d511-2739-4533-82aa-141aa01e31ad\r\n\r\nI like how I get some of localStorage rendered on startup - but it only shows me stuff for 1 user.\r\n\r\nPlease make a choice and commit to it,you can either (1) restructure code by adding more javascript classes or (2) work with the existing code and render all of localStorage on page load. Bearing in mind that game.js appears to be scoped to one user, which is inconvenient. Please decide if you will do 1 or 2, then execute on that line of thought.\r\n\r\n```\r\n<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <title>Banzuke Surfing Game</title>\r\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>\r\n    <!-- Link to the external CSS file -->\r\n    <!-- Uncomment this if you have styles to include -->\r\n    <!-- <link rel=\"stylesheet\" href=\"styles.css\"> -->\r\n</head>\r\n<body>\r\n    <h1>Welcome to Banzuke Surfing Game!</h1>\r\n    <p id=\"user\"></p>\r\n    <p>Select your Rikishi and start playing!</p>\r\n    <select id=\"rikishi\">\r\n        <option value=\"1\">Rikishi 1</option>\r\n        <option value=\"2\">Rikishi 2</option>\r\n        <!-- more options here -->\r\n    </select>\r\n    <button id=\"startPlayingButton\">Start Playing</button>\r\n    <hr>\r\n    <h2>Backfilled Results:</h2>\r\n    <div id=\"backfilledResults\"></div>\r\n    <h2>Admin Panel</h2>\r\n    <p>Switch user:</p>\r\n    <input id=\"userSwitch\" type=\"text\">\r\n    <button id=\"switchUserButton\">Switch User</button>\r\n    <p>Backfill contest results:</p>\r\n    <input id=\"backfillContest\" type=\"text\" placeholder=\"Enter contest name\">\r\n    <input id=\"backfillRikishi\" type=\"text\" placeholder=\"Enter rikishi selection\">\r\n    <button id=\"backfillResultsButton\">Backfill Results</button>\r\n    <p id=\"feedback\"></p>\r\n    <!-- Link to the external JavaScript file -->\r\n    <script type=\"module\">\r\n        import { Game } from './game.js';\r\n        window.game = new Game();\r\n        window.game.initialize();\r\n    </script>\r\n</body>\r\n</html>\r\n\r\ngame.js\r\nexport default class Game {\r\n    constructor() {\r\n        this.user = this.getUser();\r\n    }\r\n\r\n    startPlaying() {\r\n        const rikishi = document.querySelector('#rikishi').value;\r\n        const picks = this.getPicks();\r\n        const message = \"You selected: \" + rikishi + \"\\nPrevious Picks: \" + JSON.stringify(picks);\r\n        this.updatePicks(rikishi); // Update the picks with the new selection\r\n        return message;\r\n    }\r\n\r\n    getUser() {\r\n        // get user from local storage\r\n        let user = localStorage.getItem('user');\r\n        if (!user) {\r\n            user = 'admin';\r\n            localStorage.setItem('user', user);\r\n        }\r\n        return user;\r\n    }\r\n\r\n    getPicks() {\r\n        const picks = JSON.parse(localStorage.getItem(this.user));\r\n        if (!picks) {\r\n            return {};\r\n        }\r\n        return picks;\r\n    }\r\n\r\n    updatePicks(rikishi) {\r\n        const picks = this.getPicks();\r\n        const currentContest = new Date().getMonth();\r\n        if ([0, 2, 4, 6, 8, 10].includes(currentContest)) {\r\n            const contestName = new Date().toLocaleString('default', { month: 'long' }) + ' ' + new Date().getFullYear();\r\n            picks[contestName] = rikishi;\r\n            localStorage.setItem(this.user, JSON.stringify(picks));\r\n        }\r\n    }\r\n\r\n    switchUser() {\r\n        const newUser = document.querySelector('#userSwitch').value;\r\n        localStorage.setItem('user', newUser);\r\n        document.querySelector('#user').textContent = 'Current user: ' + newUser;\r\n        this.user = newUser;\r\n    }\r\n\r\n    backfillResults() {\r\n        const contestName = document.querySelector('#backfillContest').value;\r\n        const rikishi = document.querySelector('#backfillRikishi').value;\r\n        const picks = this.getPicks();\r\n        picks[contestName] = rikishi;\r\n        localStorage.setItem(this.user, JSON.stringify(picks));\r\n        this.provideFeedback('Backfilled results for ' + contestName + ' with ' + rikishi); // Provide feedback\r\n        this.displayBackfilledResults(); // Display the updated results\r\n    }\r\n\r\n    displayBackfilledResults() {\r\n        const picks = this.getPicks();\r\n        const resultsElement = document.querySelector('#backfilledResults');\r\n\r\n        // Clear previous results\r\n        resultsElement.textContent = '';\r\n\r\n        // Display each contest result\r\n        for (const contest in picks) {\r\n            const rikishi = picks[contest];\r\n            const resultText = document.createTextNode(contest + ': ' + rikishi);\r\n            const resultDiv = document.createElement('div');\r\n            resultDiv.appendChild(resultText);\r\n            resultsElement.appendChild(resultDiv);\r\n        }\r\n    }\r\n\r\n    provideFeedback(message) {\r\n        document.querySelector('#feedback').textContent = message;\r\n    }\r\n\r\n    initialize() {\r\n        const userElement = document.querySelector('#user');\r\n        if (userElement) {\r\n            userElement.textContent = 'Current user: ' + this.user;\r\n        }\r\n        this.displayBackfilledResults(); // Display the initial results\r\n\r\n        // Add event listeners\r\n        document.querySelector(\"#startPlayingButton\").addEventListener('click', () => this.startPlaying());\r\n        document.querySelector(\"#switchUserButton\").addEventListener('click', () => this.switchUser());\r\n        document.querySelector(\"#backfillResultsButton\").addEventListener('click', () => this.backfillResults());\r\n    }\r\n}\r\n```\r\n\r\nChatGPT\r\nGiven the current architecture of the application, working with the existing code (Option 2) would likely be more efficient and less disruptive.\r\n\r\nHowever, one must also consider the long-term implications of the design. Restructuring the code and adding more classes (Option 1) can make the code more maintainable and modular. This makes the system easier to understand and extend in the future, as new requirements or features might come up.\r\n\r\nBased on the above analysis, I will go with Option 1, restructuring the code by adding more classes.\r\n\r\nI'll modify the Game class to hold an instance of a User class, which can handle user-related operations. The User class will be responsible for handling operations related to a user like getting and updating picks, backfilling results, etc.\r\n\r\nHere's the updated code with the newly added User class:\r\n\r\ngame.js:\r\n\r\n```javascript\r\nexport class User {\r\n    constructor(name) {\r\n        this.name = name;\r\n    }\r\n\r\n    getPicks() {\r\n        const picks = JSON.parse(localStorage.getItem(this.name));\r\n        return picks || {};\r\n    }\r\n\r\n    updatePicks(rikishi) {\r\n        const picks = this.getPicks();\r\n        const currentContest = new Date().getMonth();\r\n        if ([0, 2, 4, 6, 8, 10].includes(currentContest)) {\r\n            const contestName = new Date().toLocaleString('default', { month: 'long' }) + ' ' + new Date().getFullYear();\r\n            picks[contestName] = rikishi;\r\n            localStorage.setItem(this.name, JSON.stringify(picks));\r\n        }\r\n    }\r\n\r\n    backfillResults(contestName, rikishi) {\r\n        const picks = this.getPicks();\r\n        picks[contestName] = rikishi;\r\n        localStorage.setItem(this.name, JSON.stringify(picks));\r\n    }\r\n}\r\n\r\nexport default class Game {\r\n    constructor() {\r\n        this.user = new User(this.getUser());\r\n    }\r\n\r\n    // Rest of the code...\r\n    // Replace every instance of \"this.user\" to \"this.user.name\" except for the constructor\r\n    // Replace every instance of \"this.getPicks()\" to \"this.user.getPicks()\"\r\n    // Replace every instance of \"this.updatePicks(rikishi)\" to \"this.user.updatePicks(rikishi)\"\r\n    // Replace every instance of \"this.backfillResults()\" to \"this.user.backfillResults(contestName, rikishi)\"\r\n}\r\n```\r\n\r\nThe HTML file can remain unchanged.\r\n\r\nIn this approach, we maintain a single point of interaction (the Game instance) with the overall system, while moving user-specific operations to a dedicated class. This results in a clear separation of concerns and makes the code more maintainable and extensible.\r\n\r\nUser\r\nplease write a new user.js. later i will ask you to write game.js instead of delegating the work to me. then i will ask you to rewrite index.html in light of the changes. finally we will discuss refactoring the existing unit tests i didn't send you yet\r\n\r\nChatGPT\r\nSure, here's the new User.js:\r\n\r\n```javascript\r\nexport default class User {\r\n    constructor(name) {\r\n        this.name = name || this.getStoredUser();\r\n    }\r\n\r\n    getStoredUser() {\r\n        let user = localStorage.getItem('user');\r\n        if (!user) {\r\n            user = 'admin';\r\n            localStorage.setItem('user', user);\r\n        }\r\n        return user;\r\n    }\r\n\r\n    getPicks() {\r\n        const picks = JSON.parse(localStorage.getItem(this.name));\r\n        return picks || {};\r\n    }\r\n\r\n    updatePicks(rikishi) {\r\n        const picks = this.getPicks();\r\n        const currentContest = new Date().getMonth();\r\n        if ([0, 2, 4, 6, 8, 10].includes(currentContest)) {\r\n            const contestName = new Date().toLocaleString('default', { month: 'long' }) + ' ' + new Date().getFullYear();\r\n            picks[contestName] = rikishi;\r\n            localStorage.setItem(this.name, JSON.stringify(picks));\r\n        }\r\n    }\r\n\r\n    backfillResults(contestName, rikishi) {\r\n        const picks = this.getPicks();\r\n        picks[contestName] = rikishi;\r\n        localStorage.setItem(this.name, JSON.stringify(picks));\r\n    }\r\n\r\n    switchUser(newUser) {\r\n        localStorage.setItem('user', newUser);\r\n        this.name = newUser;\r\n    }\r\n\r\n    displayBackfilledResults() {\r\n        const picks = this.getPicks();\r\n        const resultsElement = document.querySelector('#backfilledResults');\r\n\r\n        // Clear previous results\r\n        resultsElement.textContent = '';\r\n\r\n        // Display each contest result\r\n        for (const contest in picks) {\r\n            const rikishi = picks[contest];\r\n            const resultText = document.createTextNode(contest + ': ' + rikishi);\r\n            const resultDiv = document.createElement('div');\r\n            resultDiv.appendChild(resultText);\r\n            resultsElement.appendChild(resultDiv);\r\n        }\r\n    }\r\n}\r\n```\r\n\r\nThe User class now encapsulates all the user-related functionalities. getStoredUser, getPicks, updatePicks, backfillResults, switchUser, and displayBackfilledResults functions are now methods of the User class. This provides a clear separation of user-specific logic and game logic.\r\n\r\nNext, I will provide the updated Game.js and index.html files, along with the guidelines for refactoring the unit tests.\r\n\r\nUser\r\nok i lied about the order of operations. I have populated your work into user.js. please write user.test.js\r\nhere is the content of game.test.js\r\n\r\n```\r\nimport 'jest-localstorage-mock';\r\nimport Game from './game.js';\r\n\r\nlet game;\r\n\r\nbeforeEach(() => {\r\n    localStorage.clear();\r\n    // set localStorage values\r\n    localStorage.setItem('user', 'testUser');\r\n    localStorage.setItem('testUser', JSON.stringify({ 'July 2023': '1' }));\r\n\r\n    document.body.innerHTML = `\r\n        <p id=\"user\"></p>\r\n        <select id=\"rikishi\">\r\n            <option value=\"1\">Rikishi 1</option>\r\n            <option value=\"2\">Rikishi 2</option>\r\n        </select>\r\n        <button id=\"startPlayingButton\">Start Playing</button>\r\n        <button id=\"switchUserButton\">Switch User</button>\r\n        <input id=\"userSwitch\" type=\"text\">\r\n        <input id=\"backfillContest\" type=\"text\">\r\n        <input id=\"backfillRikishi\" type=\"text\">\r\n        <button id=\"backfillResultsButton\">Backfill Results</button>\r\n        <div id=\"backfilledResults\"></div>\r\n        <p id=\"feedback\"></p>\r\n    `;\r\n    game = new Game();\r\n});\r\n\r\ntest('check if startPlaying is defined and returns expected value', () => {\r\n    document.querySelector('#rikishi').value = '1';\r\n    const result = game.startPlaying();\r\n    expect(result).toBe(\"You selected: 1\\nPrevious Picks: {\\\"July 2023\\\":\\\"1\\\"}\");\r\n});\r\n\r\ntest('check if switchUser updates the user in UI', () => {\r\n    document.querySelector('#userSwitch').value = 'newUser';\r\n    game.switchUser();\r\n    expect(document.querySelector('#user').textContent).toBe('Current user: newUser');\r\n});\r\n\r\ntest('check if backfillResults updates the results in UI', () => {\r\n    document.querySelector('#backfillContest').value = 'May 2023';\r\n    document.querySelector('#backfillRikishi').value = '2';\r\n    game.backfillResults();\r\n    let resultsElement = document.querySelector('#backfilledResults');\r\n    expect(resultsElement.textContent).toContain('May 2023: 2');\r\n});\r\n```\r\n\r\nChatGPT\r\nGiven the refactoring of the Game.js file into a new User.js file, you'll need to refactor the unit tests accordingly.\r\n\r\nPlease find the updated test file named User.test.js below:\r\n\r\n```javascript\r\nimport 'jest-localstorage-mock';\r\nimport User from './user.js';\r\n\r\nlet user;\r\n\r\nbeforeEach(() => {\r\n    localStorage.clear();\r\n    // set localStorage values\r\n    localStorage.setItem('user', 'testUser');\r\n    localStorage.setItem('testUser', JSON.stringify({ 'July 2023': '1' }));\r\n\r\n    document.body.innerHTML = `\r\n        <p id=\"user\"></p>\r\n        <select id=\"rikishi\">\r\n            <option value=\"1\">Rikishi 1</option>\r\n            <option value=\"2\">Rikishi 2</option>\r\n        </select>\r\n        <button id=\"startPlayingButton\">Start Playing</button>\r\n        <button id=\"switchUserButton\">Switch User</button>\r\n        <input id=\"userSwitch\" type=\"text\">\r\n        <input id=\"backfillContest\" type=\"text\">\r\n        <input id=\"backfillRikishi\" type=\"text\">\r\n        <button id=\"backfillResultsButton\">Backfill Results</button>\r\n        <div id=\"backfilledResults\"></div>\r\n        <p id=\"feedback\"></p>\r\n    `;\r\n    user = new User('testUser');\r\n});\r\n\r\ntest('check if user is defined and picks are correct', () => {\r\n    const picks = user.getPicks();\r\n    expect(picks).toEqual({ 'July 2023': '1' });\r\n});\r\n\r\ntest('check if switchUser updates the user correctly', () => {\r\n    user.switchUser('newUser');\r\n    expect(localStorage.getItem('user')).toBe('newUser');\r\n});\r\n\r\ntest('check if backfillResults updates the results correctly', () => {\r\n    user.backfillResults('May 2023', '2');\r\n    let picks = user.getPicks();\r\n    expect(picks['May 2023']).toBe('2');\r\n});\r\n```\r\n\r\nIn this refactored test suite, I've replaced all the game instances with user instances. The tests now target the User class's methods and behaviors.",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 9,
+                        "title": "Set up npm test in a github action.",
+                        "repository": {
+                            "nameWithOwner": "hoshotakamoto/banzukesurfing",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-07-04T20:15:49Z",
+                        "mergedAt": "2023-07-04T20:51:29Z",
+                        "url": "https://github.com/hoshotakamoto/banzukesurfing/pull/9",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "hoshotakamoto"
+                        },
+                        "editor": {
+                            "login": "hoshotakamoto"
+                        },
+                        "body": "https://chat.openai.com/share/c18aff35-93b2-4274-83c3-dc005b4812a2\r\n\r\nI'm trying to set up the github action for running npm test but it complains that there's no package-lock.json\r\n\r\nChatGPT\r\nGitHub Actions is a tool that enables you to automate, customize, and execute your software development workflows right in your GitHub repository.\r\n\r\nYou're seeing an error message because your repository doesn't have a package-lock.json file. The package-lock.json file is automatically generated when npm install is run and it describes the exact tree that was generated such that subsequent installs are able to generate identical trees, regardless of intermediate dependency updates.\r\n\r\nHere are a few ways to resolve this:\r\n\r\nAdd a package-lock.json file:\r\nRun npm install in your project's root directory locally. This will create a package-lock.json file if there isn't one already.\r\nCommit and push the package-lock.json file to your GitHub repository.\r\nUse npm ci instead of npm install:\r\nIf you're using npm install in your GitHub Actions workflow, you may want to switch to npm ci. npm ci is a more reliable and faster alternative for continuous integration environments. However, it requires a package-lock.json or npm-shrinkwrap.json file to be present.\r\nHere's a basic example of a GitHub Actions workflow file for running npm test:\r\n\r\n```yaml\r\nname: Node.js CI\r\n\r\non: [push, pull_request]\r\n\r\njobs:\r\n  build:\r\n    runs-on: ubuntu-latest\r\n\r\n    strategy:\r\n      matrix:\r\n        node-version: [14.x]\r\n\r\n    steps:\r\n    - uses: actions/checkout@v2\r\n    - name: Use Node.js ${{ matrix.node-version }}\r\n      uses: actions/setup-node@v2\r\n      with:\r\n        node-version: ${{ matrix.node-version }}\r\n    - run: npm ci\r\n    - run: npm test\r\n```\r\n\r\nRemember that you still need to commit and push your package-lock.json or npm-shrinkwrap.json file to your GitHub repository to use npm ci.\r\n\r\nDisable the package-lock.json check:\r\nIf you don't want to use a package-lock.json file, you can disable the check in your .npmrc file by adding the following line:\r\n\r\n```npm\r\npackage-lock=false\r\n```\r\n\r\nPlease note that by doing this, you lose the benefits of having a package-lock.json file. Also, make sure to update your GitHub Actions workflow to use npm install instead of npm ci, because npm ci requires a package-lock.json or npm-shrinkwrap.json file to work.\r\n\r\nUser\r\nAdded package-lock.json to the repo.\r\n\r\n```\r\nRun npm ci\r\nnpm ERR! Cannot read property 'text-encoding' of undefined\r\n\r\nnpm ERR! A complete log of this run can be found in:\r\nnpm ERR!     /home/runner/.npm/_logs/2023-07-04T20_22_56_587Z-debug.log\r\nError: Process completed with exit code 1.\r\n```\r\n\r\nChatGPT\r\nThis error is indicating that there is an issue in your package-lock.json file. The error you're seeing is typically caused by a mismatch between the versions of npm that were used to create the package-lock.json file and the version that you are currently using. The npm ci command requires an accurate package-lock.json to work, otherwise it can produce errors.\r\n\r\nHere are some steps you can take to fix this:\r\n\r\nUpdate npm: If your npm is not up to date, some inconsistencies can occur. Make sure you're using the same version locally as in your workflow. You can update npm using the command npm install -g npm.\r\n\r\nRegenerate package-lock.json: If updating npm didn't solve the problem, try deleting package-lock.json and node_modules then run npm install to generate a new package-lock.json. Make sure to push the new package-lock.json to your repository.\r\n\r\n```shell\r\nrm -rf node_modules package-lock.json\r\nnpm install\r\ngit add package-lock.json\r\ngit commit -m \"Updated package-lock.json\"\r\ngit push\r\n```\r\n\r\nSpecify the Node.js and npm version in the workflow: You can specify the Node.js and npm version in your workflow to ensure the same versions are used in your local and CI environment.\r\n\r\n```yaml\r\nsteps:\r\n- uses: actions/checkout@v2\r\n- name: Use Node.js 14.x\r\n  uses: actions/setup-node@v2\r\n  with:\r\n    node-version: 14.x\r\n- name: Install npm\r\n  run: npm install -g npm@6\r\n- run: npm ci\r\n- run: npm test\r\n```\r\n\r\nCheck for npm bugs: If you're still having issues, it's possible that there's an npm bug. You can check the [npm GitHub page](https://github.com/npm/cli) for similar issues and possible workarounds.\r\n\r\nRemember, npm ci is specifically designed to be used in CI/CD environments and it can behave differently than npm install. Its main benefit is that it will catch and prevent inconsistencies between project dependencies, which is accomplished by being more strict in how it installs packages.\r\n\r\nUser\r\nThe github actions do npm 14, 16, and 18 so how am I going to force it to be a certain version\r\n\r\nChatGPT\r\nYou can specify the Node.js version you want to use with the actions/setup-node@v2 action in your GitHub Actions workflow. To test your project against multiple Node.js versions, you can specify those versions in a matrix in the workflow file.\r\n\r\nHere's an example that sets up a test matrix to run your tests against Node.js 14, 16, and 18:\r\n\r\n```yaml\r\nname: Node.js CI\r\n\r\non: [push, pull_request]\r\n\r\njobs:\r\n  build:\r\n    runs-on: ubuntu-latest\r\n\r\n    strategy:\r\n      matrix:\r\n        node-version: [14.x, 16.x, 18.x]\r\n\r\n    steps:\r\n    - uses: actions/checkout@v2\r\n    - name: Use Node.js ${{ matrix.node-version }}\r\n      uses: actions/setup-node@v2\r\n      with:\r\n        node-version: ${{ matrix.node-version }}\r\n    - run: npm ci\r\n    - run: npm test\r\n```\r\n\r\nThis will run the npm ci and npm test commands in a separate job for each Node.js version. If you want to use a specific version of npm, you can install it in a run step:\r\n\r\n```yaml\r\n    steps:\r\n    - uses: actions/checkout@v2\r\n    - name: Use Node.js ${{ matrix.node-version }}\r\n      uses: actions/setup-node@v2\r\n      with:\r\n        node-version: ${{ matrix.node-version }}\r\n    - run: npm install -g npm@7\r\n    - run: npm ci\r\n    - run: npm test\r\n```\r\n\r\nThis will install npm version 7 before running the npm ci and npm test commands. You could adjust the npm@7 to whatever version you want to use, just make sure it's compatible with the Node.js versions you're testing against.\r\n\r\nAlso, remember to push a consistent package-lock.json file to your repository that corresponds with the npm version you want to use. This file should be generated using the npm install command with the npm version you are installing in the workflow.\r\n\r\nUser\r\nThey already do that but you just said the npm ci step is complaining about the wrong version - so how can I have it support all 3\r\n\r\nChatGPT\r\nThe problem is likely due to the mismatch between the npm version used to generate the package-lock.json file and the npm version in your GitHub workflow environment.\r\n\r\nTo support multiple Node.js versions, you need to ensure that the package-lock.json is generated using the npm version that's compatible with all these Node.js versions.\r\n\r\nThis is what you can do:\r\n\r\nGenerate package-lock.json using the lowest compatible npm version: On your local machine, downgrade your npm to the lowest version that is compatible with all of your testing Node.js versions, delete node_modules and package-lock.json, and then do npm install to regenerate package-lock.json.\r\n```bash\r\nnpm install -g npm@6  # adjust the version as per your compatibility needs\r\nrm -rf node_modules package-lock.json\r\nnpm install\r\n```\r\n\r\nThen commit and push this package-lock.json to your repository.\r\n\r\nInstall the same npm version in the workflow: In your workflow, after setting up Node.js, install the same npm version that you used to generate the package-lock.json.\r\n```yaml\r\n    steps:\r\n    - uses: actions/checkout@v2\r\n    - name: Use Node.js ${{ matrix.node-version }}\r\n      uses: actions/setup-node@v2\r\n      with:\r\n        node-version: ${{ matrix.node-version }}\r\n    - run: npm install -g npm@6  # use the same version here\r\n    - run: npm ci\r\n    - run: npm test\r\n```\r\n\r\nThis should solve your problem, as npm ci will now use the same version of npm that was used to generate the package-lock.json file, avoiding inconsistencies. However, this solution assumes that the npm version you choose is compatible with all your testing Node.js versions.\r\n\r\nIf you're using certain features or packages that require different npm versions for different Node.js versions, you may need to reconsider your testing matrix or find a different approach that accommodates your specific needs.",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjg=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 8
+        }
+    }
+}

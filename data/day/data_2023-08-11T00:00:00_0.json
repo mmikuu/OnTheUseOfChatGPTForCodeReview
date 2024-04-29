@@ -1,0 +1,2366 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 608,
+                        "title": "AI: Check for Duplicate Specs",
+                        "repository": {
+                            "nameWithOwner": "ubiquity/ubiquibot",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-08-11T05:45:32Z",
+                        "mergedAt": "2023-08-27T13:21:45Z",
+                        "url": "https://github.com/ubiquity/ubiquibot/pull/608",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "kamaalsultan"
+                        },
+                        "editor": null,
+                        "body": "Resolves #488\r\nQA for byteballet/santa-bringyouwishes#39\r\n\r\n<!--\r\n- You must link the issue number e.g. \"Resolves #1234\"\r\n- You must link the QA issue on your forked repo e.g. \"QA for #1234\"\r\n- Please do not replace the keyword \"Resolves\" https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword\r\n-->\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-08-11T05:45:36Z",
+                                    "bodyText": "\u2705 Deploy Preview for ubiquibot-staging ready!\n\n\n\nName\nLink\n\n\n\n\n\ud83d\udd28 Latest commit\n89e6705\n\n\n\ud83d\udd0d Latest deploy log\nhttps://app.netlify.com/sites/ubiquibot-staging/deploys/64eb4da23246d20008fdf8ac\n\n\n\ud83d\ude0e Deploy Preview\nhttps://deploy-preview-608--ubiquibot-staging.netlify.app\n\n\n\ud83d\udcf1 Preview on mobile\n Toggle QR Code... Use your smartphone camera to open QR code link.\n\n\n\n\nTo edit notification comments on pull requests, go to your Netlify site configuration.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1674238728",
+                                    "author": {
+                                        "login": "netlify"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-12T01:44:33Z",
+                                    "bodyText": "Great reviews, team!",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1675606143",
+                                    "author": {
+                                        "login": "pavlovcik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-12T09:34:07Z",
+                                    "bodyText": "@ByteBallet please be sure to \"Resolve conversation\" for each after you implement requested changes, and have all of your questions answered.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1675814341",
+                                    "author": {
+                                        "login": "pavlovcik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-12T09:35:49Z",
+                                    "bodyText": "@ByteBallet please be sure to \"Resolve conversation\" for each after you implement requested changes, and have all of your questions answered.\n\nYes, sure.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1675815373",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-16T06:50:15Z",
+                                    "bodyText": "I was thinking about the rate limit problem. What if we \"preserve state\" by passing in the progress to the database. For example:\n{\n\tchecking: { url: \"ubiquity/ubiquibot/520\", startTime: \"1234123412\" },\n\tqueue: [\n\t\t{ pending: false, similarity: 0.7, issueUrl: \"ubiquity/ubiquibot/510\" },\n\t\t{ pending: true, issueUrl: \"ubiquity/ubiquibot/511\" },\n\t\t{ pending: true, issueUrl: \"ubiquity/ubiquibot/512\" },\n\t],\n}\nIf we hit rate limits, this job can continue the next time an issue is posted?\nI want to experiment with the current implementation to see how obtrusive the rate limits are. If they are a problem I would be more motivated to include these capabilities to deal with rate limits.\n(Sorry for the sloppy example I wrote this on my phone.)",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1680057746",
+                                    "author": {
+                                        "login": "pavlovcik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-16T07:16:35Z",
+                                    "bodyText": "this job can continue the next time an issue is posted?\n\nBut the problem is we can also hit rate limit while checking the next issue. If this process is repeated, I think we will have a lot of delay.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1680088039",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-16T11:56:52Z",
+                                    "bodyText": "But the problem is we can also hit rate limit while checking the next issue. If this process is repeated, I think we will have a lot of delay.\n\nIn the original specification I explicitly stated that slow is fine. Even if it takes a day its still immensely helpful for repositories with hundreds of open issues and community contributors opening new ones.\n\nthat passes the issue specification to ChatGPT (asynchronously/slowly is fine)",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1680468513",
+                                    "author": {
+                                        "login": "pavlovcik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-16T13:09:57Z",
+                                    "bodyText": "In the original specification I explicitly stated that slow is fine. Even if it takes a day its still immensely helpful for repositories with hundreds of open issues and community contributors opening new ones.\n\nhttps://github.com/ayaka14732/ChatGPTAPIFree\nI was looking for a new method and found this project on github.\nIf you dislike it, I am considering this way.\n\nThis is the standard mechanism to avoid rate limit in OpenAI.\nhttps://platform.openai.com/docs/guides/rate-limits/error-mitigation\n@pavlovcik rfc",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1680577444",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-16T13:43:43Z",
+                                    "bodyText": "Exponential backoff is pretty standard. We can use it.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1680637474",
+                                    "author": {
+                                        "login": "pavlovcik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-16T15:55:59Z",
+                                    "bodyText": "Exponential backoff is pretty standard. We can use it.\n\nQA for https://github.com/byteballet/santa-bringyouwishes/issues#86\nUsed exponential-backoff",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1680873061",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-17T17:30:12Z",
+                                    "bodyText": "How long for the bot to react? I posted a real world example of a duplicate at kamaalsultan/santa-bringyouwishes#89 and kamaalsultan/santa-bringyouwishes#91",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1682688318",
+                                    "author": {
+                                        "login": "pavlovcik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-17T18:55:32Z",
+                                    "bodyText": "How long for the bot to react? I posted a real world example of a duplicate at byteballet/santa-bringyouwishes#89 and byteballet/santa-bringyouwishes#91\n\nQA for kamaalsultan/santa-bringyouwishes#108\nCould you check please? @pavlovcik",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1682801732",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-18T15:42:30Z",
+                                    "bodyText": "QA for kamaalsultan/santa-bringyouwishes#114",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1684101496",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T20:11:25Z",
+                                    "bodyText": "haven't been able to duplicate the QA on staging\nI assume we're missing the API key as and Environment variable in our preview @pavlovcik @byteballet",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1686976083",
+                                    "author": {
+                                        "login": "Draeieg"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T20:14:29Z",
+                                    "bodyText": "haven't been able to duplicate the QA on staging\nI assume we're missing the API key as and Environment variable in our preview @pavlovcik @byteballet\n\nYes, maybe it will be missing as .env is in gitignore.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1686979976",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T20:15:44Z",
+                                    "bodyText": "haven't been able to duplicate the QA on staging\nI assume we're missing the API key as and Environment variable in our preview @pavlovcik @byteballet\n\nAre you able to make one on open ai? Otherwise you will need to wait until one of the others can do that and add it. I can't right now.\n@byteballet I believe you also have access (@ubiquity-bounties) so please feel free to adjust the secrets on the QA instance.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1686981532",
+                                    "author": {
+                                        "login": "pavlovcik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T21:09:19Z",
+                                    "bodyText": "Are you able to make one on open ai? Otherwise you will need to wait until one of the others can do that and add it. I can't right now.\n@byteballet I believe you also have access (@ubiquity-bounties) so please feel free to adjust the secrets on the QA instance.\n\nI added some env variables for only previews. Maybe need to change webhook URL or create a new app to test it? @Draeieg",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1687046270",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T21:22:49Z",
+                                    "bodyText": "haven't been able to duplicate the QA on staging\nI assume we're missing the API key as and Environment variable in our preview @pavlovcik @byteballet\n\nAre you able to make one on open ai? Otherwise you will need to wait until one of the others can do that and add it. I can't right now.\n@byteballet I believe you also have access (@ubiquity-bounties) so please feel free to adjust the secrets on the QA instance.\n\nOpenAI has my country blocked so I'm unable to make an account unless someone lends me their info lol\n@byteballet  plz gib key",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1687062754",
+                                    "author": {
+                                        "login": "Draeieg"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T21:23:52Z",
+                                    "bodyText": "haven't been able to duplicate the QA on staging\nI assume we're missing the API key as and Environment variable in our preview @pavlovcik @byteballet\n\nAre you able to make one on open ai? Otherwise you will need to wait until one of the others can do that and add it. I can't right now.\n@byteballet I believe you also have access (@ubiquity-bounties) so please feel free to adjust the secrets on the QA instance.\n\nOpenAI has my country blocked so I'm unable to make an account unless someone lends me their info lol\n@byteballet plz gib key\n\nOn github issue???\nI added here: https://app.netlify.com/sites/ubiquibot-staging/configuration/env#OPENAI_API_KEY",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1687063890",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T21:27:19Z",
+                                    "bodyText": "OpenAI has my country blocked so I'm unable to make an account unless someone lends me their info lol\n@byteballet plz gib key\n\nPlease check all the keys added.\nI added 7 keys...",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1687067636",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T21:33:11Z",
+                                    "bodyText": "OpenAI has my country blocked so I'm unable to make an account unless someone lends me their info lol\n@byteballet plz gib key\n\nPlease check all the keys added. I added 7 keys...\n\nstill nothing",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1687074485",
+                                    "author": {
+                                        "login": "Draeieg"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T21:38:23Z",
+                                    "bodyText": "OpenAI has my country blocked so I'm unable to make an account unless someone lends me their info lol\n@byteballet plz gib key\n\nPlease check all the keys added. I added 7 keys...\n\nstill nothing \n\nAs I know, time limit for serverless functions are set to 10 for netlify, vercel and for others.\nWe can increase it.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1687080160",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T21:41:56Z",
+                                    "bodyText": "OpenAI has my country blocked so I'm unable to make an account unless someone lends me their info lol\n@byteballet plz gib key\n\nPlease check all the keys added. I added 7 keys...\n\nstill nothing \n\nAs I know, time limit for serverless functions are set to 10 for netlify, vercel and for others. We can increase it.   \n\n@pavlovcik @0xcodercrane",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1687084161",
+                                    "author": {
+                                        "login": "Draeieg"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T22:47:19Z",
+                                    "bodyText": "I have tried to QA this PR.\nIn this repo, I created 5 issues. 1st and last ones are duplicates. Rest are not. https://github.com/web4erOrg/AiDupCheckRepo/issues\nI modified the bot to also comment important words it picked, and show a similarity score if there is any.\nIt didn't find a duplicate and the similarity score was 1 for all. Some important words it picked are \"of\", \"on\", \"up\".  This needs improvement in prompt. The prompt is forcing chatGPT to reply with number, but chatGPT is not replying with a number, it is replying with this :\n\nTo measure the possibility of the two GitHub issues being the same content, we can use a text similarity metric such as Levenshtein distance. This metric calculates the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one string into another.\nUsing this approach, we can calculate the similarity percentage between the two issues. Here is the calculation:\n\nCalculate the Levenshtein distance between the two issues.\nDivide the Levenshtein distance by the length of the longer issue.\nSubtract the result from 1 to get the similarity percentage.\nMultiply the similarity percentage by 100 to get the final result.\n\nPlease provide the actual content of the two issues (\"%first%\" and \"%second%\") so that we can calculate the similarity percentage for you.\n\nThat is why all the similarity score are 1, because  res.match(/\\d+/); is returning [1] for all.\nChatGPT also consumed 1 cent for these answers using API.\nHowever, I also tried all these 5 issues directly with chatGPT and got interesting results. Even though it gave a different similarity score on different tries, but similarity score of the duplicate was higher.\nhttps://chat.openai.com/share/8a97e9da-a8ce-45e9-8bf0-9bdd5b45f643",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1687163074",
+                                    "author": {
+                                        "login": "web4er"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T22:47:58Z",
+                                    "bodyText": "As I know, time limit for serverless functions are set to 10 for netlify, vercel and for others.\nWe can increase it.\n\nOh man we have to start charging for these features. I'll DM you some card info @Draeieg",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1687163597",
+                                    "author": {
+                                        "login": "pavlovcik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-22T06:25:29Z",
+                                    "bodyText": "@web4er\nDid you test with the latest changes?\nAs I modified a bit on prompt for measuring similarity.\n6f86e24\nIt might be working fine on local but it will cause error on netlify as it limits time of serverless function.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1687532769",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-22T07:02:55Z",
+                                    "bodyText": "ubiquibot/staging#141\nQA for deployed branch on Netlify.\nIt worked but I think increasing time limit will be necessary further...\n@pavlovcik  @web4er",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1687591717",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-22T17:38:54Z",
+                                    "bodyText": "I am not sure if it is necessary to increase time limit for more than 10 seconds as it seems working fine...",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1688637500",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-22T19:17:33Z",
+                                    "bodyText": "Did you test with the latest changes?\n\nI have tested it at 93818b4 that was latest when I was doing it.\nI think the point of concern in the QA was that you are always expecting a number from AI, and if it responds with some text, you are parsing any number from the answer as a similarity.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1688786305",
+                                    "author": {
+                                        "login": "web4er"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-22T20:09:38Z",
+                                    "bodyText": "I have tested it at 93818b4 that was latest when I was doing it.\nI think the point of concern in the QA was that you are always expecting a number from AI, and if it responds with some text, you are parsing any number from the answer as a similarity.\n\nSince we don't want 100% correctness from AI, I think it's reasonable to do like that. It's just the problem that we concern more on number of % or bot's answering rate. And in my case, I didn't experience the bot answering with number that is irrelevant to the similarity. I made some changes (revert string literal) after 93818b4 and you will also see no problem there. ^^",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1688855428",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-22T20:12:19Z",
+                                    "bodyText": "@web4er\nDid you test with the latest changes?\nAs I modified a bit on prompt for measuring similarity.\n6f86e24\nIt might be working fine on local but it will cause error on netlify as it limits time of serverless function.\n\nYou shouldn't have undone the string literal. Also consider the prompt I wrote because I got really good results for the keywords in my limited testing: #488 (comment)",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1688858673",
+                                    "author": {
+                                        "login": "pavlovcik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-22T20:16:07Z",
+                                    "bodyText": "I couldn't use string literal as I used the prompt from .env file. First, I used exactly same prompt from yours but gpt did not give me satisfactory result. It always gave me words from the prompt, not content. (e.g. It always gave me \"important\" as important word)",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1688863147",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-22T20:20:11Z",
+                                    "bodyText": "Also consider the prompt I wrote because I got really good results for the keywords in my limited testing: #488 (comment)\n\nIf we want, we can just change prompts from env variable.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1688867992",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-23T16:06:16Z",
+                                    "bodyText": "What do you think about it? @pavlovcik",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1690235146",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-25T01:43:51Z",
+                                    "bodyText": "as I understand it currently we have 2 options for QA on  previews\n\nget rugged by temporarily pay for the premium servers\nwait until #652\n\nor 3rd option do local testing like @web4er and trust me bro  it will run fine once we figure a solution",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1692634307",
+                                    "author": {
+                                        "login": "Draeieg"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-25T04:41:26Z",
+                                    "bodyText": "Or just try again on https://github.com/ubiquibot/staging/\nQA for ubiquibot/staging#157",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1692747679",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-25T06:50:59Z",
+                                    "bodyText": "Or qa for\nubiquibot/staging#158\nubiquibot/staging#160\nubiquibot/staging#162",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1692857816",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-25T08:29:59Z",
+                                    "bodyText": "get rugged by temporarily pay for the premium servers\n\n\nI gave you card info to set it up its fine for now.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1692974875",
+                                    "author": {
+                                        "login": "pavlovcik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-25T08:30:50Z",
+                                    "bodyText": "I gave you card info to set it up its fine for now.\n\nI guess it is not needed for QA.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/608#issuecomment-1692976216",
+                                    "author": {
+                                        "login": "kamaalsultan"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Similarity threshold should be in bot's config, not in env, so it can be customised by partners.\nMaybe also the prompts but I think we don't need prompts to be customizable @pavlovcik",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291258304",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "what's the reasoning behind creating a function that just calls 1 function?",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291264982",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "can you explain why this shift is needed?",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291278482",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "remove this if statement and make a check if issue exists after line 8 and return if it doesn't exist. this way you don't need to always check",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291282789",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "here do the same and check if issue doesn't exists and return, so you don't need issue?. everywhere",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291286952",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think these types are not needed here since they are not global so we can just have them in similarity.ts.\nAlso make the types with typebox like other types, so then in getAnswerFromChatGPT you can validate the response from API with ajv.  Example",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291287618",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "add check for array length",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291297942",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "is there any reason you set temperature to 0?",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291300515",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The input string is in Markdown syntax so you should preprocess the text by removing URLs, images, ... and put all the words in an array/set, so you can compare with important words.",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291327347",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "why return an object with string instead of a string?",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291332935",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "log the error",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291346724",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This checks for all past issues...",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291527614",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, temperature is related to randomness of the answer. I set it to 0 because we don't need random answer...",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291537365",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Do you mean by console.log or current logger?",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291538269",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Would it be good to move temperature to botconfig?",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291569628",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, knew it but I thought ChatGPT will handle this. What do you think about it, @pavlovcik @whilefoo ?\nIf not, is it good to use commentParser? Or shall I create an issueParser?",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291651670",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "But this function only counts words, ChatGPT is not involved here",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291702171",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "current logger",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291702442",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think we need temperature (randomness) to be customisable. @pavlovcik rfc",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291702946",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Okay. Is it okay too use commentParser? @whilefoo",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291703171",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't understand your answer.\nLet me rephrase, if (issue?.number) is not needed if you check if issue exists at the top of the function like this:\nconst issue = (_payload as Payload).issue;\nif (!issue) {\n  return;\n}",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291707108",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, my bad.\nForgot to remove the comment.",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291708583",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It seemed listAllIssuesForRepo returned me all the issues including current one. So I needed shift. Isn't it?",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291711173",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I see, I think it would be better if we use filter function to explicitly remove the current issue.",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291742137",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sure, will do that.",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291747848",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, you can use parseComments",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291762625",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "listAllIssuesForRepo\nThis function returns both issues & pull requests. Are you hoping to include the PRs too in finding duplicates? Most PRs here would be like Resolves...QA...\nSecondly, this function use is concerning from a performance perspective. Before this, the function is being used only in 1 place and that is just fetching open issues.\nMost of the time issue will not be a duplicate and the bot will stay busy in dealing with it.\nHow about if we retrieve the issues once and store their first comment in a txt file or sqlite? Will have to cover edit issue comment too.  @pavlovcik\nCurrently, there are 250+ PR and 250+ issues in this repo. It will grow.",
+                                                        "author": {
+                                                            "login": "web4er"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291754143",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I heard indexOf is a little faster than includes. Would be helpful here because this will be called many times.",
+                                                        "author": {
+                                                            "login": "web4er"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291757829",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The default value for env variables should go in https://github.com/ubiquity/ubiquibot/blob/development/src/configs/shared.ts\nopenai configs should have a schema just like telegram \n  \n    \n      ubiquibot/src/types/config.ts\n    \n    \n         Line 90\n      in\n      dfb48b1\n    \n  \n  \n    \n\n        \n          \n           telegram: TelegramBotConfigSchema, \n        \n    \n  \n\n and should be a part of BotConfig",
+                                                        "author": {
+                                                            "login": "web4er"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291762035",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Some info about these env variables should be added to readme https://github.com/ubiquity/ubiquibot#environment-variables",
+                                                        "author": {
+                                                            "login": "web4er"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291767937",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Eventually, openai here will be used for other purposes too. The following can be feature-specific config stored as repo config\nduplicate-issue-ai-system-prompt\nduplicate-issue-ai-user-prompt\nduplicate-issue-ai-temperature\nduplicate-issue-similarity-threshold\n\nWhat do you think @pavlovcik",
+                                                        "author": {
+                                                            "login": "web4er"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291777042",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "and env var\nOPENAI_API_HOST=\nOPENAI_API_KEY=",
+                                                        "author": {
+                                                            "login": "web4er"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291789454",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Eventually, openai here will be used for other purposes too. The following can be feature-specific config stored as repo config\n\nduplicate-issue-ai-system-prompt\n\nduplicate-issue-ai-user-prompt\n\nduplicate-issue-ai-temperature\n\nduplicate-issue-similarity-threshold\n\n\nWhat do you think @pavlovcik\n\nI think we can consider specific settings (prompt, temperature) for specific capabilities. Like the ones that it makes sense to customize like this one proposal to give the bot a \"personality\"\n(It's in the research repository because I want to discuss the concept on a call with the research team before we make it official.)\nPerhaps it could be useful to expose properties for customization in case repository maintainers want to add additional context to enhance duplicate issue finding accuracy on their specific repositories (e.g. explicitly listing out the \"important\" words.)",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291956338",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think prompts need to be customizable for this feature.",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291962551",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I see, I think it would be better if we use filter function to explicitly remove the current issue.\n\nWhy is that? Isn't shift the most efficient?",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291962709",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This checks for all past issues...\n\nIt seems like you implemented a different strategy than what is described in the specification. I believe it makes sense to stop the search as soon as a similar issue is found, which will save on API calls?",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1291963121",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "RFC @pavlovcik",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292119786",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, indexOf is a a tiny, tiny amount faster than includes but in reality this will make no difference. Anyway, I will change this.",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292120934",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think prompts need to be customizable for this feature.\n\nSo shall I remove from env and leave them just as constants? @pavlovcik",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292133775",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In that case listAllIssuesForRepo should be fixed to filter out PRs because the name implies only issues.\nCurrently we already store issues as a part of analytics so we can change to store it when the issue is opened and add description to the schema. Then we can query all of the issues in an efficient manner.",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292135157",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why is that? Isn't shift the most efficient?\n\nThat's true, but we can't know for certain the current issue will be first in the array - what if two issues get created at the same time?",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292136261",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why is that? Isn't shift the most efficient?\n\nThat's true, but we can't know for certain the current issue will be first in the array - what if two issues get created at the same time?\n\nOh, I didn't get you, @whilefoo . Is that possible that two same issues are created at the same time? Even though in that case, isn't it normal to alert about the second issue?",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292140864",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, but we don't know if they are the same, maybe just created at the same time but different content. So by using filter we exclude the current issue and compare with all other issues.",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292157092",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I am changing the strategy as @pavlovcik mentioned so this will not be a problem.\n#608 (comment)",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292162397",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think we can consider specific settings (prompt, temperature) for specific capabilities. Like the ones that it makes sense to customize like this one proposal to give the bot a \"personality\"\n(It's in the research repository because I want to discuss the concept on a call with the research team before we make it official.)\nPerhaps it could be useful to expose properties for customization in case repository maintainers want to add additional context to enhance duplicate issue finding accuracy on their specific repositories (e.g. explicitly listing out the \"important\" words.)\n\nI am a bit confused now about where to store each keys. So should OPENAI_API_KEY and OPENAI_API_HOST be stored in .env or /config/shared.ts ?\nOther similarity configs including duplicate-issue-ai-system-prompt, duplicate-issue-ai-user-prompt, duplicate-issue-ai-temperature, duplicate-issue-similarity-threshold\nshould be stored in repo config?\n@pavlovcik RFC",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292175593",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think prompts need to be customizable for this feature.\n\nSo shall I remove from env and leave them just as constants? @pavlovcik\n\nI changed my mind because I realized that repository maintainers can increase the accuracy of this feature by providing additional context on what their project is about and perhaps even specify specific words to look out for lol\nPlease retain the ability for maintainers to customize the variables.",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292178783",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                const answer = choice[0].message.content;\n          \n          \n            \n                const answer = choice[0]?.message.content;\n          \n      \n    \n    \n  \n\nLike that? Try using the suggest feature for review comments like this.",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292180185",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@0xcodercrane knows best",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292180348",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Perhaps it makes sense to focus on code readability vs optimizing for marginal performance benefits (I think this would make more sense if we were looping in the 100,000+ times range. Perhaps we can focus on performance optimizations as needed. In the meantime lets maintain includes for readability reasons.",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292181100",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@0xcodercrane rfc",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292301416",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm concerned about the probability calculation strategy.\nWe should be leveraging ChatGPT's ability to interpret synonyms. It appears that you're manually calculating this based on the frequency of specific words being used.",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292502008",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68c7d71",
+                                                            "authoredDate": "2023-08-12T14:17:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I am not sure about this. Do you want ChatGPT to find all similar words from word list in the issues? Assuming there are 1000 past issues, then we need to send 1001 requests to OpenAI. Or do you want ChatGPT to make all possible words from important words list?",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292611391",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68c7d71",
+                                                            "authoredDate": "2023-08-12T14:17:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Well, my original vision is something more like getting a batch of the issue specifications (let's say whatever is close to maxing out the context window of the LLM, starting from latest issue number) and asking GPT to compare the newly created issue with every other issue in that batch. Then if it thinks there is a duplicate, to post a comment back to the duplicate issue.",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292714727",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68c7d71",
+                                                            "authoredDate": "2023-08-12T14:17:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We could do things without a vector database in order to simplify things, here's how:\n\n\nA new issue is posted\nWe ask ChatGPT to extract a word list of the most \"important\" (i.e. unique adjectives?) words (for example, when I wanted to find this issue, I searched for the term \"duplicate\")\nWe search the repository for all issues with the important words\nWe go from highest issue number (most recent) and read the specification.\nIf >80% confidence, stop the search and link back to it with a warning saying that it's likely to be a duplicate.\nThis approach might be a little more brittle (rate limits) but we won't have to worry about the database which should make implementation and maintenance much easier.\n\nBut I think we decided to measure similarity by rate of important words's appearance. Not asking ChatGPT to compare the newly created issue and other issues. Or do you mean by asking ChatGPT for important words for all the issues?\n@pavlovcik",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292783733",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68c7d71",
+                                                            "authoredDate": "2023-08-12T14:17:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Perhaps there was a misunderstanding but refer to this explanation of my perspective.\n\nI parse out the \"important\" words of the newly created issue e.g. \"duplicate\"\nThen I search those important words on GitHub issues search (starting with the first important one, but can try with the top three for example \"AI\", \"duplicate\", \"similar\")\nWhich will return me a list of all the specifications of somewhat similar issues (i believe this returned seven issues, which all have the keyword \"duplicate\")\nUse ChatGPT to interpret the meaning of all seven specifications and compare to the current created one to see if it is describing the same thing.",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292789343",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68c7d71",
+                                                            "authoredDate": "2023-08-12T14:17:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Then what is the mechanism to measure similarity? @pavlovcik\nSearch issues for the top three important words and we can just only ask ChatGPT if the searched issues are similar to the new one, not similarity but yes or no.",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292792799",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68c7d71",
+                                                            "authoredDate": "2023-08-12T14:17:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think I'm okay with boolean over percentage IF\n\nWe can not figure out how to prompt it to return confidence percentage and\nAre leveraging chatGPT's ability to understand meaning vs trying to manually calculate a percentage, throwing out all the advanced interpretation capabilities of ChatGPT",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292796324",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68c7d71",
+                                                            "authoredDate": "2023-08-12T14:17:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I will try to make prompts to figure out percentage but I am not sure about it as I tried it before. If I still fail for it, I will try to make gpt answer at least yes or no.",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1292816248",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68c7d71",
+                                                            "authoredDate": "2023-08-12T14:17:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I tried this kind of prompt: \"I have two github issues.\\n%first%\\nand\\n%second%\\nPlease give me the possibility of the 2 issues are the same content.\\n Give me in number format and add % after the number.\\nDo not tell other things since I only need the number.\"\nIt seems GPT returns me the possibility in %.\nBut the problem here is we are comparing found issues with newly created one and the OpenAI returns me 429 (request rate limit) error.\nAre we going to use paid OpenAI API key? @pavlovcik",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1293736233",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68c7d71",
+                                                            "authoredDate": "2023-08-12T14:17:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "you should store them in .env",
+                                                        "author": {
+                                                            "login": "0xcodercrane"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1294147421",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Okay, got it.",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1294174566",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Changed strategy and measure similarity using ChatGPT. I think this is resolved.",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1294273093",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Stored configs to .env according to @0xcodercrane",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1294273575",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "QA for kamaalsultan/santa-bringyouwishes#75\n@pavlovcik",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1294274844",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68c7d71",
+                                                            "authoredDate": "2023-08-12T14:17:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Are we going to use paid OpenAI API key?\n\nWe're going to try to get as far as we can without paying.\nWhen I searched in my previous example I shared above, there were only seven issues to compare, which is really not a lot",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1294373095",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68c7d71",
+                                                            "authoredDate": "2023-08-12T14:17:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think API has only paid tier, no free.",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1294385006",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68c7d71",
+                                                            "authoredDate": "2023-08-12T14:17:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "OpenAI Api has free plan.",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1294538948",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68c7d71",
+                                                            "authoredDate": "2023-08-12T14:17:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Those are rate limits. I think for free trial you get 5$ and that's all",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1294571951",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "68c7d71",
+                                                            "authoredDate": "2023-08-12T14:17:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "didn't we say threshold and other should be customisable by maintainers? @pavlovcik",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298222109",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4d67379",
+                                                            "authoredDate": "2023-08-18T09:03:52Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                logger.debug(`Getting response from ChatGPT failed: ${error}`);\n          \n          \n            \n                logger.error(`Getting response from ChatGPT failed: ${error}`);",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298257929",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "82ab081",
+                                                            "authoredDate": "2023-08-18T09:24:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "parseFloat can return NaN if something is wrong, so you should handle that",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298375112",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "82ab081",
+                                                            "authoredDate": "2023-08-18T09:24:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "why is .split(\" \") needed?",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298376052",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "82ab081",
+                                                            "authoredDate": "2023-08-18T09:24:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "if res is \"\" then you should return empty array because split on empty string will be [\"\"]",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298377315",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "82ab081",
+                                                            "authoredDate": "2023-08-18T09:24:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "log an error so we know something is wrong because this should not happen normally",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298378609",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "82ab081",
+                                                            "authoredDate": "2023-08-18T09:24:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "also log an error",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298378783",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "82ab081",
+                                                            "authoredDate": "2023-08-18T09:24:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "getAnswerFromChatGPT can throw an error so either don't throw an error and return \"\" like in other cases or handle the error here",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298380263",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "82ab081",
+                                                            "authoredDate": "2023-08-18T09:24:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            export const measureSimilarity = async (first: string, second: string): Promise<number> => {\n          \n          \n            \n            export const measureSimilarity = async (first: Issue, second: Issue): Promise<number> => {\n          \n      \n    \n    \n  \n\nI think it's better to let the function extract whatever it needs from the issue",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298407697",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "82ab081",
+                                                            "authoredDate": "2023-08-18T09:24:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            export const extractImportantWords = async (content: string): Promise<string[]> => {\n          \n          \n            \n            export const extractImportantWords = async (issue: Issue): Promise<string[]> => {\n          \n      \n    \n    \n  \n\nLet the function extract what it needs",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298408200",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "82ab081",
+                                                            "authoredDate": "2023-08-18T09:24:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n              console.log(res);\n          \n      \n    \n    \n  \n\nthis is probably accidentally commited?",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298409028",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "82ab081",
+                                                            "authoredDate": "2023-08-18T09:24:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@0xcodercrane commented all of them should be in .env...",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298421226",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4d67379",
+                                                            "authoredDate": "2023-08-18T09:03:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Changed to regular expression.",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298438069",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "82ab081",
+                                                            "authoredDate": "2023-08-18T09:24:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "this if/else statement can be simplified to return percent || 0",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298476968",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "67560be",
+                                                            "authoredDate": "2023-08-18T13:27:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                  logger.debug(`Could not find any issues, reason: ${e}`);\n          \n          \n            \n                  logger.error(`Could not find any issues, reason: ${e}`);",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298478691",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "67560be",
+                                                            "authoredDate": "2023-08-18T13:27:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n              const percent = matches && matches.length > 0 ? parseInt(matches[0]) : 0;\n          \n          \n            \n              const percent = matches && matches.length > 0 ? (parseInt(matches[0]) || 0) : 0;\n          \n      \n    \n    \n  \n\nparseInt can return NaN",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1298504622",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d1d1da0",
+                                                            "authoredDate": "2023-08-18T14:02:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "parseInt can return NaN\n\nWouldn't TypeScript catch that? I guess that depends on byteballet's typings.",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1299347793",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d1d1da0",
+                                                            "authoredDate": "2023-08-18T14:02:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "DISMISSED",
+                                        "bodyText": "If there are any more small requested changes, assuming that this current commit is stable, let's create new bounties for them. I am ready to merge this in!",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "To make it clear, it should be stored in ubiquibot-config.json because our partners should be able to configure these to accommodate per repository. This is because certain partners might be able to tweak the config to increase similarity accuracy. https://github.com/ubiquity/ubiquibot/pull/608/files#r1292178783\nIf it is in .env that implies that we must change it in our production instance Netlify environment config, which affects every partner.",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1299348174",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4d67379",
+                                                            "authoredDate": "2023-08-18T09:03:52Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This should probably be reverted before merging, right?",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1299348248",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f69701",
+                                                            "authoredDate": "2023-08-18T15:38:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is an unusual, but acceptable, replace mechanism.\nWhy not use string literals?\nconst myVariable = \"testing\";\nconst myStringLiteral = `my string literal ${myVariable}`;\n// \"my string literal testing\"",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1299348716",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f69701",
+                                                            "authoredDate": "2023-08-18T15:38:21Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Actually no, NaN is not a separate type, but is of type Number and you can still do operations like NaN * 5 is perfectly valid",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1299402105",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d1d1da0",
+                                                            "authoredDate": "2023-08-18T14:02:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I agree, it would be better if it's done the same way as here",
+                                                        "author": {
+                                                            "login": "whilefoo"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1299402544",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f69701",
+                                                            "authoredDate": "2023-08-18T15:38:21Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Actually, I got matches using regex and I don't think there is a chance for parseInt to be NaN but I changed it for readability.",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1299492701",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d1d1da0",
+                                                            "authoredDate": "2023-08-18T14:02:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "DISMISSED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "No they should be in ubiquibot-config.json so that each partner can adjust on their own instance.",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1304661445",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I guess a new issue is opened for it...",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1304663885",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0ef1f62",
+                                                            "authoredDate": "2023-08-11T05:40:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@0xcodercrane do you think it makes sense that it is in the GithubEvent.ISSUES_OPENED[pre] hook instead of adding it into the GithubEvent.ISSUES_OPENED[action] array?",
+                                                        "author": {
+                                                            "login": "pavlovcik"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1305363672",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "54f8990",
+                                                            "authoredDate": "2023-08-25T08:26:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@0xcodercrane rfc",
+                                                        "author": {
+                                                            "login": "kamaalsultan"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1305438312",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "54f8990",
+                                                            "authoredDate": "2023-08-25T08:26:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@pavlovcik is right. Let me push and merge the PR",
+                                                        "author": {
+                                                            "login": "0xcodercrane"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1306664231",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "54f8990",
+                                                            "authoredDate": "2023-08-25T08:26:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                pre: [findDuplicateOne],\n          \n          \n            \n                action: [nullHandler], // SHOULD not set `issueCreatedCallback` until the exploit issue resolved.  https://github.com/ubiquity/ubiquibot/issues/535\n          \n          \n            \n                pre: [nullHandler],\n          \n          \n            \n                action: [findDuplicateOne], // SHOULD not set `issueCreatedCallback` until the exploit issue resolved.  https://github.com/ubiquity/ubiquibot/issues/535",
+                                                        "author": {
+                                                            "login": "0xcodercrane"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1306664715",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "284e04c",
+                                                            "authoredDate": "2023-08-26T00:39:22Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "89e6705",
+                                                        "author": {
+                                                            "login": "0xcodercrane"
+                                                        },
+                                                        "url": "https://github.com/ubiquity/ubiquibot/pull/608#discussion_r1306664790",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "54f8990",
+                                                            "authoredDate": "2023-08-25T08:26:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

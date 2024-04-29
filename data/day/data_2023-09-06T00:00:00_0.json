@@ -1,0 +1,321 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 5063,
+                        "title": "#5060 -Requested changes",
+                        "repository": {
+                            "nameWithOwner": "darklang/dark",
+                            "primaryLanguage": {
+                                "name": "F#"
+                            }
+                        },
+                        "createdAt": "2023-09-06T18:27:59Z",
+                        "mergedAt": "2023-09-14T16:12:17Z",
+                        "url": "https://github.com/darklang/dark/pull/5063",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "OceanOak"
+                        },
+                        "editor": null,
+                        "body": "\r\n\r\nNo changelog\r\n\r\nThis implements the requested changes on #5060 \r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-08T00:47:30Z",
+                                    "bodyText": "List.push should be O(1), no?",
+                                    "url": "https://github.com/darklang/dark/pull/5063#issuecomment-1710930648",
+                                    "author": {
+                                        "login": "pbiggar"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-08T01:24:30Z",
+                                    "bodyText": "List.push should be O(1), no?\n\nYes it is, I think I was wrong",
+                                    "url": "https://github.com/darklang/dark/pull/5063#issuecomment-1710951684",
+                                    "author": {
+                                        "login": "OceanOak"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is removed in #5061\n\n  \n    \n      dark/packages/darklang/stdlib/list.dark\n    \n    \n         Line 89\n      in\n      eacb8c9\n    \n  \n  \n    \n\n        \n          \n           $\"Expected `times` to be less than 2147483647, but it was `{times |> Builtin.Int.toString}`\"",
+                                                        "author": {
+                                                            "login": "OceanOak"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5063#discussion_r1317677774",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "eacb8c9",
+                                                            "authoredDate": "2023-09-06T18:26:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Looks good",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "As a followup, could isASCII be implemented in Dark?",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5063#discussion_r1317730947",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "eacb8c9",
+                                                            "authoredDate": "2023-09-06T18:26:37Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think this function is O(N^2)",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5063#discussion_r1317734939",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "eacb8c9",
+                                                            "authoredDate": "2023-09-06T18:26:37Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You can use Option.isSome here.",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5063#discussion_r1317735404",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "eacb8c9",
+                                                            "authoredDate": "2023-09-06T18:26:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I've tried another implementation but it isn't any better it is O(N^2)\nlet reverse (list: List<'a>) : List<'a> =\n   PACKAGE.Darklang.Stdlib.List.fold list [] (fun acc item -> (PACKAGE.Darklang.Stdlib.List.append [item] acc))\n\n\nShould we keep it as a Builtin?",
+                                                        "author": {
+                                                            "login": "OceanOak"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5063#discussion_r1317847255",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "eacb8c9",
+                                                            "authoredDate": "2023-09-06T18:26:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I couldn't find a good way to say that it should be between NUL and DEL or 0 and 127.\nI think we'll need a new Builtin function that returns the ASCII value of a character.\nWhich means adding a new builtin function to remove one. Thoughts?\nthe functions is something like :\n(if c.Length = 1 then System.Convert.ToInt64 c[0] else -1) |> DInt |> Ply\n\nAnd the dark version of isAscii  will be\n      let isASCII (c: Char) : Bool =\n        let ascii = Builtin.Char.asciiOfChar c\n        (ascii >= 0) && (ascii <= 127)",
+                                                        "author": {
+                                                            "login": "OceanOak"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5063#discussion_r1317869674",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "eacb8c9",
+                                                            "authoredDate": "2023-09-06T18:26:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeah, that's a good function to add.\nI'd call it Char.toAsciiCode and it should return an option as characters might not be ascii at all.",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5063#discussion_r1319128734",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "eacb8c9",
+                                                            "authoredDate": "2023-09-06T18:26:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think this could be O(N) if we used push instead of append?",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5063#discussion_r1319129790",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "eacb8c9",
+                                                            "authoredDate": "2023-09-06T18:26:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I asked chatgpt:\nlet reverseList lst =\n    let rec reverseHelper acc = function\n        | [] -> acc\n        | head :: tail -> reverseHelper (head :: acc) tail\n    reverseHelper [] lst",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5063#discussion_r1319137385",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "eacb8c9",
+                                                            "authoredDate": "2023-09-06T18:26:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think this could be O(N) if we used push instead of append?\n\nI think the issue is that we don't have something like cons (::)\nOur List.push uses List.append so the complexity will always be O(N^2)\n\nI asked chatgpt:\nlet reverseList lst =\nlet rec reverseHelper acc = function\n| [] -> acc\n| head :: tail -> reverseHelper (head :: acc) tail\nreverseHelper [] lst\n\nThis will also be O(n^2)\n     // Todo: remove once we have recursive lambdas\n      let reverseHelper (list: List<'a>) (acc: List<'a>) : List<'a> =\n        match list with\n        | [] -> acc\n        | head :: tail -> reverseHelper tail (PACKAGE.Darklang.Stdlib.List.push acc head)\n\n      /// Returns a reversed copy of <param list>\n      let reverse (list: List<'a>) : List<'a> =\n        PACKAGE.Darklang.Stdlib.List.reverseHelper list []",
+                                                        "author": {
+                                                            "login": "OceanOak"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5063#discussion_r1319138740",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "eacb8c9",
+                                                            "authoredDate": "2023-09-06T18:26:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The ascii chars are only the first 256 numbers.",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5063#discussion_r1321776071",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "84b93f2",
+                                                            "authoredDate": "2023-09-08T00:30:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "While this works, it feels like overkill. I asked chatgpt about how best to do this, and it suggested (int)c. That seems to me like it would work.\nConversation here: https://chat.openai.com/share/2a6f10f0-d45d-4e71-ac57-584570baeda8",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5063#discussion_r1321923082",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c201ad",
+                                                            "authoredDate": "2023-09-11T16:29:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

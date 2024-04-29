@@ -1,0 +1,181 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 27,
+                        "title": "Add impacketGPT in README.md",
+                        "repository": {
+                            "nameWithOwner": "fr0gger/Awesome-GPT-Agents",
+                            "primaryLanguage": null
+                        },
+                        "createdAt": "2023-11-15T16:52:42Z",
+                        "mergedAt": "2023-11-15T21:50:05Z",
+                        "url": "https://github.com/fr0gger/Awesome-GPT-Agents/pull/27",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "nuts7"
+                        },
+                        "editor": null,
+                        "body": "This custom GPT named impacketGPT allows developers/users of the impacket library to obtain explanations about protocols implementation and example scripts that are useful for development and documentation.\r\n\r\nHere one example: https://chat.openai.com/share/a61ae808-abef-4572-a055-bae9cd220cf4\r\n\r\nFor the moment, impacketGPT isn't the most well-trained of all custom GPTs, but in the long term the aim is to make it a useful tool for development with impacket. \ud83d\ude03\r\n\r\nPlease let me know if you have any suggestions to GPT builder prompts. \ud83d\ude42",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-15T21:50:09Z",
+                                    "bodyText": "Pretty cool",
+                                    "url": "https://github.com/fr0gger/Awesome-GPT-Agents/pull/27#issuecomment-1813315385",
+                                    "author": {
+                                        "login": "fr0gger"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 1295,
+                        "title": "Fix broken hausdorff test",
+                        "repository": {
+                            "nameWithOwner": "rapidsai/cuspatial",
+                            "primaryLanguage": {
+                                "name": "Jupyter Notebook"
+                            }
+                        },
+                        "createdAt": "2023-11-15T02:23:08Z",
+                        "mergedAt": "2023-11-16T15:21:25Z",
+                        "url": "https://github.com/rapidsai/cuspatial/pull/1295",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "isVoid"
+                        },
+                        "editor": null,
+                        "body": "This PR revises the gold result of hausdorff empty input test to address\nan upstream change in cudf.\n\n## Description\n<!-- Provide a standalone description of changes in this PR. -->\n<!-- Reference any issues closed by this PR with \"closes #1234\". -->\n<!-- Note: The pull request title will be included in the CHANGELOG. -->\n\n## Checklist\n- [x] I am familiar with the [Contributing Guidelines](https://github.com/rapidsai/cuspatial/blob/HEAD/CONTRIBUTING.md).\n- [x] New or existing tests cover these changes.\n- [x] The documentation is up to date with these changes.\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-15T02:29:05Z",
+                                    "bodyText": "Indeed that's what chatGPT thinks. https://chat.openai.com/share/43a1b380-e356-4b5e-8c87-08b07003435b\nHow hard would it be to fix cuSpatial to match cuDF here?",
+                                    "url": "https://github.com/rapidsai/cuspatial/pull/1295#issuecomment-1811705164",
+                                    "author": {
+                                        "login": "harrism"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-15T02:34:53Z",
+                                    "bodyText": "Maybe not that hard - probably need one more argument for _from_columns call.",
+                                    "url": "https://github.com/rapidsai/cuspatial/pull/1295#issuecomment-1811709618",
+                                    "author": {
+                                        "login": "isVoid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-15T03:04:31Z",
+                                    "bodyText": "Fundamentally these two calls are different:\nIn [4]: print(cudf.DataFrame([]).columns)\nRangeIndex(start=0, stop=0, step=1)\n\nIn [5]: print(cudf.DataFrame._from_columns([], range(0)).columns)\nIndex([], dtype='object')\nOne is the public API that cuspatial generate the gold result from, and the other is the internal factory function that cuspatial depends upon. I think the proper way forward is that cuspatial shouldn't rely on using internal function from cuDF and attempt to reconstruct the result using public API.",
+                                    "url": "https://github.com/rapidsai/cuspatial/pull/1295#issuecomment-1811736143",
+                                    "author": {
+                                        "login": "isVoid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-15T03:30:23Z",
+                                    "bodyText": "Ooops, I looked at the wrong place - empty input has a shortcut that directly return an empty dataframe. So the actual cause of error is:\nIn [3]: cudf.DataFrame([]).columns\nOut[3]: RangeIndex(start=0, stop=0, step=1)\n\nIn [4]: cudf.DataFrame().columns\nOut[4]: Index([], dtype='object')",
+                                    "url": "https://github.com/rapidsai/cuspatial/pull/1295#issuecomment-1811753853",
+                                    "author": {
+                                        "login": "isVoid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-15T03:36:06Z",
+                                    "bodyText": "Ok I think I prefer this fix - not having to fix the golden result seems a better way forward.",
+                                    "url": "https://github.com/rapidsai/cuspatial/pull/1295#issuecomment-1811757669",
+                                    "author": {
+                                        "login": "isVoid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-16T01:25:57Z",
+                                    "bodyText": "I agree I prefer this fix. Thanks for indulging my question!",
+                                    "url": "https://github.com/rapidsai/cuspatial/pull/1295#issuecomment-1813586746",
+                                    "author": {
+                                        "login": "vyasr"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Fix seems fine to me, although I wonder if maybe it should be changed the other way in the long term i.e. have cuspatial return an empty RangeIndex rather than force cudf to produce an empty Index.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjI=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 2
+        }
+    }
+}

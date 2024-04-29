@@ -1,0 +1,1121 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 8,
+                        "title": "MNT: Updates to command line arguments",
+                        "repository": {
+                            "nameWithOwner": "IMAP-Science-Operations-Center/imap-data-access",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2024-01-31T19:45:21Z",
+                        "mergedAt": "2024-01-31T20:52:37Z",
+                        "url": "https://github.com/IMAP-Science-Operations-Center/imap-data-access/pull/8",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "greglucas"
+                        },
+                        "editor": null,
+                        "body": "- change hyphen to underscores in command line arguments\r\n- add a table and json output options\r\n- update the README with some explicit examples",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Nice work, love the table!",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What you have here works just fine, and looks nice! I wonder if you could achieve a similar result with simpler/fewer lines of code by using a dataframe? Something along the lines of this: https://chat.openai.com/share/61f0f4e5-2ea9-482e-a424-86be1896e6d4",
+                                                        "author": {
+                                                            "login": "bourque"
+                                                        },
+                                                        "url": "https://github.com/IMAP-Science-Operations-Center/imap-data-access/pull/8#discussion_r1473441554",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f536382",
+                                                            "authoredDate": "2024-01-31T18:22:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Somehow I have never seen this choices parameter before. That's neat. Does this automatically raise an error if a user supplies something that is not in this list?",
+                                                        "author": {
+                                                            "login": "bourque"
+                                                        },
+                                                        "url": "https://github.com/IMAP-Science-Operations-Center/imap-data-access/pull/8#discussion_r1473443967",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f536382",
+                                                            "authoredDate": "2024-01-31T18:22:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I agree, this could definitely be done easier with external libraries \ud83d\ude02 . But, I was really striving for this package to have 0 dependencies and just be able to be installed/used as a script with no fuss.",
+                                                        "author": {
+                                                            "login": "greglucas"
+                                                        },
+                                                        "url": "https://github.com/IMAP-Science-Operations-Center/imap-data-access/pull/8#discussion_r1473451334",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f536382",
+                                                            "authoredDate": "2024-01-31T18:22:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeah, I can see the benefit to that. This seems to work fine, so happy to go with it.",
+                                                        "author": {
+                                                            "login": "bourque"
+                                                        },
+                                                        "url": "https://github.com/IMAP-Science-Operations-Center/imap-data-access/pull/8#discussion_r1473452424",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f536382",
+                                                            "authoredDate": "2024-01-31T18:22:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yep, and the help even gives the list of options.\nimap-data-access query --instrument abc\nusage: imap-data-access query [-h]\n                              [--instrument {codice,glows,hi,hit,idex,lo,mag,swapi,swe,ultra}]\n                              [--data-level DATA_LEVEL]\n                              [--descriptor DESCRIPTOR]\n                              [--start-date START_DATE] [--end-date END_DATE]\n                              [--version VERSION] [--extension EXTENSION]\n                              [--output-format {table,json}]\nimap-data-access query: error: argument --instrument: invalid choice: 'abc' (choose from 'codice', 'glows', 'hi', 'hit', 'idex', 'lo', 'mag', 'swapi', 'swe', 'ultra')",
+                                                        "author": {
+                                                            "login": "greglucas"
+                                                        },
+                                                        "url": "https://github.com/IMAP-Science-Operations-Center/imap-data-access/pull/8#discussion_r1473452493",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f536382",
+                                                            "authoredDate": "2024-01-31T18:22:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We can have a summer student make this nicer later :)",
+                                                        "author": {
+                                                            "login": "greglucas"
+                                                        },
+                                                        "url": "https://github.com/IMAP-Science-Operations-Center/imap-data-access/pull/8#discussion_r1473453603",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f536382",
+                                                            "authoredDate": "2024-01-31T18:22:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 385,
+                        "title": "Extracted and Updated proteomics",
+                        "repository": {
+                            "nameWithOwner": "bystrogenomics/bystro",
+                            "primaryLanguage": {
+                                "name": "Perl"
+                            }
+                        },
+                        "createdAt": "2024-01-31T23:08:09Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/bystrogenomics/bystro/pull/385",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "dlin30"
+                        },
+                        "editor": null,
+                        "body": "- Extracted and moved Proteomics cli library to the api folder\r\n- Update proteomic api endpoint\r\n- Added validation for annotation job\r\n- Added Linkage between a proteomic job and a pre-existing annotation job\r\n\r\nWIP - need to ask aboutt parentjob object that should be sent with the proteomics job",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2024-02-01T14:45:04Z",
+                                    "bodyText": "WIP - need to ask aboutt parentjob object that should be sent with the proteomics job\n\nWe discussed this, no parent job needed",
+                                    "url": "https://github.com/bystrogenomics/bystro/pull/385#issuecomment-1921499102",
+                                    "author": {
+                                        "login": "akotlar"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-08T04:01:09Z",
+                                    "bodyText": "Tests are still failing. Can we correct this tomorrow?",
+                                    "url": "https://github.com/bystrogenomics/bystro/pull/385#issuecomment-1933326967",
+                                    "author": {
+                                        "login": "akotlar"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-08T13:13:26Z",
+                                    "bodyText": "Instead of the current folder structure, lets restructure as follows:\n|\u2500\u2500 api/                          # CLI-specific code\n\u2502   \u251c\u2500\u2500 init.py\n\u2502   \u251c\u2500\u2500 auth.py             (state management, login, logout)\n\u2502   \u2514\u2500\u2500 proteomics.py   (the code you're breaking out)\n\u251c\u2500\u2500 cli/                          # CLI-specific code\n\u2502   \u251c\u2500\u2500 init.py\n\u2502   \u251c\u2500\u2500 main.py             # Entry point for the CLI, sets up the argument parser\n\u2502   \u2514\u2500\u2500 auth.py\nAdditionally we need to move not just the state loading/unloading, but also the login/signup functions into auth.py, and move the existing proteomics_cli.py api functions, which do not depend on args into api/proteomics.py",
+                                    "url": "https://github.com/bystrogenomics/bystro/pull/385#issuecomment-1934100254",
+                                    "author": {
+                                        "login": "akotlar"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-09T09:12:19Z",
+                                    "bodyText": "Let me know if this the correct structure that you had in mind or if it needs to be corrected.",
+                                    "url": "https://github.com/bystrogenomics/bystro/pull/385#issuecomment-1935569825",
+                                    "author": {
+                                        "login": "dlin30"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-13T13:04:50Z",
+                                    "bodyText": "I've tried to figure out the auth pathing but it does not seem to generate bystro_authenciate_token when it is being imported from a different directory.",
+                                    "url": "https://github.com/bystrogenomics/bystro/pull/385#issuecomment-1941474372",
+                                    "author": {
+                                        "login": "dlin30"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-14T11:56:22Z",
+                                    "bodyText": "Restructuring has been cleaned/tested, and proteomics has been added into the cli commands. However, im stuck on a blocker with the test not creating the access token, which is causing the test_cli to fail.",
+                                    "url": "https://github.com/bystrogenomics/bystro/pull/385#issuecomment-1943626741",
+                                    "author": {
+                                        "login": "dlin30"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-16T04:48:18Z",
+                                    "bodyText": "This is close. A few changes:\n\nUpdate the way the CLI is invoked. \"proteomics\" should be a sub parser, with a single command \"upload\". The help message for the sub parser should be something like \"Bystro proteomics data management\".\n\nbystro-api proteomics upload --arg1 --arg2 is how this should be invoked; later we will move auth and annotation behind dedicated sub parsers\n\n\n\nexample:\n# tool1.py\nimport argparse\n\ndef setup_tool1_subparser(subparsers):\n    tool1_parser = subparsers.add_parser('tool1', help='Tool1 help')\n    \n    # Create a subparser for tool1 commands\n    tool1_subparsers = tool1_parser.add_subparsers(dest='tool1_command', help='Commands for tool1')\n    \n    # Command 1\n    cmd1_parser = tool1_subparsers.add_parser('tool1cmd', help='First command for tool1')\n    cmd1_parser.add_argument('--tool1cmdarg1', help='Argument for tool1cmd')\n    cmd1_parser.set_defaults(func=tool1_cmd1)\n    \n    # Command 2\n    cmd2_parser = tool1_subparsers.add_parser('tool2cmd', help='Second command for tool1')\n    cmd2_parser.add_argument('--tool2cmdarg1', help='Argument for tool2cmd')\n    cmd2_parser.set_defaults(func=tool1_cmd2)\n\ndef tool1_cmd1(args):\n    print(f\"Executing tool1cmd with argument {args.tool1cmdarg1}\")\n\ndef tool1_cmd2(args):\n    print(f\"Executing tool2cmd with argument {args.tool2cmdarg1}\")\n\nThere is a bug, the annotation_response.status_code block is incorrectly indented, causing an error when you run:\n\nIt should be (notice if annotation_response.status_code != HTTP_STATUS_OK: only runs if annotation_job_id and isintance(annotation_job_id, str)\nif annotation_job_id and isinstance(annotation_job_id, str):\n        annotation_url = state.url + GET_ANNOTATION.replace(\":id\", annotation_job_id)\n        annotation_response = requests.get(annotation_url, headers=auth_header)\n\n        if annotation_response.status_code != HTTP_STATUS_OK:\n            print(\n                f\"The annotation with ID {annotation_job_id} does not exist or you do not have \"\n                \"permissions to access this annotation.\"\n            )\n            return {}\n\nAlso, instead of and isinstance(annotation_job_id, str), if the argument passed in is not correct, you should return a value error, though we should allow any number or string (we don't care what the ID is, we just know it isn't a collection, like dict, array, tuple, etc)\n\n\nThe current message upon success, when no annotation_id is provided is confusing:\n\nLink established successfully.\n\n{\n    \"annotationID\": null,\n    \"proteomicsID\": \"65cee736a93a2e13bd5c3a13\"\n}\nWhat link? Here annotationID is null, so no link has been established. I would instead omit this when annotation_id is not provided, and if provided make it clear what job (by name + id) was linked:\nAnnotation {name} (id: {annotation_id}) was linked to this proteomics submission (_id: \"65cee736a93a2e13bd5c3a13\")",
+                                    "url": "https://github.com/bystrogenomics/bystro/pull/385#issuecomment-1947751882",
+                                    "author": {
+                                        "login": "akotlar"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's name dir_path something a bit more idiomatic (bystro_token_path or something like that), and set a default (~/.bystro).\nTHen, let's make sure the bystro_token_path exists or make it. the simplest way is to os.path.mkdir(bystro_token_path , exists_ok=True)",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1473764231",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "50a7687",
+                                                            "authoredDate": "2024-01-31T23:09:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "don't use the bare \"fragpipe_TMT\" string, instead DatasetTypes.fragpipe_TMT",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1477091446",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bde6318",
+                                                            "authoredDate": "2024-02-02T22:19:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "let's rename bystro_token_dir, to better communicate that this isn't a path to the token, but the directory where we want to store bystro credentials",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1477092430",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bde6318",
+                                                            "authoredDate": "2024-02-02T22:19:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "please also make the default for this DEFAULT_DIR",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1477092690",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bde6318",
+                                                            "authoredDate": "2024-02-02T22:19:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Please rename dir_path to bystro_token_dir and make the default for this DEFAULT_DIR",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1477092953",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "50a7687",
+                                                            "authoredDate": "2024-01-31T23:09:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's make the check a little more flexible by making it case insensitive",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1477094239",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bde6318",
+                                                            "authoredDate": "2024-02-02T22:19:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "does not exist or you do not have permissions to access this annotation.",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1477095122",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bde6318",
+                                                            "authoredDate": "2024-02-02T22:19:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "the type here needs to be : str | None",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1477095591",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bde6318",
+                                                            "authoredDate": "2024-02-02T22:19:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "type is : str | None",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1477095644",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bde6318",
+                                                            "authoredDate": "2024-02-02T22:19:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Update the types for the optional parameters (str | None)",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1477095821",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bde6318",
+                                                            "authoredDate": "2024-02-02T22:19:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Login and signup should not depend on argparse args. Take the values you need as the arguments directly.",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1484645515",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "26c4131",
+                                                            "authoredDate": "2024-02-09T09:05:48Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is duplicated from api/auth.py, let\u2019s remove here",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1484646494",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "26c4131",
+                                                            "authoredDate": "2024-02-09T09:05:48Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Same for the other structs below. They should only exist in api/auth.py",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1484646849",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "26c4131",
+                                                            "authoredDate": "2024-02-09T09:05:48Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is again duplicated. All duplicated code should be removed. The only functions here should be those that takes argsparse.Namespace, and call the api/auth.py function",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1484647736",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "26c4131",
+                                                            "authoredDate": "2024-02-09T09:05:48Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The body of this and login need to call the api/auth.py code.",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1484648016",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "26c4131",
+                                                            "authoredDate": "2024-02-09T09:05:48Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is not needed. rename=\u201ccamel\u201d takes a lastLogin and stores the value on last_login, so that we don\u2019t need camel case in Python.",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1489632087",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ea74d56",
+                                                            "authoredDate": "2024-02-14T11:51:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Again not needed",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1489632408",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ea74d56",
+                                                            "authoredDate": "2024-02-14T11:51:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Credentials dir no longer exists, so let\u2019s remove",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1489633459",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ea74d56",
+                                                            "authoredDate": "2024-02-14T11:51:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "One thing you can do is make last_login optional. It doesn\u2019t exist immediately after signup; a better solution would be fix that in bystro-web however (so that lastLogin was generated after signup)",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1489636212",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ea74d56",
+                                                            "authoredDate": "2024-02-14T11:51:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think we talked about putting the proteomics subparser into a separate file, and importing that subparser here. Long term that will be more sustainable that placing everything in this file. See this answer in chatgpt\nhttps://chat.openai.com/share/9ba20cbd-2b6b-4aea-ad60-78e3fa03e861",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1489653478",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ea74d56",
+                                                            "authoredDate": "2024-02-14T11:51:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u201c\u201d\u201d\nTo achieve a CLI (Command Line Interface) setup where you have a main CLI tool (mycli) and a subparser for a tool (tool1) that lives in a physically different Python file, you can use Python's argparse module. The argparse module supports the creation of subparsers, which allows you to define commands and subcommands, making it suitable for your use case.\nHere's a step-by-step approach to achieve this:\nStep 1: Define the Subparser in a Separate File\nFirst, let's create the subparser for tool1 in a separate file. Let's call this file tool1.py.\n# tool1.py\nimport argparse\n\ndef setup_tool1_subparser(subparsers):\n    tool1_parser = subparsers.add_parser('tool1', help='Tool1 help')\n    tool1_parser.add_argument('tool1cmd', help='Command for tool1')\n    tool1_parser.add_argument('--tool1cmdarg1', help='Argument for tool1cmd')\n    \n    # You can add command function here\n    tool1_parser.set_defaults(func=tool1_command)\n\ndef tool1_command(args):\n    print(f\"Executing tool1 with command {args.tool1cmd} and argument {args.tool1cmdarg1}\")\nStep 2: Main CLI Tool Setup\nNext, let's set up the main CLI tool that uses argparse to integrate the subparser defined above. We'll call this main file mycli.py.\n# mycli.py\nimport argparse\nfrom tool1 import setup_tool1_subparser\n\ndef main():\n    parser = argparse.ArgumentParser(description='MyCLI tool')\n    subparsers = parser.add_subparsers(help='sub-command help')\n    \n    # Setup subparsers for different tools\n    setup_tool1_subparser(subparsers)\n    \n    # Parse the arguments\n    args = parser.parse_args()\n    \n    if hasattr(args, 'func'):\n        args.func(args)\n    else:\n        # If no subcommands were used, show help\n        parser.print_help()\n\nif __name__ == '__main__':\n    main()\nHow It Works\n\nIn tool1.py, we define a function setup_tool1_subparser that takes subparsers as an argument. This function adds a subparser for tool1 and sets up its arguments.\nIn mycli.py, we import the setup_tool1_subparser function from tool1.py and call it, passing the subparsers object to it. This way, mycli knows about the commands and arguments defined for tool1.\nThe tool1_command function in tool1.py is designed to handle the execution logic when tool1 and its associated commands and arguments are invoked from the CLI.\n\nUsage\nWith this setup, you can call tool1 from your CLI as follows:\npython mycli.py tool1 tool1cmd --tool1cmdarg1 value\nThis command will invoke the tool1_command function and print a message indicating that the command and argument have been received and processed.\nThis approach allows you to maintain a clean separation of concerns between your main CLI tool and its sub-tools, with each sub-tool potentially living in its own file.",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1489657975",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ea74d56",
+                                                            "authoredDate": "2024-02-14T11:51:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "See comments",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You don\u2019t want this. Use the default fit and credentials path from api/auth.py",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1489821729",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8fe0bc5",
+                                                            "authoredDate": "2024-02-14T17:17:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The expected path should be imported from api/auth.py",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1489822571",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8fe0bc5",
+                                                            "authoredDate": "2024-02-14T17:17:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You need to patch the cli import not the auth import",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1489824155",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8fe0bc5",
+                                                            "authoredDate": "2024-02-14T17:17:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@dlin30 please change the docstring to match the python property (last_login)",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1491946057",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ea74d56",
+                                                            "authoredDate": "2024-02-14T11:51:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@dlin30 the bystro_credentials_dir mentions need to be ripped out from docstrings",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1491946511",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ea74d56",
+                                                            "authoredDate": "2024-02-14T11:51:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "bystro_credentials_dir needs to be removed (do a global search so that we get them all)",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1491947046",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9e28e08",
+                                                            "authoredDate": "2024-02-15T13:41:28Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            def add_proteomics_subparser(subparsers) -> None:\n          \n          \n            \n            \n          \n          \n            \n            def add_proteomics_subparser(subparsers) -> None:\n          \n          \n            \n                proteomics_parser = subparsers.add_parser(\"proteomics\", help=\"Bystro proteomics dataset operations\")\n          \n          \n            \n            \n          \n          \n            \n                proteomics_subparser = proteomics_parser.add_subparsers(\n          \n          \n            \n                    title=\"commands\", dest=\"command\", help=\"Commands for proteomics datasets\"\n          \n          \n            \n                )\n          \n          \n            \n            \n          \n          \n            \n                # Define a default function for proteomics that shows help if no command is provided\n          \n          \n            \n                def proteomics_default_help(_args):\n          \n          \n            \n                    # Capture the help message\n          \n          \n            \n                    buffer = io.StringIO()\n          \n          \n            \n                    proteomics_parser.print_help(file=buffer)\n          \n          \n            \n                    help_message = buffer.getvalue()\n          \n          \n            \n            \n          \n          \n            \n                    # Custom message\n          \n          \n            \n                    custom_message = \"Bystro proteomics dataset operations.\\n\\n\"\n          \n          \n            \n            \n          \n          \n            \n                    # Find the insertion point for the custom message\n          \n          \n            \n                    insertion_point = help_message.find('options:')\n          \n          \n            \n                    if insertion_point != -1:\n          \n          \n            \n                        # Insert the custom message just before \"options:\"\n          \n          \n            \n                        help_message = help_message[:insertion_point] + custom_message + help_message[insertion_point:]\n          \n          \n            \n                    else:\n          \n          \n            \n                        # If \"options:\" is not found, prepend the custom message\n          \n          \n            \n                        help_message = custom_message + help_message\n          \n          \n            \n            \n          \n          \n            \n                    print(help_message)\n          \n          \n            \n                    proteomics_parser.exit()\n          \n          \n            \n            \n          \n          \n            \n                # Set the default function for the subparser\n          \n          \n            \n                proteomics_parser.set_defaults(func=proteomics_default_help)\n          \n          \n            \n            \n          \n          \n            \n                # Command 1: upload\n          \n          \n            \n                upload_parser = proteomics_subparser.add_parser(\"upload\", help=\"Upload a proteomics dataset\")\n          \n          \n            \n            \n          \n          \n            \n                upload_parser.add_argument(\n          \n          \n            \n                    \"--protein_abundance_file\", required=True, help=\"Path to the protein abundance file\"\n          \n          \n            \n                )\n          \n          \n            \n                upload_parser.add_argument(\n          \n          \n            \n                    \"--experiment_annotation_file\", help=\"Path to the experiment annotation file\"\n          \n          \n            \n                )\n          \n          \n            \n                upload_parser.add_argument(\n          \n          \n            \n                    \"--annotation_job_id\", help=\"ID of the annotation job to link with the proteomics dataset\"\n          \n          \n            \n                )\n          \n          \n            \n                upload_parser.add_argument(\n          \n          \n            \n                    \"--proteomics_dataset_type\",\n          \n          \n            \n                    choices=[e.name for e in DatasetTypes],\n          \n          \n            \n                    default=\"fragpipe_TMT\",\n          \n          \n            \n                    help=\"Type of the proteomics dataset\",\n          \n          \n            \n                )\n          \n          \n            \n                upload_parser.set_defaults(func=upload_proteomics_cli)\n          \n          \n            \n            \n          \n      \n    \n    \n  \n\nThis give the following behavior:\n(bystro) (base) ubuntu@ip-10-98-135-15:~/bystro/python$ bystro-api\nUsing default credentials path: /home/ubuntu/.bystro/bystro_authentication_token.json\nusage: bystro-api [-h] {login,signup,get-user,create-annotation,get-jobs,query,proteomics} ...\n\nBystro CLI tool for making API calls.\n\noptions:\n  -h, --help            show this help message and exit\n\ncommands:\n  {login,signup,get-user,create-annotation,get-jobs,query,proteomics}\n    login               Authenticate with the Bystro API\n    signup              Sign up to Bystro\n    get-user            Handle user operations\n    create-annotation   Create an annotation\n    get-jobs            Fetch one job or a list of jobs\n    query               The OpenSearch query string query, e.g. (cadd: >= 20)\n    proteomics          Bystro proteomics dataset operations\nCalling just the proteomics parser:\n(bystro) (base) ubuntu@ip-10-98-135-15:~/bystro/python$ bystro-api proteomics\nusage: bystro-api proteomics [-h] {upload} ...\n\nBystro proteomics dataset operations.\n\noptions:\n  -h, --help  show this help message and exit\n\ncommands:\n  {upload}    Commands for proteomics datasets\n    upload    Upload a proteomics dataset\nas an aside, please remove print(f\"Using default credentials path: {CREDENTIALS_PATH}\") from api/auth.py",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1491978483",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9e28e08",
+                                                            "authoredDate": "2024-02-15T13:41:28Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "please remove print(f\"Using default credentials path: {CREDENTIALS_PATH}\")",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1491978806",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9e28e08",
+                                                            "authoredDate": "2024-02-15T13:41:28Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "These arguments seems overly indented ( 8 spaces). If you run through VS code's Format Document (command + shift + P), using black, on my machine I get 4 spaces.\nSame for def signup.\nNot a huge deal, but we should be consistent. In api/annotate.py we have 4 lines indent for def create_jobs",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1491982379",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9e28e08",
+                                                            "authoredDate": "2024-02-15T13:41:28Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "this should only happen if print_results is True?",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1491982545",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9e28e08",
+                                                            "authoredDate": "2024-02-15T13:41:28Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "See comments",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Needs the changes we discussed:\n\nChange \"Proteomics Upload response\" -> \"Proteomics Upload Response\"\nWhen you provide an experiment_annotation file, the outputBaseFileName should be the name of the protein abundance file, not the experiment file. Also when this happens you don't upload the abundance file anymore, just the experiment annotation.tsv. I've attached the screenshot.\nThe docstring for upload_proteomics_data has experiment_annotation_file instead of annotation_job_id (in both cli and api)\nWhen you upload an experiment file, it doesn't seem like the experiment actually gets put into postgres\nannotationID and proteomicsID are not recorded on the proteomics job and annotation job when linking annotation to proteomics",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "we need to do the same for \n  \n    \n      bystro/python/python/bystro/api/proteomics.py\n    \n    \n         Line 107\n      in\n      57906e8\n    \n  \n  \n    \n\n        \n          \n           raise Exception(f\"Upload failed with status code {response.status_code}: {response.text}\")",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1514738988",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "57906e8",
+                                                            "authoredDate": "2024-03-05T21:17:05Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Please convert this to a RuntimeError, squash this PR, and then we can get it in.",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1515450822",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f90b95f",
+                                                            "authoredDate": "2024-03-06T17:36:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This doesn't seem to work. I would actually prefer to remove it for now, because I don't have a strong use case for the link in the reverse direction",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1515453747",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f90b95f",
+                                                            "authoredDate": "2024-03-06T17:36:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You forgot to check the case when the status was not OK, but that is ok, superseded by my comment above",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1515457408",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f90b95f",
+                                                            "authoredDate": "2024-03-06T17:36:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's do this:\n    if annotation_job_id:\n        final_response[\"annotationID\"] = annotation_job_id\n        if print_result:\n            annotation_name = annotation_response.json().get(\"name\", \"Unknown Annotation\")\n            print(\n                f'\\nAnnotation \"{annotation_name}\" (id: {annotation_job_id}) '\n                f'was linked to this proteomics submission (id: \"{proteomics_job_id}\").\\n'\n            )\nThis will skip patching the annotation job, and just print out what was linked after fetching the name",
+                                                        "author": {
+                                                            "login": "akotlar"
+                                                        },
+                                                        "url": "https://github.com/bystrogenomics/bystro/pull/385#discussion_r1515458940",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f90b95f",
+                                                            "authoredDate": "2024-03-06T17:36:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjI=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 2
+        }
+    }
+}

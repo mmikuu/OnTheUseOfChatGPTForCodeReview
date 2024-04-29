@@ -1,0 +1,508 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 55,
+                        "title": "Factor out state-clearing to clearState.js",
+                        "repository": {
+                            "nameWithOwner": "tisztamo/Junior",
+                            "primaryLanguage": {
+                                "name": "Shell"
+                            }
+                        },
+                        "createdAt": "2023-08-17T09:31:58Z",
+                        "mergedAt": "2023-08-17T09:32:04Z",
+                        "url": "https://github.com/tisztamo/Junior/pull/55",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "tisztamo"
+                        },
+                        "editor": null,
+                        "body": "https://chat.openai.com/share/dc26cdb2-75c5-41c1-9570-b19dcfe7285e",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 42,
+                        "title": "Nisyad/modify map per class",
+                        "repository": {
+                            "nameWithOwner": "microsoft/visionmetrics",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-08-17T13:24:08Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/microsoft/visionmetrics/pull/42",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "nisyad-ms"
+                        },
+                        "editor": null,
+                        "body": "This PR modifies the return output for `MeanAveragePrecision` for per class metrics. Return output as a dict with label_ids as keys. ",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-08-17T18:58:02Z",
+                                    "bodyText": "pkg version update needed",
+                                    "url": "https://github.com/microsoft/visionmetrics/pull/42#issuecomment-1682804997",
+                                    "author": {
+                                        "login": "pj-ms"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "with missing classes in targets or prediction?",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297623466",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "this sort got run by len(result['map_per_class']) times",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297627684",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "nit:\n# for line 41\nself._update_label_ids(predictions)\nself._update_label_ids(targets)\n\ndef _update_label_ids(self, items: List[Dict[str, torch.Tensor]]]) -> None:\n       for item in items:\n            self._label_ids.update(item['labels'].tolist())",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297631307",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "maybe check the Len equality",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297632151",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "There is reset and clone you might want to make sure they are working properly after adding this, with unit tests.",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297636312",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://github.com/Lightning-AI/torchmetrics/blob/3b3b997487fea2e05a65d81abc23a7ebef3371f1/src/torchmetrics/metric.py#L658",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297638372",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "updated - separated into two tests",
+                                                        "author": {
+                                                            "login": "nisyad-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297765534",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "thanks. updated",
+                                                        "author": {
+                                                            "login": "nisyad-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297765913",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "updated",
+                                                        "author": {
+                                                            "login": "nisyad-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297765971",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "updated - added a unit test to verify label_ids set across batches.",
+                                                        "author": {
+                                                            "login": "nisyad-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297766521",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Clone test\na = metric()\na.update(...., ....)\nb = a.clone()\nassert b.calculate() == a.calculate()\nReset test\ndata1(10 classes)\ndata2(2 classes)\na = metric()\na.update(data1)\na.reset()\na.update(data2)\nb=metric()\nb.update(data2)\nassert a.calculate() == b.calculate()",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297777363",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "slightly confusing \"# Wrong\" comment",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297779715",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c59a77",
+                                                            "authoredDate": "2023-08-17T21:26:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Updated.\nNow using existing *-labels attributes of the Metric class to track all 'seen' labels. Added unit tests.",
+                                                        "author": {
+                                                            "login": "nisyad-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1303365588",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Fixed and updated.",
+                                                        "author": {
+                                                            "login": "nisyad-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1303365823",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c59a77",
+                                                            "authoredDate": "2023-08-17T21:26:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "where is the clone tested?",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1304012170",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c040db6",
+                                                            "authoredDate": "2023-08-23T21:51:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can you have multiple test cases covering different scenarios:\nmore classes before reset\nmore classes after reset\n..\nWrt info on parametrized tests:\nhttps://chat.openai.com/share/9841c3a6-3be4-4450-b3a5-b6d7cbe81250",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1304017280",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c040db6",
+                                                            "authoredDate": "2023-08-23T21:51:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "More test cases pls. Same with reset",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1304017850",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c040db6",
+                                                            "authoredDate": "2023-08-23T21:51:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Any reason still keeping this behavior:\n\nthe base class returns list, while this class returns dictionary for result['map_per_class']?",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1304020969",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c040db6",
+                                                            "authoredDate": "2023-08-23T21:51:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I thought returning as a dictionary with label info might make the tagwise result clearer for the end user. But on second thoughts, this may not still be a great idea. We would need to make the tagwise results of all other metric also as dict-style otherwise the user might be more confused.\nSo assuming we maintain the base class behavior, do we still need unit tests for reset() and clone() because we are not adding new states or modifying anything else. Basically, there is no PR.",
+                                                        "author": {
+                                                            "login": "nisyad-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1304623025",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c040db6",
+                                                            "authoredDate": "2023-08-23T21:51:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I remember in our last discussion, we agreed the need of dictionary output is mostly one kind of client need.\nIt does have the benefit wrt clarity, but there are ways doing it without making it a dictionary making it behave differently than the base class.\nIf no code change is needed, you can still check in the tests which could be helpful",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1304656634",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c040db6",
+                                                            "authoredDate": "2023-08-23T21:51:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjI=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 2
+        }
+    }
+}

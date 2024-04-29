@@ -1,0 +1,546 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 734,
+                        "title": "Install dependencies with Node.js instead of git modules",
+                        "repository": {
+                            "nameWithOwner": "sablier-labs/v2-core",
+                            "primaryLanguage": {
+                                "name": "Solidity"
+                            }
+                        },
+                        "createdAt": "2023-12-04T13:51:36Z",
+                        "mergedAt": "2023-12-15T12:34:27Z",
+                        "url": "https://github.com/sablier-labs/v2-core/pull/734",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "andreivladbrg"
+                        },
+                        "editor": null,
+                        "body": "Addresses https://github.com/sablier-labs/v2-core/discussions/508 and updates `prb-math` to `4.0.2`.\r\n\r\nSince this project is not going to have a `lib` directory anymore, it no longer makes sense to keep the re-exported types. This is because if the project is installed with `forge install sablier-labs/v2-core` it won't have recursive modules to install, and node modules can't be installed. And if the project is installed with `yarn add @sablier/v2-core`, it would automatically install those deps (prb-math and openzeppelin).",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-04T14:40:30Z",
+                                    "bodyText": "same issue as here: PaulRBerg/prb-proxy#179 (comment)\nshould we temporarily remove this job and keep it only here #726?",
+                                    "url": "https://github.com/sablier-labs/v2-core/pull/734#issuecomment-1838774321",
+                                    "author": {
+                                        "login": "andreivladbrg"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-04T15:48:26Z",
+                                    "bodyText": "should we temporarily remove this job and keep it only here #726?\n\nNot gonna review this today anyway, so let's keep the job there for now.\nTurns out that there's a bug in Foundry: foundry-rs/foundry#6519",
+                                    "url": "https://github.com/sablier-labs/v2-core/pull/734#issuecomment-1838926295",
+                                    "author": {
+                                        "login": "PaulRBerg"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-04T17:02:19Z",
+                                    "bodyText": "I've made sure to mention that the recommended method to install v2-core project is via Node.js:\n\nHowever, I realized that for integrators who still use forge install, they would also need to manually install prb-math and openzeppelin. This is because there are no longer recursive modules. Should we mention this in the README file?  @PaulRBerg",
+                                    "url": "https://github.com/sablier-labs/v2-core/pull/734#issuecomment-1839082818",
+                                    "author": {
+                                        "login": "andreivladbrg"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-14T19:31:19Z",
+                                    "bodyText": "it no longer makes sense to keep the re-exported types.\n\nThose types have always been problematic, actually. See this.\nSo it's good that we are getting rid of them.\n\nthey would also need to manually install prb-math and openzeppelin. This is because there are no longer recursive modules. Should we mention this in the README file?\n\nYes, we should. Also, please test that it works properly!",
+                                    "url": "https://github.com/sablier-labs/v2-core/pull/734#issuecomment-1856457725",
+                                    "author": {
+                                        "login": "PaulRBerg"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-14T22:30:00Z",
+                                    "bodyText": "Those types have always been problematic, actually. See simplemachine92/JBSips#10.\nSo it's good that we are getting rid of them.\n\nGreat\n\nYes, we should. Also, please test that it works properly!\n\nI did. You can test it yourself using this branch from periphery. Everything works there.",
+                                    "url": "https://github.com/sablier-labs/v2-core/pull/734#issuecomment-1856813329",
+                                    "author": {
+                                        "login": "andreivladbrg"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-15T11:50:31Z",
+                                    "bodyText": "I did. You can test it yourself using this branch from periphery. Everything works there.\n\nFantastic",
+                                    "url": "https://github.com/sablier-labs/v2-core/pull/734#issuecomment-1857761412",
+                                    "author": {
+                                        "login": "PaulRBerg"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "feedback below",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We need to find a way to shorten this syntax - it's too verbose.\nRelated: sablier-labs/v2-periphery#152",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427176754",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "what's up with this space",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427176889",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "more spaces",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427177008",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "more spaces, wow",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427177108",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's remove \"slow\" - can be misunderstood to mean that Foundry is slow. The \"recommended\" note above is sufficient.",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427177732",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Shouldn't this be 4.x? Or 4.0.x?\nJust thinking out loud",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427178455",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Will these work with pnpm node modules system, @andreivladbrg? See what I asked you here\nCan you please perform some tests?",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427179207",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "dunno what's up with github, maybe a bug on them (similar to .sol)\nif you actually got to look at the file, it looks good\n\n  \n    \n      v2-core/.github/workflows/ci-deep.yml\n    \n    \n        Lines 93 to 108\n      in\n      96f89cf\n    \n  \n  \n    \n\n        \n          \n                   run: \"FOUNDRY_PROFILE=optimized forge build\" \n        \n\n        \n          \n            \n        \n\n        \n          \n                 - name: \"Build the test contracts\" \n        \n\n        \n          \n                   run: \"FOUNDRY_PROFILE=test-optimized forge build\"   \n        \n\n        \n          \n            \n        \n\n        \n          \n                 - name: \"Cache the build so that it can be re-used by the other jobs\" \n        \n\n        \n          \n                   uses: \"actions/cache/save@v3\" \n        \n\n        \n          \n                   with: \n        \n\n        \n          \n                     key: \"foundry-build-${{ github.sha }}\" \n        \n\n        \n          \n                     path: | \n        \n\n        \n          \n                       cache \n        \n\n        \n          \n                       out \n        \n\n        \n          \n                       out-optimized \n        \n\n        \n          \n              \n        \n\n        \n          \n                 - name: \"Add build summary\" \n        \n\n        \n          \n                   run: |",
+                                                        "author": {
+                                                            "login": "andreivladbrg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427360409",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "answered here #734 (comment)",
+                                                        "author": {
+                                                            "login": "andreivladbrg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427360695",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "answered here #734 (comment)",
+                                                        "author": {
+                                                            "login": "andreivladbrg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427360747",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think you got my point wrong, as also said in that discussion, pnpm places only the third party deps under the node_modules/.pnpm.\nIf you clone the repo, you can run pnpm install and its deps would be place under node_modules/, so we don't have to worry about the remappings for the projects itself.\nWhat I mean when I say that we should recommend yarn add  instead of pnpm add is when an integrator (as allo was) should add to their project our package.  For them, when adding our package, the third party deps are openzeppelin/contracts/ and @prb/math/:\n\n  \n    \n      v2-core/package.json\n    \n    \n        Lines 13 to 16\n      in\n      96f89cf\n    \n  \n  \n    \n\n        \n          \n           \"dependencies\": { \n        \n\n        \n          \n             \"@openzeppelin/contracts\": \"4.9.2\", \n        \n\n        \n          \n             \"@prb/math\": \"4.0.2\" \n        \n\n        \n          \n           }, \n        \n    \n  \n\n\nMore explantions about CLIs:\n\npnpm add : Installs a package and any packages that it depends on. https://pnpm.io/cli/install\npnpm install : is used to install all dependencies for a project. https://pnpm.io/cli/add\n\n\nCan you please perform some tests?\n\nDid several tests when I've written my answer here.",
+                                                        "author": {
+                                                            "login": "andreivladbrg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427364776",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "not sure what you mean:",
+                                                        "author": {
+                                                            "login": "andreivladbrg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427378710",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I've managed to cache the node_modules dir and re-use it, seems to work.",
+                                                        "author": {
+                                                            "login": "andreivladbrg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427402198",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I wasn't referring to the run: \"pnpm install\" step. I was referring to all of these separate steps - it would be great if we could have a shared job. See the linked issue.\n\nI've managed to cache the node_modules dir and re-use it\n\nThat's not what that cache: key does. It only caches global packages. See:\n\nhttps://github.com/actions/setup-node?tab=readme-ov-file#caching-global-packages-data\nactions/setup-node#612",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427850542",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Oh nevermind I looked at the code now and I see what you did.\nGreat idea to cache the node_modules!",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427851860",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@andreivladbrg there's no bug in GitHub. There were actual extra spaces there that you added in this PR. I have removed them via my latest commit.",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427852336",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "On a side note - it looks like you don't have Prettier properly configured locally. Please make sure that you follow the company's VSCode setup.\nCMD+S auto-formatted the YAML file on my end.",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427853164",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This step is now redundant given that we are caching node_modules.",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427871981",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2a8b0b4",
+                                                            "authoredDate": "2023-12-14T23:28:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "There's a difference between 4.0.2 and 4.x and 4.0.x in the context of peer dependencies.\nhttps://chat.openai.com/share/cc9100d2-7294-42bc-b579-a3ef5c79e194\nAnyway, we can leave it as 4.0.2 for now; this was more so a reminder for me to have a look later on.",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427883018",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think you got my point wrong\n\nI didn't; I was just unclear in my question.\n\nIf you clone the repo, you can run pnpm install and its deps would be place under node_modules/, so we don't have to worry about the remappings for the projects itself.\n\nI know. I was referring to third-party developers installing V2 Core. Would the remappings still work recursively?\nSorry for not being clear earlier.\n\nWhat I mean when I say that we should recommend yarn add instead of pnpm add is when an integrator\n\nThis is equivalent to asking the integrators to switch over to Pnpm instead of Yarn. And, as I've asked you in the discussion: Surely there must be a way to force Pnpm to not put the dependencies under \"node_modules/.pnpm\" without asking users to manually install those packages?\n\nDid several tests when I've written my answer #508 (comment).\n\nThanks but you missed one of my questions. Let's follow up there.",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427886828",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "96f89cf",
+                                                            "authoredDate": "2023-12-14T15:25:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "the slither-analyze job is going to be removed from ci.yml and we will need the pnpm installin its own file, see #726",
+                                                        "author": {
+                                                            "login": "andreivladbrg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427895278",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2a8b0b4",
+                                                            "authoredDate": "2023-12-14T23:28:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Fine. In this case, it doesn't really matter what we do here - can you keep my latest commit as is, please?",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-core/pull/734#discussion_r1427898296",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2a8b0b4",
+                                                            "authoredDate": "2023-12-14T23:28:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

@@ -1,0 +1,957 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 279,
+                        "title": "Llama 2 On-Prem Inference Using vLLM and TGI",
+                        "repository": {
+                            "nameWithOwner": "facebookresearch/llama-recipes",
+                            "primaryLanguage": {
+                                "name": "Jupyter Notebook"
+                            }
+                        },
+                        "createdAt": "2023-11-01T00:41:16Z",
+                        "mergedAt": "2023-11-06T22:14:13Z",
+                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "jeffxtang"
+                        },
+                        "editor": null,
+                        "body": "# What does this PR do?\r\n\r\nThis tutorial shows how to use Llama 2 with vLLM and Hugging Face TGI and how to use LangChain to talk to vLLM and TGI hosted Llama 2 on prem.\r\n\r\n<!--\r\nCongratulations! You've made it this far! You're not quite done yet though.\r\n\r\nPlease include a good title that fully reflects the extent of your awesome contribution.\r\n\r\nThen, please replace this with a description of the change and which issue is fixed (if applicable). Please also include relevant motivation and context. List any dependencies (if any) that are required for this change.\r\n\r\n-->\r\n\r\n<!-- Remove if not applicable -->\r\n\r\nFixes # (issue)\r\n\r\n\r\n## Feature/Issue validation/testing\r\n\r\nPlease describe the tests that you ran to verify your changes and relevant result summary. Provide instructions so it can be reproduced.\r\nPlease also list any relevant details for your test configuration.\r\n\r\n- [ ] Test A\r\nLogs for Test A\r\n\r\n- [ ] Test B\r\nLogs for Test B\r\n\r\n\r\n## Before submitting\r\n- [ ] This PR fixes a typo or improves the docs (you can dismiss the other checks if that's the case).\r\n- [X ] Did you read the [contributor guideline](https://github.com/facebookresearch/llama-recipes/blob/main/CONTRIBUTING.md#pull-requests),\r\n      Pull Request section?\r\n- [ ] Was this discussed/approved via a Github issue? Please add a link\r\n      to it if that's the case.\r\n- [X ] Did you make sure to update the documentation with your changes?  \r\n- [ ] Did you write any new necessary tests?\r\n\r\nThanks for contributing \ud83c\udf89!\r\n",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If we already pip install the vllm package, do we still need to clone the source repo for building locally? Maybe we can add some context here stating there are two ways to install vllm.",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379374646",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Just a quick note that Azure API hosting schema will also be using the one similar to OpenAI. Might be helpful to link documentation page here - https://platform.openai.com/docs/api-reference/chat/object",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379375755",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Have we ever consider using 2xA10G GPU here? In that case, we can also provide more advanced tutorial on model sharding or running two models on one instance by utilizing specific CUDA cores etc.",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379379631",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Besides the CLI, should we provide a python example snippet as well?",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379382266",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "actually clone the vllm repo is not for building locally, but for using its scripts like api_server.py\nand clone without \"pip install vllm\" won't work either, because dependency packages such as fastapi need to be installed to run the script.\nbut yes, i'll add a note to avoid the possible misunderstanding.",
+                                                        "author": {
+                                                            "login": "jeffxtang"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379407600",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "ok i added a note, but with the OpenAI API authentication link - the link above is not related to how the OpenAI compatible LLM instance is created.",
+                                                        "author": {
+                                                            "login": "jeffxtang"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379415288",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I showed a command later to run vLLM on 4 GPUs with a new argument. This tutorial is still one of the quick start guides. I don't know how much time I'll need to add the sharding etc content. If you or @HamidShojanazeri has already done something like this, please add to the PR or maybe in a new PR.",
+                                                        "author": {
+                                                            "login": "jeffxtang"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379417363",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The Google Colab shows complete Python code to talk to the servers. The curl commands are just for quick verification.",
+                                                        "author": {
+                                                            "login": "jeffxtang"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379417739",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can you double check to see if we really need the vllm repo here? I do see the way you launch api server a bit different from mine. Here is how I did it: python -m vllm.entrypoints.openai.api_server  --model meta-llama/Llama-2-70b-chat-hf --tensor-parallel-size 8 --disable-log-requests --port  8000",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379499707",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "OK, I did see in the colab we inferenced the API server via Langchain. I wonder if we want to add some example using POST in python, which is more raw. I have some example, let me link it later.",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379502486",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The reason is that vllm documentation is not so clear about this part. If we can add some examples here, I think it would helpful",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379502909",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Here is an example how I used the urlib to post requests to the api server.",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379507410",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes I tested in a new conda env without \"pip install vllm\" and then running \"python api_server.py...\" caused the error of unable to find fastapi. Your way works because you don't cd to vllm/entrypoints/openai. My way works because I cd to vllm/vllm/entrypoints first. All imports of vllm's source don't require \"pip install vllm\" but other packages required by vllm need to be installed first.\nYou have to use one of the two ways to install first before running the api_server.py: https://vllm.readthedocs.io/en/latest/getting_started/installation.html",
+                                                        "author": {
+                                                            "login": "jeffxtang"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379522639",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thanks but your examples seems to be in your private repo so I can't open it.\nConverting the curl command to a Python script is really straightforward, that's why I had the content \"Now in your Llama client app, you can make an HTTP request as the curl command above to send a query to Llama and parse the response.\" I assume if one needs that script, he/she can simply ask ChatGPT like this :)\nhttps://chat.openai.com/c/013cc516-71db-4ee7-b8e6-3ec946734cfe",
+                                                        "author": {
+                                                            "login": "jeffxtang"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379528236",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Correct, I think that is what I mean here. You either run pip install vllm and install all dependencies as part of pip packages or install from source then run pip install requirements.txt or pip install -e . in the repo to install dependencies. That would avoid mis-match in the dependency package versions. There are chances where the dependencies versions in the main repo is different from pip packages.",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379529410",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sure, I can add a note in this PR for launching model replicas. Will add around your command which set TP for 4 GPUs",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379531095",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Also, I only showed the creation of the Llama instance \"llm\" in the Colab - but using LangChain or LlamaIndex will quickly be a lot more powerful and effective, when building Llama RAG apps, than using the raw post request which is mainly for quick API test.",
+                                                        "author": {
+                                                            "login": "jeffxtang"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379531327",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can't access your ChatGPT result :) it doesn't load for me. I have invited you to that repo, so you can take a look. Sure. I think it is a different use case, especially when you are running benchmarks and doesn't want to use any framework. Might not a good fit in this PR.",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379535190",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \n          \n          \n            \n            With multiple GPUs, you can also run replica of models as long as your model size can fit into targeted GPU memory. For example, if you have two A10G with 24 GB memory, you can run two 7B Llama 2 models at the same time. This can be done by launching two api servers each targeting specific CUDA cores on different ports:\n          \n          \n            \n            `CUDA_VISIBLE_DEVICES=0 python api_server.py --host 0.0.0.0 --port 5000  --model meta-llama/Llama-2-7b-chat-hf --tensor-parallel-size 1 `\n          \n          \n            \n            and\n          \n          \n            \n            `CUDA_VISIBLE_DEVICES=1 python api_server.py --host 0.0.0.0 --port 5001  --model meta-llama/Llama-2-7b-chat-hf --tensor-parallel-size 1 `\n          \n          \n            \n            The benefit would be now you can balance incoming requests to both models, reaching higher batch size processing for a trade-off of generation latency.",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379540878",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c97d28c",
+                                                            "authoredDate": "2023-11-01T23:14:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Added the suggestion below",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379541778",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "So back to your original question \"If we already pip install the vllm package, do we still need to clone the source repo for building locally?\" -  the answer is yes so the commands there are correct. I also added a note to clarify.",
+                                                        "author": {
+                                                            "login": "jeffxtang"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379567763",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can you access the link now? https://chat.openai.com/share/d289e3f8-9d84-4eea-b4d0-fafd752150c9 (I should've clicked the Share button first). If you still can't, you can just enter in ChatGPT this:\nwrite a python script that implements the curl command below:\ncurl http://localhost:5000/generate -d '{\n\"prompt\": \"Who wrote the book Innovators dilemma?\",\n\"max_tokens\": 300,\n\"temperature\": 0\n}'",
+                                                        "author": {
+                                                            "login": "jeffxtang"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379569130",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thanks for the note - how do the two commands differ from this single one?\npython api_server.py --host 0.0.0.0 --port 5000  --model meta-llama/Llama-2-7b-chat-hf --tensor-parallel-size 2\nand this one?\nCUDA_VISIBLE_DEVICES=0,1 python api_server.py --host 0.0.0.0 --port 5000  --model meta-llama/Llama-2-7b-chat-hf --tensor-parallel-size 2",
+                                                        "author": {
+                                                            "login": "jeffxtang"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379570038",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c97d28c",
+                                                            "authoredDate": "2023-11-01T23:14:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Both of your command is running tensor parallelsim. Basically sharding the compute into two GPUs and merge the results together. Whereas the command I shared were running one vllm replica in each GPU and in reality reaching higher throughput with \"data parallelsim\" serving. Such as some answer here",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1379580989",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c97d28c",
+                                                            "authoredDate": "2023-11-01T23:14:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "So let me rephrase my original question, because it might caused some confusion here. The questions is: \"If we pip install the vllm packages already, can we launch vllm api servers?\". I think the answer is yes since I just tried on my VM. That said the alternative way is to clone the source repo, build from there (as well as install the dependencies), cd into the folder and run the scripts there. You shouldn't need to do both, especially we shouldn't rely on using package of dependencies installed from pip to build/run the source code because there could be a dependency mis-match.",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1380510897",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ah thanks for the clarification - yes indeed with pip install vllm, there's no need to clone the source to launch the api servers. I just pushed the simplified commands. Love the simplicity and thanks for pushing this! You should maybe also review the fine-tuning recipe here or create a PR when you have a chance to make the commands and steps there crystal clear and as simple as possible.",
+                                                        "author": {
+                                                            "login": "jeffxtang"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1380646097",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "492350a",
+                                                            "authoredDate": "2023-11-01T17:49:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Thanks Jeff, added few minor comment, overall I wonder if that make sense to add either vllm or tgi to one of your existing notebook to kind of showcase the e2e story?",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@jeffxtang It would be helpful if you add a comment why someone want to use open-ai interface, maybe if they want to serve their embedding model etc. and if thats the case maybe a relevant example could help.",
+                                                        "author": {
+                                                            "login": "HamidShojanazeri"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1382627728",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0199c84",
+                                                            "authoredDate": "2023-11-03T20:54:09Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@jeffxtang I am not sure if we need --tensor-parallel-size 1  here as thats the default.",
+                                                        "author": {
+                                                            "login": "HamidShojanazeri"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1382628895",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0199c84",
+                                                            "authoredDate": "2023-11-03T20:54:09Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It would be helpful to add that in case of serving multiple replica of the model using a serving solutions that has integrated vLLM into them make the load balancer available and add necessary metric and logs.",
+                                                        "author": {
+                                                            "login": "HamidShojanazeri"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1382629039",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0199c84",
+                                                            "authoredDate": "2023-11-03T20:54:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@HamidShojanazeri the \"why\" was briefly started as \"to easily replace code using OpenAI API\" so people who are using  OpenAI (most of the LangChain and LlamaIndex examples and most blogs on building LLM apps use OpenAI) and considering switching to Llama2 can minimize their code change, hence called \"OpenAI-Compatible\".",
+                                                        "author": {
+                                                            "login": "jeffxtang"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1382710602",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0199c84",
+                                                            "authoredDate": "2023-11-03T20:54:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@HamidShojanazeri actually @WuhanMonkey Hector added this paragraph and looks like you're right - with CUDA_VISIBLE_DEVICES set to be a single value, --tensor-parallel-size shouldn't be needed. Hector can you please confirm?",
+                                                        "author": {
+                                                            "login": "jeffxtang"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1382711302",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0199c84",
+                                                            "authoredDate": "2023-11-03T20:54:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@WuhanMonkey Chester please comment/add?",
+                                                        "author": {
+                                                            "login": "jeffxtang"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1382712152",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0199c84",
+                                                            "authoredDate": "2023-11-03T20:54:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "And the example code is in the Colab linked in the PR.",
+                                                        "author": {
+                                                            "login": "jeffxtang"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1383771379",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0199c84",
+                                                            "authoredDate": "2023-11-03T20:54:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "True. Let me change it",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1383803667",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0199c84",
+                                                            "authoredDate": "2023-11-03T20:54:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            `CUDA_VISIBLE_DEVICES=0 python api_server.py --host 0.0.0.0 --port 5000  --model meta-llama/Llama-2-7b-chat-hf --tensor-parallel-size 1 `\n          \n          \n            \n            `CUDA_VISIBLE_DEVICES=0 python api_server.py --host 0.0.0.0 --port 5000  --model meta-llama/Llama-2-7b-chat-hf`",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1383805012",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0199c84",
+                                                            "authoredDate": "2023-11-03T20:54:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            `CUDA_VISIBLE_DEVICES=1 python api_server.py --host 0.0.0.0 --port 5001  --model meta-llama/Llama-2-7b-chat-hf --tensor-parallel-size 1 `\n          \n          \n            \n            `CUDA_VISIBLE_DEVICES=1 python api_server.py --host 0.0.0.0 --port 5001  --model meta-llama/Llama-2-7b-chat-hf`",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1383805315",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0199c84",
+                                                            "authoredDate": "2023-11-03T20:54:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@HamidShojanazeri For you suggestion, do you actually mean we should provide a serving solution as an example that integrated vLLM with load balancer? Or do you mean we should jus tell them to use a serving solution with load balancer and metrics/load?",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1383808834",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0199c84",
+                                                            "authoredDate": "2023-11-03T20:54:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "well both, we have an example WIP on Torchserve for this, but overall pointing out help to draw a more clear picture. Most of serving solutions start to add VLLM like TGI itself.",
+                                                        "author": {
+                                                            "login": "HamidShojanazeri"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1383856022",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0199c84",
+                                                            "authoredDate": "2023-11-03T20:54:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "OK, I do not have a solid example that built-in these serving solution already. I wrote the balancer with simple round-robin myself. My intention on this paragraph is to share that besides tensor parallelism, using model replicas could also improve serving performance. If a solid example is a required, maybe we can take the paragraph out for now. Really don't want to block on landing this PR.",
+                                                        "author": {
+                                                            "login": "WuhanMonkey"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1384023851",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0199c84",
+                                                            "authoredDate": "2023-11-03T20:54:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "No, I didn't mean to have a solid example, I was just mentioning to add this text thats it, never mind though. Lets merrge it as it user would be able to infer I guess.",
+                                                        "author": {
+                                                            "login": "HamidShojanazeri"
+                                                        },
+                                                        "url": "https://github.com/facebookresearch/llama-recipes/pull/279#discussion_r1384089841",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0199c84",
+                                                            "authoredDate": "2023-11-03T20:54:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

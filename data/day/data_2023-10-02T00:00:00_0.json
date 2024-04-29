@@ -1,0 +1,453 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 279,
+                        "title": "Add support for free-busy endpoint",
+                        "repository": {
+                            "nameWithOwner": "nylas/nylas-python",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-10-02T23:35:45Z",
+                        "mergedAt": "2023-10-10T21:34:08Z",
+                        "url": "https://github.com/nylas/nylas-python/pull/279",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "spang"
+                        },
+                        "editor": null,
+                        "body": "Mostly cribbed off the availability support, though radically stripped\r\ndown as free-busy is a great deal simpler.\r\n\r\nDidn't see any test support, so I didn't write any tests.\r\n\r\nYou can call it like this:\r\n\r\n```\r\n    nylas = nylasSDK.Client(api_key=NYLAS_API_KEY)\r\n\r\n    response, request_id = nylas.calendars.get_free_busy(\r\n        identifier=grant_id,\r\n        request_body=dict(\r\n            emails=[\"foobar@nylas.com\"],\r\n            start_time=start_unix_timestamp,\r\n            end_time=end_unix_timestamp,\r\n        ),\r\n    )\r\n```\r\n\r\n# License\r\n<!-- Your PR comment must contain the following line for us to merge the PR. -->\r\nI confirm that this contribution is made under the terms of the MIT license and that I have the authority necessary to make this contribution on behalf of its copyright owner.\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-10-02T23:36:30Z",
+                                    "bodyText": "kinda sick ChatGPT can help with this dataclass schema stuff!\nhttps://chat.openai.com/share/51f3aa63-d8aa-4ff7-aca1-608fcf9ab9ee",
+                                    "url": "https://github.com/nylas/nylas-python/pull/279#issuecomment-1743920898",
+                                    "author": {
+                                        "login": "spang"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-10T16:07:13Z",
+                                    "bodyText": "@mrashed-dev So I tried incorporating your strategy, but I'm not totally convinced it's right.\nWith my script and your ListResponse code, if I try to fetch freebusy info for an email that will error out, I don't get an SDK error. Instead the ListResponse seems to coerce it to None.\n(Pdb) freebusy_response\n[FreeBusy(email='spang@nylas.com', time_slots=[TimeSlot(start_time=1696955400, end_time=1696957200, status='busy'), TimeSlot(start_time=1696980600, end_time=1696981500, status='busy'), TimeSlot(start_time=1697035500, end_time=1697043600, status='busy'), TimeSlot(start_time=1697049000, end_time=1697050800, status='busy'), TimeSlot(start_time=1697054400, end_time=1697058000, status='busy'), TimeSlot(start_time=1697067000, end_time=1697067900, status='busy')]), FreeBusy(email='mostafa.dne@nylas.com', time_slots=None)]\n\nThis squelches the error returned by the API\u2014which is included as a list item in the API response.\nI was using code like this to detect and print those errors from a calling script:\n    errors = [elt for elt in freebusy_response[\"data\"] if elt[\"object\"] == \"error\"]                                                                                                                                  \n    if errors:                                                                                                                                                                                                       \n        for error in errors:                                                                                                                                                                                         \n            print(                                                                                                                                                                                                   \n                \"Error fetching availability for {}: {}\".format(                                                                                                                                                     \n                    error[\"email\"], error[\"error\"]                                                                                                                                                                   \n                )                                                                                                                                                                                                    \n            )                                                                                                                                                                                                        \n        return   \n\nWithout your change to a ListResponse, the script's output & printing the API response looks like this:\n\u279c  v3cli git:(main) \u2717 python3 schedule_during_timespan.py -e mostafa.dne@nylas.com --start \"2023-10-10\" --end \"2023-10-12\" --notify -t \"test event\"\nWill check availability for the following emails: ('mostafa.dne@nylas.com',)\n{'request_id': '21035738-9e61-4e37-b96d-bc298277c611', 'data': [{'email': 'mostafa.dne@nylas.com', 'time_slots': None, 'object': 'error', 'error': 'notFound'}, {'email': 'spang@nylas.com', 'time_slots': [{'start_time': 1696955400, 'end_time': 1696957200, 'object': 'time_slot', 'status': 'busy'}, {'start_time': 1696980600, 'end_time': 1696981500, 'object': 'time_slot', 'status': 'busy'}, {'start_time': 1697035500, 'end_time': 1697043600, 'object': 'time_slot', 'status': 'busy'}, {'start_time': 1697049000, 'end_time': 1697050800, 'object': 'time_slot', 'status': 'busy'}, {'start_time': 1697054400, 'end_time': 1697058000, 'object': 'time_slot', 'status': 'busy'}, {'start_time': 1697067000, 'end_time': 1697067900, 'object': 'time_slot', 'status': 'busy'}], 'object': 'free_busy'}]}\nError fetching availability for mostafa.dne@nylas.com: notFound\n\nThoughts on how to proceed?",
+                                    "url": "https://github.com/nylas/nylas-python/pull/279#issuecomment-1755763000",
+                                    "author": {
+                                        "login": "spang"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-10T16:59:29Z",
+                                    "bodyText": "@spang Oh I see! Sorry I mis-read the API reference doc for this. I see that you can get either a 4xx/5xx error or a 200 response with an error object my apologies. Can we rename Error to FreeBusyError? Also we can bring back GetFreeBusyResponse:\n@dataclass_json\n@dataclass\nclass GetFreeBusyResponse:\n    \"\"\"\n    Interface for a Nylas get free/busy response\n    A list of FreeBusy objects and FreeBusyError objects.\n    \"\"\"\n\n    List[Union[FreeBusy, FreeBusyError]]\nand make the following changes as well to resources/calendars.py:\nListResponse[GetFreeBusyResponse]:\nand\nreturn ListResponse.from_dict(json_response, GetFreeBusyResponse)\nWhat do you think?",
+                                    "url": "https://github.com/nylas/nylas-python/pull/279#issuecomment-1755874289",
+                                    "author": {
+                                        "login": "mrashed-dev"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-10T18:57:54Z",
+                                    "bodyText": "100% agree with the Error rename\u2014pushed a commit for that.\nI'm questioning ListResponse though. This data type containing a next_cursor seems to imply that the response can be paginated. But FreeBusy responses are limited to one page. (confirmed with Oliver: https://nylas.slack.com/archives/C04MWDAFMBQ/p1696963966257369)\nDoes this still make sense to use?",
+                                    "url": "https://github.com/nylas/nylas-python/pull/279#issuecomment-1756056183",
+                                    "author": {
+                                        "login": "spang"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-10T21:33:13Z",
+                                    "bodyText": "@spang I see your point. I have been debating this point and trying a few things in the other SDKs and I think the way you have suggested is likely the best way. next_cursor is an optional variable, but it's cleaner if we don't use it if indeed the endpoint is never paginated \ud83d\udc4d\ud83c\udffc",
+                                    "url": "https://github.com/nylas/nylas-python/pull/279#issuecomment-1756299511",
+                                    "author": {
+                                        "login": "mrashed-dev"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Thanks for adding this in @spang! Left a comment with suggestions \ud83d\ude04",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think this class is necessary, we should return a ListResponse[FreeBusy] only in the case of the free_busy function as an SDK Error would be raised rather than returned if an error is encountered.",
+                                                        "author": {
+                                                            "login": "mrashed-dev"
+                                                        },
+                                                        "url": "https://github.com/nylas/nylas-python/pull/279#discussion_r1352782083",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2223d02",
+                                                            "authoredDate": "2023-10-02T23:50:00Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                ) -> Response[GetFreeBusyResponse]:\n          \n          \n            \n                ) -> ListResponse[FreeBusy]:",
+                                                        "author": {
+                                                            "login": "mrashed-dev"
+                                                        },
+                                                        "url": "https://github.com/nylas/nylas-python/pull/279#discussion_r1352783264",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2223d02",
+                                                            "authoredDate": "2023-10-02T23:50:00Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                    return Response(json_response, GetFreeBusyResponse)\n          \n          \n            \n                    return ListResponse.from_dict(json_response, FreeBusy)",
+                                                        "author": {
+                                                            "login": "mrashed-dev"
+                                                        },
+                                                        "url": "https://github.com/nylas/nylas-python/pull/279#discussion_r1352785003",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2223d02",
+                                                            "authoredDate": "2023-10-02T23:50:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Thanks again @spang!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 849,
+                        "title": "Farming kicks",
+                        "repository": {
+                            "nameWithOwner": "NotEnoughUpdates/NotEnoughUpdates",
+                            "primaryLanguage": {
+                                "name": "Java"
+                            }
+                        },
+                        "createdAt": "2023-10-02T14:37:45Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/NotEnoughUpdates/NotEnoughUpdates/pull/849",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "hannibal002"
+                        },
+                        "editor": null,
+                        "body": "Did something with the `blocksClicked` field in the `checkForBlockChange` method to fix this disconnect while farming:\r\n```\r\nNetty Client IO #4@21376\" daemon prio=5 tid=0xda nid=NA runnable\r\n  java.lang.Thread.State: RUNNABLE\r\n      at java.util.ConcurrentModificationException.<init>(Unknown Source:-1)\r\n      at java.util.TreeMap$PrivateEntryIterator.nextEntry(Unknown Source:-1)\r\n      at java.util.TreeMap$ValueIterator.next(Unknown Source:-1)\r\n      at io.github.moulberry.notenoughupdates.miscfeatures.ItemCooldowns.checkForBlockChange(ItemCooldowns.java:173)\r\n      at io.github.moulberry.notenoughupdates.miscfeatures.ItemCooldowns.processBlockChangePacket(ItemCooldowns.java:167)\r\n      at net.minecraft.client.network.NetHandlerPlayClient.handler$bjb000$handleBlockChange(MixinNetHandlerPlayClient.java:123)\r\n      at net.minecraft.client.network.NetHandlerPlayClient.func_147234_a(NetHandlerPlayClient.java:688)\r\n      at net.minecraft.network.play.server.S23PacketBlockChange.func_148833_a(SourceFile:40)\r\n      at net.minecraft.network.play.server.S23PacketBlockChange.func_148833_a(SourceFile:13)\r\n      at net.minecraft.network.NetworkManager.channelRead0(NetworkManager.java:151)\r\n      at net.minecraft.network.NetworkManager.channelRead0(NetworkManager.java:54)\r\n      ```\r\nI've tested it, this fixes it for me.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-10-02T17:14:51Z",
+                                    "bodyText": "@romangraef\nI have not thought about any underlying problems that still exist. I have not really thought much about the problem at all tbh.\nI just thought this is an simple enough solution to let AI fix it: https://chat.openai.com/share/48fbc5e3-db1f-4879-8f9c-1b473e0d4877\nI have tested the result and can confirm it fixes the currently existing bug.\nI have disclosed the information that this change is done with the help of AI here already: https://discord.com/channels/516977525906341928/755816367827058749/1158411534192615575\nI could have fixed it myself without ai as well. But I felt like trying the chat GPT solution and it was good enough for me soo I don't cared anymore.\nI'm happy to hear your more technical explanation in what way the approach of this pr fixes the bug but still has other, deeper problems.\nPS don't expect AI PRs from me in the future. This was a one time thing since I expected it to don't matter but your comment has discouraged me of using fast and briandead solutions like that in the future :)",
+                                    "url": "https://github.com/NotEnoughUpdates/NotEnoughUpdates/pull/849#issuecomment-1743432230",
+                                    "author": {
+                                        "login": "hannibal002"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-02T17:48:09Z",
+                                    "bodyText": "@hannibal002 I just farmed with this PRs artifact and still got ConcurrentModificationException.\nThe solution in this PR does nothing to change the already existing logic which causes the exception (accessing blocksClicked in one thread whilst another modifies it), but rather adds an unnecessary step of creating and looping over a set and for some reason removing entries from blocksClicked?\nI believe the solution is to either use a thread-safe way of accessing blocksClicked or use a thread-safe data structure for blocksClicked",
+                                    "url": "https://github.com/NotEnoughUpdates/NotEnoughUpdates/pull/849#issuecomment-1743476277",
+                                    "author": {
+                                        "login": "VixidDev"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-02T18:01:21Z",
+                                    "bodyText": "@hannibal002 I just farmed with this PRs artifact and still got ConcurrentModificationException.\nThe solution in this PR does nothing to change the already existing logic which causes the exception (accessing blocksClicked in one thread whilst another modifies it), but rather adds an unnecessary step of creating and looping over a set and for some reason removing entries from blocksClicked?\nI believe the solution is to either use a thread-safe way of accessing blocksClicked or use a thread-safe data structure for blocksClicked\n\nAfter actually looking at the original code and the changes in the pr, I 100% agree with your assessment: The additional nothingness in my new code and the still existing bug (although I still have not gotten the bug myself, maybe I'm just lucky, or better unlucky)\nSince you are apparently on you are on pc again, do you want to fix it in a new pr?",
+                                    "url": "https://github.com/NotEnoughUpdates/NotEnoughUpdates/pull/849#issuecomment-1743493297",
+                                    "author": {
+                                        "login": "hannibal002"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "This PR does not fix the underlying issue one bit. I am also deeply disavowing of your usage of AI for this PR. Please disclose usage of AI in your PRs upfront in the future.\nThe following minimally reduced snippet (with obviously way faster loops than vanilla minecraft has), still reproduces the error:\nfun main() {\n    val blocksClicked = HashMap<Long, Unit>()\n    thread(name = \"Main thread\") {\n        while (true) {\n            blocksClicked[System.currentTimeMillis()] = Unit\n        }\n    }\n    thread(name = \"Packet thread\") {\n        while (true) {\n            val keySet = HashSet(blocksClicked.keys)\n            for (key in keySet) {\n                blocksClicked[key]\n            }\n        }\n    }\n}\nThis PR deeply disappoints me.\nIf you are not capable of solving something without relying on AI, please do not pretend to know a fix, and instead let experts take the lead.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 4417,
+                        "title": "Add logic to check if the JWT token has expired",
+                        "repository": {
+                            "nameWithOwner": "alcionai/corso",
+                            "primaryLanguage": {
+                                "name": "Go"
+                            }
+                        },
+                        "createdAt": "2023-10-02T06:55:23Z",
+                        "mergedAt": "2023-10-09T10:06:01Z",
+                        "url": "https://github.com/alcionai/corso/pull/4417",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "pandeyabs"
+                        },
+                        "editor": {
+                            "login": "pandeyabs"
+                        },
+                        "body": "<!-- PR description-->\r\n**Changes**\r\n* Introduce jwt expiry checks, to be used in a later PR. Based off @vkamra's idea. \r\n* Add an url parsing helper func to extract the value of specified query param(e.g. `tempauth`).\r\n* Unit tests for both above.\r\n\r\n\r\n---\r\n\r\n#### Does this PR need a docs update or release note?\r\n\r\n- [ ] :white_check_mark: Yes, it's included\r\n- [x] :clock1: Yes, but in a later PR\r\n- [ ] :no_entry: No\r\n\r\n#### Type of change\r\n\r\n<!--- Please check the type of change your PR introduces: --->\r\n- [ ] :sunflower: Feature\r\n- [ ] :bug: Bugfix\r\n- [ ] :world_map: Documentation\r\n- [ ] :robot: Supportability/Tests\r\n- [ ] :computer: CI/Deployment\r\n- [ ] :broom: Tech Debt/Cleanup\r\n- [x] Optimization\r\n\r\n#### Issue(s)\r\n\r\n<!-- Can reference multiple issues. Use one of the following \"magic words\" - \"closes, fixes\" to auto-close the Github issue. -->\r\n* internal\r\n\r\n#### Test Plan\r\n\r\n<!-- How will this be tested prior to merging.-->\r\n- [ ] :muscle: Manual\r\n- [x] :zap: Unit test\r\n- [ ] :green_heart: E2E\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-10-02T06:55:26Z",
+                                    "bodyText": "Current Aviator status\n\nAviator will automatically update this comment as the status of the PR changes.\nComment /aviator refresh to force Aviator to re-examine your PR (or learn about other /aviator commands).\n\nThis PR was merged using Aviator.\n\nSee the real-time status of this PR on the Aviator webapp.",
+                                    "url": "https://github.com/alcionai/corso/pull/4417#issuecomment-1742487700",
+                                    "author": {
+                                        "login": "aviator-app"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-09T09:19:48Z",
+                                    "bodyText": "Kudos, SonarCloud Quality Gate passed!\u00a0 \u00a0 \n  0 Bugs\n  0 Vulnerabilities\n  0 Security Hotspots\n  0 Code Smells\n No Coverage information\n 0.0% Duplication",
+                                    "url": "https://github.com/alcionai/corso/pull/4417#issuecomment-1752627862",
+                                    "author": {
+                                        "login": "sonarcloud"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "nit: the time package provides comparison functions time.Time.Before(t2) and time.Time.After(t2). We should use those instead of converting to seconds\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            \texpired := t.Time.Unix() < time.Now().Unix()\n          \n          \n            \n            \texpired := t.After(time.Now())",
+                                                        "author": {
+                                                            "login": "ashmrtn"
+                                                        },
+                                                        "url": "https://github.com/alcionai/corso/pull/4417#discussion_r1342918097",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8193a83",
+                                                            "authoredDate": "2023-10-02T13:30:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thanks! I did consider it. Here are the reasons for going with unix time.\n\nRFC 7519 states that the exp, nbf, and iat claim values must be NumericDate values. NumericDate is defined as the number of seconds since epoch. Source. So converting to seconds is okay here.\nJWT producer may be in a different timezone compared to consumer. Although this can be addressed by converting both to UTC.",
+                                                        "author": {
+                                                            "login": "pandeyabs"
+                                                        },
+                                                        "url": "https://github.com/alcionai/corso/pull/4417#discussion_r1342931647",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8193a83",
+                                                            "authoredDate": "2023-10-02T13:30:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "JWT producer may be in a different timezone compared to consumer. Although this can be addressed by converting both to UTC.\n\nWouldn't timezone be an issue in either case? It's just not apparent when converting to Unix since timezone info is elided during the conversion. After and Before also take into account timezones\nIt seems like we should probably figure out what timezone the parsed value from the JWT token is created in. time.Now() says it uses the local timezone",
+                                                        "author": {
+                                                            "login": "ashmrtn"
+                                                        },
+                                                        "url": "https://github.com/alcionai/corso/pull/4417#discussion_r1342978636",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8193a83",
+                                                            "authoredDate": "2023-10-02T13:30:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://chat.openai.com/share/9550ff9a-5077-459d-a35e-47c20890240e",
+                                                        "author": {
+                                                            "login": "vkamra"
+                                                        },
+                                                        "url": "https://github.com/alcionai/corso/pull/4417#discussion_r1343011112",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8193a83",
+                                                            "authoredDate": "2023-10-02T13:30:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Wouldn't timezone be an issue in either case? It's just not apparent when converting to Unix since timezone info is elided during the conversion. It seems like we should probably figure out what timezone the parsed value from the JWT token is created in\n\nTimezone is not an issue because unix timestamps are timezone independent. Machine A in NY and Machine B in WA would produce the same unix timestamp at a given point in time. They have a common reference, which is # of seconds elapsed since 00:00:00 UTC on 1 January 1970\n\nAfter and Before also take into account timezones\n\nThanks! I'll switch to this, although I don't see any issues with existing code.",
+                                                        "author": {
+                                                            "login": "pandeyabs"
+                                                        },
+                                                        "url": "https://github.com/alcionai/corso/pull/4417#discussion_r1344008153",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8193a83",
+                                                            "authoredDate": "2023-10-02T13:30:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@vkamra My first commit in this PR was based off dgrijalva/jwt-go, same package used by chatgpt. It has a verifyExpiresAt func which does time comparisons after converting to Unix(), like I am doing right now. Here is my old code which uses verifyExpiresAt.\nThis func was deprecated(unexposed) in golang-jwt/jwt/v5.  They put it behind a validator which is currently not accessible for ParseUnverified.\nWe can use either unix timestamp comparisons or time.before/after like Ashlie suggested. I think both approaches are fine and will work.",
+                                                        "author": {
+                                                            "login": "pandeyabs"
+                                                        },
+                                                        "url": "https://github.com/alcionai/corso/pull/4417#discussion_r1344033063",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8193a83",
+                                                            "authoredDate": "2023-10-02T13:30:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'll add some tests with jwt producer/consumer in different timezones.",
+                                                        "author": {
+                                                            "login": "pandeyabs"
+                                                        },
+                                                        "url": "https://github.com/alcionai/corso/pull/4417#discussion_r1344038029",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8193a83",
+                                                            "authoredDate": "2023-10-02T13:30:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@vkamra My first commit in this PR was based off dgrijalva/jwt-go, same package used by chatgpt. It has a verifyExpiresAt func which does time comparisons after converting to Unix(), like I am doing right now. Here is my old [code](\nf03eeef#diff-74f564165519040be446f0254397adc4f6e516f15145d1de5b286a4bd564eb3cR26) which uses verifyExpiresAt.\nThis func was deprecated(unexposed) in golang-jwt/jwt/v5.  They put it behind a validator which is currently not accessible for ParseUnverified.\nWe can use either unix timestamp comparisons or time.before/after like Ashlie suggested. I think both approaches are fine and will work.\n\nYeah sorry I should have provided context. I pasted that not to suggest we should switch the library but to provide input on the time zone question and also that we should use time.After/Before. Agree with your proposal.",
+                                                        "author": {
+                                                            "login": "vkamra"
+                                                        },
+                                                        "url": "https://github.com/alcionai/corso/pull/4417#discussion_r1344251952",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8193a83",
+                                                            "authoredDate": "2023-10-02T13:30:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Timezone is not an issue because unix timestamps are timezone independent.\n\nhuh well TIL. Thanks for the pointer! Timezones are always such a mindbending experience to reason through \ud83d\ude43",
+                                                        "author": {
+                                                            "login": "ashmrtn"
+                                                        },
+                                                        "url": "https://github.com/alcionai/corso/pull/4417#discussion_r1344277478",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8193a83",
+                                                            "authoredDate": "2023-10-02T13:30:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

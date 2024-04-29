@@ -1,0 +1,104 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 170,
+                        "title": "increase vm.max_map_count",
+                        "repository": {
+                            "nameWithOwner": "Kicksecure/security-misc",
+                            "primaryLanguage": {
+                                "name": "Shell"
+                            }
+                        },
+                        "createdAt": "2023-11-19T19:16:40Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/Kicksecure/security-misc/pull/170",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "monsieuremre"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-20T05:01:28Z",
+                                    "bodyText": "For hardened-malloc this is already here:\nhttps://github.com/Kicksecure/hardened_malloc/blob/master/debian/hardened_malloc.conf\nIs this security improving outside of hardened malloc? If so, please add some references.",
+                                    "url": "https://github.com/Kicksecure/security-misc/pull/170#issuecomment-1818232274",
+                                    "author": {
+                                        "login": "adrelanos"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-20T12:02:22Z",
+                                    "bodyText": "My understanding is, probably. Because there already is ASLR. We randomize the address space layout. If there is more space, there are more possibilities for random layouts, so the layout is in fact more random and more secure. So if I'm not misinterpreting something, this should be a net positive.",
+                                    "url": "https://github.com/Kicksecure/security-misc/pull/170#issuecomment-1818936403",
+                                    "author": {
+                                        "login": "monsieuremre"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-20T13:25:50Z",
+                                    "bodyText": "https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/WVWHTLXSGZN4QMAE577ZFZX4ZI6YZF3A/\nhttps://www.suse.com/support/kb/doc/?id=000016692\nhttps://chat.openai.com/c/30ff8d53-6c6d-49d8-befe-05ebb9b7fb66",
+                                    "url": "https://github.com/Kicksecure/security-misc/pull/170#issuecomment-1819061342",
+                                    "author": {
+                                        "login": "adrelanos"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-20T13:29:48Z",
+                                    "bodyText": "https://chat.openai.com/c/30ff8d53-6c6d-49d8-befe-05ebb9b7fb66\n\nbroken link",
+                                    "url": "https://github.com/Kicksecure/security-misc/pull/170#issuecomment-1819067852",
+                                    "author": {
+                                        "login": "therealmate"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-20T13:55:00Z",
+                                    "bodyText": "So the consensus is larger=better but nor for security reasons, and rather for compatibility reasons. I still think having a larger max value is better for security too. Because when you think very simple: larger area=more random=more secure. Unfortunately there does not seems to be a lot of resources on if this would actually increase ASLR effectiveness. But, I don't see why that would not be the case.",
+                                    "url": "https://github.com/Kicksecure/security-misc/pull/170#issuecomment-1819108267",
+                                    "author": {
+                                        "login": "monsieuremre"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-20T14:10:44Z",
+                                    "bodyText": "https://chat.openai.com/share/4fb17710-87ce-44ab-a187-d6eaba41e650",
+                                    "url": "https://github.com/Kicksecure/security-misc/pull/170#issuecomment-1819134185",
+                                    "author": {
+                                        "login": "adrelanos"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T19:06:36Z",
+                                    "bodyText": "Seeing this brings apparently very little benefit, closing.",
+                                    "url": "https://github.com/Kicksecure/security-misc/pull/170#issuecomment-1837570557",
+                                    "author": {
+                                        "login": "monsieuremre"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

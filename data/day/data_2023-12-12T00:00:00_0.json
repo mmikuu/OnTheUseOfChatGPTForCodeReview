@@ -1,0 +1,76 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 17,
+                        "title": "Invalid Inputs Handling",
+                        "repository": {
+                            "nameWithOwner": "r2mishra/roebling",
+                            "primaryLanguage": {
+                                "name": "Haskell"
+                            }
+                        },
+                        "createdAt": "2023-12-12T19:56:48Z",
+                        "mergedAt": "2023-12-13T02:06:43Z",
+                        "url": "https://github.com/r2mishra/roebling/pull/17",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "r2mishra"
+                        },
+                        "editor": {
+                            "login": "r2mishra"
+                        },
+                        "body": "Added Body and Body File option to Targeter, \r\nadded POST endpoint to dummy server\r\nAdded Error Message to Attack Result\r\nAdded URI parsing validation\r\n\r\nAll non 200 responses have a Error String\r\nAny invalid URI in the CLI will throw an error before starting the attack",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-13T01:03:43Z",
+                                    "bodyText": "Looks pretty good @r2mishra ! One small thing to take care of later is that there are silent failures sometimes. An invalid path for body-file for ex. means that the post request fails at the client side itself, and we should raise some error, but currently that doesn't happen. Also, in case the url is a non-existent one (instead of malformed), then URI won't raise an error and our code will fail silently again. I tested out malformed inputs for duration, request method (instead of GET/POST) and for the URL, and it looks good.",
+                                    "url": "https://github.com/r2mishra/roebling/pull/17#issuecomment-1853102640",
+                                    "author": {
+                                        "login": "SumanthRH"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-13T02:06:07Z",
+                                    "bodyText": "Looks pretty good @r2mishra ! One small thing to take care of later is that there are silent failures sometimes. An invalid path for body-file for ex. means that the post request fails at the client side itself, and we should raise some error, but currently that doesn't happen. Also, in case the url is a non-existent one (instead of malformed), then URI won't raise an error and our code will fail silently again. I tested out malformed inputs for duration, request method (instead of GET/POST) and for the URL, and it looks good.\n\nThat's a good catch! Will add to the todo, I have a way forward to catch async exceptions\nhttps://chat.openai.com/share/f3b0432e-97af-4011-ae2e-850c094b65a5",
+                                    "url": "https://github.com/r2mishra/roebling/pull/17#issuecomment-1853153015",
+                                    "author": {
+                                        "login": "r2mishra"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

@@ -1,0 +1,216 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 52,
+                        "title": "Voice functionality added with Whisper",
+                        "repository": {
+                            "nameWithOwner": "OthersideAI/self-operating-computer",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-01T21:33:58Z",
+                        "mergedAt": "2023-12-05T14:15:44Z",
+                        "url": "https://github.com/OthersideAI/self-operating-computer/pull/52",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "younesbram"
+                        },
+                        "editor": null,
+                        "body": "Added voice functionality with whisper. Implemented a `--voice` command-line flag using `argparse`.\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-02T14:19:51Z",
+                                    "bodyText": "@younesbram I'm excited for this PR, but I ran into an issue installing whisper-mic. It sounds like it may be resolvable with brew install portaudio, but my concern is about adding another install statement for the overall project for it to use voice which may not be used by all users.\nI created a ChatGPT thread with the context here: https://chat.openai.com/share/0446a868-42f8-469e-953d-394bf21e9ad0\nDo you know a better solution that doesn't require brew install portaudio?",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1837159606",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-02T14:22:05Z",
+                                    "bodyText": "If there's some way to only require brew install portaudio if the user is doing voice, that could be good, but right now I think it will break for all users on pip install -r requirements.txt if they do not have portaudio",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1837160021",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-02T14:38:38Z",
+                                    "bodyText": "I don't have the issue when installing, I think its a mac thing. Wish my macbook wasn't broken else Id test on that too.\nI tried it with wsl and gitbash and normal cmd. Will try to debug right now and investigate for any solutions to seamlessly not break installation for mac users who are using voice.",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1837163273",
+                                    "author": {
+                                        "login": "younesbram"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-02T14:45:44Z",
+                                    "bodyText": "I found this in the troubleshooting section :\n\nPlease let me know",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1837164885",
+                                    "author": {
+                                        "login": "younesbram"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-02T14:46:58Z",
+                                    "bodyText": "Many options to choose from!\nI personally like adding the troubleshooting in the documentation. First place people go to after a bug is the same github repo they got it from.",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1837165134",
+                                    "author": {
+                                        "login": "younesbram"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-02T14:54:33Z",
+                                    "bodyText": "I think I like 1 conditional requirement most. My concern with 2 documentation is it sounds like all mac users will see a red fail on pip install -r requirements.txt. If they ignore and don't use mic then it sounds like it will work fine. Most will probably feel like they need to troubleshoot it even if they technically don't. Let me know if I am understanding this correctly.\nI like 1 conditional requirement because it sounds like it wouldn't add any installation steps for the dev on the readme.md. That's really my goal, not to add another step. If we could add a conditional install that'd be great, but I'm not aware if that's possible with brew install portaudio. As far as I'm aware I've never used pip to start a brew install command, but honestly I don't know what's possible here. If you could figure it out and resolve, I'll look at the PR again and see if it works for me, Thanks!",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1837166675",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-02T15:13:16Z",
+                                    "bodyText": "Thing is.. if its breaking for users in the pip install -r requirements.txt part (step 5), the only valid solution is to add another step to install for voice users only. This will also be a chance to say run operate --voice as a final step. I tried doing the markers thing but you were right, the package cannot be installed with pip needs  (apt or brew)",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1837178798",
+                                    "author": {
+                                        "login": "younesbram"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-02T15:28:31Z",
+                                    "bodyText": "Ohh, I think I found something. See Optional Dependencies in updated chat: https://chat.openai.com/share/0446a868-42f8-469e-953d-394bf21e9ad0\nWe could add separate pip install -r requirements-audio.txt for audio users. What do you think of this? If you're interested in implementing this then add a separate section to the quick start in the README.md to include \"quick start with audio\" or something like that. Then users using with-audio can have a separate installation guide entirely. I think this will work",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1837182107",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-02T15:32:31Z",
+                                    "bodyText": "@younesbram Oh I just realized the ChatGPT share link is not updating with new information for some reason. Here's the update for context.\n__\n@joshbickett  message: Well that's a duesy. We really want to add accessibility to this project but we can not ask all users to run brew install portaudio. Only the users that want to use the terminal flag with-audio should have to run this. I guess \"technically\" users could just ignore ERROR: Could not build wheels for pyaudio which use PEP 517  and if they don't use with-audio then it will work fine, but that's a big problem because everyone running pip install -r requirements will see it and that'd be quite confusing.\n__\nAssistant response: You're correct in identifying the challenge of requiring all users to install additional dependencies, especially when it's only needed for a specific feature. However, there are a few strategies you could use to handle this situation more gracefully:\nOptional Dependencies: Modify your requirements.txt to only include essential packages. Then, provide a separate requirements-audio.txt for the with-audio feature, which includes PyAudio and its dependencies. In your documentation, instruct users who want to use the with-audio feature to run an additional command, like:\npip install -r requirements-audio.txt",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1837183141",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-03T17:28:39Z",
+                                    "bodyText": "Updated and tested, resolved all merge conflicts. Let me know @joshbickett and cheers for the communication on X.com/didntdrinkwater\nLet me know of any future help with UX testing or whatever you may need. I will be testing this project many times with people who don't have tech knowledge / carpal syndrome / amputees.",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1837545697",
+                                    "author": {
+                                        "login": "younesbram"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-05T14:16:16Z",
+                                    "bodyText": "Ok, just finished looking at it. It is merged. Thanks for all your help with this. If you want to make updates to the voice and accessibility features overtime that'd be great!",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1840878545",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-05T14:22:58Z",
+                                    "bodyText": "For sure Josh! Thank you for your help as well I am sure this project will keep growing I will help as much as I can in my free time not looking for jobs. Cheers!Sent from my iPhoneOn Dec 5, 2023, at 9:16\u202fAM, Josh Bickett ***@***.***> wrote:\ufeff\nOk, just finished looking at it. It is merged. Thanks for all your help with this. If you want to make updates to the voice and accessibility features overtime that'd be great!\n\n\u2014Reply to this email directly, view it on GitHub, or unsubscribe.You are receiving this because you were mentioned.Message ID: ***@***.***>",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1840891203",
+                                    "author": {
+                                        "login": "younesbram"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-05T14:28:30Z",
+                                    "bodyText": "Actually there may have been an issue for users not using --voice. I reverted the commit because when I did a fresh install I was getting an import issue",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1840901851",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-05T14:34:42Z",
+                                    "bodyText": "will checkSent from my iPhoneOn Dec 5, 2023, at 9:28\u202fAM, Josh Bickett ***@***.***> wrote:\ufeff\nActually there may have been an issue for users not using --voice. I reverted the commit because when I did a fresh install I was getting an import issue\n\n\u2014Reply to this email directly, view it on GitHub, or unsubscribe.You are receiving this because you were mentioned.Message ID: ***@***.***>",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1840914812",
+                                    "author": {
+                                        "login": "younesbram"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-05T14:52:30Z",
+                                    "bodyText": "Ok, trying to fix it now",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1840949405",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-05T15:17:47Z",
+                                    "bodyText": "Having some weird git issues, but I think I was able to fix it. Will share more in a little, need to run some tests",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1841000550",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-05T15:33:19Z",
+                                    "bodyText": "@younesbram so I'm not that good at git reverts. I reverted and made the following fix: b011fa8\nThe problem is I then went to push back to main but was having an issue and somehow lost your recent commits. Anyway, voice is merged back in main and appears to me working without causing issued of devs that don't use it! :)",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1841033378",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-05T15:47:05Z",
+                                    "bodyText": "no worries! i usually use git fetch -all to the upstream repositories and then git rebase and i resolve merge conflicts if there are any. much better than git merge. thats just me though. chatgpt helps alot too! thanks for your assistance ill check it out tonightSent from my iPhoneOn Dec 5, 2023, at 10:33\u202fAM, Josh Bickett ***@***.***> wrote:\ufeff\n@younesbram so I'm not that good at git reverts. I reverted and made the following fix: b011fa8\nThe problem is I then went to push back to main but was having an issue and somehow lost your recent commits. Anyway, voice is merged back in main and appears to me working without causing issued of devs that don't use it! :)\n\n\u2014Reply to this email directly, view it on GitHub, or unsubscribe.You are receiving this because you were mentioned.Message ID: ***@***.***>",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1841059722",
+                                    "author": {
+                                        "login": "younesbram"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-07T21:18:48Z",
+                                    "bodyText": "Facing this issue while running operate --voice.\nI have already ran brew install portaudio and  pip3 install -r requirements-audio.txt.\nOS: macOS Ventura 13.5.2",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1846127910",
+                                    "author": {
+                                        "login": "Siddhant-Goswami"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-08T15:12:39Z",
+                                    "bodyText": "@Siddhant-Goswami oh. Thanks for letting us know. Could you submit an issue ticket for this if you haven't already?",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1847350898",
+                                    "author": {
+                                        "login": "joshbickett"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-08T15:22:20Z",
+                                    "bodyText": "@Siddhant-Goswami hello friend. seems like an environment issue, try reloading with a new env. i will check on my mac VM with your version of ventura soon",
+                                    "url": "https://github.com/OthersideAI/self-operating-computer/pull/52#issuecomment-1847365730",
+                                    "author": {
+                                        "login": "younesbram"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

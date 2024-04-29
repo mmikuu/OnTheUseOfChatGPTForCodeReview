@@ -1,0 +1,107 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 18,
+                        "title": "BLD: \u30d3\u30eb\u30c9\u6642\u306b\u4f7f\u7528\u3059\u308bcython\u30d0\u30fc\u30b8\u30e7\u30f3\u3092\u5236\u9650\u3059\u308b",
+                        "repository": {
+                            "nameWithOwner": "VOICEVOX/pyopenjtalk",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-07-18T10:09:33Z",
+                        "mergedAt": "2023-07-18T10:56:24Z",
+                        "url": "https://github.com/VOICEVOX/pyopenjtalk/pull/18",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "sabonerune"
+                        },
+                        "editor": null,
+                        "body": "## \u5185\u5bb9\r\n\r\nCython3.0\u304c\u30ea\u30ea\u30fc\u30b9\u3055\u308c\u305f\u3053\u3068\u306b\u3088\u3063\u3066pyopenjtalk\u306e\u30d3\u30eb\u30c9\u304c\u5931\u6557\u3059\u308b\u3088\u3046\u306b\u306a\u308a\u307e\u3057\u305f\u3002\r\n\u4e00\u6642\u7684\u306a\u5bfe\u7b56\u3068\u3057\u3066\u30d3\u30eb\u30c9\u306b\u4f7f\u7528\u3059\u308b\u30d0\u30fc\u30b8\u30e7\u30f3\u3092\u5236\u9650\u3057\u307e\u3059\u3002\r\n\r\n## \u95a2\u9023 Issue\r\n\r\n- ref https://github.com/r9y9/pyopenjtalk/issues/55\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-07-18T12:02:14Z",
+                                    "bodyText": "VOICEVOX ENGINE\u5074\u3067\npoetry add git+https://github.com/VOICEVOX/pyopenjtalk@acd4f02d2af3129382c151590238b9370465e360\n\u3057\u305f\u3068\u3053\u308d\u3001cython\u306e\u30d0\u30fc\u30b8\u30e7\u30f3\u306f\">=0.21.0\"\u3067\u5165\u3063\u3066\u305d\u3046\u3067\u3057\u305f \ud83d\ude07\ndiff --git a/poetry.lock b/poetry.lock\nindex 9cfd457..35e850f 100644\n--- a/poetry.lock\n+++ b/poetry.lock\n@@ -1635,8 +1635,8 @@ files = [\n \n [[package]]\n name = \"pyopenjtalk\"\n-version = \"0.3.0\"\n-description = \"\"\n+version = \"0.3.0+acd4f02\"\n+description = \"A python wrapper for OpenJTalk\"\n category = \"main\"\n optional = false\n python-versions = \"*\"\n@@ -1644,6 +1644,7 @@ files = []\n develop = false\n \n [package.dependencies]\n+cython = \">=0.21.0\"\n numpy = \">=1.20.0\"\n six = \"*\"\n tqdm = \"*\"\n@@ -1657,8 +1658,8 @@ test = [\"pytest\", \"scipy\"]\n [package.source]\n type = \"git\"\n url = \"https://github.com/VOICEVOX/pyopenjtalk\"\n-reference = \"827a3fc5c7dda7bbe832c0c69da98e39cc8cb2c3\"\n-resolved_reference = \"827a3fc5c7dda7bbe832c0c69da98e39cc8cb2c3\"\n+reference = \"acd4f02d2af3129382c151590238b9370465e360\"\n+resolved_reference = \"acd4f02d2af3129382c151590238b9370465e360\"\n \n [[package]]\n name = \"pyrsistent\"\n@@ -2423,4 +2424,4 @@ testing = [\"flake8 (<5)\", \"func-timeout\", \"jaraco.functools\", \"jaraco.itertools\"\n [metadata]\n lock-version = \"2.0\"\n python-versions = \"~3.11\"\n-content-hash = \"bee5ebb211d4814a813a618a1325354c79d66b94bf799c8077339738d567e11f\"\n+content-hash = \"04c3ef7fe6818c50549c98a20666cb79f61b895e9eb6ae8910aa8c39b6d74e03\"\n\u3053\u308c\u306f setup.py \u306e\u65b9\u306b\u66f8\u304b\u308c\u3066\u3044\u308b\u5185\u5bb9\u304b\u3082\u3067\u3059\u3002\n\n  \n    \n      pyopenjtalk/setup.py\n    \n    \n         Line 21\n      in\n      acd4f02\n    \n  \n  \n    \n\n        \n          \n           min_cython_ver = \"0.21.0\" \n        \n    \n  \n\n\n\u306a\u3093\u3067\u4e8c\u91cd\u7ba1\u7406\u3055\u308c\u3066\u308b\u3093\u3060\u308d\u3046 & poetry\u3067\u5165\u308b\u306e\u306f\u3069\u3063\u3061\u306a\u3093\u3060\u308d\u3046\uff65\uff65\uff65\u3002",
+                                    "url": "https://github.com/VOICEVOX/pyopenjtalk/pull/18#issuecomment-1640083288",
+                                    "author": {
+                                        "login": "Hiroshiba"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-18T12:18:17Z",
+                                    "bodyText": "\u3042\u3001\u3001\u7121\u77e5\u3067\u3057\u305f\u3002\u3002\npyproject.toml\u306e[build-system]\u306erequires\u306b\u66f8\u304b\u308c\u3066\u3044\u308b\u306e\u306f\u30d3\u30eb\u30c9\u306b\u5fc5\u8981\u306a\u3082\u306e\u306a\u3093\u3067\u3059\u306d\u3002\u3002\nChatGPT\u541b https://chat.openai.com/share/08720d55-11d8-4274-94f4-5d35e3340614",
+                                    "url": "https://github.com/VOICEVOX/pyopenjtalk/pull/18#issuecomment-1640105277",
+                                    "author": {
+                                        "login": "Hiroshiba"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-18T12:37:30Z",
+                                    "bodyText": "\u672c\u6765\u306f\u5b9f\u884c\u6642\u306bCython\u3092\u4f7f\u7528\u3057\u306a\u3044\u305f\u3081install_requires\u5074\u306eCython\u306f\u4e0d\u8981\u306e\u306f\u305a\u306a\u3093\u3067\u3059\u3088\u306d\u2026\n(\u958b\u767a\u6642\u306b\u306f\u5fc5\u8981\u306a\u306e\u3067extras_require\u306e\u65b9\u306b\u5165\u308c\u308b)",
+                                    "url": "https://github.com/VOICEVOX/pyopenjtalk/pull/18#issuecomment-1640133881",
+                                    "author": {
+                                        "login": "sabonerune"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-18T15:20:18Z",
+                                    "bodyText": "\u306a\u308b\u307b\u3069\uff5e\uff5e\uff5e\uff5e\u3002\u672c\u5bb6\u306e\u65b9\u306b\u306a\u305c\u5165\u308c\u3066\u3044\u308b\u306e\u304b\u3068\u304b\u805e\u3044\u3066\u307f\u3066\u3082\u3044\u3044\u304b\u3082\u3067\u3059\u306d\uff01\n\u3068\u308a\u3042\u3048\u305a\u3059\u3054\u304f\u3088\u304f\u308f\u304b\u308a\u307e\u3057\u305f\uff01\u3042\u308a\u304c\u3068\u3046\u3054\u3056\u3044\u307e\u3059\uff01\uff01",
+                                    "url": "https://github.com/VOICEVOX/pyopenjtalk/pull/18#issuecomment-1640430112",
+                                    "author": {
+                                        "login": "Hiroshiba"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM\uff01\uff01\u3000\u5143\u306e\u8ab2\u984c\u304c\u89e3\u6c7a\u3055\u308c\u305f\u3089\u30d0\u30fc\u30b8\u30e7\u30f3\u7bc4\u56f2\u6307\u5b9a\u89e3\u653e\u3057\u305f\u3044\u3067\u3059\u306d\uff01",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u7406\u7531\u4e0d\u660e\u306b\u306a\u308a\u305d\u3046\u306a\u306e\u3067\u30e1\u30e2\u3092\u66f8\u3044\u3066\u304a\u304d\u307e\u3057\u3087\u3046\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                \"cython>=0.28.0, <3.0\",\n          \n          \n            \n                \"cython>=0.28.0, <3.0\", # NOTE: https://github.com/r9y9/pyopenjtalk/issues/55",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/pyopenjtalk/pull/18#discussion_r1266599512",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e6df47",
+                                                            "authoredDate": "2023-07-18T09:10:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

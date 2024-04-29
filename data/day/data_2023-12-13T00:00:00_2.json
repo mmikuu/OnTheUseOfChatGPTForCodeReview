@@ -1,0 +1,2207 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 448,
+                        "title": "Fix for #440 - Removed GuiData class",
+                        "repository": {
+                            "nameWithOwner": "unity-atoms/unity-atoms",
+                            "primaryLanguage": {
+                                "name": "C#"
+                            }
+                        },
+                        "createdAt": "2023-12-20T00:24:17Z",
+                        "mergedAt": "2024-01-07T19:23:25Z",
+                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "toasterhead-master"
+                        },
+                        "editor": null,
+                        "body": "Fixes #440",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "why was forceSingleLine deleted?\nthis is what @AdamRamberg  added as a fix in #447 I gues it got lost, due to the way this PR was created by overriding the changes from the previous PRs",
+                                                        "author": {
+                                                            "login": "soraphis"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1434926437",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7ce4812",
+                                                            "authoredDate": "2023-12-21T14:38:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "My bad, I should've checked if any external changes took place while my repo stayed the same. Fixing it",
+                                                        "author": {
+                                                            "login": "toasterhead-master"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1435214627",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7ce4812",
+                                                            "authoredDate": "2023-12-21T14:38:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We don't want to remove the compiler flag conditions here. I can revert it since I have write access to the PR :)",
+                                                        "author": {
+                                                            "login": "AdamRamberg"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1444057437",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "aa2780d",
+                                                            "authoredDate": "2023-12-22T16:58:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Oh thanks! Sorry, I didn't mean to remove it, don't know how I missed it or how it got removed :/",
+                                                        "author": {
+                                                            "login": "toasterhead-master"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1444057963",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "aa2780d",
+                                                            "authoredDate": "2023-12-22T16:58:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 184,
+                        "title": "Feat : Create checkbox component",
+                        "repository": {
+                            "nameWithOwner": "nishiki-tech/nishiki-frontend",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2024-01-13T07:17:47Z",
+                        "mergedAt": "2024-01-17T20:39:01Z",
+                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "kanta1207"
+                        },
+                        "editor": {
+                            "login": "kanta1207"
+                        },
+                        "body": "<!--\r\n\r\nTitle Naming Conventions:\r\n\r\n- Start with a capitalized prefix followed by an imperative form of a verb, just like a commit message.\r\n- Refer to the \"Commit Convention\" for the prefix:\r\n  https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/CONTRIBUTING.md#commit-convention.\r\n\r\nExample:\r\n- Fix: Resolve memory leak in data processing module\r\n- Feat: Add two-factor authentication\r\n- Refactor: Improve state management in React components\r\n- Docs: Add Windows setup instructions\r\n\r\n-->\r\n\r\n## Overview\r\n\r\n<!-- Provide a brief description of the changes introduced by this PR. -->\r\nCreate Checkbox component based on shadcn [Checkbox](https://ui.shadcn.com/docs/components/checkbox)\r\n\r\n## Changes\r\n\r\n<!-- List the changes -->\r\n<!-- Delete this section if not needed -->\r\n\r\n- Added `Checkbox.tsx` to `src/components/ui` directory.\r\n- Added `CheckboxUsageExample.tsx`\r\n- Added export of `Checkbox` in `src/components/ui/index.ts` \r\n- Added `icon_check.svg` to `assets/images/icons`\r\n- Added color `white` to Icon component variant\r\n\r\n## Review points\r\n\r\n<!-- List the points you would like to be reviewed in detail and the points you are not confident about. -->\r\n<!-- Delete this section if not needed -->\r\n\r\n- Since there weren't any size variation, I didn't add variants for checkbox, so checkbox rectangle is fixed to be 24px square, and check icon is fixed to be 14px. We can override it any time with `className` tho. **Should I make size variant already, considering the desktop design?**\r\n   \r\n\r\n## Screen Captures\r\n\r\n<!-- Add screenshots or screen recordings of the changes -->\r\n<!-- Necessary for UI changes -->\r\n<!-- Delete this section if not needed -->\r\n\r\n\r\nhttps://github.com/genesis-tech-tribe/nishiki-frontend/assets/99339182/31220b71-7c09-4270-8b37-13f8834e5fdb\r\n\r\n\r\n\r\n## References\r\n\r\n<!-- List all the URLs of the references (documents, articles, youtube videos, etc.) that you used to complete this task -->\r\n<!-- If you have referred to responses from ChatGPT or other AIs, please include the links to the conversations if possible -->\r\n<!-- Delete this section if not needed -->\r\n\r\n- [shadcn Checkbox component](https://ui.shadcn.com/docs/components/checkbox)\r\n\r\n\r\n## Assignee Checklist:\r\n\r\n<!-- You can tick the checkboxes if not applicable -->\r\n\r\n- [ ] The naming convention of the PR title is correct (See the comment at the top of this template)\r\n- [ ] The base branch is correct (See: [Types of Branches](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/CONTRIBUTING.md#types-of-branches))\r\n- [ ] The branch name follows the [Branch Naming Conventions](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/CONTRIBUTING.md#branch-naming-conventions)\r\n- [ ] The correct assignees and reviewers have been designated for this PR\r\n- [ ] The coding style follows the [Coding Style Guide](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/STYLEGUIDE.md)\r\n- [ ] All the related issues are associated with this PR\r\n- [ ] All criteria in the associated issues are met (please tick the checkboxes)\r\n- [ ] My changes do not generate new warnings or errors (especially in the console)\r\n\r\n## Reviewer Checklist:\r\n\r\n<!-- You can tick the checkboxes if not applicable -->\r\n\r\n- [ ] Double-check the \"Assignee Checklist\"\r\n- [ ] The code follows the generic best practices and our [Coding Style Guide](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/STYLEGUIDE.md)\r\n- [ ] The code is well-commented and easy to understand\r\n- [ ] The UI changes accurately reflect the provided design\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "There is no point from me to mention. Thanks!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "@kanta1207\nThank you for your work! I left some comments. Please kindly take a look at them.\nAlso could you tick the checklist, please? So we will be able to double-check them.\nFor your question,\n\nShould I make size variant already, considering the desktop design?\n\nI don't think you should define variants for the size, until it becomes necessary.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This <div> should be the <Label> tag, so that the entire card can toggle the checkbox.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452038121",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I recommend against defining styles not in the provided design. Disabled checkboxes typically have different styles, such as a grayish color.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452041544",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Does the color primary-foregroud exist?",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452045200",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Does this peer have any effects?\nhttps://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-sibling-state",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452050334",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The current border width looks a bit too thin to me.\nI played around and figured out border-[1.2px] and border-[1.5px] looked nicer.\nIn fact, the border width of the original svg image in Figma is around 1.2px.\n1px:\n\n1.2px (this is the closest value to the original design):\n\n1.5px:\n\nI personally prefer 1.5px, but if you stick to the Figma design, around 1.2px would be the best.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452068890",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I thought we might be able to utilize it, but now I feel like we can remove it!!\nIt doesn't have any effect itself, it can have some effect when checkbox component is used with other sibling element. But anyway we can pass peerclass anytime to CheckboxRoot only when it's needed.\nI removed it in the latest commit!",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453054744",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It was complete mistake of mine, sorry!\nI removed it!",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453055136",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Do you think it's better to add some typical style for disabled state?\nSince it's currently not designed in wire frame, I removed disabled:cursor-not-allowed in the latest commit!",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453055347",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thank you for pointing out!! I was a bit blind about it, sorry \ud83d\ude13\nI didn't have much preference between 1.2px and 1.5px , so I decided to follow the figma, 1.2px!\nThus I set it as 0.075rem since we're using rem in our code base",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453060906",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thank you for updating!\nIn general, disabled checkboxes are usually styled in a design. However, since our current features do not require disabled checkboxes, I suppose there is no need to define a style for them for now. When adding a new style to our code, it would be the time to ask the designers to add a new design to Figma.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453061812",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Using rem for such small values may not be effective... I have never seen that before.\nI asked ChatGPT, and here is the conversation:\nhttps://chat.openai.com/share/a85682c7-e98b-4ab9-9f84-a0a0edc9d88d\nCould you research more about it, please?",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453074111",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Use px when you need fixed-size elements that won't change, such as for borders or shadows.\nYour suggestion and also this article below make sense. I think I'm going to use px for this\nhttps://www.shecodes.io/athena/28078-when-to-use-ems-rems-and-px-in-css#:~:text=Use%20px%20when%20you%20need,their%20browser's%20default%20font%20size.\nOther references:\nhttps://stackoverflow.com/questions/33997943/0-1-rem-border-width-renders-differently-on-chrome-and-safari\nhttps://kheohyeewei.medium.com/in-short-when-to-use-px-em-and-rem-b2de94e1b829",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453966896",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I see that it still remains \ud83d\udc40",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1454442968",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@kanta1207\nI understand that you have made an update, but it's not what I intended.\nFirst, we should always avoid using the plain <label> tag everywhere, since we have defined the <Label> component.\nSecondly, what I originally meant was to substitute the previously specified <div> with a <Label> tag, which should have its htmlFor attribute referencing the id of the checkbox. Also, the existing <Label> tag needs to be replaced with a normal <div>, <p> or something else.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1454460397",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thank you for updating and providing additional information :)",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1454471328",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You mean peer on line 28 remains? I suppose it's removed in this commit, and I couldn't find it in the current branch",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1456607281",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sorry, I overlooked it... I suppose keeping it is acceptable if it's intentional, but thanks for updating!",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1456610575",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Addressed in this PR: #191",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1456634209",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 3644,
+                        "title": "Proposal: New CSS selector engine for jsdom",
+                        "repository": {
+                            "nameWithOwner": "jsdom/jsdom",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-12-23T15:13:03Z",
+                        "mergedAt": "2024-01-07T12:26:06Z",
+                        "url": "https://github.com/jsdom/jsdom/pull/3644",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "asamuzaK"
+                        },
+                        "editor": null,
+                        "body": "`nwsapi` has been working great so far, and I appreciate the developer's hard work, but `nwsapi` is unable to support Selectors Level 4 properly at the moment.\r\nYou can find many selector-related bug reports in the `jsdom` issues.\r\n\r\nTherefore, I recommend changing to a different CSS selector engine [dom-selector](https://github.com/asamuzaK/domSelector).\r\nIt supports many features of the Selectors Level 4 and also the Shadow Hosts.\r\nRef [Supported CSS selectors](https://github.com/asamuzaK/domSelector#supported-css-selectors)\r\n\r\n# Benchmark results\r\n\r\n```\r\nnpm run benchmark\r\n```\r\n\r\n|API|nwsapi|dom-selector|\r\n|:--------|:--------|:--------|\r\n|closest()|jsdom x 126,133 ops/sec \u00b10.75% (73 runs sampled)|jsdom x 7,449 ops/sec \u00b113.28% (64 runs sampled)|\r\n|matches()|jsdom x 120,369 ops/sec \u00b18.31% (65 runs sampled)|jsdom x 8,507 ops/sec \u00b17.84% (60 runs sampled)|\r\n|querySelector()|jsdom x 3.12 ops/sec \u00b12.60% (12 runs sampled)|jsdom x 14.72 ops/sec \u00b11.94% (35 runs sampled)|\r\n|querySelectorAll()|jsdom x 2.93 ops/sec \u00b11.52% (11 runs sampled)|jsdom x 12.41 ops/sec \u00b12.47% (31 runs sampled)|\r\n\r\nFor `closest()` and `matches()`, `nwsapi` is about 15 times faster, but in reality, `dom-selector` processed in 0.11 to 0.13 msec, so I don't think it's extremely slow.\r\nRather, it is `querySelector()` and `querySelectorAll()` that often have speed performance issues, and in this benchmark, `dom-selector` is about 4 times faster than `nwsapi`.\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I noticed that the global window is accessible via document.defaultView.\nSo if dom-selector throws an exception like throw new document.defaultView.DOMException(), these try-catch can be completely removed, right?",
+                                                        "author": {
+                                                            "login": "asamuzaK"
+                                                        },
+                                                        "url": "https://github.com/jsdom/jsdom/pull/3644#discussion_r1442599751",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "33bbfc9",
+                                                            "authoredDate": "2024-01-05T00:20:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, that's right!",
+                                                        "author": {
+                                                            "login": "domenic"
+                                                        },
+                                                        "url": "https://github.com/jsdom/jsdom/pull/3644#discussion_r1442606696",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "33bbfc9",
+                                                            "authoredDate": "2024-01-05T00:20:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thanks for the  quick reply.\nI will rewrite the code and PR.",
+                                                        "author": {
+                                                            "login": "asamuzaK"
+                                                        },
+                                                        "url": "https://github.com/jsdom/jsdom/pull/3644#discussion_r1442621495",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "33bbfc9",
+                                                            "authoredDate": "2024-01-05T00:20:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 252,
+                        "title": "Add model for iCubGenova11",
+                        "repository": {
+                            "nameWithOwner": "robotology/icub-models-generator",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2024-01-09T13:14:50Z",
+                        "mergedAt": "2024-01-11T09:14:15Z",
+                        "url": "https://github.com/robotology/icub-models-generator/pull/252",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "traversaro"
+                        },
+                        "editor": {
+                            "login": "traversaro"
+                        },
+                        "body": "The `iCubGenova11` is an iCub 2.7, so we generated the model accordingly.\r\n\r\nIt also fixes https://github.com/robotology/icub-models-generator/issues/255 to ensure that CI is green. I manually run the CI to push the generated files in https://github.com/robotology/icub-models/tree/addicubgenova11 for testing @martinaxgloria .",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 364,
+                        "title": "feat: improve footer",
+                        "repository": {
+                            "nameWithOwner": "okp4/docs",
+                            "primaryLanguage": {
+                                "name": "SCSS"
+                            }
+                        },
+                        "createdAt": "2023-12-19T17:49:41Z",
+                        "mergedAt": "2024-01-03T14:55:19Z",
+                        "url": "https://github.com/okp4/docs/pull/364",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "MdechampG"
+                        },
+                        "editor": {
+                            "login": "coderabbitai"
+                        },
+                        "body": "This PR aims at improving the footer of the website (navigation, logo, background of light theme). \r\nIt is related to the issue #353 \r\n\r\nStill to be done : center the column -> help needed. \r\n\r\n<img width=\"1437\" alt=\"Capture d\u2019e\u0301cran 2023-12-19 a\u0300 18 47 08\" src=\"https://github.com/okp4/docs/assets/92780073/bcf18438-2056-46dc-b965-ab6dac0fe055\">\r\n\r\n\r\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n- **Documentation**\n\t- Updated the footer section with new links and sections for improved navigation and resource accessibility.\n\n- **Style**\n\t- Enhanced the footer's visual appeal with a new gradient background.\n\t- Improved the layout of the footer for better alignment and readability using flexbox properties.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 1\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between d37d1a2 and dc753f8.\n\n\nFiles selected for processing (3)\n\ndocusaurus.config.js (3 hunks)\nsrc/scss/custom.scss (1 hunks)\nsrc/scss/main.scss (1 hunks)\n\n\n\nFiles skipped from review due to trivial changes (2)\n\ndocusaurus.config.js\nsrc/scss/custom.scss\n\n\nAdditional comments: 2\nsrc/scss/main.scss (2)\n\n\n147-147: The use of CSS variables for styling is consistent with the rest of the file, which is good for maintainability and theming.\n\n\n145-153: The changes to the .footer class appear to be isolated and should not conflict with other styles in the file. Ensure that these changes are tested across different browsers and screen sizes to confirm that the centering works as expected.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The CSS properties added to the .footer class are intended to center the content horizontally and vertically. However, the comments in French (/* Cette propri\u00e9t\u00e9 aligne horizontalement */ and /* Cette propri\u00e9t\u00e9 aligne verticalement */) should be translated to English to maintain consistency in code comments, assuming the rest of the codebase uses English for comments.\n-    justify-content: center; /* Cette propri\u00e9t\u00e9 aligne horizontalement */\n-    align-items: center; /* Cette propri\u00e9t\u00e9 aligne verticalement */\n+    justify-content: center; /* This property aligns horizontally */\n+    align-items: center; /* This property aligns vertically */\n\n\n\n\nCommittable suggestion\n\n\u2757 IMPORTANT\nCarefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation.\n\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                display: flex;\n          \n          \n            \n                justify-content: center; /* Cette propri\u00e9t\u00e9 aligne horizontalement */\n          \n          \n            \n                align-items: center; /* Cette propri\u00e9t\u00e9 aligne verticalement */\n          \n          \n            \n                display: flex;\n          \n          \n            \n                justify-content: center; /* This property aligns horizontally */\n          \n          \n            \n                align-items: center; /* This property aligns vertically */",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/okp4/docs/pull/364#discussion_r1431756866",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dc753f8",
+                                                            "authoredDate": "2023-12-19T17:48:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Device\nURL\n\n\n\n\ndesktop\nhttp://localhost:3000/\n\n\n\n    \n\n\n\nDevice\nURL\n\n\n\n\nmobile\nhttp://localhost:3000/\n\n\n\nNot what you expected? Are your scores flaky? GitHub runners could be the cause.\nTry running on Foo instead",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Good point. But I'd go further and delete the comments. They're useless in this context.",
+                                                        "author": {
+                                                            "login": "ccamel"
+                                                        },
+                                                        "url": "https://github.com/okp4/docs/pull/364#discussion_r1431853404",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dc753f8",
+                                                            "authoredDate": "2023-12-19T17:48:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@ccamel: I agree, the comments explaining the CSS properties justify-content and align-items can be considered common knowledge and thus redundant. Here's the updated code snippet without the comments:\n.footer {\n  background: var(--ifm-footer-background-color-main);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\nThis should make the code cleaner and more in line with standard practices.",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/okp4/docs/pull/364#discussion_r1431854143",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dc753f8",
+                                                            "authoredDate": "2023-12-19T17:48:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 0\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between d37d1a2 and 9665596.\n\n\nFiles selected for processing (3)\n\ndocusaurus.config.js (3 hunks)\nsrc/scss/custom.scss (1 hunks)\nsrc/scss/main.scss (1 hunks)\n\n\n\nFiles skipped from review due to trivial changes (3)\n\ndocusaurus.config.js\nsrc/scss/custom.scss\nsrc/scss/main.scss",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 0\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between d37d1a2 and da7d430.\n\n\nFiles selected for processing (2)\n\ndocusaurus.config.js (3 hunks)\nsrc/scss/custom.scss (1 hunks)\n\n\n\nFiles skipped from review due to trivial changes (2)\n\ndocusaurus.config.js\nsrc/scss/custom.scss",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 1\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between da7d430 and 1c91c79.\n\n\nFiles selected for processing (2)\n\ndocusaurus.config.js (3 hunks)\nsrc/scss/main.scss (1 hunks)\n\n\n\nFiles skipped from review due to trivial changes (1)\n\nsrc/scss/main.scss\n\n\nAdditional comments: 4\ndocusaurus.config.js (4)\n\n\n156-160: The new logo properties added to the footer object are consistent with the existing code style and correctly formatted.\n\n\n169-184: The additional link items under 'Docs' are correctly formatted and consistent with the existing structure.\n\n\n202-210: The new items added under 'Community' are correctly formatted and consistent with the existing structure.\n\n\n231-241: The new 'Tools' section is correctly formatted and follows the established pattern of the other sections in the footer object.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ud83d\udca1 NOTE\nCodebase verification is a beta feature.\n\nThe verification of the URLs added to the docusaurus.config.js file has been completed. The results are as follows:\n\nhttps://okp4.network: Passed\nhttps://chat.openai.com/g/g-zUzcYmVbX-okp4-druid-oracle-beta: Failed\nhttps://t.me/okp4network: Passed\nhttps://zealy.io/c/okp4/questboard: Passed\nhttps://explore.okp4.network/OKP4%20testnet: Passed\nhttps://faucet.okp4.network: Failed\n\nBased on the output, two URLs did not pass the check. It is recommended to verify these URLs manually to ensure they are correct and accessible.\n\nThe URL https://chat.openai.com/g/g-zUzcYmVbX-okp4-druid-oracle-beta failed the check and may not be accessible.\nThe URL https://faucet.okp4.network failed the check and may not be accessible.\n\n\nAnalysis chain\n\nNote: This review was outside the patches, so it was mapped to the patch with the greatest overlap. Original lines [156-240]\n\nPlease verify that all new URLs are valid and lead to the intended destinations. This is to ensure that the footer links are functional and do not lead to broken pages.\n\n\nScripts Executed\nThe following scripts were executed for the analysis:\n\nScript:\n#!/bin/bash\n# Verify the URLs added to the footer. Expecting HTTP status 200 for all.\nurls=(\n  'https://okp4.network'\n  'https://chat.openai.com/g/g-zUzcYmVbX-okp4-druid-oracle-beta'\n  'https://t.me/okp4network'\n  'https://zealy.io/c/okp4/questboard'\n  'https://explore.okp4.network/OKP4%20testnet'\n  'https://faucet.okp4.network'\n)\n\nfor url in \"${urls[@]}\"; do\n  if ! curl --output /dev/null --silent --head --fail \"$url\"; then\n    echo \"URL check failed for $url\"\n  else\n    echo \"URL check passed for $url\"\n  fi\ndone\n\nLength of output: 1632",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/okp4/docs/pull/364#discussion_r1432368378",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c91c79",
+                                                            "authoredDate": "2023-12-20T07:45:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thanks for reporting. It's under control:\n\nhttps://chat.openai.com/g/g-zUzcYmVbX-okp4-druid-oracle-beta is accessible\nhttps://faucet.okp4.network is indeed down, but we're dealing with it.",
+                                                        "author": {
+                                                            "login": "ccamel"
+                                                        },
+                                                        "url": "https://github.com/okp4/docs/pull/364#discussion_r1432425533",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c91c79",
+                                                            "authoredDate": "2023-12-20T07:45:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@ccamel: Understood, I'm glad to hear that the URL situation is being managed. If there's anything else you need assistance with, feel free to let me know!\n\n\nIf you found this review helpful, would you consider giving us a shout-out on X?\nThank you for using CodeRabbit!",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/okp4/docs/pull/364#discussion_r1432425829",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c91c79",
+                                                            "authoredDate": "2023-12-20T07:45:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 0\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between da7d430 and ee21879.\n\n\nFiles selected for processing (2)\n\ndocusaurus.config.js (3 hunks)\nsrc/scss/main.scss (1 hunks)\n\n\n\nFiles skipped from review due to trivial changes (1)\n\nsrc/scss/main.scss\n\n\n\nFiles skipped from review as they are similar to previous changes (1)\n\ndocusaurus.config.js",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 0\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between da7d430 and 28c9acb.\n\n\nFiles selected for processing (1)\n\ndocusaurus.config.js (3 hunks)\n\n\n\nFiles skipped from review as they are similar to previous changes (1)\n\ndocusaurus.config.js",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 0\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between 28c9acb and c4b4d29.\n\n\nFiles selected for processing (1)\n\nsrc/scss/main.scss (1 hunks)\n\n\n\nFiles skipped from review as they are similar to previous changes (1)\n\nsrc/scss/main.scss",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 0\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between a53f18a and 84b1f51.\n\n\nFiles selected for processing (2)\n\ndocusaurus.config.js (3 hunks)\nsrc/scss/custom.scss (1 hunks)\n\n\n\nFiles skipped from review due to trivial changes (1)\n\ndocusaurus.config.js\n\n\nAdditional comments: 1\nsrc/scss/custom.scss (1)\n\n39-40: Ensure the new gradient color values for --ifm-footer-background-color-main are consistent with the design specifications and check for potential accessibility issues, such as contrast and readability, especially for users with visual impairments.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 0\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between a53f18a and f1cb4dd.\n\n\nFiles selected for processing (3)\n\ndocusaurus.config.js (3 hunks)\nsrc/scss/custom.scss (1 hunks)\nsrc/scss/main.scss (1 hunks)\n\n\n\nFiles skipped from review due to trivial changes (1)\n\nsrc/scss/main.scss\n\n\n\nFiles skipped from review as they are similar to previous changes (2)\n\ndocusaurus.config.js\nsrc/scss/custom.scss",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "\ud83d\udc4d \ud83d\ude80",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 145,
+                        "title": "New banner with cards are added to all pages",
+                        "repository": {
+                            "nameWithOwner": "rohan9024/ecommerce",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-12-14T11:26:27Z",
+                        "mergedAt": "2023-12-19T19:32:49Z",
+                        "url": "https://github.com/rohan9024/ecommerce/pull/145",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Sami3160"
+                        },
+                        "editor": {
+                            "login": "Sami3160"
+                        },
+                        "body": "issue #133 resolved\r\n\r\n-Cards like banners are added on every page, like men, women kids, shoes, sales.\r\n-Banner from all pages are responsive.\r\n-For more 'pluggable look' library is used.\r\n-All Images are good high quality\r\n-5-6 different cards are added as banner with effects and slide animation \r\n-Title and description is meant to be meaningful with images and nav link.\r\n-Every page, every card have unique image, title, description with well relatable meaning...\r\n-On every page changes cards are added, yet code is also kept optimized, with no redundancy.\r\n-Cards can be changed by mouse, or by clicking on a card then using keyboard buttons (to use keyboard focus on card i required)\r\nhere is screenshot of banner cards:\r\n![Screenshot (114)](https://github.com/rohan9024/ecommerce/assets/110652247/597d52d2-ad7d-4654-84e0-89157ef5758b)\r\n-page of shoes section\r\n![Screenshot (115)](https://github.com/rohan9024/ecommerce/assets/110652247/c61fd1b3-99d3-482c-ac77-e65d10e0d3ff)\r\n-responsive testing\r\n![Screenshot (116)](https://github.com/rohan9024/ecommerce/assets/110652247/3dd29278-93a9-44d0-87d5-41454acfc616)\r\n![Screenshot (117)](https://github.com/rohan9024/ecommerce/assets/110652247/d53b18bc-d67b-4eba-a25f-35667e7f462a)\r\n-Can change the the cards as slides by both mouse and keyboard \r\n![Screenshot (118)](https://github.com/rohan9024/ecommerce/assets/110652247/80032e13-e856-43f1-8436-9f217ab20a4d)\r\n\r\n\r\nplease do check my pr, it was soo hard as react newbie \ud83d\ude05but it was so fun also\ud83d\ude01",
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 22,
+                        "title": "ODY-276 About\u30da\u30fc\u30b8\u306e\u30ec\u30b9\u30dd\u30f3\u30b7\u30d6\u5bfe\u5fdc",
+                        "repository": {
+                            "nameWithOwner": "daydule/odyssey-frontend",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-12-16T02:35:41Z",
+                        "mergedAt": "2023-12-27T12:46:54Z",
+                        "url": "https://github.com/daydule/odyssey-frontend/pull/22",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "atoook"
+                        },
+                        "editor": {
+                            "login": "atoook"
+                        },
+                        "body": "# \u4e8b\u524d\u78ba\u8a8d\r\n\r\n- [x] PR\u524d\u306b\u52d5\u4f5c\u78ba\u8a8d\u3092\u3057\u305f\u304b\r\n- [x] \u6a5f\u5bc6\u60c5\u5831\u3092\u542b\u3093\u3067\u3044\u306a\u3044\u304b\r\n- [x] [\u958b\u767a\u30eb\u30fc\u30eb](https://daydule.atlassian.net/wiki/spaces/DAYDULE/pages/9765029)\u3092\u5b88\u3063\u3066\u5b9f\u88c5\u3057\u3066\u3044\u308b\u304b\r\n- [x] \u5358\u4f53\u30c6\u30b9\u30c8\u304c\u5168\u3066OK\u306b\u306a\u3063\u3066\u3044\u308b\u304b\uff08\u5358\u4f53\u30c6\u30b9\u30c8\u3092\u4f5c\u6210\u3057\u3066\u3044\u306a\u3044\u30ea\u30dd\u30b8\u30c8\u30ea\u306e\u5834\u5408SKIP\uff09\r\n- [x] \u6700\u65b0\u306e`develop`\u30d6\u30e9\u30f3\u30c1\u3092\u53cd\u6620\u3057\u3066\u3044\u308b\u304b\r\n- [x] \u30d3\u30eb\u30c9\u30a8\u30e9\u30fc/ESLint\u30a8\u30e9\u30fc\u306f\u8d77\u304d\u3066\u3044\u306a\u3044\u304b\r\n\r\n# \u30ec\u30d3\u30e5\u30fc\u512a\u5148\u5ea6\uff08\u3069\u308c\u304b\u4e00\u3064\uff09\r\n\r\n- [ ] \u3059\u3050\u898b\u3066\u3082\u3089\u3044\u305f\u3044\r\n- [x] 3\u65e5\u304f\u3089\u3044\u3067\u898b\u3066\u3082\u3089\u3044\u305f\u3044\r\n- [ ] 7\u65e5\u304f\u3089\u3044\u3067\u898b\u3066\u3082\u3089\u3044\u305f\u3044\r\n\r\n# \u30ec\u30d3\u30e5\u30fc\u306e\u5ea6\u5408\u3044\r\n\r\n- [ ] \u30b3\u30fc\u30c9\u3092\u3071\u3063\u3068\u78ba\u8a8d\u3057\u3066\u3082\u3089\u3044\u305f\u3044\r\n- [x] \u30b3\u30fc\u30c9\u3092\u3071\u3063\u3068\u78ba\u8a8d & \u52d5\u4f5c\u78ba\u8a8d\u3057\u3066\u3082\u3089\u3044\u305f\u3044\r\n- [ ] \u30b3\u30fc\u30c9\u3092\u3057\u3063\u304b\u308a\u78ba\u8a8d & \u52d5\u4f5c\u78ba\u8a8d\u3057\u3066\u3082\u3089\u3044\u305f\u3044\r\n\r\n# \u30ec\u30d3\u30e5\u30ef\u30fc\u306b\u3088\u308b\u52d5\u4f5c\u78ba\u8a8d\r\n\r\n- [ ] @tom-takeru \r\n- [ ] @Mellbrother \r\n- [ ] @kzk27 \r\n\r\n# \u3084\u3063\u305f\u3053\u3068<!-- \u3053\u306e\u30d7\u30eb\u30ea\u30af\u30a8\u30b9\u30c8\u3067\u3084\u3063\u305f\u3053\u3068\u3092\u66f8\u304f -->\r\n\r\n- \u4ee5\u4e0b\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\u306e\u30ec\u30b9\u30dd\u30f3\u30b7\u30d6\u5bfe\u5fdc\r\n AboutCardWithImage\r\n AboutCardWithText\r\n- AboutCardWithImage\u306eisImageLeft Props\u3092\u524a\u9664\u3057\u3066\u3001\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\u81ea\u4f53\u3092Left/Right\u306b\u5206\u5272\uff08\u4f1a\u8b70\u3067\u5171\u6709\u6e08\uff09\r\n \u203b\u7406\u7531\uff11\uff1a\u753b\u9762\u30b5\u30a4\u30ba\u53d6\u5f97\u5f8c\u306bisImageLeft\u3067\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\u3092\u51fa\u3057\u308f\u3051\u3057\u3088\u3046\u3068\u3059\u308b\u3068ssr\u51fa\u6765\u306a\u304f\u306a\u308b\u305f\u3081\r\n \u203b\u7406\u7531\uff12\uff1aAboutCardWithImage\u3092csr\u3059\u308b\u3088\u3046\u306b\u3057\u305f\u3068\u3053\u308d\u30c6\u30b9\u30c8\u30b1\u30fc\u30b9NG\u304c\u89e3\u6d88\u3067\u304d\u306a\u304b\u3063\u305f\u305f\u3081 \r\n\r\n# \u3084\u3089\u306a\u3044\u3053\u3068<!-- \u3053\u306e\u30d7\u30eb\u30ea\u30af\u30a8\u30b9\u30c8\u3067\u3084\u3063\u3066\u3082\u304a\u304b\u3057\u304f\u306a\u3044\u3051\u3069\u3084\u3089\u306a\u304b\u3063\u305f\u3053\u3068\u3092\u66f8\u304f -->\r\n\r\n\u7279\u306b\u306a\u3057\r\n\r\n# \u61f8\u5ff5\u70b9\u3084\u6ce8\u610f\u70b9<!-- \u3053\u306e\u30d7\u30eb\u30ea\u30af\u30a8\u30b9\u30c8\u306b\u304a\u3051\u308b\u61f8\u5ff5\u70b9\u3084\u6ce8\u610f\u70b9\u3092\u66f8\u304f -->\r\n\r\n\u7279\u306b\u306a\u3057\r\n\r\n# \u305d\u306e\u4ed6<!-- \u3053\u306e\u30d7\u30eb\u30ea\u30af\u30a8\u30b9\u30c8\u3067\u4e0a\u8a18\u306e\u9805\u76ee\u4ee5\u5916\u306b\u4f1d\u3048\u308b\u3079\u304d\u3053\u3068\u3092\u66f8\u304f -->\r\n\r\n\u7279\u306b\u306a\u3057\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "\u4ee5\u4e0b\u3092\u5225\u30c1\u30b1\u30c3\u30c8\u3067\u5bfe\u5fdc\u3059\u308b\u5206\u3068\u3057\u3066\u8d77\u7968\u3057\u307e\u3057\u305f\uff01\n\u3053\u306ePR\u304c\u30de\u30fc\u30b8\u3055\u308c\u3066\u304b\u3089\u3001\u3069\u3053\u304b\u3067\u512a\u5148\u5ea6\u3092\u898b\u3066\u3084\u308a\u307e\u3057\u3087\u3046\uff01\n\u672cPR\u3067\u5bfe\u5fdc\u53ef\u80fd\u3067\u3057\u305f\u3089\u3001\u5bfe\u5fdc\u3057\u3066\u3057\u307e\u3063\u3066\u30c1\u30b1\u30c3\u30c8\u3092\u524a\u9664\u3057\u3066\u3057\u307e\u3063\u3066\u3082\u69cb\u3044\u307e\u305b\u3093\uff01\n\nAboutCardWithText.tsx\u3000\u304c\u30e2\u30d0\u30a4\u30eb\u306e\u6642\u306b\u753b\u9762\u3044\u3063\u3071\u3044\u306b\u5e83\u304c\u3063\u3066\u3057\u307e\u3063\u3066\u3044\u308b\u90e8\u5206\u306e\u4fee\u6b63\nAboutCardWith(Right/Left).stories.tsx\u306b\u30b9\u30de\u30db\u5e45\u3067\u306e\u30b9\u30c8\u30fc\u30ea\u3092\u8ffd\u52a0\n\n1\u306b\u3064\u3044\u3066",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3053\u308c\u3063\u3066\u306a\u3093\u306e\u305f\u3081\u306b\u5165\u308c\u305f\u3093\u3067\u3059\u304b\uff1f",
+                                                        "author": {
+                                                            "login": "tom-takeru"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/22#discussion_r1436242042",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b1d3dd5",
+                                                            "authoredDate": "2023-12-25T11:12:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "ChatGPT\u306b\u8cea\u554f\u3060\u3051\u3057\u3066\u307f\u305f\u3093\u3067\u3059\u304c\u3001\u77e5\u3089\u3093\u3068\u8a00\u308f\u308c\u3066\u3057\u307e\u3044\u307e\u3057\u305f\u3001\u3001\u3001\u3002\nhttps://chat.openai.com/share/adc90fb5-54c2-4f1c-8b17-e2928e556b02",
+                                                        "author": {
+                                                            "login": "tom-takeru"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/22#discussion_r1436248823",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b1d3dd5",
+                                                            "authoredDate": "2023-12-25T11:12:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@tom-takeru\n\u4ee5\u4e0b\u306e\u3088\u3046\u306b.tsx\u306e\u62e1\u5f35\u5b50\u3092\u3064\u3051\u3066import\u3059\u308b\u305f\u3081\u306b\u5fc5\u8981\u3060\u3063\u305f\u306e\u3067\u3059\u304c\uff08\u4fee\u6b63\u524d\u306b\u5fc5\u8981\u3060\u3063\u305f\u306e\u3067\u8ffd\u52a0\u3057\u305f\u8a18\u61b6\u304c\u3042\u308a\u307e\u3059\uff09\u304c\u3001\u4e0d\u8981\u306a\u306e\u3067\u524a\u9664\u3057\u307e\u3059\u3002\nimport { XXX } from 'XXXX.tsx';",
+                                                        "author": {
+                                                            "login": "atoook"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/22#discussion_r1436360202",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b1d3dd5",
+                                                            "authoredDate": "2023-12-25T11:12:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM\uff01 \ud83d\udc24",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 904,
+                        "title": "\u6574\u7406: \u7591\u554f\u5f62 upspeak \u306e\u5358\u7d14\u5316",
+                        "repository": {
+                            "nameWithOwner": "VOICEVOX/voicevox_engine",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-19T08:22:22Z",
+                        "mergedAt": "2023-12-21T05:24:41Z",
+                        "url": "https://github.com/VOICEVOX/voicevox_engine/pull/904",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "tarepan"
+                        },
+                        "editor": {
+                            "login": "tarepan"
+                        },
+                        "body": "## \u5185\u5bb9\r\n\u6982\u8981: \u7591\u554f\u5f62 upspeak \u51e6\u7406\u306e\u5358\u7d14\u5316\u306b\u3088\u308b\u30ea\u30d5\u30a1\u30af\u30bf\u30ea\u30f3\u30b0  \r\n\r\n\u30cd\u30b9\u30c8\u306e\u89e3\u6d88\u30fb\u51e6\u7406\u306e\u7c21\u7d20\u5316\u306b\u3088\u3063\u3066\u30ea\u30d5\u30a1\u30af\u30bf\u30ea\u30f3\u30b0\u3092\u304a\u3053\u306a\u3063\u305f\u3002  \r\n\r\n## \u95a2\u9023 Issue\r\npart of #897\r\n\r\n## Reviewer \u5411\u3051\u60c5\u5831\r\n3\u3064\u306e\u95a2\u6570\u30cd\u30b9\u30c8\u3092\u524a\u9664\u3057\u305f\u305f\u3081\u3001diff \u304c\u6a5f\u80fd\u3057\u3066\u3044\u307e\u305b\u3093\u3002  \r\ncommit \u3054\u3068\u306b 1 \u3064\u306e\u95a2\u6570\u3092\u524a\u9664\u3057\u305f\u305f\u3081\u3001\u30ec\u30d3\u30e5\u30fc\u6642\u306b\u306f commit log \u3092\u53c2\u7167\u3057\u3066\u3044\u305f\u3060\u3051\u308c\u3070\u5e78\u3044\u3067\u3059\u3002  ",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3053\u306e\u5909\u66f4\u3067\u3059\u304c\u3001\u4e00\u822c\u7684\u306b\u306f\u95a2\u6570\u5074\u306b\u30d5\u30e9\u30b0\u3092\u4e0e\u3048\u3066\u3069\u3046\u3059\u308b\u304b\u3092\u59d4\u306d\u308b\u3088\u308a\u3082\u3001\u5358\u4e00\u51e6\u7406\u3092\u884c\u3046\u95a2\u6570\u306b\u3059\u308b\u306e\u304c\u826f\u3044\u3068\u3055\u308c\u3066\u3044\u308b\u3068\u601d\u3044\u307e\u3059\u3002\nChatGPT\u306b\u4e21\u8005\u306e\u30e1\u30ea\u30c3\u30c8\u3092\u805e\u3044\u3066\u307f\u305f\u611f\u3058\u3001\u3053\u306e\u8fd4\u7b54\u304c\u81ea\u5206\u306e\u8003\u3048\u3068\u8fd1\u304b\u3063\u305f\u3067\u3059\u3002\nhttps://chat.openai.com/share/cb0a7a43-fbff-4876-801a-921c90ed5618\n\u4f55\u304b\u3053\u3046\u3057\u3066\u3044\u308b\u610f\u56f3\u304c\u3042\u308c\u3070\u77e5\u308a\u305f\u3044\u3067\u3059\uff01",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox_engine/pull/904#discussion_r1433359944",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a645cc",
+                                                            "authoredDate": "2023-12-19T07:46:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u4e00\u822c\u7684\u306b\u306f ... \u5358\u4e00\u51e6\u7406\u3092\u884c\u3046\u95a2\u6570\u306b\u3059\u308b\u306e\u304c\u826f\u3044\n\n\ud83d\udc4d\n\u4e00\u822c\u8ad6\u3068\u3057\u3066\u540c\u610f\u3067\u3059\u3002\n\n\u3053\u3046\u3057\u3066\u3044\u308b\u610f\u56f3\u304c\u3042\u308c\u3070\n\n\u300cupspeak \u9069\u7528\u6709\u7121\u542b\u3081\u3066 1 \u6a5f\u80fd\u3068\u307f\u306a\u3057\u3001\u53b3\u5bc6\u306b\u30c6\u30b9\u30c8\u3067\u304d\u308b\u304b\u3089\u300d\u304c\u610f\u56f3/\u7406\u7531\u3067\u3059\u3002\n\u73fe\u5728\u306e test_synthesis_engine_base.py \u3067\u306f spy \u306b\u7528\u3044\u3066 .synthesis() \u306e\u4e00\u90e8\u3092\u30c6\u30b9\u30c8\u3057\u3066\u3044\u307e\u3059\u3002\n\n  \n    \n      voicevox_engine/test/test_synthesis_engine_base.py\n    \n    \n        Lines 214 to 218\n      in\n      831d28a\n    \n  \n  \n    \n\n        \n          \n           self.synthesis_engine.synthesis( \n        \n\n        \n          \n               query, 0, enable_interrogative_upspeak=enable_interrogative_upspeak \n        \n\n        \n          \n           ) \n        \n\n        \n          \n           # _synthesis_impl\u306e\u7b2c\u4e00\u5f15\u6570\u306b\u4e0e\u3048\u3089\u308c\u305fquery\u3092\u691c\u8a3c \n        \n\n        \n          \n           actual = self.synthesis_engine._synthesis_impl.call_args[0][0].accent_phrases \n        \n    \n  \n\n\n\n  \n    \n      voicevox_engine/test/test_synthesis_engine_base.py\n    \n    \n        Lines 255 to 259\n      in\n      831d28a\n    \n  \n  \n    \n\n        \n          \n           self.create_synthesis_test_base( \n        \n\n        \n          \n               text=\"\u3053\u308c\u306f\u3042\u308a\u307e\u3059\u304b\uff1f\", \n        \n\n        \n          \n               expected=expected, \n        \n\n        \n          \n               enable_interrogative_upspeak=False, \n        \n\n        \n          \n           ) \n        \n    \n  \n\n\n\u3053\u306e\u30c6\u30b9\u30c8\u5bfe\u8c61\u9818\u57df\u304c\u300cupspeak \u9069\u7528\u6709\u7121 + upspeak\u9069\u7528\u300d\u3064\u307e\u308a\u4eca\u56de\u5207\u308a\u51fa\u3055\u308c\u305f apply_interrogative_upspeak() \u306b\u76f8\u5f53\u3059\u308b\u30b3\u30fc\u30c9\u3067\u3059\u3002\n\u73fe\u5728\u306e\u30c6\u30b9\u30c8\u3067\u306f\u3053\u306e\u30b3\u30fc\u30c9\u3092 enable_interrogative_upspeak \u30d5\u30e9\u30b0\u5024\u3092\u5909\u3048\u306a\u304c\u3089\u5e45\u5e83\u3044\u30d1\u30bf\u30fc\u30f3\u3067\u30c6\u30b9\u30c8\u3057\u3066\u3044\u307e\u3059\u3002\u3053\u306e\u5e45\u5e83\u3055\u306fupspeak\u6709\u7121\u306e\u30d0\u30b0\u304c\u54c1\u8cea\u306b\u5927\u304d\u306a\u5f71\u97ff\u3092\u4e0e\u3048\u308b\u305f\u3081\u3060\u3068\u601d\u308f\u308c\u307e\u3059\u3002\n#899 \u3067\u8b70\u8ad6\u3055\u308c\u305f\u3088\u3046\u306b .synthesis() \u306e\u5165\u529b\u8a2d\u5b9a\u5168\u30d1\u30bf\u30fc\u30f3\u30c6\u30b9\u30c8\u306f\u4e0d\u53ef\u80fd\u3067\u3059\u3002\n\u3053\u308c\u304c\u7406\u7531\u3067\u3001\u30d5\u30e9\u30b0\u3092\u5916\u306b\u51fa\u3059\u3068\u73fe\u884c\u306e\u300cenable_interrogative_upspeak \u30d5\u30e9\u30b0\u5024\u3092\u5909\u3048\u306a\u304c\u3089\u5e45\u5e83\u3044\u30d1\u30bf\u30fc\u30f3\u300d\u3092\u6368\u3066\u308b\u3053\u3068\u306b\u306a\u308a\u307e\u3059\u3002\nenable_interrogative_upspeak \u30d5\u30e9\u30b0\u3092 upspeak \u91cf\u3092\u8abf\u6574\u3059\u308b\u4f55\u304b\u3068\u898b\u505a\u3057\u3066\u3057\u307e\u3048\u3070\u3001apply_interrogative_upspeak() \u306e\u5f15\u6570\u306b\u8abf\u6574\u8a2d\u5b9a\u5024\u304c\u5165\u308b\u306e\u306f\u305d\u3053\u307e\u3067\u9055\u548c\u611f\u7121\u3044\u3068\u601d\u3044\u307e\u3059\u3002\n\u3088\u3063\u3066 upspeak\u9069\u7528\u6709\u7121\u542b\u3081\u3066 1 \u6a5f\u80fd\u3068\u307f\u306a\u3059\u306e\u306f\uff08\u5c11\u306a\u304f\u3068\u3082\uff09\u304a\u304b\u3057\u306a\u3053\u3068\u3067\u306f\u306a\u304f\u3001\u4ed6\u306e\u30e1\u30ea\u30c3\u30c8\u30fb\u30c7\u30e1\u30ea\u30c3\u30c8\u3067\u30d5\u30e9\u30b0\u3092\u5f15\u6570\u306b\u3059\u308b\u304b\u5426\u304b\u6c7a\u3081\u3066\u826f\u3044\u3053\u3068\u306b\u306a\u308a\u307e\u3059\u3002\n\u3053\u308c\u3089\u89b3\u70b9\u3092\u7dcf\u5408\u3057\u305f\u7d50\u679c\u3001\u9069\u7528\u6709\u7121\u542b\u30811\u6a5f\u80fd\u3068\u898b\u505a\u3057\u3066\u73fe\u884c\u306e\u5e45\u5e83\u3044\u30c6\u30b9\u30c8\u3092\u4fdd\u6301\u3059\u308b\u3053\u3068\u304c\u6700\u5584\u3068\u8003\u3048\u3001\u4e00\u822c\u8ad6\u3068\u306f\u7570\u306a\u308b\u5207\u308a\u51fa\u3057\u65b9\u3092\u3057\u3066\u3044\u307e\u3059\u3002\n\u8ffd\u8a18:\n\u5c06\u6765\u306e\u65b9\u5411\u6027\u3068\u3057\u3066\u3001\n\n#897 \u304c\u9032\u884c\u3057\u3066 .synthesis() \u3068 ._synthesis_impl() \u304c\u7d71\u5408\nquery_to_decoder_feature() \u5185\u3078\u672c PR \u306e apply_interrogative_upspeak() \u3092\u79fb\u690d\n\u4ed6\u306e apply \u95a2\u6570\u9054\u3068\u4e26\u3076\n\n\u3092\u60f3\u5b9a\u3057\u3066\u3044\u307e\u3059\uff08\u4e0b\u30b3\u30fc\u30c9\u306f\u6700\u7d42\u72b6\u614b\u306e\u30a4\u30e1\u30fc\u30b8\uff09\ndef query_to_decoder_feature(query) -> tuple[ndarray, ndarray]:\n    accent_phrases = query.accent_phrases\n    # \u8a2d\u5b9a\u3092\u9069\u7528\u3059\u308b\n    accent_phrases = apply_interrogative_upspeak(accent_phrases, query) # query\u5185upspeak\u30d5\u30e9\u30b0\n    moras = apply_prepost_silence(to_flatten_moras(accent_phrases), query)\n    moras = apply_speed_scale(moras, query)\n    moras = apply_pitch_scale(moras, query)\n    ...",
+                                                        "author": {
+                                                            "login": "tarepan"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox_engine/pull/904#discussion_r1433424756",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a645cc",
+                                                            "authoredDate": "2023-12-19T07:46:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u306a\u308b\u307b\u3069\u3067\u3059\uff01\uff01\n\u5c11\u306a\u304f\u3068\u3082\u4eca\u306ePR\u306eapply_interrogative_upspeak\u95a2\u6570\u306f\u3001query\u30af\u30e9\u30b9\uff08\u3064\u307e\u308a\u95a2\u6570\u306e\u8cac\u52d9\u7bc4\u56f2\u5916\uff09\u306benable_interrogative_upspeak\u304c\u3042\u308b\u3053\u3068\u3092\u60f3\u5b9a\u3057\u306a\u3044\u3079\u304d\u3060\u3068\u601d\u3044\u307e\u3059\u3002\u3053\u306e\u95a2\u6570\u3060\u3051\u898b\u305f\u5834\u5408\u306b\u3001\u306a\u305c\u3053\u306e\u30d5\u30e9\u30b0\u304c\u3042\u308b\u306e\u304b\u308f\u304b\u3089\u306a\u3044\u304b\u306a\u3068\u3002\nquery\u305d\u306e\u3082\u306e\u3092\u6e21\u3059\u8a2d\u8a08\u3092\u4e88\u5b9a\u3057\u3066\u3044\u308b\u306e\u3067\u3042\u308c\u3070\u8a71\u306f\u5225\u3067\u3057\u305f\u3002\u3044\u3063\u305f\u3093NOTE\u30b3\u30e1\u30f3\u30c8\u304c\u6709\u308b\u3068\u826f\u3044\u306e\u304b\u306a\u3068\uff01\n\u30b3\u30e1\u30f3\u30c8\u3092\u8ffd\u52a0\u3057\u3066\u30de\u30fc\u30b8\u3055\u305b\u3066\u3044\u305f\u3060\u3053\u3046\u3068\u601d\u3044\u307e\u3059\uff01",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox_engine/pull/904#discussion_r1433522317",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a645cc",
+                                                            "authoredDate": "2023-12-19T07:46:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                \"\"\"\u5fc5\u8981\u306b\u5fdc\u3058\u3066\u5404\u30a2\u30af\u30bb\u30f3\u30c8\u53e5\u306e\u672b\u5c3e\u3078\u7591\u554f\u5f62\u30e2\u30fc\u30e9\uff08\u540c\u4e00\u6bcd\u97f3\u30fb\u7d99\u7d9a\u9577 0.15\u79d2\u30fb\u97f3\u9ad8\u2191\uff09\u3092\u4ed8\u4e0e\u3059\u308b\"\"\"\n          \n          \n            \n                \"\"\"\u5fc5\u8981\u306b\u5fdc\u3058\u3066\u5404\u30a2\u30af\u30bb\u30f3\u30c8\u53e5\u306e\u672b\u5c3e\u3078\u7591\u554f\u5f62\u30e2\u30fc\u30e9\uff08\u540c\u4e00\u6bcd\u97f3\u30fb\u7d99\u7d9a\u9577 0.15\u79d2\u30fb\u97f3\u9ad8\u2191\uff09\u3092\u4ed8\u4e0e\u3059\u308b\"\"\"\n          \n          \n            \n                # NOTE: \u5c06\u6765\u7684\u306bAudioQuery\u30a4\u30f3\u30b9\u30bf\u30f3\u30b9\u3092\u5f15\u6570\u306b\u3059\u308b\u4e88\u5b9a",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox_engine/pull/904#discussion_r1433523753",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a645cc",
+                                                            "authoredDate": "2023-12-19T07:46:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM\uff01\uff01\uff01",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 122355,
+                        "title": "Kube-proxy/nftables: allow \"numgen inc\"",
+                        "repository": {
+                            "nameWithOwner": "kubernetes/kubernetes",
+                            "primaryLanguage": {
+                                "name": "Go"
+                            }
+                        },
+                        "createdAt": "2023-12-17T10:03:18Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/kubernetes/kubernetes/pull/122355",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "uablrek"
+                        },
+                        "editor": {
+                            "login": "uablrek"
+                        },
+                        "body": "This makes the nftables proxier distribute traffic in the same way as proxy-mode=ipvs with the \"rr\" scheduler\r\n\r\n\r\n#### What type of PR is this?\r\n\r\n/kind feature\r\n/sig network\r\n/area kube-proxy\r\n\r\n#### What this PR does / why we need it:\r\n\r\nExisting users of proxy-mode=ipvs may feel more comfortable if they can keep the round-robin distribution when upgrading to proxy-mode=nftables.\r\n\r\nIt should be noted that the same limitation applied for nftables with \"random inc\" as for ipvs/rr: the individual kube-proxy instances on the nodes are not coordinated, but distribute individually. And different schedulers are not possible, as in \"ipvs\".\r\n\r\n#### Which issue(s) this PR fixes:\r\n\r\nN/A\r\n\r\n#### Special notes for your reviewer:\r\n\r\nFor start this is a PoC.\r\n\r\nA more suitable name than `numgen` should probably be used in the proxier structure. Trying to look into the future, one might expect some new features in nftables, like maglev-hashing\", and make it possible to configure those future things without altering the config API, just use a new value for some distribution parameter.\r\n\r\n#### Does this PR introduce a user-facing change?\r\n\r\n```release-note\r\nAllow users to configure the distribution in proxy-mode=nftables to mimic proxy-mode=ipvs with round-robin\r\n```\r\n\r\n#### Additional documentation e.g., KEPs (Kubernetes Enhancement Proposals), usage docs, etc.:\r\n\r\n\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "is the plan to make this a configuration option like in ipvs?\n\t// scheduler is the IPVS scheduler to use\n\tScheduler string `json:\"scheduler\"`",
+                                                        "author": {
+                                                            "login": "aojea"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1430695581",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "this is going to be a bit of bikeshedding, but random seems to be a better default since is the one used by cilium and kube-proxy iptables, that I are used more than ivps https://gist.github.com/aojea/5f82db3ba5f1efd59bb73f4b28614a6a",
+                                                        "author": {
+                                                            "login": "aojea"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1430698073",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I kind of agree. Random is random, but people expect too much of other schedulers, even \"rr\". Like the endless discussion of \"initial distribution\", mentioned for instance in #121591 (comment). Even maglev-hashing doesn't work out-of-the-box in the way people expect.",
+                                                        "author": {
+                                                            "login": "uablrek"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1430938479",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "No plan at the moment. I just read the nft doc's and saw that it can be done. Easily.\nBut I can't say I have any strong opinions about it, except that is may make some current users of ipvs more comfortable with the upgrade as mentioned in the description. But people may select ipvs for other reasons than \"rr\", e.g. get rid of the \"probability chain\" in iptables, that can look horrible for many endpoints, or simply that they know ipvs and it's easier to understand (my case). Or they want another scheduler, which can't be supported by nftables anyway.",
+                                                        "author": {
+                                                            "login": "uablrek"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1430943279",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I made some experiments of my own with K8s load-balancing, but without any http considerations, only plain tcp connects, at: https://github.com/uablrek/xcluster-ovls/tree/main/k8s-load-balancing\nThe hardest part was to create the table with Unix/Linux commands, please see:\nhttps://github.com/uablrek/xcluster-ovls/blob/510cca913b632ae0a8506c45bf69d92bc1e6373e/k8s-load-balancing/k8s-load-balancing.sh#L72",
+                                                        "author": {
+                                                            "login": "uablrek"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1430954376",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "But yes, my thought was a config option.",
+                                                        "author": {
+                                                            "login": "uablrek"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1431253807",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "ChatGPT thinks IPTables proxy uses round-robbin algorithm, directing new requests to next destination in the list of pods.  Maybe that is what people think/expect in general - round-robin rather than random \ud83e\udd14\nhttps://chat.openai.com/share/20271990-883b-476b-b5b0-3c2d2b7efbaf",
+                                                        "author": {
+                                                            "login": "aroradaman"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1431275620",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It should be configurable. For now random, round-robin and hash could be supported, https://wiki.nftables.org/wiki-nftables/index.php/Load_balancing. I think someone out there is already implementing maglev-hashing. But it may be a good idea to keep it simple, and just do random. After all, it has worked fine for the vast majority of K8s users.",
+                                                        "author": {
+                                                            "login": "uablrek"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1431346263",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I advocate for trying to keep the same behavior as in iptables, but @danwinship is leading this feature, let's see what he thinks",
+                                                        "author": {
+                                                            "login": "aojea"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1431510065",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 2394,
+                        "title": "Add support for `CollapsedDocStrings` in `@meta` block",
+                        "repository": {
+                            "nameWithOwner": "JuliaDocs/Documenter.jl",
+                            "primaryLanguage": {
+                                "name": "Julia"
+                            }
+                        },
+                        "createdAt": "2024-01-08T03:51:58Z",
+                        "mergedAt": "2024-02-04T23:41:31Z",
+                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "goerz"
+                        },
+                        "editor": null,
+                        "body": "Setting `DocStringsCollapsed = true` in the `@meta` block of a particular page essentially clicks the \"Collapse all docstrings\" in the navigation bar after the page loads, collapsing all docstrings on that page.\r\n\r\nI think the approach of just having JavaScript click the collapse button is the right one here: First, I'm not sure that it would be possible to write out the page in a collapsed state, or at least not without doing some pretty gnarly rewrites of the `HTMLWriter`. More importantly, rendering the page expanded and then collapsing it with JavaScript seems like the right thing to do from an accessibility standpoint: We'd want the page to still be useful without JavaScript. I've been known to access API documentation in the terminal with `w3m`, so not relying on JavaScript to render the core content is something I actually care about. Screenreaders probably also wouldn't like if all docstrings initially rendered as `hidden`.\r\n\r\nCloses #2282",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I feel that ideally we'd do this by statically generating the necessary HTML. It looks like we use display: none on the section tags.. and then update some other stuff. Ideally, we'd have a class on the article tag that toggles everything.\nHow much effort would you be willing to put into this? I didn't test this yet, but I assume that this works, and we can merge this as is, and refactor later as well.",
+                                                        "author": {
+                                                            "login": "mortenpi"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1451844771",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "More importantly, rendering the page expanded and then collapsing it with JavaScript seems like the right thing to do from an accessibility standpoint: We'd want the page to still be useful without JavaScript.\n\nAh.. that is a fair point actually. We should indeed make sure that it loads uncollapsed if you don't have JS enabled. So now I'm coming around to this approach.",
+                                                        "author": {
+                                                            "login": "mortenpi"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1451845250",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Right. I'd still advocate for going with the approach in this PR. I started out with trying to write out the collapsed HTML if the option is set until I realized that:\n(a) It's much more difficult to implement that way. In fact, I'm not sure that I'd be able to do it in any reasonable amount of time.\n(b) \"Collapsed\" means display: none, which removes the content entirely without JS, which seems like a bad idea.\nThe test in the PR only checks for the presence of the injected JS. I don't think there's much I can do beyond that. I did test locally that the JS does what it's supposed to (very nicely, in fact). What I could do as an additional test is to use the feature in the Documenter documentation. Maybe collapsing all the Internal API pages by default?",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1451966296",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeah, let's go with the JS approach.\nIt currently does have the problem that you can see all the docstrings collapsing when you navigate to the page though. Maybe @Hetarth02 has some ideas how to work around that.",
+                                                        "author": {
+                                                            "login": "mortenpi"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1452800293",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Interesting, I will definitely take a look into this.",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1452856024",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@Hetarth02 I'd appreciate that! You might be better at JS than me. I'm having real trouble getting it to load correctly. In my first iteration, it worked fine locally but only 90% of the time in Chrome and only 1% of the time in Safari. I'm guessing the script was running too early. In the current iteration, I've tried to move the <script> tag to the end of the file, but that's still behaving the same way (i.e., not working in Safari). I also tried putting it in an external script (I think local scripts load before external scripts, which may be part of the problem), but that was much more complicated to implement, and then just didn't work at all. I can push that branch again somewhere if you'd like to take a look at it.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1452874609",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It currently does have the problem that you can see all the docstrings collapsing when you navigate to the page though\n\nYeah, I can't decide whether it's a problem or whether I actually kinda like it. But in any case, I think jQuery is handling the collapse animation. Maybe there's a way to temporarily disable the animation or at least speed it up?",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1452875696",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, Jquery handles the animation and there is a way to speed it up.\nI also think that, initially appearing as open then getting closed is okay.",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1452878063",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I can push that branch again\n\nPushed to https://github.com/JuliaDocs/Documenter.jl/tree/mg/meta-docstrings-collapsed2. This one doesn't work at all, though, and I'm not sure why.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1452883918",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm somewhat out of my depth when it comes to JS. Does anything from the discussion I had with ChatGPT seem useful here? https://chat.openai.com/share/a5c0b599-79f0-46e5-9840-74984896d398\nThe suggestion\n\nModify documenter.js to dispatch a custom event when it has fully loaded and executed. Then, in your script at the end of the page, add an event listener for this custom event before executing your code.\n\ndoesn't sound entirely implausible.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1453859719",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@goerz Which branch should I check from?\nmg/meta-docstrings-collapsed2 or mg/meta-docstrings-collapsed",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459539083",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Preferably, mg/meta-docstrings-collapsed. The other one was an attempt to put the JS in a separate script file. It was both more complicated and didn't actually work, but I just wanted to keep the branch around in case mg/meta-docstrings-collapsed doesn't work out and I need to get back to it.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459554448",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "mg/meta-docstrings-collapsed works perfectly when looking at documentation locally with LiveServer, but doesn't work reliably when looking at the online documentation, e.g. at https://documenter.juliadocs.org/previews/PR2394/lib/internals/anchors/. In Chrome, it works most of the time, in Safari, it does not work most of the time. Presumably, the issue is the asynchronous execution of JS and the code that clicks the collapse button firing too early.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459561035",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@goerz So, I fiddled around a bit. I have found a way which I think will work.\nBasically, what we will do is save all the @meta flags in data attribute of a div element. Something like below,\n<div data-docstringscollapsed=\"true\"></div>\nThen add a js script, which will perform the necessary actions for each flags. For example, like this\n// assets/html/js/metadata.js\n\n// libraries: jquery\n// arguments: $\n\nlet docstringscollapsed = $(\"div[data-docstringscollapsed]\").data();\n\nif (docstringscollapsed) {\n  $(\"#documenter-article-toggle-button\").click();\n}\nDoing this will always ensure that, all the scripts and DOM content will be loaded. Hence, it might mitigate what we are currently facing.",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459634416",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "That sounds good! Do you want to just push to the mg/meta-docstrings-collapsed branch? I'm assuming you have permissions \u2013 or make a new branch, if you prefer.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459644657",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think I have the necessary permissions to do so.",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459697400",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I can merge from https://github.com/Hetarth02/Documenter.jl/ into my PR then. Let me know which branch.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459709672",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Alright, will do so. Let me iron some things out and will ping you when I am done.",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1459717966",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@goerz Sorry for the delay, I have pushed the changes to Draft-PR-2394. Also, made an PR to this branch.",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1463774307",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "No worries! Thanks for taking a look! I'll check it out.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1463790058",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@goerz Just FYI, this is just a rudimentary implementation from my side. There is of course room for improvement in logic.\ud83d\ude05",
+                                                        "author": {
+                                                            "login": "Hetarth02"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1463912569",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It works perfectly! Thanks for coming up with the approach that makes this reliable!",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1463956341",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0e034e5",
+                                                            "authoredDate": "2024-01-08T02:50:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This seems fine to me. It still shows the close-animation after the page is loaded. I don't mind it that much, but @mortenpi might still prefer if we speed it up.\n@Hetarth02 Do you know what to add to control the animation speed?",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1463958533",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fe1b190",
+                                                            "authoredDate": "2024-01-23T20:27:12Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Seems a little unrelated to the PR, but I just kept it in",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1463959065",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fe1b190",
+                                                            "authoredDate": "2024-01-23T20:27:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Marked as \"experimental\" so we can still change this even after the PR is merged/released. For example, #2394 (comment)",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1463983148",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6c43682",
+                                                            "authoredDate": "2024-01-23T20:55:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think I figured it out: e5b84d3\nThe currently deployed preview documentation disables the animation completely. Better? I'm okay with either.",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1464233043",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fe1b190",
+                                                            "authoredDate": "2024-01-23T20:27:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This whole thing probably needs to be in a $(document).ready(function () { ... }?",
+                                                        "author": {
+                                                            "login": "mortenpi"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1471955796",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6cff39e",
+                                                            "authoredDate": "2024-01-24T02:53:19Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's try it! https://documenter.juliadocs.org/previews/PR2394/ should now have that change. Of course, all I can say is that it continues to work for me, so you'll have to let us know :-)",
+                                                        "author": {
+                                                            "login": "goerz"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1472315311",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6cff39e",
+                                                            "authoredDate": "2024-01-24T02:53:19Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Eh, yea, let's just keep it on the top-level. Doing namespacing adds other kinds of complexity. Some of these options will just be ignored by some backends.\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            - `DocStringsCollapsed`: if `true`, collapse all docstrings after loading the page (experimental).\n          \n          \n            \n            - `DocStringsCollapsed`: for output formats that support this (i.e. only [`HTML`](@ref Documenter.HTML) currently), if set to `true`, render all docstrings as collapsed by default.",
+                                                        "author": {
+                                                            "login": "mortenpi"
+                                                        },
+                                                        "url": "https://github.com/JuliaDocs/Documenter.jl/pull/2394#discussion_r1477009690",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6c43682",
+                                                            "authoredDate": "2024-01-23T20:55:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "@goerz I took the liberty of pushing a DocStringsCollapsed -> CollapsedDocString bikeshed. Happy to revert it if you prefer DocStringsCollapsed. From my side, I'm happy if we merge this!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjMw",
+                "hasNextPage": true,
+                "hasPreviousPage": true,
+                "startCursor": "Y3Vyc29yOjIx"
+            },
+            "issueCount": 34
+        }
+    }
+}

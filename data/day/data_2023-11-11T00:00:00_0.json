@@ -1,0 +1,859 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 38,
+                        "title": "UTF-8 ranges for python binding",
+                        "repository": {
+                            "nameWithOwner": "jerinphilip/slimt",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2023-11-11T14:19:04Z",
+                        "mergedAt": "2023-12-02T16:35:02Z",
+                        "url": "https://github.com/jerinphilip/slimt/pull/38",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "georg3tom"
+                        },
+                        "editor": {
+                            "login": "georg3tom"
+                        },
+                        "body": "- The `AnnotatedText` class now converts ranges between `Byte` and `UTF8` encodings.\r\n- The `translate` method in the `PyService` class now includes an optional `encoding` parameter for user-specified encoding during text translation.\r\n- The `Response` class now features a `to` method for easy encoding conversion of both source and target text.\r\n- New `test_encoding.py` to test range conversion codepaths.\r\n- Removed broken word extraction methods, consumers are now expected to slice via ranges which reflect the active encoding (Byte/UTF-8).\r\n",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We wanted these functions, the ranges are intact after UTF8 manipulations. It's the other one above that converts to a string that is broken.",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1390407609",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5c3fd30",
+                                                            "authoredDate": "2023-11-12T09:35:15Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "As a general rule of thumb, cls.do_x(x) -> cls.do(x) leads to more pleasant code. In this case see the difference (at call-site):\n-annotation.update_words(words)\n+annotation.update(words)\n\n-annotated.update_annotation(annotation)\n+annotated.update(annotation)\nI realize it's not followed very rigidly, but let's try to do better. Classes are nouns. Functions are verbs. Keep an optimization objective of brevity in names.",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1390408828",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5c3fd30",
+                                                            "authoredDate": "2023-11-12T09:35:15Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If we take a closer look, this does not require anything other than the information with AnnotatedText to operate. This can therefore be collapsed to a member (and is better of being so). This has the benefits of disentangling caller code, making it cleaner. We can have caller syntax as one of the following:\nAnnotatedText::to_utf8_in_place() // okay compromise\n\n// A more over-engineered version. When we get to WebAssembly\n// UTF-16 will be useful, because JavaScript uses UTF16. \nenum class Encoding {\n   Byte,\n   UTF8\n   //, UTF16 // For later.\n};\n\n// AnnotatedText::transform_in_place(Encoding encoding){ \nAnnotatedText::to(Encoding encoding){\n    // Conversion. \n    // There'll be N^2, but we can make it N by going through \n    // a sane intermediate. \n}",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1390409819",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5c3fd30",
+                                                            "authoredDate": "2023-11-12T09:35:15Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Are we sure the extra end is required? Can we have some comments explaining stuff?",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1390410210",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5c3fd30",
+                                                            "authoredDate": "2023-11-12T09:35:15Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "There's some code here that's traverses through words. One time-tested suitable mechanism to do this is an iterator.\nclass WordIterator {\n  public:\n    WordIterator(const AnnotatedText &annotated): annotated_(annotated){}\n    // Implement ++, --, etc. We can keep this minimum and enhance as required, FWIW\n    // No need to follow full iterator spec.\n  private:\n    const AnnotatedText &annotated_;\n    size_t sentence_id_;\n    size_t word_id_; \n};\nThis will lead to a calling code:\n   WordIterator current(annotated);\n   // ... \n   \n   for(char c: annotated.text){\n     // ...\n     current++;\n   }\nHiding away some stuff that makes this section unpleasant.",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1390411925",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5c3fd30",
+                                                            "authoredDate": "2023-11-12T09:35:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Just so it's clear, we're looking for a calling code:\n  static void change_ranges_to_utf8(Response &response) {\n    response.source.to(Encoding::UTF8);\n    response.target.to(Encoding::UTF8);\n  }",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1390412890",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5c3fd30",
+                                                            "authoredDate": "2023-11-12T09:35:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "There are plans of reusing WordIterator. We're trying to make the Python API pleasant using something similar:\n  Python: Word, Sentence Iterators \n# Wrappers to hide ugliness, easy prototyping in python.\n# Eventually we'll push this down to pybind11/C++\nclass WordIterator:\n  def __init__(self, annotation, sentence_id):\n    self._sentence_id = sentence_id\n    self._annotation = annotation\n\n  def __iter__(self):\n    self._word_id = -1\n    return self\n\n  def __next__(self):\n    self._word_id += 1\n    if self._word_id >= self._annotation.word_count(self._sentence_id):\n      raise StopIteration\n    return self\n\n  def surface(self):\n    range = self.range()\n    return self._annotation.text[range.begin:range.end]\n\n  def range(self):\n    return self._annotation.word_as_range(self._sentence_id, self._word_id)\n\n  def id(self):\n    return (self._sentence_id, self._word_id)\n\nclass SentenceIterator:\n  def __init__(self, annotation):\n    self._annotation = annotation\n    self._sentence_id = -1\n\n  def __iter__(self):\n    self._sentence_id = -1\n    return self\n\n  def __next__(self):\n    self._sentence_id += 1\n    if self._sentence_id >= self._annotation.sentence_count():\n      raise StopIteration\n    return self\n\n  def words(self):\n    return WordIterator(self._annotation, self._sentence_id)\n\n  def __repr__(self):\n    return f'{self._sentence_id}'",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1390413506",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5c3fd30",
+                                                            "authoredDate": "2023-11-12T09:35:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The following should allow the calling client to control whether to transform indices or not. This should allow you to get the response without the transformation, in python use text.encode()[range.begin:range.end] to compare with the one with transformation in python (text[range.begin:range.end]), and craft a test without hard-coding values.\nWhat do you think? You might have to pybind the new enum, though.\n std::vector<Response> translate(std::shared_ptr<Model> model, py::list &texts,\n-                                  bool html) {\n+                                  bool html, \n+                                  Encoding encoding = Encoding::UTF8) {\n   ...\n   \n+    if(encoding == Encoding::UTF8){\n+         change_ranges_to_utf8(response);\n+    }\n}",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1393373785",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3712714",
+                                                            "authoredDate": "2023-11-14T19:20:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Do we use --? I realize I mentioned -- to motivate iterator, but I also remember saying bare minimum required. Two things I learned from past:\n\nBe careful around -- on size_t. Because after 0, it overflows and stuff.\nif (or branches) inside these operators are not preferable. When we relax continuity constraints, we should be able to simply use the container's iterator std::vector<Range>. Right now we have to generate the Word from begin markers which prevent us from doing it.",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1395714417",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4904044",
+                                                            "authoredDate": "2023-11-16T09:09:56Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It's desirable to make this function idempotent. i.e, successive applications behave as one would expect.\nannotated.to(Encoding::UTF8); // Converts to UTF-8\nannotated.to(Encoding::UTF8); // Successive same call, should not change, because in UTF-8.\nannotated.to(Encoding::Byte); // Convert back to Byte\nannotated.to(Encoding::Byte); // Successive same call, no change.\nThis requires storing Encoding encoding_ as a property of annotation, and tracking current encoding between conversions of what kind-of ranges we're holding for annotation.\nThe above also allows you to also write else. In general if without else is programmer-error. While this appears to be working for us now, we are creating broken paths when we don't do else that can bite us later.",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1395718668",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4904044",
+                                                            "authoredDate": "2023-11-16T09:09:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Try very very hard to initialize to a legal value when possible. The rule of thumb is to have the object legal at construction. This one should be set to 0, not {}.",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1395729628",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4904044",
+                                                            "authoredDate": "2023-11-16T09:09:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "nit: line between.\nlarger question: Should we enable SeparateDefinitionBlocks: always? It meddles with headers in a way I don't like though. \ud83d\ude05",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1395766417",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4904044",
+                                                            "authoredDate": "2023-11-16T09:09:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Cant we do Range&, because this is pointing to range_? Might help if we eventually manage to get indices to actual ranges (monotonic, but not continuous).",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1398253558",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "51a367c",
+                                                            "authoredDate": "2023-11-18T15:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "else { SLIMT_ABORT(\"Unimplemented\"); } will prevent us from tripping over when we have UTF-16.",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1398253825",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "51a367c",
+                                                            "authoredDate": "2023-11-18T15:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think this is broken:\n\nThe if condition needs to have source == src && target == tgt to be future proof and complete.\nWe're not tracking the unicode continuation character to selectively adjust the unicode pointer, so the mappings are wrong.\n\nThis should surface in tests, IIUC.",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1398483084",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d51e49e",
+                                                            "authoredDate": "2023-11-19T19:04:50Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Check for all segments. I was thinking of using python for the gold truth, instead of our other (C++) implementation.\nfrom collections import namedtuple\n\nPair = namedtuple(\"Pair\", 'byte utf8')\n\n# ... \n\nutf8 : AnnotatedText = response_byte.source\nbyte : AnnotatedText = response_utf8.source\n\ntext = Pair(\n    byte = utf8.text.encode(), # encode to get bytes, via Python (gold)\n    utf8 = utf8.text\n)\n\nfor sentence_id, word_id in generate(...):\n  range = Pair(\n    byte = byte.word_as_range(sentence_id, word_id),\n    utf8 = utf8.word_as_range(sentence_id, word_id)\n  )\n  \n  expected = text.utf8[range.utf8.begin:range.utf8.end]\n  \n  # Slice \"byte\" range using info, and decode back to utf-8 to compare. \n  reconstructed = text.byte[range.byte.begin:range.byte.end].decode(\"utf-8\")\n  \n  assert(expected == reconstructed)",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1398484627",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d51e49e",
+                                                            "authoredDate": "2023-11-19T19:04:50Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Remove commented code segment?",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1402588424",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This one is missing default argument, which should be py::arg(\"encoding\") = Encoding.UTF8. Does this not cause problems?",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1402589074",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This checks the codepath of Byte -> UTF8 with gold truths generated from python. The codepaths of no transfer, codepaths of UTF8 -> Byte remain untested, hurting coverage.",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1402590001",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "-    WordIterator current(*this);\n\n-    for (; current.has_next(); ++current) {\n+    for (WordIterator current(*this); current.has_next(); ++current) {",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1402592631",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This if can be changed to dispatch (after moving the change_ranges_to_utf8 function to relay the args: see #38 (comment)).\ntransform_in_place(response, encoding)\nIf not change, the early return will take care of it.",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1402593308",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In the current state, this function is private to Python (because we motivated this UTF8 notions by using Python). However, this part (converting a response to utf8 - which is simply relaying the call to constituent annotations) also finds use sometimes in CPP (example: translateLocally, KDE).\nSo might as well take it out and expose in the C++ library, and allow Python to use.",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1402595607",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Follow  = 0 for consistent syntax.",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1402595897",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Follow encoding_ = Encoding::Byte. This is nitpicking, but let's keep stuff consistent.",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1402596172",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This works only for European Languages and Arabic, for full UTF-8 index mapping we have to also account for 3-byte or 4-byte unicode sequences in addition to the 2 byte and 1 byte sequence accounted for here.\nhttps://chat.openai.com/share/e070b0e8-ad39-4a9f-8bf3-29b8a5236392",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1402822292",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "58f2351",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1403368147",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "adc0ede",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1403368408",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We can use emojis to check multi-byte sequences, I think. I remember you put in european accented characters, can you test emojis as well within the higher level Python script and gold truth we have?",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1403605669",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "a410677",
+                                                        "author": {
+                                                            "login": "georg3tom"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1403678807",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "a410677",
+                                                        "author": {
+                                                            "login": "georg3tom"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1403678864",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "763263b",
+                                                        "author": {
+                                                            "login": "georg3tom"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1403679387",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "51a367c",
+                                                            "authoredDate": "2023-11-18T15:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "5d49b10",
+                                                        "author": {
+                                                            "login": "georg3tom"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1403685439",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5c3fd30",
+                                                            "authoredDate": "2023-11-12T09:35:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "a31d578",
+                                                        "author": {
+                                                            "login": "georg3tom"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1403690125",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "a106419",
+                                                        "author": {
+                                                            "login": "georg3tom"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1404589308",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "a106419",
+                                                        "author": {
+                                                            "login": "georg3tom"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1404589368",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is static keyword necessary here? Dropping it should work, yes?\nhttps://stackoverflow.com/questions/780730/c-c-static-function-in-header-file-what-does-it-mean",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1408588809",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "df6f68a",
+                                                            "authoredDate": "2023-11-28T19:58:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I traced the missing stackoverflow answer - https://stackoverflow.com/a/3586973/4565794\nThis is my bad, wrong assumptions. The code skips every character that's a continuation so indexing is correct.\nApologies.\nWe may remove the function (or correct it and use it), but keep the tests so we know they map correctly.",
+                                                        "author": {
+                                                            "login": "jerinphilip"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1408670109",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "477e671",
+                                                        "author": {
+                                                            "login": "georg3tom"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1411152152",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "df6f68a",
+                                                            "authoredDate": "2023-11-28T19:58:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "a56bb56",
+                                                        "author": {
+                                                            "login": "georg3tom"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1412531896",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "7a9c418",
+                                                        "author": {
+                                                            "login": "georg3tom"
+                                                        },
+                                                        "url": "https://github.com/jerinphilip/slimt/pull/38#discussion_r1412532772",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7565d08",
+                                                            "authoredDate": "2023-11-22T13:35:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

@@ -1,0 +1,746 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 66,
+                        "title": "criando arquivos do k8s + shell de execu\u00e7\u00e3o unificado",
+                        "repository": {
+                            "nameWithOwner": "g12-4soat/tech-lanches",
+                            "primaryLanguage": {
+                                "name": "C#"
+                            }
+                        },
+                        "createdAt": "2023-11-20T22:01:37Z",
+                        "mergedAt": "2023-11-24T00:45:20Z",
+                        "url": "https://github.com/g12-4soat/tech-lanches/pull/66",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "gabriellima09"
+                        },
+                        "editor": {
+                            "login": "gabriellima09"
+                        },
+                        "body": "Relacionado a #65 \r\n\r\n---\r\n\r\nTexto usado no chat-gpt para gerar os arquivos:\r\nLink para o chat gerado: https://chat.openai.com/share/fdf5e03a-c4b0-498a-968c-8585714840d4\r\n\r\n> generate kubernetes yaml files for an application having the following information:\r\n> \r\n> the k8s files should contain\r\n> - the applications are in .net 6 \r\n> - all files should match the namespace \"techlanches\". a file/command to create it is a must\r\n> - pod for an api called techlanches-api (hosted in 5050 port internally & expose in port 80)\r\n> - pod for an worker (background service) called techlanches-worker. the worker is a IHostedBackground service, so include the /health endpoint to it in the configs (use port 5060)\r\n> - the images for api/worker pods are in dotnet 6, under \"g12-4soat\" dockerhub user and they're named techlanches-api and techlanches-worker respectively. they are public so no auth is necessary\r\n> - pod and volumes (separate pv/pvc yaml files) for a sql server 2019 database image\r\n> - hpa files for both api and worker having scale up to 3 pods (standart) and scale down to 1 pod when cpu and/or memory are under 50%\r\n> - secrets to store DefaultConnection string to database that will be used for both api/worker\r\n> - configMap in case the worker needs to communicate to the api via http requests\r\n> - generate separate deployment files for all pods\r\n> - generate separate loadbalancer service files for the api and worker\r\n> - generate probes for api and worker\r\n> - link all necessary variables (config, secrets) between these files\r\n> \r\n> show the command sequences to apply all those scripts",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-20T22:02:41Z",
+                                    "bodyText": "Links relacionados a health check em background services para Probes (liveness & readness)\nhttps://github.com/rahulrai-in/worker-service-kubernetes/\nhttps://www.bencode.net/posts/k8s-worker/",
+                                    "url": "https://github.com/g12-4soat/tech-lanches/pull/66#issuecomment-1819875888",
+                                    "author": {
+                                        "login": "gabriellima09"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-20T22:27:21Z",
+                                    "bodyText": "Recomenda\u00e7\u00e3o microsoft para cria\u00e7\u00e3o de bancos de dados em kubernetes\nhttps://learn.microsoft.com/en-us/sql/linux/sql-server-linux-kubernetes-best-practices-statefulsets?view=sql-server-ver16",
+                                    "url": "https://github.com/g12-4soat/tech-lanches/pull/66#issuecomment-1819905423",
+                                    "author": {
+                                        "login": "gabriellima09"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-20T22:51:05Z",
+                                    "bodyText": "rela\u00e7\u00e3o de pv, pvc e storage class\nhttps://medium.com/devops-mojo/kubernetes-storage-options-overview-persistent-volumes-pv-claims-pvc-and-storageclass-sc-k8s-storage-df71ca0fccc3\nhttps://stackoverflow.com/questions/41583672/kubernetes-deployments-vs-statefulsets\nhttps://kubernetes.io/blog/2016/12/statefulset-run-scale-stateful-applications-in-kubernetes/\nhttps://bluexp.netapp.com/blog/cvo-blg-kubernetes-deployment-vs-statefulset-which-is-right-for-you",
+                                    "url": "https://github.com/g12-4soat/tech-lanches/pull/66#issuecomment-1819932793",
+                                    "author": {
+                                        "login": "gabriellima09"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-21T19:35:03Z",
+                                    "bodyText": "add metrics, serviceaccounts, roles, role bindings",
+                                    "url": "https://github.com/g12-4soat/tech-lanches/pull/66#issuecomment-1821562608",
+                                    "author": {
+                                        "login": "gabriellima09"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-23T22:58:45Z",
+                                    "bodyText": "add defini\u00e7\u00e3o de resources dos yamls (limites de cpu e mem\u00f3ria)",
+                                    "url": "https://github.com/g12-4soat/tech-lanches/pull/66#issuecomment-1824981503",
+                                    "author": {
+                                        "login": "gabriellima09"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T00:08:09Z",
+                                    "bodyText": "incluir probes",
+                                    "url": "https://github.com/g12-4soat/tech-lanches/pull/66#issuecomment-1825010655",
+                                    "author": {
+                                        "login": "gabriellima09"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T00:24:50Z",
+                                    "bodyText": "verificar e testar se hpas sobrescrevem replicas/replicaset do deployment",
+                                    "url": "https://github.com/g12-4soat/tech-lanches/pull/66#issuecomment-1825018236",
+                                    "author": {
+                                        "login": "gabriellima09"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 114,
+                        "title": "Show info header only on first command",
+                        "repository": {
+                            "nameWithOwner": "shakacode/heroku-to-control-plane",
+                            "primaryLanguage": {
+                                "name": "Ruby"
+                            }
+                        },
+                        "createdAt": "2023-11-20T17:21:04Z",
+                        "mergedAt": "2023-12-01T20:44:33Z",
+                        "url": "https://github.com/shakacode/heroku-to-control-plane/pull/114",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "ahangarha"
+                        },
+                        "editor": null,
+                        "body": "\r\n---\r\nCloses #111 ",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-25T08:55:19Z",
+                                    "bodyText": "In b38664f, I used class variable because I couldn't implement the solution using a class instance variable.\nIn 16a829f, I used class instance variable but with a cost of exposing show_info_header as public interface and calling it with Cpl::Cli.show_info_header",
+                                    "url": "https://github.com/shakacode/heroku-to-control-plane/pull/114#issuecomment-1826258145",
+                                    "author": {
+                                        "login": "ahangarha"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-01T20:44:27Z",
+                                    "bodyText": "LGTM",
+                                    "url": "https://github.com/shakacode/heroku-to-control-plane/pull/114#issuecomment-1836752067",
+                                    "author": {
+                                        "login": "justin808"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-01T20:44:43Z",
+                                    "bodyText": "@ahangarha clear on why this is better?",
+                                    "url": "https://github.com/shakacode/heroku-to-control-plane/pull/114#issuecomment-1836752339",
+                                    "author": {
+                                        "login": "justin808"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-02T19:30:42Z",
+                                    "bodyText": "clear on why this is better?\n\nSure!",
+                                    "url": "https://github.com/shakacode/heroku-to-control-plane/pull/114#issuecomment-1837235583",
+                                    "author": {
+                                        "login": "ahangarha"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is this the best way to do this? In other places, we use instance/class variables:",
+                                                        "author": {
+                                                            "login": "rafaelgomesxyz"
+                                                        },
+                                                        "url": "https://github.com/shakacode/heroku-to-control-plane/pull/114#discussion_r1403334504",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4cfaf11",
+                                                            "authoredDate": "2023-11-20T17:18:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I am not happy about it either but this was the only way I could implement it.\nI tried this at first. But when we run a command (run CLI start method) in another command, we get into a new instance, and we don't have access to the earlier instance variables.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/heroku-to-control-plane/pull/114#discussion_r1404562743",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4cfaf11",
+                                                            "authoredDate": "2023-11-20T17:18:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This raises a WTF...\nWhere in the world did you get the ObjectSpace idea?\nCounting object instances is a total hack.\nYou could probably set a static counter on or boolean on the CPL class. In other words, instance variable on the class, not the instance.\nUse a class instance variable (aka static) on the cpl class.\nhttps://chat.openai.com/share/e62c8db1-0622-4617-b8a6-5c3a4d82f387",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/heroku-to-control-plane/pull/114#discussion_r1404708568",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4cfaf11",
+                                                            "authoredDate": "2023-11-20T17:18:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\"already\" feels redundant. showed_info_header already gets the point across.",
+                                                        "author": {
+                                                            "login": "rafaelgomesxyz"
+                                                        },
+                                                        "url": "https://github.com/shakacode/heroku-to-control-plane/pull/114#discussion_r1405147053",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "16a829f",
+                                                            "authoredDate": "2023-11-25T11:00:56Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can we not just call show_info_header directly without Cpl::Cli, since we're inside of the class?",
+                                                        "author": {
+                                                            "login": "rafaelgomesxyz"
+                                                        },
+                                                        "url": "https://github.com/shakacode/heroku-to-control-plane/pull/114#discussion_r1405147230",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "16a829f",
+                                                            "authoredDate": "2023-11-25T11:00:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "No.\nIt seems we are defining instance methods for each command. If we want to call static methods from instance methods, we must prefix it with the class. This confusion was one of the reasons I tried to find another way to implement this feature.\nI can replace Cpl::Cli with self.class, but I think this is clearer.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/heroku-to-control-plane/pull/114#discussion_r1405348325",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "16a829f",
+                                                            "authoredDate": "2023-11-25T11:00:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Looks good to me, just one thing I missed about initializing the variable, but no need for re-review.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We don't need to initialize it.",
+                                                        "author": {
+                                                            "login": "rafaelgomesxyz"
+                                                        },
+                                                        "url": "https://github.com/shakacode/heroku-to-control-plane/pull/114#discussion_r1406016725",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "77ddae2",
+                                                            "authoredDate": "2023-11-26T08:10:21Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You're right.\nMaybe it would be even better to move show_info_header to a helper then, because it would be easier to call it. But the current way works too, so up to you. I'll approve the PR.",
+                                                        "author": {
+                                                            "login": "rafaelgomesxyz"
+                                                        },
+                                                        "url": "https://github.com/shakacode/heroku-to-control-plane/pull/114#discussion_r1406017865",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "16a829f",
+                                                            "authoredDate": "2023-11-25T11:00:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Since we use it once, let's keep it here. Let's move it there when we need to. Agree?",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/heroku-to-control-plane/pull/114#discussion_r1406463687",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "16a829f",
+                                                            "authoredDate": "2023-11-25T11:00:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done! I removed it.\nI thought an explicit default value assignment would be better.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/heroku-to-control-plane/pull/114#discussion_r1406469550",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "77ddae2",
+                                                            "authoredDate": "2023-11-26T08:10:21Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 9227,
+                        "title": "(PC-25708)[API] fix: handle duplication during offer creation/edition",
+                        "repository": {
+                            "nameWithOwner": "pass-culture/pass-culture-main",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-11-20T16:00:16Z",
+                        "mergedAt": "2023-11-27T16:23:43Z",
+                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "ogeber"
+                        },
+                        "editor": {
+                            "login": "jira"
+                        },
+                        "body": "## But de la pull request\r\n\r\nLorsqu'on va mettre en place la pagination (en mettant le FF WIP_PRO_STOCK_PAGINATION \u00e0 True dans un premier temps), on va devoir g\u00e9rer la duplication d'offre (c\u00e0d la cr\u00e9ation d'une offre d\u00e9j\u00e0 existante) par le backend et non plus par le front-end. \r\n\r\nCe ticket sera merged dans la branche en cours de dev front [PC-25429](https://github.com/pass-culture/pass-culture-main/tree/PC-25429-use-paginated-route-for-stock-event) \r\n\r\nLes fixme seront supprim\u00e9s lorsqu'on va supprimer le FF WIP_PRO_STOCK_PAGINATION (pr\u00e9vu dans le ticket jira PC-25945)\r\n\r\nTicket Jira (ou description si BSR) : https://passculture.atlassian.net/browse/PC-25708\r\n\r\n## V\u00e9rifications\r\n\r\n- [x] J'ai \u00e9crit les tests n\u00e9cessaires\r\n- [ ] J'ai relu attentivement les migrations, en particulier pour \u00e9viter les _locks_, et je pr\u00e9viens les \u00e9quipes Sh\u00e9rif et Data\r\n- [ ] J'ai ajout\u00e9 des screenshots pour d'\u00e9ventuels changements graphiques\n\n[PC-25429]: https://passculture.atlassian.net/browse/PC-25429?atlOrigin=eyJpIjoiNWRkNTljNzYxNjVmNDY3MDlhMDU5Y2ZhYzA5YTRkZjUiLCJwIjoiZ2l0aHViLWNvbS1KU1cifQ",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-20T17:04:22Z",
+                                    "bodyText": "Visit the preview URL for this PR (updated for commit 787611a):\nhttps://pc-pro-testing--pr9227-ogeber-pc-25708-hand-nowkbitv.web.app\n(expires Wed, 22 Nov 2023 17:04:14 GMT)\n\ud83d\udd25 via Firebase Hosting GitHub Action \ud83c\udf0e\nSign: 032d233ee67e1c50d6af12e29c936c7076770eb1",
+                                    "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#issuecomment-1819469155",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u00c0 partir du moment o\u00f9 on active le FF on ne fait plus rien ? Il n\u2019y a pas un bout du bloc du dessous qui devrait \u00eatre d\u00e9sindent\u00e9 ?",
+                                                        "author": {
+                                                            "login": "damien-ramelet"
+                                                        },
+                                                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#discussion_r1400585244",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7033da7",
+                                                            "authoredDate": "2023-11-20T15:45:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u00c7a n\u2019est pas plut\u00f4t le r\u00f4le d\u2019une contrainte d\u2019unicit\u00e9 en DB\u202f?",
+                                                        "author": {
+                                                            "login": "damien-ramelet"
+                                                        },
+                                                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#discussion_r1400590401",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7033da7",
+                                                            "authoredDate": "2023-11-20T15:45:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "C'est vrai que l\u00e0 on fait une requ\u00eate par stock \u00e0 cr\u00e9er. Ce qui peut faire jusqu'\u00e0 2500 requ\u00eate pour une requ\u00eate \u00e0 l'api.\nSi on veut vraiment v\u00e9rifier qu'un stock n'est pas d\u00e9j\u00e0 existant en base je pense qu'on peut le faire d'un coup avant. Au d\u00e9but de la route faire une seule requ\u00eate pour savoir si un stock existe d\u00e9j\u00e0.\nOn pourrait trouver avant coup quels stocks \u00e0 cr\u00e9er existent d\u00e9j\u00e0 et les ignorer",
+                                                        "author": {
+                                                            "login": "mageoffray"
+                                                        },
+                                                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#discussion_r1401750271",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7033da7",
+                                                            "authoredDate": "2023-11-20T15:45:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "(autre) rien \u00e0 voir mais c'est bizarre que StockCreationBodyModel provienne de pcapi.routes.public.books_stocks.serialization",
+                                                        "author": {
+                                                            "login": "cepehang"
+                                                        },
+                                                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#discussion_r1401770306",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "87a253c",
+                                                            "authoredDate": "2023-11-20T15:45:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "La contrainte d'unicit\u00e9 n'est pas possible parce que certains champs sont nullables, comme beginningDatetime et bookingLimitDatetime\nPour rappel, en SQL null est diff\u00e9rent de null sauf dans un select distinct",
+                                                        "author": {
+                                                            "login": "cepehang"
+                                                        },
+                                                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#discussion_r1401774890",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7033da7",
+                                                            "authoredDate": "2023-11-20T15:45:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Voici une piste pour \u00e9viter les N+1 requ\u00eates : https://chat.openai.com/share/7f809ea3-cfcf-4ac2-80b9-1197feff7f1b",
+                                                        "author": {
+                                                            "login": "cepehang"
+                                                        },
+                                                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#discussion_r1401782514",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7033da7",
+                                                            "authoredDate": "2023-11-20T15:45:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@cepehang\nAh bien vu, en effet !",
+                                                        "author": {
+                                                            "login": "damien-ramelet"
+                                                        },
+                                                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#discussion_r1401795915",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7033da7",
+                                                            "authoredDate": "2023-11-20T15:45:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Est-ce qu'on ne pourrait pas r\u00e9gler ce probl\u00e8me avec une contrainte pour les cas o\u00f9 il n'y a pas de dates et une pour les autres lignes ?",
+                                                        "author": {
+                                                            "login": "jeremieb-pass"
+                                                        },
+                                                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#discussion_r1401797670",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7033da7",
+                                                            "authoredDate": "2023-11-20T15:45:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "De base je me disais que c\u2019\u00e9tait certainement faisable de faire:\nCREATE UNIQUE INDEX unique_stock_per_offer ON stock (\"offerId\", \"beginningDatetime\", \"bookingLimitDatetime\", \"price\", \"priceCategoryId\", \"quantity\") WHERE stock.\"isSoftDeleted\" = False\nPour pouvoir avoir un index partiel et g\u00e9rer la contrainte d\u2019unicit\u00e9 sur les stocks qui ne sont pas soft delete. Mais reste effectivement le soucis des colonnes nullable, on peut aussi les exclure de l\u2019index mais il y a du coup un risque de doublon",
+                                                        "author": {
+                                                            "login": "damien-ramelet"
+                                                        },
+                                                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#discussion_r1401801663",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7033da7",
+                                                            "authoredDate": "2023-11-20T15:45:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "(nommage) c'est une liste de stock ici, pas une liste d'id de stocks",
+                                                        "author": {
+                                                            "login": "cepehang"
+                                                        },
+                                                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#discussion_r1403595557",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c4e6baa",
+                                                            "authoredDate": "2023-11-20T15:45:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "(design) je ne suis pas fan du mod\u00e8le pydantic qui contient des r\u00e8gles de validation m\u00e9tiers trop complexes, \u00e7a devrait \u00eatre la responsabilit\u00e9 de l'appelant de ne pas instancier n'importe quoi\n(performance) ici on est en O(n\u00b2) ce qui est inadmissible quand on ne veut pas prendre trop de temps \u00e0 s\u00e9rialiser, je suis d'avis \u00e0 simplement supprimer ce validateur",
+                                                        "author": {
+                                                            "login": "cepehang"
+                                                        },
+                                                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#discussion_r1403598420",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c4e6baa",
+                                                            "authoredDate": "2023-11-20T15:45:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "(nommage) combinations_to_check ou si tu n'aimes pas le pluriel un nom avec list dedans",
+                                                        "author": {
+                                                            "login": "cepehang"
+                                                        },
+                                                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#discussion_r1404429393",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "124ef31",
+                                                            "authoredDate": "2023-11-20T15:45:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "tu n'as pas l'air d'avoir besoin de beginning_later dans ce test",
+                                                        "author": {
+                                                            "login": "cepehang"
+                                                        },
+                                                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#discussion_r1404435530",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "124ef31",
+                                                            "authoredDate": "2023-11-20T15:45:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "(nommage) tu testes la cr\u00e9ation de stocks ici",
+                                                        "author": {
+                                                            "login": "cepehang"
+                                                        },
+                                                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#discussion_r1404437728",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "124ef31",
+                                                            "authoredDate": "2023-11-20T15:45:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Il faut pas qu'il existe pour pouvoir le modifier ?",
+                                                        "author": {
+                                                            "login": "ghaliela"
+                                                        },
+                                                        "url": "https://github.com/pass-culture/pass-culture-main/pull/9227#discussion_r1406168494",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3cf548a",
+                                                            "authoredDate": "2023-11-20T15:45:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

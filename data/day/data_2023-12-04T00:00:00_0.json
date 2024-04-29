@@ -1,0 +1,1980 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 1,
+                        "title": "[LeetCode] Two Sum",
+                        "repository": {
+                            "nameWithOwner": "unlv-evol/test-pareco",
+                            "primaryLanguage": null
+                        },
+                        "createdAt": "2024-01-11T20:59:44Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/unlv-evol/test-pareco/pull/1",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "danielogen"
+                        },
+                        "editor": {
+                            "login": "danielogen"
+                        },
+                        "body": "This PR solves the LeetCode problem: https://leetcode.com/problems/two-sum/description/\r\n\r\nThe implementation is borrowed from ChatGPT: \r\nhttps://chat.openai.com/share/5ed4faed-52c3-45dd-9c6a-1363b3f0dd91",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Your current implementation for the two-sum problem looks efficient, but it doesn't handle the case where no solution is found. The function should return None. See here: https://chat.openai.com/share/f3967d74-3668-4eb4-a547-7bf4ee05d617",
+                                                        "author": {
+                                                            "login": "danielogen"
+                                                        },
+                                                        "url": "https://github.com/unlv-evol/test-pareco/pull/1#discussion_r1449393025",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4783510",
+                                                            "authoredDate": "2024-01-11T20:56:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 33135,
+                        "title": "(Draft) Update GitHbub JSON Schema with GPT",
+                        "repository": {
+                            "nameWithOwner": "airbytehq/airbyte",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-06T05:02:58Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/airbytehq/airbyte/pull/33135",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "aaronsteers"
+                        },
+                        "editor": {
+                            "login": "aaronsteers"
+                        },
+                        "body": "This is an experiment in using GPT to update our JSON schema annotations, especially 'description' properties and foreign key annotations.\r\n\r\nChatGPT convo: https://chat.openai.com/share/c9a65430-d4cb-4dd7-9871-1dd2593d4907",
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 2021,
+                        "title": "#1661: added auto-incrementing identifier in RR",
+                        "repository": {
+                            "nameWithOwner": "Northeastern-Electric-Racing/FinishLine",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2024-01-29T03:39:17Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/Northeastern-Electric-Racing/FinishLine/pull/2021",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "callmejim1226"
+                        },
+                        "editor": {
+                            "login": "callmejim1226"
+                        },
+                        "body": "## Changes\r\n\r\n- Added auto-incrementing integer field in RR scheme as an identifier\r\n-  Updated the RR shared type\r\n- Updated all RR getter endpoints to return RR with its identifier field\r\n- Added SQL code in the new migration file so all old RRs get an identifier assigned in the `dateCreated` order\r\n- Confirmed `yarn prisma:reset` works fine\r\n\r\n## Test Cases\r\n\r\n- Case A\r\n- Confirmed all RR getter endpoints return RR with its identifier field\r\n- Case B\r\n- Confirmed RR seed data gets identifier field\r\n\r\n## Screenshots\r\n\r\n### RR seed data gets an identifier field\r\n![image](https://github.com/Northeastern-Electric-Racing/FinishLine/assets/91857946/58681386-0b4c-422e-8535-8c8ae3ef035c)\r\n\r\n### Get a single RR with an identifier\r\n![#1661-RR-get-updated-RR](https://github.com/Northeastern-Electric-Racing/FinishLine/assets/91857946/8a7d77c7-b14d-4a89-bbe3-2181b50ceeeb)\r\n\r\n### Get all RR with an identifier\r\n![#1661-RR-get-all-RRs](https://github.com/Northeastern-Electric-Racing/FinishLine/assets/91857946/bb743fdd-0a2c-4fbc-8691-9cc3dc44a1a3)\r\n\r\n### All old RRs get sorted in dateCreated order\r\n![image](https://github.com/Northeastern-Electric-Racing/FinishLine/assets/91857946/b5579775-bf0d-4b01-a17c-deb3865398c7)\r\n\r\n\r\n## Checklist\r\n\r\nIt can be helpful to check the `Checks` and `Files changed` tabs.\r\nPlease review the [contributor guide](https://nerdocs.atlassian.net/wiki/spaces/NER/pages/8060929/Software+Contributor+Guide) and reach out to your Tech Lead if anything is unclear.\r\nPlease request reviewers and ping on slack only after you've gone through this whole checklist.\r\n\r\n- [x] All commits are tagged with the ticket number\r\n- [x] No linting errors / newline at end of file warnings\r\n- [x] All code follows repository-configured prettier formatting\r\n- [x] No merge conflicts\r\n- [x] All checks passing\r\n- [x] Screenshots of UI changes (see Screenshots section)\r\n- [x] Remove any non-applicable sections of this template\r\n- [x] Assign the PR to yourself\r\n- [x] No `yarn.lock` changes (unless dependencies have changed)\r\n- [x] Request reviewers & ping on Slack\r\n- [x] PR is linked to the ticket (fill in the closes line below)\r\n\r\nCloses # (issue #)\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "I think you do need to edit the migration in order to get all the RR to have the correct identifier. I'm not exactly sure how, that's where I got stuck when I tried this ticket. I would ask Peyton since I know he has some experience with tricky SQL migrations",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think everything should be on a new migration due to changes on the schema, not edits to old migrations",
+                                                        "author": {
+                                                            "login": "walker-sean"
+                                                        },
+                                                        "url": "https://github.com/Northeastern-Electric-Racing/FinishLine/pull/2021#discussion_r1470082524",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "50c09be",
+                                                            "authoredDate": "2024-01-29T03:44:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Now I'm thinking about it, what do we meant by the new migration file?\nThe new migration.sql file in this PR got auto-generated by yarn prisma:migrate command after schema.prisma change.",
+                                                        "author": {
+                                                            "login": "callmejim1226"
+                                                        },
+                                                        "url": "https://github.com/Northeastern-Electric-Racing/FinishLine/pull/2021#discussion_r1482404562",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "50c09be",
+                                                            "authoredDate": "2024-01-29T03:44:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Oh I got what you meant after facing the error: ERROR: column \"identifier\" of relation \"Reimbursement_Request\" already exists\nI had to just remove this line since I already added \"identifier\" prop in a new migration file.",
+                                                        "author": {
+                                                            "login": "callmejim1226"
+                                                        },
+                                                        "url": "https://github.com/Northeastern-Electric-Racing/FinishLine/pull/2021#discussion_r1482415157",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "50c09be",
+                                                            "authoredDate": "2024-01-29T03:44:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I got this SQL code from ChatGPT (chat: https://chat.openai.com/share/d0692ab8-4656-44bd-b06e-3c99511ac1fc) after providing the context of our RR model and situation.",
+                                                        "author": {
+                                                            "login": "callmejim1226"
+                                                        },
+                                                        "url": "https://github.com/Northeastern-Electric-Racing/FinishLine/pull/2021#discussion_r1482427640",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9c352a2",
+                                                            "authoredDate": "2024-02-08T05:17:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "works well, good job! One fix tho, it's ordering RRs from newest to oldest instead of vice versa",
+                                                        "author": {
+                                                            "login": "RChandler234"
+                                                        },
+                                                        "url": "https://github.com/Northeastern-Electric-Racing/FinishLine/pull/2021#discussion_r1483854148",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9c352a2",
+                                                            "authoredDate": "2024-02-08T05:17:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "RChandler234"
+                                                        },
+                                                        "url": "https://github.com/Northeastern-Electric-Racing/FinishLine/pull/2021#discussion_r1483854257",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9c352a2",
+                                                            "authoredDate": "2024-02-08T05:17:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "still getting them out of order:",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 69,
+                        "title": "WIP Initial attempt at fetching oAuth1 and oAuth2 tokens",
+                        "repository": {
+                            "nameWithOwner": "kochka/WeightLogger",
+                            "primaryLanguage": {
+                                "name": "Java"
+                            }
+                        },
+                        "createdAt": "2023-12-21T21:34:50Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/kochka/WeightLogger/pull/69",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "Syntax753"
+                        },
+                        "editor": null,
+                        "body": "## This is a draft PR and requires further coding\r\n\r\nI have added the steps to fetch the v1 and v2 oAuth tokens. However, getting a 400 when attempting to retrieve v1 using the \"ticket\". I have a feeling this is to do with missing cookies that need to be passed so need to fetch those from the sign-in -> ticket call return entity.\r\n\r\nThis is based on the great insights by matin and referencing https://github.com/matin/garth/blob/6aeb0faaf0d6b473d8dc161373068d2f5413fdfe/garth/sso.py#L21.\r\n\r\nI'm in and out over the Christmas period but will pick this up when I can. The foundational logic flow has been typed up at least :)",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Make sure you're signing the requests to obtain the OAuth1 and OAuth2 keys with the correct consumer key and secret.\nHere's what ChatGPT recommends on how to do it:\nhttps://chat.openai.com/share/c6bdefea-a9e0-4c6e-b261-2aa0a73fa4cd",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This request needs to be signed with the OAuth1 consumer keys",
+                                                        "author": {
+                                                            "login": "matin"
+                                                        },
+                                                        "url": "https://github.com/kochka/WeightLogger/pull/69#discussion_r1434539402",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f2f5ca4",
+                                                            "authoredDate": "2023-12-21T21:19:32Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This request needs to be signed with the OAuth1 keys provided in the earlier request.",
+                                                        "author": {
+                                                            "login": "matin"
+                                                        },
+                                                        "url": "https://github.com/kochka/WeightLogger/pull/69#discussion_r1434540073",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f2f5ca4",
+                                                            "authoredDate": "2023-12-21T21:19:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ah this is the missing piece no doubt! Not sure how I scanned over that in your walk-through :)",
+                                                        "author": {
+                                                            "login": "Syntax753"
+                                                        },
+                                                        "url": "https://github.com/kochka/WeightLogger/pull/69#discussion_r1434550095",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f2f5ca4",
+                                                            "authoredDate": "2023-12-21T21:19:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Agreed - hopefully that will be the easy bit once I get hold of OAuth1 :)",
+                                                        "author": {
+                                                            "login": "Syntax753"
+                                                        },
+                                                        "url": "https://github.com/kochka/WeightLogger/pull/69#discussion_r1434552578",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f2f5ca4",
+                                                            "authoredDate": "2023-12-21T21:19:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 67,
+                        "title": "Listar pets do usu\u00e1rio #39",
+                        "repository": {
+                            "nameWithOwner": "devhatt/pet-dex-backend",
+                            "primaryLanguage": {
+                                "name": "Go"
+                            }
+                        },
+                        "createdAt": "2024-01-09T17:58:47Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "davidspader"
+                        },
+                        "editor": {
+                            "login": "davidspader"
+                        },
+                        "body": "Closes #39 \r\n\r\n<details open> \r\n  <summary>\r\n    <b>Feature</b>\r\n  </summary>\r\n\r\nListar pets do usu\u00e1rio\r\n</details>\r\n\r\n<details open> \r\n  <summary>\r\n    <b>Bugfix</b>\r\n  </summary>\r\n\r\n- **Description**\r\nN/A\r\n\r\n- **Cause**\r\nN/A\r\n\r\n- **Solution**\r\nN/A\r\n</details>\r\n\r\n<details> \r\n  <summary>\r\n    <b>Changelog</b>\r\n  </summary>\r\nN/A\r\n</details>\r\n\r\n<details open> \r\n  <summary>\r\n    <b>Visual evidences :framed_picture:</b>\r\n  </summary>\r\n\r\n</details>\r\n\r\n<details open> \r\n  <summary>\r\n    <b>Checklist</b>\r\n  </summary>\r\n\r\n  - [x] Issue linked\r\n  - [x] Build working correctly\r\n  - [ ] Tests created\r\n</details>\r\n\r\n<details> \r\n  <summary>\r\n    <b>Additional info</b>\r\n  </summary>\r\nFiz baseado na call que tivemos ontem\r\n</details>\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "N\u00e3o est\u00e1 usando usando o muxer do chi feito pelo @k1nha, mergear com a main e ajustar",
+                                                        "author": {
+                                                            "login": "Lefel95"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1450281993",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "83c1873",
+                                                            "authoredDate": "2024-01-09T17:40:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Est\u00e1 faltando inicializar o Repository, Conex\u00e3o com DB, UseCase e injeta-los, se mergear com a main vai ter j\u00e1",
+                                                        "author": {
+                                                            "login": "Lefel95"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1450282975",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "83c1873",
+                                                            "authoredDate": "2024-01-09T17:40:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Lembrando que o cmd/main.go \u00e9 usado para subirmos testes rapidos localmente via CLI,  entao o que estiver aqui de inicializacao e injecao de dependencia, tem que estar em api/main.go, por que l\u00e1 \u00e9 a real entrada do programa",
+                                                        "author": {
+                                                            "login": "Lefel95"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1450285621",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "83c1873",
+                                                            "authoredDate": "2024-01-09T17:40:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Tem alguma duvida para ler as linhas?",
+                                                        "author": {
+                                                            "login": "Lefel95"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1450287534",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "83c1873",
+                                                            "authoredDate": "2024-01-09T17:40:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "melhora o print do erro, lembre-se do %w",
+                                                        "author": {
+                                                            "login": "Lefel95"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1450288210",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "83c1873",
+                                                            "authoredDate": "2024-01-09T17:40:34Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "cara nao precisamos de um arquivo para cada controller",
+                                                        "author": {
+                                                            "login": "Lefel95"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1452889141",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8657026",
+                                                            "authoredDate": "2024-01-15T14:20:28Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Coloco o m\u00e9todo dentro do controller find.go ent\u00e3o?",
+                                                        "author": {
+                                                            "login": "davidspader"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1453364255",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8657026",
+                                                            "authoredDate": "2024-01-15T14:20:28Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Cara tirando o package de email que ali deu ruim, recomendo chamar @k1nha\nTenho poucas mudancas citadas.\nMas vou falar algo aqui nao vou deixar passar, falta testes!\nComo ja tive call de testes, e tem ate pacote de exemplo, da uma revisada e qualquer pergunta manda ai.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Mude para um erro de userID invalido, nao gostariamos de mostrar essa conversao pro usuario, entao mande algo como \"invalid userID\"",
+                                                        "author": {
+                                                            "login": "Lefel95"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1501275454",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e646127",
+                                                            "authoredDate": "2024-02-23T21:29:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Adicione na resposta o status code 400.\nReference: https://chat.openai.com/share/1a144e3c-d26a-4ac5-b5a9-a8c31d7ec365",
+                                                        "author": {
+                                                            "login": "Lefel95"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1501276023",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e646127",
+                                                            "authoredDate": "2024-02-23T21:29:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Para que esse controller?",
+                                                        "author": {
+                                                            "login": "Lefel95"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1501276365",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e646127",
+                                                            "authoredDate": "2024-02-23T21:29:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Mudar para FindByUserID",
+                                                        "author": {
+                                                            "login": "Lefel95"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1501284016",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e646127",
+                                                            "authoredDate": "2024-02-23T21:29:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Pq esse cara \u00e9 novo? N\u00e3o \u00e9 do @k1nha ?",
+                                                        "author": {
+                                                            "login": "Lefel95"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1501285724",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e646127",
+                                                            "authoredDate": "2024-02-23T21:29:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Mesma coisa do acima @k1nha",
+                                                        "author": {
+                                                            "login": "Lefel95"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1501285803",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e646127",
+                                                            "authoredDate": "2024-02-23T21:29:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Mesma coisa do acima @k1nha",
+                                                        "author": {
+                                                            "login": "Lefel95"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1501285934",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e646127",
+                                                            "authoredDate": "2024-02-23T21:29:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "mesma coisa do acima @k1nha",
+                                                        "author": {
+                                                            "login": "Lefel95"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1501285995",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e646127",
+                                                            "authoredDate": "2024-02-23T21:29:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Aqui tbm @k1nha",
+                                                        "author": {
+                                                            "login": "Lefel95"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1501286055",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e646127",
+                                                            "authoredDate": "2024-02-23T21:29:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "esse controller j\u00e1 estava no c\u00f3digo, mexi nele s\u00f3 pro c\u00f3digo voltar a rodar com as altera\u00e7\u00f5es que eu fiz.",
+                                                        "author": {
+                                                            "login": "davidspader"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1501295071",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e646127",
+                                                            "authoredDate": "2024-02-23T21:29:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "esse FindPet \u00e9 pra buscar o pet pelo pr\u00f3prio ID, eu tamb\u00e9m mexi nele s\u00f3 pro c\u00f3digo voltar a rodar com as altera\u00e7\u00f5es que eu fiz.",
+                                                        "author": {
+                                                            "login": "davidspader"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1501295437",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e646127",
+                                                            "authoredDate": "2024-02-23T21:29:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sim, foi o @k1nha que fez, n\u00e3o sei pq ta aqui",
+                                                        "author": {
+                                                            "login": "davidspader"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1501295577",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e646127",
+                                                            "authoredDate": "2024-02-23T21:29:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sim, foi o @k1nha que fez, n\u00e3o sei pq ta aqui",
+                                                        "author": {
+                                                            "login": "davidspader"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1501295601",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e646127",
+                                                            "authoredDate": "2024-02-23T21:29:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sim, foi o @k1nha que fez, n\u00e3o sei pq ta aqui",
+                                                        "author": {
+                                                            "login": "davidspader"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1501295617",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e646127",
+                                                            "authoredDate": "2024-02-23T21:29:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Acho que deu algum problema com o rebase",
+                                                        "author": {
+                                                            "login": "davidspader"
+                                                        },
+                                                        "url": "https://github.com/devhatt/pet-dex-backend/pull/67#discussion_r1501295777",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e646127",
+                                                            "authoredDate": "2024-02-23T21:29:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 4403,
+                        "title": "Rewrite dfs_back_edges to be iterative",
+                        "repository": {
+                            "nameWithOwner": "angr/angr",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2024-01-03T12:27:51Z",
+                        "mergedAt": "2024-01-10T15:04:57Z",
+                        "url": "https://github.com/angr/angr/pull/4403",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "fmagin"
+                        },
+                        "editor": null,
+                        "body": "Turns out you can just ask ChatGPT4 to do rewriting like this: https://chat.openai.com/share/aa214b1d-ced6-4f5d-ac42-db9074f39755\r\n\r\nThis looks correct enough at a first glance but I didn't look into it more. I'm mostly curious if this is already enough to pass the CI tests. I'm a bit confused how the back edges are used elsewhere, from my quick check of what \"back edge\" means, they are a part of the DFS traversal and not the graph itself?",
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 1323,
+                        "title": "ThingsBoard Cloud Subscription plans definition. Updated API Limits",
+                        "repository": {
+                            "nameWithOwner": "thingsboard/thingsboard.github.io",
+                            "primaryLanguage": {
+                                "name": "Sass"
+                            }
+                        },
+                        "createdAt": "2024-01-23T13:36:51Z",
+                        "mergedAt": "2024-02-16T15:10:25Z",
+                        "url": "https://github.com/thingsboard/thingsboard.github.io/pull/1323",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "stitenko"
+                        },
+                        "editor": null,
+                        "body": "## PR description\r\n\r\nThe documentation updated for ...\r\n\r\n## Link checker\r\n\r\nThe links will be checked by the build agent automatically once you create or update your PR.\r\n\r\nYou can use the following command to check the broken links locally.\r\n\r\n```bash\r\ndocker run --rm -it --network=host --name=linkchecker ghcr.io/linkchecker/linkchecker --check-extern --no-warnings http://0.0.0.0:4000/\r\n```\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is a rate limit and not an API / Entity limit",
+                                                        "author": {
+                                                            "login": "ashvayka"
+                                                        },
+                                                        "url": "https://github.com/thingsboard/thingsboard.github.io/pull/1323#discussion_r1466564736",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8a04ffd",
+                                                            "authoredDate": "2024-01-24T06:45:24Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The text style of the new elements is completely different from the text style of the old elements!",
+                                                        "author": {
+                                                            "login": "ashvayka"
+                                                        },
+                                                        "url": "https://github.com/thingsboard/thingsboard.github.io/pull/1323#discussion_r1466566498",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8a04ffd",
+                                                            "authoredDate": "2024-01-24T06:45:24Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "<td>200/sec<br>but no more then 6K/min<br>but no more then 140K/hour</td>\nvs\n<td>100 messages per 1 sec,<br>but less than 3000 messages per 60 sec,<br>but less than 70000 messages per 3600 sec</td>",
+                                                        "author": {
+                                                            "login": "ashvayka"
+                                                        },
+                                                        "url": "https://github.com/thingsboard/thingsboard.github.io/pull/1323#discussion_r1466568298",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8a04ffd",
+                                                            "authoredDate": "2024-01-24T06:45:24Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Use the following description style:\nup to 200 per second, not exceeding 6,000 per minute, and capped at 140,000 per hour.\nReference: https://chat.openai.com/share/e/e98f326f-dff8-472a-8e8b-e6a56b027fe9",
+                                                        "author": {
+                                                            "login": "ashvayka"
+                                                        },
+                                                        "url": "https://github.com/thingsboard/thingsboard.github.io/pull/1323#discussion_r1472899291",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "143be1b",
+                                                            "authoredDate": "2024-01-31T13:25:39Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Used the suggested description style for the \"Rate Limits\" section",
+                                                        "author": {
+                                                            "login": "stitenko"
+                                                        },
+                                                        "url": "https://github.com/thingsboard/thingsboard.github.io/pull/1323#discussion_r1489616004",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "143be1b",
+                                                            "authoredDate": "2024-01-31T13:25:39Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 228,
+                        "title": "feat: add `/securities` route to get all securities to display to the user ",
+                        "repository": {
+                            "nameWithOwner": "maybe-finance/maybe",
+                            "primaryLanguage": {
+                                "name": "Ruby"
+                            }
+                        },
+                        "createdAt": "2024-01-25T18:58:16Z",
+                        "mergedAt": "2024-02-02T14:50:53Z",
+                        "url": "https://github.com/maybe-finance/maybe/pull/228",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "crnsh"
+                        },
+                        "editor": null,
+                        "body": "This is in preparation to solve #131 and the first step of #215.\r\n- Adds a `/securities` endpoint to get all securities (only symbol and exchangeName) from the database.",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "A TypeScript repo without semi-colons? Who's in charge here? Lol.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is this a placeholder or full implementation? Just curious on if you're planning to get all and filter client side or add some query params for searching (similar to institutions). I'm guessing this is setting up for the add investment form?",
+                                                        "author": {
+                                                            "login": "tmyracle"
+                                                        },
+                                                        "url": "https://github.com/maybe-finance/maybe/pull/228#discussion_r1467886241",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e0585e",
+                                                            "authoredDate": "2024-01-25T19:15:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeah this is for setting up the investment form. I'll have two Listbox elements for picking a stock. One selects the exchange, and then the stocks of that exchange are available in the other Listbox (this happens after selecting / creating an account).\nThat's why I'll need all stocks, so this is the complete implementation. If I need something else I'll create another PR but it seems that this is all I need for the backend part of #131.",
+                                                        "author": {
+                                                            "login": "crnsh"
+                                                        },
+                                                        "url": "https://github.com/maybe-finance/maybe/pull/228#discussion_r1467923661",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e0585e",
+                                                            "authoredDate": "2024-01-25T19:15:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can we get away with only one Listbox? I wonder how many people know the exchange vs just the ticker or company name. I'm imagining a single listbox and each result displays the relevant info needed to select the right security (name, ticker, exchange). Would be great to be able to search by ticker or name so I can just type Apple or Samsara and get the result I'm looking for.",
+                                                        "author": {
+                                                            "login": "tmyracle"
+                                                        },
+                                                        "url": "https://github.com/maybe-finance/maybe/pull/228#discussion_r1467941804",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e0585e",
+                                                            "authoredDate": "2024-01-25T19:15:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeah that's actually a better idea. Search by symbol and then disambiguate with exchange.\nEven with this approach I'll need all the stocks though",
+                                                        "author": {
+                                                            "login": "crnsh"
+                                                        },
+                                                        "url": "https://github.com/maybe-finance/maybe/pull/228#discussion_r1467944955",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e0585e",
+                                                            "authoredDate": "2024-01-25T19:15:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sending all of the 11k securities (and more in the future) to the client is going to have negative performance implications. I'd check the implementation of institution router and institution service for how server-side search is implemented elsewhere in the app. There should be an initial batch sent to the client (current standard is 50 results, see the enum PageSize in account-types.ts) and the search (debounced) should return the results that match the query using postgres full-text search.",
+                                                        "author": {
+                                                            "login": "tmyracle"
+                                                        },
+                                                        "url": "https://github.com/maybe-finance/maybe/pull/228#discussion_r1468636041",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e0585e",
+                                                            "authoredDate": "2024-01-25T19:15:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 7117,
+                        "title": "Add: Handle telnet links with Mudlet",
+                        "repository": {
+                            "nameWithOwner": "Mudlet/Mudlet",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2024-01-30T18:06:27Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/Mudlet/Mudlet/pull/7117",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "guhitb"
+                        },
+                        "editor": {
+                            "login": "vadi2"
+                        },
+                        "body": "#### Brief overview of PR changes/additions\r\n- Updated command line arguments to accept any URI or file path (first positional argument)\r\n- Made `MudletInstanceHandler` packages generic so any URI can be passed to another Mudlet Instance.\r\n- Updated mudlet.desktop, registry keys, and Plist (see https://github.com/Mudlet/installers/pull/115) to handle opening telnet links on each operating system.\r\n- Reused telnet ui components and profile selection logic from https://github.com/Mudlet/Mudlet/pull/3131\r\n#### Motivation for adding to Mudlet\r\nfixes https://github.com/Mudlet/Mudlet/issues/689\r\n/claim #689\r\n#### Other info (issues closed, discussion etc)\r\nI'm having trouble testing the linux telnet file association on my machine. I think I have something misconfigured that's not part of the Mudlet repo. I placed `MimeType=x-scheme-handler/telnet;application/zip;` in `mudlet.desktop` and ran `xdg-mime default mudlet.desktop x-scheme-handler/telnet` to set default.\r\n\r\nTesting: open http://www.durismud.com and click on on the `Play now` link.",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "The link handling didn't work for me on macOS, but that might be because the other PR registering URI's isn't merged yet.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Could you add qsl() around string literals here and in other places please?",
+                                                        "author": {
+                                                            "login": "vadi2"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1477100653",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e00e7f3",
+                                                            "authoredDate": "2024-01-30T18:08:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What does this do?",
+                                                        "author": {
+                                                            "login": "vadi2"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1477101092",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e00e7f3",
+                                                            "authoredDate": "2024-01-30T18:08:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Do you think this could be a ranged for instead? Better to avoid while loops if possible.",
+                                                        "author": {
+                                                            "login": "vadi2"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1477101277",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e00e7f3",
+                                                            "authoredDate": "2024-01-30T18:08:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Long due, thank you!",
+                                                        "author": {
+                                                            "login": "vadi2"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1477102102",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e00e7f3",
+                                                            "authoredDate": "2024-01-30T18:08:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "With Qt's https://doc.qt.io/qt-6/implicit-sharing.html constants don't matter as much btw, but this is okay too!",
+                                                        "author": {
+                                                            "login": "vadi2"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1477102496",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e00e7f3",
+                                                            "authoredDate": "2024-01-30T18:08:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Hmm, grammar?",
+                                                        "author": {
+                                                            "login": "vadi2"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1477102580",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e00e7f3",
+                                                            "authoredDate": "2024-01-30T18:08:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Try lregister for macOS: https://chat.openai.com/share/ca778a07-0203-4535-88ac-2c85e85cf384",
+                                                        "author": {
+                                                            "login": "vadi2"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1477103401",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e00e7f3",
+                                                            "authoredDate": "2024-01-30T18:08:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Could macOS get a check too?",
+                                                        "author": {
+                                                            "login": "vadi2"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1477106222",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e00e7f3",
+                                                            "authoredDate": "2024-01-30T18:08:34Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It's unused, I'll will remove it",
+                                                        "author": {
+                                                            "login": "guhitb"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1477639329",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e00e7f3",
+                                                            "authoredDate": "2024-01-30T18:08:34Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I can change it to something like for (int i = mQueuedUris.length() - 1; i >= 0; i--) to avoid while, but I don't think a ranged for will work since the loop needs to remove items from the list during the loop.",
+                                                        "author": {
+                                                            "login": "guhitb"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1477668647",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e00e7f3",
+                                                            "authoredDate": "2024-01-30T18:08:34Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sure!",
+                                                        "author": {
+                                                            "login": "vadi2"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1477710184",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e00e7f3",
+                                                            "authoredDate": "2024-01-30T18:08:34Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Sorry if this seems a bit nit-picky - I'm just trying to polish it up a bit.\nThanks for working on this as it has been something that we wanted doing for a long time. \ud83d\ude0c\nOne further suggestion would have though is that: can you ensure you have left a blank line between successive methods /functions in the source code.\nHTH",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "QObject is a bit of a special case I think as it is the base class for many, if not all other Qt classes - so it does make sense to have it before the other class headers (though they probably #include it them selves anyhow)... thoughts @vadi2 ? \ud83e\udd37\u200d\u2642\ufe0f",
+                                                        "author": {
+                                                            "login": "SlySven"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1478720705",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "That is a bit of a dodgy \"bash\"-ism (I think) - ~ as the WHOLE of the first directory specifier does indeed mean the \"user's\" home directory in the bash (and some other) shells - however ~someotherUser/  means the home directory of someOtherUser which is not how the code afterwards will handle it - I think you have to be more discerning than just using file.startsWith(\"~\") here - you may have to check for a directory separator immediately afterwards to be sure...",
+                                                        "author": {
+                                                            "login": "SlySven"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1478734556",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Careful - I do not think you want to hit this line if you have already unlocked it before by carrying out one of the blocks of code inside the ifs otherwise you could get nasal daemons - the Qt documentation for this method notes that it:\n\nUnlocks the mutex. Attempting to unlock a mutex in a different thread to the one that locked it results in an error. Unlocking a mutex that is not locked results in undefined behavior.",
+                                                        "author": {
+                                                            "login": "SlySven"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1478753846",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ud83d\udc4d",
+                                                        "author": {
+                                                            "login": "SlySven"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1478755740",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeah, but it does shut up a compilation warning - which is useful as it means one can focus on the compilation errors... \ud83d\ude00",
+                                                        "author": {
+                                                            "login": "SlySven"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1478757489",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e00e7f3",
+                                                            "authoredDate": "2024-01-30T18:08:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Please check the spacing still lines up nicely for the \"Package path or telnet URI\" (and that it fits within 80 columns IIRC)... \ud83e\udd1e",
+                                                        "author": {
+                                                            "login": "SlySven"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1478760319",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Doesn't this also need to include URLS with the mudlet scheme type as well?",
+                                                        "author": {
+                                                            "login": "SlySven"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1478763008",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I am not seeing this used anywhere in this PR - is it needed?",
+                                                        "author": {
+                                                            "login": "SlySven"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1478764590",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This should work for Q_OS_FREEBSD also. https://man.freebsd.org/cgi/man.cgi?query=xdg-mime&apropos=0&sektion=1&manpath=FreeBSD+13.2-RELEASE+and+Ports&arch=default&format=html\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            #if defined(Q_OS_LINUX)\n          \n          \n            \n            #if defined(Q_OS_LINUX) || defined(Q_OS_FREEBSD)",
+                                                        "author": {
+                                                            "login": "SlySven"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1478771171",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "These two blocks of code are mutual exclusive so they should be combined - also as I reported above the latter should work for FreeBSD so it can be combined with the Linux one:\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            #endif\n          \n          \n            \n            #if defined(Q_OS_LINUX)\n          \n          \n            \n            #elif defined(Q_OS_LINUX) || defined(Q_OS_FREEBSD)",
+                                                        "author": {
+                                                            "login": "SlySven"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1478775885",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ud83e\udd2e - for complex classes I suppose the default/empty initialisation with {} does look attractive but for plain old data types like this I honestly think this is better:\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                int profilesFound{};\n          \n          \n            \n                int profilesFound = 0;",
+                                                        "author": {
+                                                            "login": "SlySven"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1478801713",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe?\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                for (auto& host : hostList) {\n          \n          \n            \n                for (const auto& host : hostList) {",
+                                                        "author": {
+                                                            "login": "SlySven"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1478806151",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We are not using that form of providing information to the translation team (see #5522) - instead try:\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                        mpConnectionDialog->showInformationMessage(tr(\"%n matching profiles found for %1, which would you like to open?\",\n          \n          \n            \n                                                                      \"this message is shown when Mudlet is opened from a telnet:// link on a webpage, and more than one profile matches the game server/port - so \"\n          \n          \n            \n                                                                      \"the user needs to pick which of the available profiles they'd like to play with\",\n          \n          \n            \n                                                                      profilesFound)\n          \n          \n            \n                                                                           .arg(url.host()));\n          \n          \n            \n                        /*: This message is shown when Mudlet is opened from a telnet:// link on a webpage, and more than one profile matches the game server/port - so \n          \n          \n            \n                            the user needs to pick which of the available profiles they'd like to play with.*/\n          \n          \n            \n                        mpConnectionDialog->showInformationMessage(tr(\"%n matching profiles found for %1, which would you like to open?\",\n          \n          \n            \n                                                                      \"\",\n          \n          \n            \n                                                                      profilesFound)\n          \n          \n            \n                                                                           .arg(url.host()));",
+                                                        "author": {
+                                                            "login": "SlySven"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1478830151",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Please move it up a bit so that it is in the correct alphabetical sort position (after line 210)...",
+                                                        "author": {
+                                                            "login": "SlySven"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1478838053",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "A suggestion to try and avoid repeating the exact \"your default client\" phrase. Also to explain what it would be the default for! \ud83d\ude00\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                  <string>Mudlet is not currently set as your default client. Would you like to make it your default client?</string>\n          \n          \n            \n                  <string>Mudlet is not currently set as the default client for handling <tt>telnet://</tt> URLs. Would you like to make it your default?</string>\n          \n      \n    \n    \n  \n\nYou might need to tweak the <tt>...</tt> - I am trying to get it displayed (almost) like: telnet: appears here (but without any shading).",
+                                                        "author": {
+                                                            "login": "SlySven"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1478847716",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It's unused, I'll remove it",
+                                                        "author": {
+                                                            "login": "guhitb"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1480560426",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thanks for noticing this! I placed it outside the loop to avoid checking if(i==0) inside the loop, but it seems like that's the correct way to do it.",
+                                                        "author": {
+                                                            "login": "guhitb"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1480575253",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It does, I'll update listUrisWithScheme to check a QStringList of allowed schemes.",
+                                                        "author": {
+                                                            "login": "guhitb"
+                                                        },
+                                                        "url": "https://github.com/Mudlet/Mudlet/pull/7117#discussion_r1480698457",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a9c4262",
+                                                            "authoredDate": "2024-02-04T09:53:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Testing has revealed a problem on Linux \ud83d\ude05 the temporary location the AppImage gets extracted and run from will always change. Do you think this is solvable? We're looking at migrating to flatpak at the same time, so it's not worth too much effort to make it work for AppImages.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "macOS testing always says \"checking default:  false\". Have you got access to a mac? If no I can do some testing for you.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 26098,
+                        "title": "Parse LaTeX matrices and literal complex numbers",
+                        "repository": {
+                            "nameWithOwner": "sympy/sympy",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2024-01-19T13:01:40Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/sympy/sympy/pull/26098",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "8vasu"
+                        },
+                        "editor": {
+                            "login": "8vasu"
+                        },
+                        "body": "Fixes #14007 \r\nAddresses https://github.com/sympy/sympy/issues/25676 and https://github.com/sympy/sympy/issues/25366\r\n\r\nI have written this with the goal of using a purely SymPy-based backend (or SymPy as a part of SageMath) in [symtex.el](https://github.com/ultronozm/symtex.el) and [compuTeX](https://github.com/8vasu/compuTeX). I wish to unify the typesetting and computation aspects of working with matrix groups in my GNU Emacs/AUCTeX-based workflow. \r\n\r\nEdit: I do not mean to rush anyone, but the reason for this PR is that the `latex2sympy2` that we are currently using in our projects depends on ANTLR 4.7, which imports `typing.io`. We keep getting  warnings that `typing.io` is deprecated and that it will be completely removed in Python 3.12. Currently I am using the default Python 3.11 in Debian, but that might change in an OS update/upgrade in the near future. We have found a parsing solution using GNU Emacs Calc, but we depend on SymPy's `parse_expr` anyway. Matrices are a must for us, and I am looking for a clean solution that just uses `parse_latex`.\r\n\r\nEdit: This PR is being split into 2 parts. Currently this only has content for the Lark parser. The following message remains unchanged, and still mentions ANTLR, which is to be ignored.\r\n\r\nEdit: added `\\prime` and `\\ast` as new ways of performing matrix transpose and matrix self-adjoint.\r\n\r\n## Overview of features added or modified:\r\n\r\n1. Matrix parsing is added to both the ANTLR-based and the\r\nLark-based parsers.\r\n2. Literal complex numbers are introduced via the LaTeX macro\r\n`\\sympyi` in order to facilitate working with matrices with complex\r\nnumber entries.\r\n3. Since the single quote (prime) symbol is sometimes used to denote\r\nmatrix transpose, that is introduced, and as a side-effect, primed\r\nsymbols are added to the Lark parser, and the behavior of primes\r\non symbols in ANTLR and Lark are made consistent and completely\r\nfaithful to the input. For example, the input `\"a''_{b'''}''''\"`\r\ngenerates `sympy.Symbol(\"a''_{b'''}''''\")`. Before this commit, the\r\nANTLR-based parser would generate `sympy.Symbol(\"a_{b'}\")` from the\r\ninput `\"a_b'\"`; LaTeX compilers interpret this differently: the\r\nprime in `\"a_b'\"` is rendered on the `\"a\"` as opposed to the `\"b\"`. This\r\ncommit follows the convention followed by LaTeX compilers.\r\n\r\n## List of features added:\r\n\r\n1. Imaginary unit: `\\sympyi`\r\n2. Matrix parsing (`array` and AMS-LaTeX `matrix`, `pmatrix`, `bmatrix`)\r\nand detailed error handling\r\n3. Determinant parsing (`\\det`, `vmatrix`, `|array matrix|`,\r\n`|AMS-LaTeX matrix|`)\r\n4. Transpose via superscripts `^T`, `^{T}`, `^{'}`, `'`. Applied multiple\r\ntimes via `''`, `'''`, ..., `^{''}`, `^{'''}`, ...\r\n5. Conjugate transpose via superscripts `^H`, `^{H}`, `^{*}`. Applied\r\nmultiple times via `^{**}`, `^{***}`, ...\r\n6. Matrix Trace: `\\sympytr`\r\n7. Matrix adjugate: `\\sympyadj`\r\n8. The above matrix functionality works on all matrix expressions\r\nand not just individual literal matrices; for example, `\\det` can\r\nbe applied to the sum of 2 LaTeX matrices.\r\n9. Large number of new tests for all new functionality.\r\n\r\n## List of features modified:\r\n\r\n1. Symbols (one letter, greek, multi-letter, subscripted) can have\r\nprimes (single quotes) on them in the Lark grammar.\r\n2. Primes on output symbols and functions are now completely\r\nfaithful to the input strings (see added tests).\r\n3. In the Lark grammar, integral, derivative, and limit\r\nexpressions have been moved from `_expression_mul` to `_expression_func`\r\nso that, for instance, integrals can be multiplied with each other.\r\n4. In the Lark grammar, the rule `adjacent_expressions` has been\r\nmodified so that `\"fraction _expression\"` is now\r\n`\"fraction _expression_mul\"`. This is done to eliminate the incorrect\r\nalternatives in the ambiguous interpretations of `\\frac{a}{b} x+y`,\r\n`\\frac{a}{b} + \\frac{x}{y}`, `\\frac{a}{b} - \\frac{x}{y}`, etc.\r\n5. The Lark grammar now understands `\"+ expression\"` as just\r\n`\"expression\"`.\r\n6. Some tests have been modified to reflect change in behavior.\r\n\r\n    Relevant issue: https://github.com/sympy/sympy/issues/14007\r\n\r\n#### Release Notes\r\n\r\n<!-- Write the release notes for this release below between the BEGIN and END\r\nstatements. The basic format is a bulleted list with the name of the subpackage\r\nand the release note for this PR. For example:\r\n\r\n* solvers\r\n  * Added a new solver for logarithmic equations.\r\n\r\n* functions\r\n  * Fixed a bug with log of integers. Formerly, `log(-x)` incorrectly gave `-log(x)`.\r\n\r\n* physics.units\r\n  * Corrected a semantical error in the conversion between volt and statvolt which\r\n    reported the volt as being larger than the statvolt.\r\n\r\nor if no release note(s) should be included use:\r\n\r\nNO ENTRY\r\n\r\nSee https://github.com/sympy/sympy/wiki/Writing-Release-Notes for more\r\ninformation on how to write release notes. The bot will check your release\r\nnotes automatically to see if they are formatted correctly. -->\r\n\r\n<!-- BEGIN RELEASE NOTES -->\r\n* parsing\r\n  * Introduced matrix and literal complex number parsing.\r\n\r\n<!-- END RELEASE NOTES -->\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What is this file?",
+                                                        "author": {
+                                                            "login": "asmeurer"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1459818157",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0165b38",
+                                                            "authoredDate": "2024-01-19T12:35:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "That was auto generated by something. I think it is a graphical tree-like representation of one of the parsers. I will remove it before the final merge.",
+                                                        "author": {
+                                                            "login": "8vasu"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460130156",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0165b38",
+                                                            "authoredDate": "2024-01-19T12:35:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This sppf.png file is generated by Lark when using debug mode. It is meant to facilitate debugging of the grammar.\nThat being said, it doesn't belong in the repo and should indeed be removed.",
+                                                        "author": {
+                                                            "login": "wermos"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460376227",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0165b38",
+                                                            "authoredDate": "2024-01-19T12:35:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This diff probably shouldn't be there.",
+                                                        "author": {
+                                                            "login": "wermos"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460450022",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think this BEGIN_A and BEGIN_B (and similarly, END_A and END_B) is a good naming scheme. Can we think of an alternative, perhaps more descriptive name?",
+                                                        "author": {
+                                                            "login": "wermos"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460451786",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This shouldn't be here like this, and it shouldn't be a naked import. It should be inside the if lark clause. If lark is installed, then that evaluates to True and we can freely import from Lark. Otherwise, we need to define dummy classes for all the things we imported so that the code still works syntactically.\nThe TL;DR is that you need to move this inside the if lark clause, and then define a dummy Tree class in the else part of that clause.",
+                                                        "author": {
+                                                            "login": "wermos"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460454205",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe a couple of comments indicating what it means if len(tokens) is 4, or len(tokens) is 5 here would be nice to have.",
+                                                        "author": {
+                                                            "login": "wermos"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460454741",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "handle_division doesn't need to be an external function like this. It can be a private helper function of the Transformer class. The Transformer class already has an example of a function like this:  _extract_differential_symbol.",
+                                                        "author": {
+                                                            "login": "wermos"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460456635",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think this belongs here. I'm assuming that this was a copy-paste error.",
+                                                        "author": {
+                                                            "login": "wermos"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460457865",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The commented line should not be there, but I omitted \\\\\\\\ since that is the row separator for matrices. I will remove the commented line.",
+                                                        "author": {
+                                                            "login": "8vasu"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460459492",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Those are dummies. I am open to suggestions.",
+                                                        "author": {
+                                                            "login": "8vasu"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460460593",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Working on this.",
+                                                        "author": {
+                                                            "login": "8vasu"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460460920",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I will remove it now.",
+                                                        "author": {
+                                                            "login": "8vasu"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460461497",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think that we should turn off debug in production here.\nsppf.png only conditionally generates when you have some stuff like dot installed in environment,\nand maybe that's why we are getting different results (and extremely slow one for you)",
+                                                        "author": {
+                                                            "login": "sylee957"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1468279205",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0165b38",
+                                                            "authoredDate": "2024-01-19T12:35:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjEw",
+                "hasNextPage": true,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 41
+        }
+    }
+}

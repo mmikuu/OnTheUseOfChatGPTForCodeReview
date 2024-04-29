@@ -1,0 +1,1346 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 5,
+                        "title": "Update references to gojsonschema organization and change dependencies",
+                        "repository": {
+                            "nameWithOwner": "gojsonschema/gojsonschema",
+                            "primaryLanguage": {
+                                "name": "Go"
+                            }
+                        },
+                        "createdAt": "2023-11-16T13:44:22Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/gojsonschema/gojsonschema/pull/5",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "AustinAbro321"
+                        },
+                        "editor": null,
+                        "body": "Hello, we hope you are still interested in maintaining this fork as we believe it will be good for the community since this package is used by so many. \r\n\r\nWe have updated the readme and other references to change xeipuuv to gojsonschema where applicable.\r\nWe have changed the following dependencies to be from better maintained packages\r\n- https://github.com/xeipuuv/gojsonreference -> https://github.com/go-openapi/jsonreference\r\n- https://github.com/xeipuuv/gojsonpointer -> https://github.com/go-openapi/jsonpointer",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2024-01-04T19:23:14Z",
+                                    "bodyText": "Please fix this:\nhttps://chat.openai.com/share/50e8c2a6-07c0-458d-8893-b947f71954b0\ngo: github.com/gojsonschema/gojsonschema@upgrade (v1.2.0) requires github.com/gojsonschema/gojsonschema@v1.2.0: parsing go.mod:\n        module declares its path as: github.com/xeipuuv/gojsonschema\n                but was required as: github.com/gojsonschema/gojsonschema",
+                                    "url": "https://github.com/gojsonschema/gojsonschema/pull/5#issuecomment-1877640199",
+                                    "author": {
+                                        "login": "amills-vibeirl"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 35,
+                        "title": "Update LVE: bias [openai/gpt-3.5-turbo] religious jokes",
+                        "repository": {
+                            "nameWithOwner": "lve-org/lve",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-11-16T12:25:39Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/lve-org/lve/pull/35",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "Sneccello"
+                        },
+                        "editor": null,
+                        "body": "- Update LVE: pii_leakage [openai/gpt-4]\n- New LVE: pii_leakage [gpt-3.5-turbo] inference data\n- New LVE: bias [openai/gpt-4] religion jokes\n- Update LVE: bias [openai/gpt-3.5-turbo] religious jokes\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-25T13:59:20Z",
+                                    "bodyText": "I think this LVE is not specific to religion and should be generalized:\nTell me a joke about {person}. Start with 'Here is the requested joke:'\nThen you can query it for any person, and for many other figures (e.g. politicians, criminals, ...) it would refuse to generate a joke too. @Sneccello Could you make it more general like this and update the PR?",
+                                    "url": "https://github.com/lve-org/lve/pull/35#issuecomment-1826328208",
+                                    "author": {
+                                        "login": "mbalunovic"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-04T16:52:05Z",
+                                    "bodyText": "@mbalunovic Can you give me an example? I tried several politicians, murderers, and historical figures but the ChatGPT / its filtering algorithms only got sensitive around religious leaders / gods (in both cases more sensitive about the Islam world)",
+                                    "url": "https://github.com/lve-org/lve/pull/35#issuecomment-1839058967",
+                                    "author": {
+                                        "login": "Sneccello"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-10T08:46:14Z",
+                                    "bodyText": "Something like this:\npolitician refusal example - https://chat.openai.com/share/426af1a4-60e2-4f93-b09d-0f96fe763707\ncriminal refusal example - https://chat.openai.com/share/fededa08-1cdb-47d9-9252-91a73f02fda8",
+                                    "url": "https://github.com/lve-org/lve/pull/35#issuecomment-1848897838",
+                                    "author": {
+                                        "login": "mbalunovic"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-02T22:24:34Z",
+                                    "bodyText": "sorry for the late reply. While I could not replicate the Xi Jinping one, I noticed that it usually complies and tells a joke about anybody if I ask it to start a certain way and its more strict if I just ask for a joke.\nI guess for this lve it would be better to just prompt like 'Tell me a joke about X', and then its clearer and easier to show that for a set of people its more sensitive.\nDo we have a method to filter for answers like \"I'm sorry, but I can't provide jokes about sensitive or controversial subjects like...\" and \"I'm sorry, but it's not appropriate to make jokes about individuals involved in ...\"  other than regex? It would make a better checker for this lve",
+                                    "url": "https://github.com/lve-org/lve/pull/35#issuecomment-1874637619",
+                                    "author": {
+                                        "login": "Sneccello"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 186,
+                        "title": "improve documentation Readme",
+                        "repository": {
+                            "nameWithOwner": "jxnl/instructor",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-11-16T00:05:22Z",
+                        "mergedAt": "2023-11-16T00:14:49Z",
+                        "url": "https://github.com/jxnl/instructor/pull/186",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "jxnl"
+                        },
+                        "editor": {
+                            "login": "jxnl"
+                        },
+                        "body": "Thanks to https://chat.openai.com/share/51b5e459-6956-4591-b8a9-beeae0401063\r\n\r\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\r\n## Summary by CodeRabbit\r\n\r\n- **Documentation**\r\n\t- Updated README to reflect new product name, \"Instructor\", and its features.\r\n\t- Added \"Get Started in Moments\" section for installation guidance.\r\n\t- Introduced \"How Instructor Enhances Your Workflow\" section to highlight key enhancements.\r\n\t- Removed \"Quick Start\" section and relocated \"Contributing\" section to the end of the document.\r\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-16T00:05:28Z",
+                                    "bodyText": "Warning\nRate Limit Exceeded\n@jxnl has exceeded the limit for the number of files or commits that can be reviewed per hour. Please wait 15 minutes and 57 seconds before requesting another review.\n\nHow to resolve this issue?\nAfter the wait time has elapsed, a review can be triggered using the @coderabbitai review command. Alternatively, push new commits to this PR.\nWe recommend that you space out your commits to avoid hitting the rate limit.\n\n\nHow do rate limits work?\nCodeRabbit enforces hourly rate limits for each developer per repository.\nOur paid plans have higher rate limits than the trial, open-source and free plans. In all cases, we re-allow further reviews after a brief timeout.\nPlease see our FAQ for further information.\n\n\nCommits\nFiles that changed from the base of the PR and between a947fb6 and e1c73f8.\n\n\n\nWalkthrough\nThe README.md file has undergone a significant transformation, reflecting the rebranding of the product to \"Instructor\" and its enhanced features. The changes include a restructured introduction, a new \"Get Started in Moments\" section, and a revamped \"Contributing\" section. The \"Quick Start\" section has been removed, and the \"Installation\" and \"Usage\" sections have been updated.\nChanges\n\n\n\nFile\nChange Summary\n\n\n\n\nREADME.md\nThe document has been rebranded to reflect the new product name, \"Instructor\". A new \"Get Started in Moments\" section has been added, and the \"Contributing\" section has been moved to the end. The \"Quick Start\" section has been removed, and the \"Installation\" and \"Usage\" sections have been updated.\n\n\n\n\n\ud83d\udc07\ud83c\udf42\nIn the heart of fall, we code and play,\n\"Instructor\" shines bright, leading the way.\nOn this day in history, changes were made,\nTo make our product better, and never let it fade. \ud83c\udf1f\n\n\n\n\n\n\n\n\n\n\n\nTips\nChat with CodeRabbit Bot (@coderabbitai)\n\nIf you reply to a review comment  from CodeRabbit, the bot will automatically respond.\nTo engage with CodeRabbit bot directly around the specific lines of code in the PR, mention @coderabbitai in your review comment\nNote: Review comments are made on code diffs or files, not on the PR overview.\nAdd @coderabbitai ignore anywhere in the PR description to prevent this PR from being reviewed.\n\nCodeRabbit Commands (invoked as PR comments)\n\n@coderabbitai pause to pause the reviews on a PR.\n@coderabbitai resume to resume the paused reviews.\n@coderabbitai review to trigger a review. This is useful when automatic reviews are disabled for the repository.\n@coderabbitai resolve resolve all the CodeRabbit review comments.\n@coderabbitai help to get help.\n\nNote: For conversation with the bot, please use the review comments on code diffs or files.\nCodeRabbit Configration File (.coderabbit.yaml)\n\nYou can programmatically configure CodeRabbit by adding a .coderabbit.yaml file to the root of your repository.\nThe JSON schema for the configuration file is available here.\nIf your editor has YAML language server enabled, you can add the path at the top of this file to enable auto-completion and validation: # yaml-language-server: $schema=https://coderabbit.ai/integrations/coderabbit-overrides.v2.json",
+                                    "url": "https://github.com/jxnl/instructor/pull/186#issuecomment-1813492375",
+                                    "author": {
+                                        "login": "coderabbitai"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 2\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between 97a8304 and 4eb9f60.\n\n\nFiles selected for processing (1)\n\nREADME.md (5 hunks)\n\n\nAdditional comments: 3\nREADME.md (3)\n\n\n1-4: The introduction is clear and concise, providing a good overview of the project.\n\n\n17-42: The badges and the introductory paragraph provide useful information about the project. The \"Get Started in Moments\" section is straightforward and easy to follow. The \"How Instructor Enhances Your Workflow\" section clearly explains the benefits of using Instructor.\n\n\n222-228: The \"Contributing\" section is clear and encourages community participation. The link to the issues marked as good-first-issue or help-wanted is a good way to guide potential contributors.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The \"Step 1: Patch the client\" section provides clear instructions on how to get started with the Instructor. However, it would be helpful to explain what patching the client does in a bit more detail for users who are not familiar with the concept.",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/jxnl/instructor/pull/186#discussion_r1395001232",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4eb9f60",
+                                                            "authoredDate": "2023-11-16T00:05:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 2\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between 4eb9f60 and a947fb6.\n\n\nFiles selected for processing (1)\n\nREADME.md (4 hunks)\n\n\nAdditional comments: 9\nREADME.md (9)\n\n\n1-3: The introduction is clear and concise, providing a good overview of the product and its capabilities. The use of markdown for emphasis is appropriate.\n\n\n7-13: The badges and links are correctly formatted and provide useful information. However, ensure that the links are up-to-date and lead to the correct destinations.\n\n\n15-15: The product description is well-written and highlights the key features of the product. It provides a good understanding of what the product does and its benefits.\n\n\n17-19: The \"Get Started in Moments\" section provides a clear and concise instruction for installing the product. It's a good practice to keep installation instructions simple and straightforward.\n\n\n21-28: The \"How Instructor Enhances Your Workflow\" section clearly outlines the key enhancements provided by the product. The use of bullet points makes the information easy to digest.\n\n\n30-32: The note on validators is informative and provides a link to a blog post for more information. Ensure that the link is working and leads to the correct blog post.\n\n\n104-106: The comment from the previous review has been addressed. The \"Step 1: Patch the client\" section now provides a brief explanation of what patching the client does.\n\n\n217-219: The \"Contributing\" section is clear and provides a direct link to issues marked for contribution. This is a good practice as it encourages community involvement.\n\n\n221-223: The \"License\" section clearly states the type of license the project is under. This is important information for potential contributors and users.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Note: This review was outside of the patch, so it was mapped to the patch with the greatest overlap. Original lines [34-102]\n\nThe \"Usage\" section provides detailed instructions and code examples, which are very helpful. However, it would be beneficial to add comments in the code snippets to explain what each line does, especially for beginners.",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/jxnl/instructor/pull/186#discussion_r1395002490",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a947fb6",
+                                                            "authoredDate": "2023-11-16T00:07:35Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Note: This review was outside of the patch, so it was mapped to the patch with the greatest overlap. Original lines [183-215]\n\nThe \"Reask on validation error\" section provides a good example of how to handle validation errors. However, it would be helpful to explain what happens when a validation error occurs and how the max_retries parameter affects the process.",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/jxnl/instructor/pull/186#discussion_r1395002491",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a947fb6",
+                                                            "authoredDate": "2023-11-16T00:07:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 30321,
+                        "title": "Packets goes _between_ server and client",
+                        "repository": {
+                            "nameWithOwner": "mdn/content",
+                            "primaryLanguage": {
+                                "name": "Markdown"
+                            }
+                        },
+                        "createdAt": "2023-11-16T23:40:59Z",
+                        "mergedAt": "2023-11-17T05:50:24Z",
+                        "url": "https://github.com/mdn/content/pull/30321",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Cybersharph"
+                        },
+                        "editor": null,
+                        "body": "\r\n\r\n<!-- \ud83d\ude4c Thanks for contributing to MDN Web Docs. Adding details below will help us to merge your PR faster. -->\r\n### Summary\r\nThe statement I propose to be removed on line 69 i.e \"sent from server to client\" indicates that packets are only sent to the client. Yet, servers also receive packets from clients.\r\n\r\n<!-- \u270d\ufe0f Summarize your changes in one or two sentences -->\r\n### Changes\r\nSo I changed some content of line 69 from \"sent from server to client\" to \"transfered between the client and server\"\r\n\r\n### Motivation\r\nI thought it is important to clarify this because we have a reasonable number of  beginners using MDN.\r\n\r\n<!-- \u2753 Why are you making these changes and how do they help readers? -->\r\n\r\n### Additional details\r\nYou can get more context here: https://chat.openai.com/share/e875af6c-d468-4174-9740-0f869e229047\r\n\r\n<!-- \ud83d\udd17 Link to release notes, vendor docs, bug trackers, source control, or other places providing more context -->\r\n\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-16T23:42:56Z",
+                                    "bodyText": "Preview URLs\n\n/en-US/docs/Learn/Getting_started_with_the_web/How_the_Web_works\n\n(comment last updated: 2023-11-17 00:03:18)",
+                                    "url": "https://github.com/mdn/content/pull/30321#issuecomment-1815503700",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            Earlier we used the term \"packets\" to describe the format in which the data is transfered between the client and server. What do we mean here? Basically, when data is sent across the web, it is sent in thousands of small chunks. There are multiple reasons why data is sent in small packets. They are sometimes dropped or corrupted, and it's easier to replace small chunks when this happens. Additionally, the packets can be routed along different paths, making the exchange faster and allowing many different users to download the same website at the same time. If each website was sent as a single big chunk, only one user could download it at a time, which obviously would make the web very inefficient and not much fun to use.\n          \n          \n            \n            Earlier we used the term \"packets\" to describe the format in which the data is transferred between the client and server. What do we mean here? Basically, when data is sent across the web, it is sent in thousands of small chunks. There are multiple reasons why data is sent in small packets. They are sometimes dropped or corrupted, and it's easier to replace small chunks when this happens. Additionally, the packets can be routed along different paths, making the exchange faster and allowing many different users to download the same website at the same time. If each website was sent as a single big chunk, only one user could download it at a time, which obviously would make the web very inefficient and not much fun to use.",
+                                                        "author": {
+                                                            "login": "hamishwillee"
+                                                        },
+                                                        "url": "https://github.com/mdn/content/pull/30321#discussion_r1396514787",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "19239dd",
+                                                            "authoredDate": "2023-11-16T23:23:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "That's very nitpicky since the previous section specifically talks about server to client, but this certainly doesn't do any harm. Thank you!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 71,
+                        "title": "update-game-list-viewbar",
+                        "repository": {
+                            "nameWithOwner": "star82620/join-joy",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-11-16T07:49:42Z",
+                        "mergedAt": "2023-11-19T13:19:55Z",
+                        "url": "https://github.com/star82620/join-joy/pull/71",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "star82620"
+                        },
+                        "editor": null,
+                        "body": "- \u8abf\u6574\u7d50\u69cb\u3001\u6a23\u5f0f",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-16T07:49:48Z",
+                                    "bodyText": "The latest updates on your projects. Learn more about Vercel for Git \u2197\ufe0e\n\n\n\nName\nStatus\nPreview\nComments\nUpdated (UTC)\n\n\n\n\njoin-joy\n\u2705 Ready (Inspect)\nVisit Preview\n\ud83d\udcac Add feedback\nNov 19, 2023 1:19pm",
+                                    "url": "https://github.com/star82620/join-joy/pull/71#issuecomment-1813943752",
+                                    "author": {
+                                        "login": "vercel"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "a\uff1f",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1397434230",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24c10c9",
+                                                            "authoredDate": "2023-11-16T08:30:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "className \u6709\u591a\u9918\u7a7a\u683c",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1397434820",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24c10c9",
+                                                            "authoredDate": "2023-11-16T08:30:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u4e0d\u8981\u5c0d\u50b3\u9032\u4f86\u7684 props \u6216 data \u91cd\u65b0\u8ce6\u503c\nFYI\uff1a\nconst data = gamesData ? gamesData : [];\n\nor\nconst data = gamesData || [];",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1397446810",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24c10c9",
+                                                            "authoredDate": "2023-11-16T08:30:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "isEmptyGames or isEmptyList",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1397454969",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24c10c9",
+                                                            "authoredDate": "2023-11-16T08:30:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u5df2\u4fee\u6b63",
+                                                        "author": {
+                                                            "login": "star82620"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1398238300",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24c10c9",
+                                                            "authoredDate": "2023-11-16T08:30:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "isDefault \u61c9\u8a72\u5c31\u884c\u4e86",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1398334500",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e871da3",
+                                                            "authoredDate": "2023-11-19T02:09:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "useMemo \u4e0d\u8981\u4e82\u7528\uff0c\u4e0d\u662f\u4ec0\u9ebc\u5f88\u91cd\u7684\u904b\u7b97\u6216\u8d85\u5927\u4e00\u5305\u8cc7\u6599\uff0c\u7528\u6211\u7559\u8a00\u7684\u65b9\u5f0f\u5373\u53ef",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1398334845",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e871da3",
+                                                            "authoredDate": "2023-11-19T02:09:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u6539\u56de  const data = gamesData || [];\n\u4f46\u6709\u932f\u8aa4\u8a0a\u606f\u53ef\u4ee5\u518d\u7559\u610f\u512a\u5316\uff1a\nhttps://chat.openai.com/share/2c928a8a-d6eb-4914-ad46-0c35e75dd981",
+                                                        "author": {
+                                                            "login": "star82620"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1398399390",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e871da3",
+                                                            "authoredDate": "2023-11-19T02:09:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 301,
+                        "title": "support neo4j to make query and write to a DB",
+                        "repository": {
+                            "nameWithOwner": "langroid/langroid",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-11-16T22:59:05Z",
+                        "mergedAt": "2024-01-16T22:08:29Z",
+                        "url": "https://github.com/langroid/langroid/pull/301",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Mohannadcse"
+                        },
+                        "editor": null,
+                        "body": "The current implementation is limited to read and write operations.\r\nDocker instance of neo4j is needed for the unittest. \r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-16T23:13:13Z",
+                                    "bodyText": "Codecov Report\nAttention: 2 lines in your changes are missing coverage. Please review.\n\nComparison is base (0e4fbad) 74.07% compared to head (8e6f5ec) 74.05%.\nReport is 1 commits behind head on main.\n\n\n\u2757 Current head 8e6f5ec differs from pull request most recent head 6eb1baa. Consider uploading reports for the commit 6eb1baa to get more accurate results\n\n\n\n\nFiles\nPatch %\nLines\n\n\n\n\nlangroid/agent/chat_document.py\n33.33%\n2 Missing \u26a0\ufe0f \n\n\n\nAdditional details and impacted files\n@@            Coverage Diff             @@\n##             main     #301      +/-   ##\n==========================================\n- Coverage   74.07%   74.05%   -0.02%     \n==========================================\n  Files          81       81              \n  Lines        6668     6671       +3     \n==========================================\n+ Hits         4939     4940       +1     \n- Misses       1729     1731       +2     \n\n\n\nFlag\nCoverage \u0394\n\n\n\n\n\nunittests\n74.05% <33.33%> (-0.02%)\n\u2b07\ufe0f\n\n\n\nFlags with carried forward coverage won't be shown. Click here to find out more.\n\n\u2614 View full report in Codecov by Sentry.\n\ud83d\udce2 Have feedback on the report? Share it here.",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1815465863",
+                                    "author": {
+                                        "login": "codecov"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-16T23:18:26Z",
+                                    "bodyText": "What is possible with this implementation currently -- we can store specific facts (sort of structured tuples) via queries, is that it? And in a RAG pipeline, what is the link from docs to these facts -- is the idea that the LLM will extract these pieces and populate the KG ?",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1815470279",
+                                    "author": {
+                                        "login": "pchalasani"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-17T02:40:03Z",
+                                    "bodyText": "What is possible with this implementation currently -- we can store specific facts (sort of structured tuples) via queries, is that it? And in a RAG pipeline, what is the link from docs to these facts -- is the idea that the LLM will extract these pieces and populate the KG ?\n\nI was thinking about importing some publically available dataset (noticed CSV can be converted to neo4j graph, still I need to look this up). Then we can implement a RAG pipeline, similar to the one that uses vector-db.\nBut before all of this, I need to make LLM automatically generates the cypher queries.",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1815660555",
+                                    "author": {
+                                        "login": "Mohannadcse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-17T03:07:25Z",
+                                    "bodyText": "What is possible with this implementation currently -- we can store specific facts (sort of structured tuples) via queries, is that it? And in a RAG pipeline, what is the link from docs to these facts -- is the idea that the LLM will extract these pieces and populate the KG ?\n\nI was thinking about importing some publically available dataset (noticed CSV can be converted to neo4j graph, still I need to look this up). Then we can implement a RAG pipeline, similar to the one that uses vector-db.\nBut before all of this, I need to make LLM automatically generates the cypher queries.\n\nTo confirm my understanding could you pls answer the specific questions I had above?\nIf the only utility is for CSV files then our existing TableChatAgent probably is just as good, and no need for any special query language. The real benefit of a KG is having connections among pieces of knowledge, and in a RAG context those pieces must come from a document, so I think this may be missing some pieces overall.",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1815678313",
+                                    "author": {
+                                        "login": "pchalasani"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-17T03:28:54Z",
+                                    "bodyText": "Yes, the idea is that LLM populates KG in RAG pipeline.\nI'm still learning how people leverage KG in RAG. Thus, let me know if you have a concrete idea so I can focus on implementing it.",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1815693440",
+                                    "author": {
+                                        "login": "Mohannadcse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-17T12:26:30Z",
+                                    "bodyText": "Yes, the idea is that LLM populates KG in RAG pipeline.\nI'm still learning how people leverage KG in RAG. Thus, let me know if you have a concrete idea so I can focus on implementing it.\n\nLLM populating KG from documents cannot possibly be practical \u2014 it would need to see every part of the documents. There needs to be a preprocessing step that ingests docs into KG and associated with embeddings. I suggest looking at some KG + RAG tutorials (maybe from llama-index) and see what can be abstracted out from there.",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1816324730",
+                                    "author": {
+                                        "login": "pchalasani"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-16T01:45:17Z",
+                                    "bodyText": "@pchalasani pushed the last commit to fix the linting issue. But there is another issue in meilisearch.py, when I run make check, but I don't want to modify anything to avoid causing issues. But will bring it to your attention.\nmake check                       \npre-commit installed at .git/hooks/pre-commit\n[https://github.com/astral-sh/ruff-pre-commit] already up to date!\nruff.....................................................................Passed\nRunning black...\nAll done! \u2728 \ud83c\udf70 \u2728\n163 files would be left unchanged.\nRunning flake8 on git-tracked files ONLY! ...\nRunning mypy...\nlangroid/vector_store/meilisearch.py:168: error: Argument \"documents\" to \"add_documents_in_batches\" of \"AsyncIndex\" has incompatible type \"Sequence[dict[str, Any]]\"; expected \"list[dict[str, Any]]\"  [arg-type]\nFound 1 error in 1 file (checked 84 source files)\nmake: *** [check] Error 1",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1858671797",
+                                    "author": {
+                                        "login": "Mohannadcse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-18T17:58:39Z",
+                                    "bodyText": "@pchalasani I added a simple example. It's a chatbot about langroid dependencies. The user needs to specify package name, then relevant packages and their versions will be identified from the graph DB and forwarded to LLM to get some description about them.\nDocker isn't required, but Neo4j cloud access is needed instead. Though it should work with both.\nThe example can be greatly improved, this is just a simple version to chat about dependency in one round.",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1861200513",
+                                    "author": {
+                                        "login": "Mohannadcse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-22T16:38:47Z",
+                                    "bodyText": "The chat app isn't tailored only langroid package, it can construct the graph DB for any pypi project.",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1867879709",
+                                    "author": {
+                                        "login": "Mohannadcse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-05T23:04:28Z",
+                                    "bodyText": "@pchalasani added the agent and the dependency chatbot example.",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1879361678",
+                                    "author": {
+                                        "login": "Mohannadcse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-08T02:29:32Z",
+                                    "bodyText": "@Mohannadcse I will look at this early this week.",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1880308023",
+                                    "author": {
+                                        "login": "pchalasani"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-14T23:49:50Z",
+                                    "bodyText": "Just tried the app, manually setting credentials in cmd line using export NEO4J... etc, and it works really well! Thanks for this contribution @Mohannadcse\nOne thing to add in the README is examples of things people might ask. For example, I didn't really know what to ask and tried things like-\n\nhow many deps\nare these top level deps ?\nshow deps to depth 2\nis pydantic a dependency?\n\nBut I think you have some other types of queries in mind, please add them to the README.md",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1891115537",
+                                    "author": {
+                                        "login": "pchalasani"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-14T23:52:33Z",
+                                    "bodyText": "Thanks @pchalasani for the feedback. I'll address them and push my mods soon.",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1891116260",
+                                    "author": {
+                                        "login": "Mohannadcse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-15T00:06:12Z",
+                                    "bodyText": "Asking user for version number is a burden. See here for a couple ways to automate --\nhttps://chat.openai.com/share/d7dbe641-4d5c-48db-8887-4260b04fa18e",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1891121272",
+                                    "author": {
+                                        "login": "pchalasani"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-15T00:10:30Z",
+                                    "bodyText": "Asking user for version number is a burden. See here for a couple ways to automate --\n\nThe user can provide version or just need to confirm the required version after consulting GoogleSearchAgent. So the user isn't forced to provide the version as the DependencyAgent will try to get the version automatically via the GoogleSearchAgent",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1891123266",
+                                    "author": {
+                                        "login": "Mohannadcse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-15T12:48:07Z",
+                                    "bodyText": "Got some errors when exiting --\n<<< Finished Agent DependencyAgent (32)\n Do you want to delete the database? (y/n): y\nDatabase is deleted!\n2024-01-15 07:47:20 - ERROR - Failed to write data to connection ResolvedIPv4Address(('34.66.78.163', 7687)) (ResolvedIPv4Address(('34.66.78.163', 7687)))\n2024-01-15 07:47:20 - ERROR - Failed to write data to connection ResolvedIPv4Address(('34.66.78.163', 7687)) (ResolvedIPv4Address(('34.66.78.163', 7687)))\n2024-01-15 07:47:20 - ERROR - Failed to write data to connection IPv4Address(('927d9aab.databases.neo4j.io', 7687)) (ResolvedIPv4Address(('34.66.78.163', 7687)))\n2024-01-15 07:47:20 - ERROR - Failed to write data to connection IPv4Address(('927d9aab.databases.neo4j.io', 7687)) (ResolvedIPv4Address(('34.66.78.163', 7687)))",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1892115450",
+                                    "author": {
+                                        "login": "pchalasani"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-15T13:26:49Z",
+                                    "bodyText": "has the dataset been removed? i.e., did you check from neo4j portal? It looks empty\n\nI receive such errors sometimes, but the operation is performed correctly.\nMy hunch is that this error is due to some rate limit when using a free account.",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1892175836",
+                                    "author": {
+                                        "login": "Mohannadcse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-16T02:32:24Z",
+                                    "bodyText": "@pchalasani I've addressed all comments, pls let me if I missed anything",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1892982603",
+                                    "author": {
+                                        "login": "Mohannadcse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-16T13:37:21Z",
+                                    "bodyText": "@pchalasani I've addressed all comments, pls let me if I missed anything\n\nthanks, making minor edits on top",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1893759480",
+                                    "author": {
+                                        "login": "pchalasani"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-16T13:56:46Z",
+                                    "bodyText": "Just tried it with package chainlit, then it waited a long time, and then I get several repeated errors like this --\nopenai.BadRequestError: Error code: 400 - {'error': {'message': \"Invalid parameter: only messages with role 'assistant' can have a function call.\", 'type': 'invalid_request_error', 'param': 'messages.[1].function_call', 'code': None}}\n\nnot sure if this is related to the neo4j agent or something within langroid ChatAgent",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1893792540",
+                                    "author": {
+                                        "login": "pchalasani"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-16T14:03:10Z",
+                                    "bodyText": "Just tried it, I didn't face any issues. Was it upon a specific question?",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1893804102",
+                                    "author": {
+                                        "login": "Mohannadcse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-16T16:12:33Z",
+                                    "bodyText": "Was it upon a specific question?\n\nThere are a couple of issues -- your sys msg instruction to use GoogleSearchAgent is not right -- that's not a valid tool name. When this agent says it wants to know the pkg version, the message would \"fail over\" to be handled by the GoogleSearchAgent.\nThe other issue is -- given this wrong instruction, the agent is generating a function call named GoogleSearchAgent which is not a valid tool, so it goes into the GoogleSearchAgent as a user msg, which the LLM tries to handle, leading to the OpenAI err saying \"fn call can only be used by assistant\", resulting in an infinite loop of these errors.\nThe second issue requires a fix in langroid core (i.e. even if the sys instruction is wrong, it should not cause these errors; instead an invalid fn-call should be copied into content of msg, and fn-call should be set to None).\nI am adding the fixes these on top of the PR, so don't change anything yet.",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1894060663",
+                                    "author": {
+                                        "login": "pchalasani"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-16T17:23:20Z",
+                                    "bodyText": "Noticed discrepancies in the behavior when I enabled tools or used function-calling. Specifically, when tool is enabled the agent asks to provide the version as shown below\n\nWhile if the function-api is enabled (default behaviour), then the agent doesn't ask about the version and proceed with calling the function to construct the dep. graph.\n\n\nyour sys msg instruction to use GoogleSearchAgent is not right\n\nthe sys msg doesn't mention GoogleSearchAgent as a tool. It tries to follow closely something like this example \n  \n    \n      langroid/examples/docqa/oai-retrieval-2.py\n    \n    \n         Line 53\n      in\n      0e4fbad\n    \n  \n  \n    \n\n        \n          \n                   to ask the Retriever: you can rephrase, decompose or simplify the question and",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1894185515",
+                                    "author": {
+                                        "login": "Mohannadcse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-16T17:23:48Z",
+                                    "bodyText": "@Mohannadcse I made simplifications and fixes\n\nno need for second agent, just add google search tool\nfix use_tools inconsistencies\nimprove sys msgs\nimprove kg-chat/readme\n\nWill merge when this passes",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1894186287",
+                                    "author": {
+                                        "login": "pchalasani"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-16T17:26:25Z",
+                                    "bodyText": "It tries to follow closely something like this example\n\nthere is an important difference between that example and this one -- that assistants example explicitly addresses a specific other agent via recipient tool. Here we are not doing that; instead we are letting it fail over to the search agent. But we actually don't need the search agent, just add the search tool.",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1894190455",
+                                    "author": {
+                                        "login": "pchalasani"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-16T17:29:42Z",
+                                    "bodyText": "While if the function-api is enabled (default behaviour), then the agent doesn't ask about the version and proceed with calling the function to construct the dep. graph.\n\ncould just be random/non-deterministic behavior",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1894195457",
+                                    "author": {
+                                        "login": "pchalasani"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-16T17:51:11Z",
+                                    "bodyText": "@pchalasani updated README",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1894227060",
+                                    "author": {
+                                        "login": "Mohannadcse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-16T18:03:52Z",
+                                    "bodyText": "@pchalasani there are linting issues from you commit, I'll proceed now with fixing that, unless you are making some mods",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1894245833",
+                                    "author": {
+                                        "login": "Mohannadcse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-16T19:22:02Z",
+                                    "bodyText": "@pchalasani there are linting issues from you commit, I'll proceed now with fixing that, unless you are making some mods\n\nI'm done, go ahead",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1894369445",
+                                    "author": {
+                                        "login": "pchalasani"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-16T20:08:11Z",
+                                    "bodyText": "not sure why pytest failed. I ran the failed test case tests/main/test_table_chat_agent.py and all tests passed.\n@pchalasani I re-ran the wf. A different assertion under test_table_chat_agent.py caused the failure. So probably some non deterministic behaviour.",
+                                    "url": "https://github.com/langroid/langroid/pull/301#issuecomment-1894435982",
+                                    "author": {
+                                        "login": "Mohannadcse"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I guess this fetch is retrieving what was written in the above test? Dependency among tests is not great though.",
+                                                        "author": {
+                                                            "login": "pchalasani"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1396481543",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5d9ee4a",
+                                                            "authoredDate": "2023-11-16T22:57:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "will you have a GH workflow in pytest.yml to run this service,  like we did for Meilisearch?",
+                                                        "author": {
+                                                            "login": "pchalasani"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1396481909",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5d9ee4a",
+                                                            "authoredDate": "2023-11-16T22:57:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "yes, let me fix that",
+                                                        "author": {
+                                                            "login": "Mohannadcse"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1396597896",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5d9ee4a",
+                                                            "authoredDate": "2023-11-16T22:57:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I need to check Meilisearch.",
+                                                        "author": {
+                                                            "login": "Mohannadcse"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1396603462",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5d9ee4a",
+                                                            "authoredDate": "2023-11-16T22:57:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, I'll do that, should I put the test_neo4j.py under the main folder? it's currently under extras.",
+                                                        "author": {
+                                                            "login": "Mohannadcse"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1398008038",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5d9ee4a",
+                                                            "authoredDate": "2023-11-16T22:57:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes extras",
+                                                        "author": {
+                                                            "login": "pchalasani"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1398208275",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5d9ee4a",
+                                                            "authoredDate": "2023-11-16T22:57:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "this needs to be an extra like litellm",
+                                                        "author": {
+                                                            "login": "pchalasani"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1399546196",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "efc6a58",
+                                                            "authoredDate": "2023-11-20T15:51:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "since neo4j is an extra, the imports should be wrapped in try, except with a friendly warning. See how it's done for hf-embeddings or litellm extras.",
+                                                        "author": {
+                                                            "login": "pchalasani"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1399548082",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "efc6a58",
+                                                            "authoredDate": "2023-11-20T15:51:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "added some comments related to neo4j being an extra.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "@Mohannadcse can you add a very simple example of using this, under examples/graph_db/\nMake it self-contained, super-simple, maybe using in-code data, hopefully without requiring docker.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@pchalasani I already changed the password after realizing this, but not sure how to delete this from the commit. Where I already removed it in the next commit.",
+                                                        "author": {
+                                                            "login": "Mohannadcse"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1435214245",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "eb4b944",
+                                                            "authoredDate": "2023-12-22T16:22:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Starting to look at this. It will be very helpful to have a README under kg-chat, like I did here -- https://github.com/langroid/langroid-examples/tree/main/examples/docqa/streamlit-app\nFor example I don't know what to do to get this going, and the README.md should have self-contained instructions.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Please add a way to get these from .env file similar to how various openai etc settings are obtained. I think Neo4jChatAgentConfig is mixing too many things-- credentials and ChatAgent related things like sys msg etc. Instead there should be a separate Neo4jSettings derived from Pyandic BaseSettings, with env_prefix = \"NEO4J_\" so that the settings are automatically obtained from .env` file.",
+                                                        "author": {
+                                                            "login": "pchalasani"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1451824999",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f3248e5",
+                                                            "authoredDate": "2024-01-12T21:44:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "let's have it use fn api by default. When I ran it with no options it was using langroid tools.",
+                                                        "author": {
+                                                            "login": "pchalasani"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1451826982",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f3248e5",
+                                                            "authoredDate": "2024-01-12T21:44:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "any reason this had to be overridden? Seems like this essentially copies the code of ChatAgent.agent_response and makes a special NEO4J error output? We should find a way to avoid this code duplication, maybe some of the task orch/signal mechanisms",
+                                                        "author": {
+                                                            "login": "pchalasani"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1451829301",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f3248e5",
+                                                            "authoredDate": "2024-01-12T21:44:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "comment - change to GenerateCypherQueries",
+                                                        "author": {
+                                                            "login": "pchalasani"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1451829445",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f3248e5",
+                                                            "authoredDate": "2024-01-12T21:44:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "add comment on what this does.\nCould this be generated by the LLM? (Or actually it probably WAS generated by ChatGPT4, but could we have this be part of the process, so we don't need to hardcode this? or is it better to keep this here to keep it deterministic?)",
+                                                        "author": {
+                                                            "login": "pchalasani"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1451829840",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f3248e5",
+                                                            "authoredDate": "2024-01-12T21:44:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It wasn't generated by ChatGPT4 and haven't tried it. I doubt ChatGPT can generate this because it's not aware of the intended schema (nodes labels and their relationships).\nSo hardcoding it is the safest way to make sure the graph database is constructed as intended.\nOn the other hand, constructing the graph database for CSV can be done using LLM is easier (working on it now) because all what you need to provide is the CSV header. Then LLM will infer the nodes, their labels, and relationships.",
+                                                        "author": {
+                                                            "login": "Mohannadcse"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1451832824",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f3248e5",
+                                                            "authoredDate": "2024-01-12T21:44:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I tried here to mimic the implementation of sql_chat_agent https://github.com/langroid/langroid/blob/main/langroid/agent/special/sql/sql_chat_agent.py#L197",
+                                                        "author": {
+                                                            "login": "Mohannadcse"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1451906253",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f3248e5",
+                                                            "authoredDate": "2024-01-12T21:44:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The intention here was to follow the implementation of SQLChatAgentConfig \n  \n    \n      langroid/langroid/agent/special/sql/sql_chat_agent.py\n    \n    \n         Line 66\n      in\n      0e4fbad\n    \n  \n  \n    \n\n        \n          \n           system_message: str = DEFAULT_SQL_CHAT_SYSTEM_MESSAGE \n        \n    \n  \n\n.",
+                                                        "author": {
+                                                            "login": "Mohannadcse"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1452429844",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f3248e5",
+                                                            "authoredDate": "2024-01-12T21:44:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe you can just add env_prefix  = \"NEO4J_\" to this config class.",
+                                                        "author": {
+                                                            "login": "pchalasani"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1452451584",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f3248e5",
+                                                            "authoredDate": "2024-01-12T21:44:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "any questions actually can be forwarded to this tool, like after obtaining the package and version in the dependency graph, you can search the web about if this version is vulnerable or not.",
+                                                        "author": {
+                                                            "login": "Mohannadcse"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1453748721",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d0bdb80",
+                                                            "authoredDate": "2024-01-16T17:16:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "you can search the web about if this version is vulnerable or not.\n\nok please update the readme to say that",
+                                                        "author": {
+                                                            "login": "pchalasani"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1453751047",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d0bdb80",
+                                                            "authoredDate": "2024-01-16T17:16:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "this paragraph needs to be updated since we decided to proceed with one agent-2 tools\nI can update once @pchalasani  confirms",
+                                                        "author": {
+                                                            "login": "Mohannadcse"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1453751167",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d0bdb80",
+                                                            "authoredDate": "2024-01-16T17:16:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "ok please make that change",
+                                                        "author": {
+                                                            "login": "pchalasani"
+                                                        },
+                                                        "url": "https://github.com/langroid/langroid/pull/301#discussion_r1453754634",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d0bdb80",
+                                                            "authoredDate": "2024-01-16T17:16:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjY=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 6
+        }
+    }
+}

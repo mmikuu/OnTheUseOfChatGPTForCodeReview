@@ -1,0 +1,320 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 23,
+                        "title": "Fix libp2p error in tests",
+                        "repository": {
+                            "nameWithOwner": "sarcophagus-org/sarcophagus-v2-sdk",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-06-06T20:11:03Z",
+                        "mergedAt": "2023-06-09T19:32:21Z",
+                        "url": "https://github.com/sarcophagus-org/sarcophagus-v2-sdk/pull/23",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "knoll3"
+                        },
+                        "editor": {
+                            "login": "knoll3"
+                        },
+                        "body": "Fixes the libp2p import error we were getting in the tests. I had to add some stuff to the jest config file to tell jest to use the mocked libp2p module. See the ChatGPT conversation that led me to this solution here: https://chat.openai.com/share/f612708b-692b-487f-861b-7081f8bec5c5.\r\n\r\n```\r\nmodule.exports = {\r\n  preset: 'ts-jest',\r\n  testMatch: ['**/test/**/*.test.ts', '**/test/**/*.integration.ts'],\r\n  // https://chat.openai.com/share/f612708b-692b-487f-861b-7081f8bec5c5\r\n  moduleNameMapper: {\r\n    libp2p: '<rootDir>/test/__mocks__/libp2pMock.ts',\r\n  },\r\n};\r\n```\r\n\r\nI also updated the node version in the github action from 14 to 18.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-06-07T10:53:33Z",
+                                    "bodyText": "@knoll3 I've merged this PR into the big-merge PR, so this can be closed. I'll leave that to you though, just in case we discover issues on that PR too large to merge in at this point.\nEDIT: My fat fingers accidentally closed it anyway. Re-opened.\nEDIT EDIT: I just realised the updates in big-merge break Api (renamed SarcophagusApi) tests. So they need to be updated as well.",
+                                    "url": "https://github.com/sarcophagus-org/sarcophagus-v2-sdk/pull/23#issuecomment-1580516743",
+                                    "author": {
+                                        "login": "DarksightKellar"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 4,
+                        "title": "generate readme with gpt-3",
+                        "repository": {
+                            "nameWithOwner": "livingbio/gpt-fn",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-06-06T08:15:34Z",
+                        "mergedAt": "2023-06-06T08:16:04Z",
+                        "url": "https://github.com/livingbio/gpt-fn/pull/4",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "lucemia"
+                        },
+                        "editor": {
+                            "login": "lucemia"
+                        },
+                        "body": "generate readme with GPT-3\r\n\r\nhttps://chat.openai.com/share/704e3274-e669-49b1-a108-2a10a1da2ca3",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 228,
+                        "title": "GPT-3.5-Turbo Hierarchy Script",
+                        "repository": {
+                            "nameWithOwner": "OpenAdaptAI/OpenAdapt",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-06-06T22:07:23Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/228",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "FFFiend"
+                        },
+                        "editor": null,
+                        "body": "Addresses #185 ",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-06-06T22:09:28Z",
+                                    "bodyText": "Ready for review @abrichr",
+                                    "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/228#issuecomment-1579520519",
+                                    "author": {
+                                        "login": "FFFiend"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-06T22:16:25Z",
+                                    "bodyText": "I tried forcing GPT to elaborate on each of the already generated tasks but the script just never stopped running lol, I think it has smth to do with the max input length being 3000 words (?) although I suspect its actually 3000 characters.\nEdit: I have to truncate each hierarchy to 3000 chars due to gpt-3.5-turbo max input length limitations. Makes elaboration and repeated querying kinda difficult because the input may not make sense and gpt might not pick up on some necessary context in the message.",
+                                    "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/228#issuecomment-1579528118",
+                                    "author": {
+                                        "login": "FFFiend"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-14T23:00:21Z",
+                                    "bodyText": "@FFFiend can you please show the latest output?",
+                                    "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/228#issuecomment-1592101684",
+                                    "author": {
+                                        "login": "abrichr"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-14T23:28:31Z",
+                                    "bodyText": "Sure, here it is. I also changed up the prompting a little since last commit, will push it:\n0\nLet's take the example of generating invoices, and I will enumerate the different levels of the hierarchy from least granular to the most.\n\n1. Open the invoicing software\n2. Navigate to the \"Invoices\" section\n3. Click on the \"Create New Invoice\" button\n4. Fill out the invoice details such as customer name, address, and items being invoiced\n5. Click on the \"Save\" button\n6. Preview the invoice to ensure accuracy\n7. Click on the \"Send\" button to email the invoice to the customer\n\n\n1\n\n\n1. Launch the invoicing software by clicking on its icon in the Applications folder\n2. Log in with valid credentials when prompted\n3. Once the dashboard of the invoicing software is visible, identify the \"Invoices\" tab on the left-hand side of the screen.\n4. Use the mouse cursor to click on the \"Invoices\" tab\n5. A list of existing invoices should now be visible. To create a new invoice, locate and click on the \"Create New Invoice\" button, usually positioned at the top of the screen.\n6. Fill out the required fields in the invoice form presented on the screen. This will usually include details such as the customer name, address, payment terms, itemized list, etc.\n7. To add a new item to the invoice, use the mouse cursor to click on the \"Add Item\" or \"+\" button that appears at the bottom of the itemized list.\n8. Enter the details of the new item and ensure that the total amount automatically updates.\n9. Repeat these steps as necessary to add all items to the invoice.\n10. Once the invoice is complete, click on the \"Save\" button, usually located at the bottom or top of the screen.\n11. Use the mouse cursor to choose whether the invoice should be marked as \"Draft\" or \"Sent.\"\n12. To view the invoice, use the mouse cursor to click on the \"Preview\" or \"View\" button on the screen.\n13. A preview of the invoice will open in a new window, where you can double-check all details before proceeding.\n14. To email the invoice to the customer, click on the \"Send\" button, usually located at the bottom or top of the screen.\n15. An email form will appear on the screen where you can enter the details of the recipient, such as email address and a custom message.\n16. Click on the \"Send\" button to finalize sending the invoice.\n\n\n2\n\n\n1. Turn on the computer\n2. Log in with valid credentials when prompted\n3. Navigate to the desktop or taskbar and locate the invoicing software icon.\n4. Use the mouse cursor to click on the invoicing software icon\n5. Wait for the invoicing software to fully load and display the login screen\n6. Enter valid login credentials and click on the \"Login\" button\n7. Wait for the dashboard to load and then find the \"Invoices\" section on the left-hand sidebar\n8. Click on the \"Invoices\" section to reveal the menu items underneath\n9. To create a new invoice, select the \"Create New Invoice\" option from the menu\n10. Fill out the required fields such as customer name, address, and items being invoiced, using the keyboard or mouse to make selections as necessary\n11. Use the mouse to click on the \"Save\" button, located at the bottom or top of the screen, to save the newly created invoice\n12. Preview the invoice by clicking on the \"Preview\" button, usually located next to the \"Save\" button, and examine it closely for accuracy\n13. If all information is correct, click on the \"Send\" button to email the invoice to the customer.\n14. Compose a message to the customer in the email form that appears on the screen\n15. Click on the \"Send\" button in the email form to finalize sending the invoice. \n\nAs we can see, the hierarchy can be very granular, from simply turning on a computer and clicking a few buttons to the minute details of filling in a form, entering information, and previewing an invoice. By going through each level of the hierarchy, we can see the various processes and actions that must be taken to accomplish a task such as generating invoices.",
+                                    "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/228#issuecomment-1592121543",
+                                    "author": {
+                                        "login": "FFFiend"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-16T18:34:25Z",
+                                    "bodyText": "We want a full exhaustive hierarchical enumeration of all the tasks a person might do on a computer.\nSimilar to https://chat.openai.com/share/dda1e1e2-f52f-49c1-ac2e-ece2f0488cb7 but more exhaustive",
+                                    "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/228#issuecomment-1595122865",
+                                    "author": {
+                                        "login": "abrichr"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-23T04:05:12Z",
+                                    "bodyText": "Used the prompts in the issue description to generate the following output.\nThis is the level Level 1: Interacting with GUI desktop applications\n\n1. Launching an application\n2. Configuring software settings\n3. Navigating menus and submenus\n4. Interacting with buttons, checkboxes, and radio buttons\n5. Typing and editing text in text boxes and text areas\n6. Selecting and manipulating files, images, and other data objects\n7. Managing windows, tabs, and panes within an application \n8. Using keyboard shortcuts to perform commonly used actions.\nThis is the level \nLevel 2: Clicking buttons and navigating menus\n\n1. Launching the application\n2. Logging in or authenticating\n3. Navigating to a specific section of the application using menus\n4. Clicking on buttons to perform actions such as creating, saving or deleting files\n5. Interacting with dropdown menus to select options or make choices\n6. Typing information into text boxes or fields \n7. Selecting checkboxes and radio buttons \n8. Using keyboard shortcuts to perform actions \n9. Copying and pasting data between sections of the application or to other applications \n10. Managing open windows and tabs of the application \n11. Closing the application or logging out.\nThis is the level \nLevel 3: Opening and closing windows\n\nExamples of tasks at Level 3 of opening and closing windows include:\n\n- Launching an application by clicking on its icon\n- Closing an open window by clicking on the \"X\" button in the upper-right corner\n- Minimizing an open window by clicking on the \"-\" button in the upper-left corner\n- Maximizing an open window by clicking on the \"+\" button in the upper-left corner\n- Resizing a window by dragging its edges or corners\n- Moving a window to a different location on the desktop by clicking and dragging its title bar\n- Switching between open windows by clicking on their respective icons in the taskbar or using keyboard shortcuts\n- Closing an entire application by right-clicking on its icon in the taskbar and selecting \"Close\" from the context menu.\nThis is the level \nLevel 4: Typing and inputting data\n\n1. Entering text into a text field\n2. Typing in a username and password\n3. Inputting search terms into a search bar\n4. Filling out a form with personal information \n5. Entering the amount of a transaction \n6. Typing in a message to be sent \n7. Inputting data into a spreadsheet or database \n8. Typing code into an IDE for programming.\nThis is the level \nLevel 5: Executing commands and running applications\n\n1. Running payroll software.\n2. Launching a web browser.\n3. Opening Microsoft Excel.\n4. Accessing email client.\n5. Running a programming IDE.\n6. Using a video editing software.\n7. Running a game.\n8. Launching a music player.\n9. Opening a file manager.\n10. Running a chat application.\nThis is the level \nLevel 6: Operating specific software (e.g. payroll software)\n\n1. Launching the software.\n2. Logging into the software with the appropriate credentials.\n3. Navigating through different tabs or menu options to access desired features.\n4. Entering employee information such as names, addresses, and tax information.\n5. Setting up direct deposit or other payment methods for employees.\n6. Calculating and processing payroll for a specific pay period.\n7. Creating reports to analyze payroll data and ensure accuracy.\n8. Generating and distributing pay stubs or checks to employees.\n9. Changing employee information or payment methods as needed.\n10. Conducting regular backups of payroll data to prevent loss.\nThis is the level \nLevel 7: Performing tasks within software (e.g. generating invoices)\n\nHere are different tasks at level 7:\n\n1. Creating an invoice from scratch\n2. Modifying an existing invoice\n3. Adding or removing items from an invoice\n4. Applying discounts or taxes to an invoice\n5. Changing the currency or payment terms on an invoice\n6. Previewing an invoice before generating it\n7. Saving an invoice to a specific location or format\n8. Sending an invoice via email or printing and mailing it\n9. Tracking the payment status of an invoice\n10. Generating reports or analytics based on invoices.\nThis is the level \nLevel 8: Completing larger tasks that require multiple software interactions (e.g. renting an apartment)\n1. Search for available apartments\n2. Review apartment listings\n3. Contact landlords or property managers\n4. Schedule apartment viewings\n5. View apartments in-person or virtually \n6. Submit rental application materials\n7. Negotiate lease terms\n8. Sign lease agreement \n9. Pay rental deposit and fees \n10. Request repairs or maintenance \n11. Refinance or renew lease agreement \n12. End lease agreement and move out.",
+                                    "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/228#issuecomment-1603653261",
+                                    "author": {
+                                        "login": "FFFiend"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-23T15:17:02Z",
+                                    "bodyText": "Closing in favor of #301",
+                                    "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/228#issuecomment-1604431870",
+                                    "author": {
+                                        "login": "abrichr"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "use config.OPENAI_API_KEY",
+                                                        "author": {
+                                                            "login": "0dm"
+                                                        },
+                                                        "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/228#discussion_r1220714856",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6be8416",
+                                                            "authoredDate": "2023-06-06T22:52:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "config.OPENAI_MODEL_NAME",
+                                                        "author": {
+                                                            "login": "0dm"
+                                                        },
+                                                        "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/228#discussion_r1220715806",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6be8416",
+                                                            "authoredDate": "2023-06-06T22:52:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "minor typo",
+                                                        "author": {
+                                                            "login": "0dm"
+                                                        },
+                                                        "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/228#discussion_r1220716483",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6be8416",
+                                                            "authoredDate": "2023-06-06T22:52:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "this will use a lot of openai tokens \ud83d\ude05",
+                                                        "author": {
+                                                            "login": "0dm"
+                                                        },
+                                                        "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/228#discussion_r1220722587",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6be8416",
+                                                            "authoredDate": "2023-06-06T22:52:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Please fix formatting as follows:\n        {\n            \"role\":\"system\",\n            \"content\": (\n                \"You are enumerating a hierarchy of actions that \"\n                \"one takes when operating GUI desktop applications for typical \"\n                \"...\"\n             )\n         }",
+                                                        "author": {
+                                                            "login": "abrichr"
+                                                        },
+                                                        "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/228#discussion_r1224565133",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6be8416",
+                                                            "authoredDate": "2023-06-06T22:52:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Even nicer:\nprompt_lines = [\n    \"You are enumerating a hierarchy.\",\n    #\"You are very smart.\",\n    (\n        \"This is a longer one \"\n        \"spread over multiple lines.\"\n    ),\n    \"Enumerate all different levels.\",\n]\nprompt = \"\\n\".join(prompt_lines)\n\nAlso:\n$ black file.py\n\nTo try to split long strings:\n$ black -l 80 --preview file.py",
+                                                        "author": {
+                                                            "login": "abrichr"
+                                                        },
+                                                        "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/228#discussion_r1224568927",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6be8416",
+                                                            "authoredDate": "2023-06-06T22:52:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

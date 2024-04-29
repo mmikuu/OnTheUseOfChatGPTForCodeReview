@@ -1,0 +1,477 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 22213,
+                        "title": "AK: Print timestamp, process name, and pid on all platforms",
+                        "repository": {
+                            "nameWithOwner": "SerenityOS/serenity",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2023-12-08T20:54:40Z",
+                        "mergedAt": "2023-12-12T17:11:24Z",
+                        "url": "https://github.com/SerenityOS/serenity/pull/22213",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "ADKaster"
+                        },
+                        "editor": null,
+                        "body": "This requires duplicating some logic from Core::Process::get_name() into AK, which seems unfortunate. But for now, this greatly improves the log messages for testing Ladybird on Linux.\r\n\r\nExample dbgln output with this patch:\r\n\r\n```\r\n1317422.228 WebContent(1477609): FontDatabase::load_all_fonts_from_uri('file:///home/andrew/.local/share/fonts'): open: No such file or directory (errno=2)\r\n1317422.244 WebContent(1477609): ResourceLoader: Starting load of: \"https://chat.openai.com/\"\r\n1317422.376 WebContent(1477609): ResourceLoader: Failed load of: \"https://chat.openai.com/\", Error: Load failed: 403, Duration: 133ms\r\n1317422.388 WebContent(1477609): ResourceLoader: Starting load of: \"https://chat.openai.com/cdn-cgi/challenge-platform/h/b/orchestrate/chl_page/v1?ray=8327de841f365200\"\r\n1317422.396 WebContent(1477609): HTMLScriptElement: Refusing to run script because the src URL ':' is invalid.\r\n1317422.548 WebContent(1477609): ResourceLoader: Finished load of: \"https://chat.openai.com/cdn-cgi/challenge-platform/h/b/orchestrate/chl_page/v1?ray=8327de841f365200\", Duration: 161ms\r\n1317422.720 WebContent(1477609): ResourceLoader: Starting load of: \"https://chat.openai.com/favicon.ico\"\r\n1317422.740 WebContent(1477609): ResourceLoader: Failed load of: \"https://chat.openai.com/favicon.ico\", Error: Load failed: 403, Duration: 21ms\r\n1317422.748 WebWorker(1477622): DedicatedWorkerHost: Unable to fetch script blob:https://chat.openai.com/7fb1aa64-837a-4bc7-89bf-1651462baaf8 because script was null\r\n1317422.748 WebContent(1477609): Could not decode favicon https://chat.openai.com/favicon.ico\r\n1317422.756 WebSocket(1477624): Loaded 141 of 141 (100%) provided CA Certificates\r\n1317422.756 RequestServer(1477623): Loaded 141 of 141 (100%) provided CA Certificates\r\n```",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-09T01:01:27Z",
+                                    "bodyText": "Could this be opt-in? It makes sense for ladybird but is just noise for any other lagom app (which are all single process afaik).",
+                                    "url": "https://github.com/SerenityOS/serenity/pull/22213#issuecomment-1848025855",
+                                    "author": {
+                                        "login": "nico"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 281,
+                        "title": "Clean up `col_to_pattern` logic",
+                        "repository": {
+                            "nameWithOwner": "pyg-team/pytorch-frame",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-08T03:43:26Z",
+                        "mergedAt": "2023-12-08T07:38:22Z",
+                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "weihua916"
+                        },
+                        "editor": {
+                            "login": "weihua916"
+                        },
+                        "body": "- Remove redundancy, increase code sharing.\r\n- Explicitly let `sep=None` handle `list` cell in multicategorical columns\r\n- More type checking of canonicalized `col_to_pattern` to raise informative errors.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-08T03:46:15Z",
+                                    "bodyText": "Codecov Report\nAll modified and coverable lines are covered by tests \u2705\n\nComparison is base (4ef20f4) 93.25% compared to head (1f2175f) 93.31%.\n\nAdditional details and impacted files\n@@            Coverage Diff             @@\n##           master     #281      +/-   ##\n==========================================\n+ Coverage   93.25%   93.31%   +0.06%     \n==========================================\n  Files         115      115              \n  Lines        5719     5743      +24     \n==========================================\n+ Hits         5333     5359      +26     \n+ Misses        386      384       -2     \n\n\u2614 View full report in Codecov by Sentry.\n\ud83d\udce2 Have feedback on the report? Share it here.",
+                                    "url": "https://github.com/pyg-team/pytorch-frame/pull/281#issuecomment-1846506144",
+                                    "author": {
+                                        "login": "codecov"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "In general LGTM, left some comments",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think it's not mapped to :class:torch.nn.Embeddings, let's change this.",
+                                                        "author": {
+                                                            "login": "zechengz"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1419962319",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This col_to_xxx seems a little bit weird",
+                                                        "author": {
+                                                            "login": "zechengz"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1419963278",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "See this https://chat.openai.com/share/3506c8b0-4810-42f2-a23a-a9d4e3c38fe4",
+                                                        "author": {
+                                                            "login": "zechengz"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1419964583",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It will be soon. My pr is going to change the mapping. \ud83d\ude06 It would be ready for review soon",
+                                                        "author": {
+                                                            "login": "yiweny"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1419976917",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I deliberately made so, since the input here is supposed to be canonicalized dictionary. By default, col_to_pattern should be an empty dictionary.",
+                                                        "author": {
+                                                            "login": "weihua916"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1419985442",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Good point. will modify.",
+                                                        "author": {
+                                                            "login": "weihua916"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1419986436",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Actually, interesting. We should make it None and replace with {} inside. Will do this way.",
+                                                        "author": {
+                                                            "login": "weihua916"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1419990094",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Good catch. Rewrote as follows:\n:obj:text_embedder that embeds texts into vectors",
+                                                        "author": {
+                                                            "login": "weihua916"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1420013421",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Updated. Since empty dictionary will be never accessed, leaving them as None inside the class seems fine as well. Again, thanks for the good catch!",
+                                                        "author": {
+                                                            "login": "weihua916"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1420017175",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94a53b1",
+                                                            "authoredDate": "2023-12-08T03:59:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This will fail the test_converter test",
+                                                        "author": {
+                                                            "login": "yiweny"
+                                                        },
+                                                        "url": "https://github.com/pyg-team/pytorch-frame/pull/281#discussion_r1420064268",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1f2175f",
+                                                            "authoredDate": "2023-12-08T07:07:22Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 1061,
+                        "title": "CC-859 add stripe invoice details",
+                        "repository": {
+                            "nameWithOwner": "codecrafters-io/frontend",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-12-08T03:22:16Z",
+                        "mergedAt": "2023-12-13T16:35:11Z",
+                        "url": "https://github.com/codecrafters-io/frontend/pull/1061",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "libmartinito"
+                        },
+                        "editor": {
+                            "login": "libmartinito"
+                        },
+                        "body": "**Checklist**:\r\n\r\n- [x] I've thoroughly self-reviewed my changes\r\n- [x] I've added tests for my changes, unless they affect admin-only areas (or are otherwise not worth testing)\r\n- [x] I've verified any visual changes using Percy (add a commit with `[percy]` in the message to trigger)\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-08T03:22:19Z",
+                                    "bodyText": "CC-859 Stripe invoice flow\n\nhttps://codecrafters.slab.com/posts/allow-adding-invoice-details-hkgo0bon",
+                                    "url": "https://github.com/codecrafters-io/frontend/pull/1061#issuecomment-1846492335",
+                                    "author": {
+                                        "login": "linear"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-08T03:26:00Z",
+                                    "bodyText": "Test Results\n\u205f\u2004\u205f\u20041 files\u2004 \u00b10\u2002\u2003\u205f\u2004\u205f\u20041 suites\u2004 \u00b10\u2002\u2003\u20023m 48s \u23f1\ufe0f -2s\n324 tests +1\u2002\u2003323 \u2714\ufe0f +1\u2002\u20031 \ud83d\udca4 \u00b10\u2002\u20030 \u274c \u00b10\u2002\n329 runs\u2006 +1\u2002\u2003328 \u2714\ufe0f +1\u2002\u20031 \ud83d\udca4 \u00b10\u2002\u20030 \u274c \u00b10\u2002\nResults for commit 6aa94e8.\u2003\u00b1 Comparison against base commit 4cb0a85.\n\u267b\ufe0f This comment has been updated with latest results.",
+                                    "url": "https://github.com/codecrafters-io/frontend/pull/1061#issuecomment-1846494408",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-08T03:27:21Z",
+                                    "bodyText": "Codecov Report\nAttention: 1 lines in your changes are missing coverage. Please review.\n\nComparison is base (4cb0a85) 74.87% compared to head (6aa94e8) 74.88%.\n\n\n\n\nFiles\nPatch %\nLines\n\n\n\n\napp/controllers/pay.js\n80.00%\n1 Missing \u26a0\ufe0f \n\n\n\nAdditional details and impacted files\n@@            Coverage Diff             @@\n##           master    #1061      +/-   ##\n==========================================\n+ Coverage   74.87%   74.88%   +0.01%     \n==========================================\n  Files         381      382       +1     \n  Lines        3538     3544       +6     \n  Branches      399      399              \n==========================================\n+ Hits         2649     2654       +5     \n- Misses        764      765       +1     \n  Partials      125      125              \n\n\u2614 View full report in Codecov by Sentry.\n\ud83d\udce2 Have feedback on the report? Share it here.",
+                                    "url": "https://github.com/codecrafters-io/frontend/pull/1061#issuecomment-1846495235",
+                                    "author": {
+                                        "login": "codecov"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-12T05:28:29Z",
+                                    "bodyText": "Deploying with \u00a0 \u00a0Cloudflare Pages\nLatest commit: \n6aa94e8\n\nStatus:\u00a0\u2705\u00a0 Deploy successful!\nPreview URL:\nhttps://8aa06979.frontend-8aw.pages.dev\n\nBranch Preview URL:\nhttps://cc-859-stripe-invoice.frontend-8aw.pages.dev\n\n\nView logs",
+                                    "url": "https://github.com/codecrafters-io/frontend/pull/1061#issuecomment-1851326634",
+                                    "author": {
+                                        "login": "cloudflare-pages"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-12T05:28:31Z",
+                                    "bodyText": "\ud83d\udc77 Deploy request for warm-jelly-26fa95 pending review.\nA Netlify team Owner will need to approve the deploy before you can run your build.\nAre you a team Owner? Visit the deploys page to approve it \u2192\nNeed more help? Learn more in the Netlify docs \u2192\n\n\n\nName\nLink\n\n\n\n\n\ud83d\udd28 Latest commit\n60d2a82",
+                                    "url": "https://github.com/codecrafters-io/frontend/pull/1061#issuecomment-1851326653",
+                                    "author": {
+                                        "login": "netlify"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n              @tracked isExtraInvoiceDetailsRequested = false;\n          \n          \n            \n              @tracked extraInvoiceDetailsRequested = false;",
+                                                        "author": {
+                                                            "login": "rohitpaulk"
+                                                        },
+                                                        "url": "https://github.com/codecrafters-io/frontend/pull/1061#discussion_r1420466104",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f33f5d6",
+                                                            "authoredDate": "2023-12-08T09:20:03Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Our naming pattern is to use handleClick for handlers within the class, and @onClick for args - to be consistent I'd name this arg @onStartMembershipButtonClick",
+                                                        "author": {
+                                                            "login": "rohitpaulk"
+                                                        },
+                                                        "url": "https://github.com/codecrafters-io/frontend/pull/1061#discussion_r1420469067",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f33f5d6",
+                                                            "authoredDate": "2023-12-08T09:20:03Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's add a space between the service declarations and the rest (not sure how we ended up without it here)",
+                                                        "author": {
+                                                            "login": "rohitpaulk"
+                                                        },
+                                                        "url": "https://github.com/codecrafters-io/frontend/pull/1061#discussion_r1420470335",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f33f5d6",
+                                                            "authoredDate": "2023-12-08T09:20:03Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Bad naming, this should be something like selectedPricingFrequency.\nReasoning: https://chat.openai.com/share/d668d64c-182e-4e9d-8e17-6517d91fc65e\n@libmartinito we don't seem to be getting better with naming - I'd strongly suggest spending more time on this. Read books, talk to chatgpt about it, try to identify cases where our naming is wrong and ask me clarifying questions, do whatever it takes - usually these problems go away in a couple of months, doesn't seem to be happening so we need to pay extra attention to it",
+                                                        "author": {
+                                                            "login": "rohitpaulk"
+                                                        },
+                                                        "url": "https://github.com/codecrafters-io/frontend/pull/1061#discussion_r1420472117",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f33f5d6",
+                                                            "authoredDate": "2023-12-08T09:20:03Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                    @handleStartMembershipButtonClick={{this.handleStartMembershipButtonClick}}\n          \n          \n            \n                    @onStartMembershipButtonClick={{this.handleStartMembershipButtonClick}}",
+                                                        "author": {
+                                                            "login": "rohitpaulk"
+                                                        },
+                                                        "url": "https://github.com/codecrafters-io/frontend/pull/1061#discussion_r1420477957",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f33f5d6",
+                                                            "authoredDate": "2023-12-08T09:20:03Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Feel like this whole function could be far simpler:\nreturn {\n  pricingFrequency: this.selectedPricingFrequency,\n  regionalDiscount: this.shouldApplyRegionalDiscount ? this.model.regionalDiscount : null,\n  earlyBirdDiscountEnabled: this.selectedPricingFrequency == \"yearly\" && this.user.isEligibleForEarlyBirdDiscount,\n  referralDiscountEnabled: this.selectedPricingFrequency == \"yearly\" && this.user.isEligibleForReferralDiscount\n}",
+                                                        "author": {
+                                                            "login": "rohitpaulk"
+                                                        },
+                                                        "url": "https://github.com/codecrafters-io/frontend/pull/1061#discussion_r1420511531",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f33f5d6",
+                                                            "authoredDate": "2023-12-08T09:20:03Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

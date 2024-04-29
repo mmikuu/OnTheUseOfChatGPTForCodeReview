@@ -1,0 +1,496 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 184,
+                        "title": "Feat : Create checkbox component",
+                        "repository": {
+                            "nameWithOwner": "nishiki-tech/nishiki-frontend",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2024-01-13T07:17:47Z",
+                        "mergedAt": "2024-01-17T20:39:01Z",
+                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "kanta1207"
+                        },
+                        "editor": {
+                            "login": "kanta1207"
+                        },
+                        "body": "<!--\r\n\r\nTitle Naming Conventions:\r\n\r\n- Start with a capitalized prefix followed by an imperative form of a verb, just like a commit message.\r\n- Refer to the \"Commit Convention\" for the prefix:\r\n  https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/CONTRIBUTING.md#commit-convention.\r\n\r\nExample:\r\n- Fix: Resolve memory leak in data processing module\r\n- Feat: Add two-factor authentication\r\n- Refactor: Improve state management in React components\r\n- Docs: Add Windows setup instructions\r\n\r\n-->\r\n\r\n## Overview\r\n\r\n<!-- Provide a brief description of the changes introduced by this PR. -->\r\nCreate Checkbox component based on shadcn [Checkbox](https://ui.shadcn.com/docs/components/checkbox)\r\n\r\n## Changes\r\n\r\n<!-- List the changes -->\r\n<!-- Delete this section if not needed -->\r\n\r\n- Added `Checkbox.tsx` to `src/components/ui` directory.\r\n- Added `CheckboxUsageExample.tsx`\r\n- Added export of `Checkbox` in `src/components/ui/index.ts` \r\n- Added `icon_check.svg` to `assets/images/icons`\r\n- Added color `white` to Icon component variant\r\n\r\n## Review points\r\n\r\n<!-- List the points you would like to be reviewed in detail and the points you are not confident about. -->\r\n<!-- Delete this section if not needed -->\r\n\r\n- Since there weren't any size variation, I didn't add variants for checkbox, so checkbox rectangle is fixed to be 24px square, and check icon is fixed to be 14px. We can override it any time with `className` tho. **Should I make size variant already, considering the desktop design?**\r\n   \r\n\r\n## Screen Captures\r\n\r\n<!-- Add screenshots or screen recordings of the changes -->\r\n<!-- Necessary for UI changes -->\r\n<!-- Delete this section if not needed -->\r\n\r\n\r\nhttps://github.com/genesis-tech-tribe/nishiki-frontend/assets/99339182/31220b71-7c09-4270-8b37-13f8834e5fdb\r\n\r\n\r\n\r\n## References\r\n\r\n<!-- List all the URLs of the references (documents, articles, youtube videos, etc.) that you used to complete this task -->\r\n<!-- If you have referred to responses from ChatGPT or other AIs, please include the links to the conversations if possible -->\r\n<!-- Delete this section if not needed -->\r\n\r\n- [shadcn Checkbox component](https://ui.shadcn.com/docs/components/checkbox)\r\n\r\n\r\n## Assignee Checklist:\r\n\r\n<!-- You can tick the checkboxes if not applicable -->\r\n\r\n- [ ] The naming convention of the PR title is correct (See the comment at the top of this template)\r\n- [ ] The base branch is correct (See: [Types of Branches](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/CONTRIBUTING.md#types-of-branches))\r\n- [ ] The branch name follows the [Branch Naming Conventions](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/CONTRIBUTING.md#branch-naming-conventions)\r\n- [ ] The correct assignees and reviewers have been designated for this PR\r\n- [ ] The coding style follows the [Coding Style Guide](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/STYLEGUIDE.md)\r\n- [ ] All the related issues are associated with this PR\r\n- [ ] All criteria in the associated issues are met (please tick the checkboxes)\r\n- [ ] My changes do not generate new warnings or errors (especially in the console)\r\n\r\n## Reviewer Checklist:\r\n\r\n<!-- You can tick the checkboxes if not applicable -->\r\n\r\n- [ ] Double-check the \"Assignee Checklist\"\r\n- [ ] The code follows the generic best practices and our [Coding Style Guide](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/STYLEGUIDE.md)\r\n- [ ] The code is well-commented and easy to understand\r\n- [ ] The UI changes accurately reflect the provided design\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "There is no point from me to mention. Thanks!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "@kanta1207\nThank you for your work! I left some comments. Please kindly take a look at them.\nAlso could you tick the checklist, please? So we will be able to double-check them.\nFor your question,\n\nShould I make size variant already, considering the desktop design?\n\nI don't think you should define variants for the size, until it becomes necessary.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This <div> should be the <Label> tag, so that the entire card can toggle the checkbox.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452038121",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I recommend against defining styles not in the provided design. Disabled checkboxes typically have different styles, such as a grayish color.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452041544",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Does the color primary-foregroud exist?",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452045200",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Does this peer have any effects?\nhttps://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-sibling-state",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452050334",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The current border width looks a bit too thin to me.\nI played around and figured out border-[1.2px] and border-[1.5px] looked nicer.\nIn fact, the border width of the original svg image in Figma is around 1.2px.\n1px:\n\n1.2px (this is the closest value to the original design):\n\n1.5px:\n\nI personally prefer 1.5px, but if you stick to the Figma design, around 1.2px would be the best.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452068890",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I thought we might be able to utilize it, but now I feel like we can remove it!!\nIt doesn't have any effect itself, it can have some effect when checkbox component is used with other sibling element. But anyway we can pass peerclass anytime to CheckboxRoot only when it's needed.\nI removed it in the latest commit!",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453054744",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It was complete mistake of mine, sorry!\nI removed it!",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453055136",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Do you think it's better to add some typical style for disabled state?\nSince it's currently not designed in wire frame, I removed disabled:cursor-not-allowed in the latest commit!",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453055347",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thank you for pointing out!! I was a bit blind about it, sorry \ud83d\ude13\nI didn't have much preference between 1.2px and 1.5px , so I decided to follow the figma, 1.2px!\nThus I set it as 0.075rem since we're using rem in our code base",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453060906",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thank you for updating!\nIn general, disabled checkboxes are usually styled in a design. However, since our current features do not require disabled checkboxes, I suppose there is no need to define a style for them for now. When adding a new style to our code, it would be the time to ask the designers to add a new design to Figma.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453061812",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Using rem for such small values may not be effective... I have never seen that before.\nI asked ChatGPT, and here is the conversation:\nhttps://chat.openai.com/share/a85682c7-e98b-4ab9-9f84-a0a0edc9d88d\nCould you research more about it, please?",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453074111",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Use px when you need fixed-size elements that won't change, such as for borders or shadows.\nYour suggestion and also this article below make sense. I think I'm going to use px for this\nhttps://www.shecodes.io/athena/28078-when-to-use-ems-rems-and-px-in-css#:~:text=Use%20px%20when%20you%20need,their%20browser's%20default%20font%20size.\nOther references:\nhttps://stackoverflow.com/questions/33997943/0-1-rem-border-width-renders-differently-on-chrome-and-safari\nhttps://kheohyeewei.medium.com/in-short-when-to-use-px-em-and-rem-b2de94e1b829",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453966896",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I see that it still remains \ud83d\udc40",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1454442968",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@kanta1207\nI understand that you have made an update, but it's not what I intended.\nFirst, we should always avoid using the plain <label> tag everywhere, since we have defined the <Label> component.\nSecondly, what I originally meant was to substitute the previously specified <div> with a <Label> tag, which should have its htmlFor attribute referencing the id of the checkbox. Also, the existing <Label> tag needs to be replaced with a normal <div>, <p> or something else.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1454460397",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thank you for updating and providing additional information :)",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1454471328",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You mean peer on line 28 remains? I suppose it's removed in this commit, and I couldn't find it in the current branch",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1456607281",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sorry, I overlooked it... I suppose keeping it is acceptable if it's intentional, but thanks for updating!",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1456610575",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Addressed in this PR: #191",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1456634209",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 252,
+                        "title": "Add model for iCubGenova11",
+                        "repository": {
+                            "nameWithOwner": "robotology/icub-models-generator",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2024-01-09T13:14:50Z",
+                        "mergedAt": "2024-01-11T09:14:15Z",
+                        "url": "https://github.com/robotology/icub-models-generator/pull/252",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "traversaro"
+                        },
+                        "editor": {
+                            "login": "traversaro"
+                        },
+                        "body": "The `iCubGenova11` is an iCub 2.7, so we generated the model accordingly.\r\n\r\nIt also fixes https://github.com/robotology/icub-models-generator/issues/255 to ensure that CI is green. I manually run the CI to push the generated files in https://github.com/robotology/icub-models/tree/addicubgenova11 for testing @martinaxgloria .",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjEy",
+                "hasNextPage": false,
+                "hasPreviousPage": true,
+                "startCursor": "Y3Vyc29yOjEx"
+            },
+            "issueCount": 12
+        }
+    }
+}

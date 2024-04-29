@@ -1,0 +1,139 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 171,
+                        "title": "Cross compile for ARM and x86",
+                        "repository": {
+                            "nameWithOwner": "InseeFrLab/images-datascience",
+                            "primaryLanguage": {
+                                "name": "Shell"
+                            }
+                        },
+                        "createdAt": "2024-01-16T17:42:57Z",
+                        "mergedAt": "2024-01-17T09:49:26Z",
+                        "url": "https://github.com/InseeFrLab/images-datascience/pull/171",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "garronej"
+                        },
+                        "editor": null,
+                        "body": "So that our catalog can work on Apple Sillicon an RaspberryPi",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2024-01-17T07:47:06Z",
+                                    "bodyText": "For what it's worth: https://chat.openai.com/share/b2b52991-dbfb-464f-8891-0a71455624b2",
+                                    "url": "https://github.com/InseeFrLab/images-datascience/pull/171#issuecomment-1895266224",
+                                    "author": {
+                                        "login": "garronej"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 3,
+                        "title": "Type call function data and response",
+                        "repository": {
+                            "nameWithOwner": "davestewart/extension-bus",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2024-01-16T13:40:34Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/davestewart/extension-bus/pull/3",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "davestewart"
+                        },
+                        "editor": {
+                            "login": "davestewart"
+                        },
+                        "body": "This PR types the `call()` function `data` and `response`:\r\n\r\n```ts\r\n// background\r\nimport { makeBus } from '../src'\r\n\r\nimport Tab = chrome.tabs.Tab\r\n\r\nconst bus = makeBus('content', {\r\n  handlers: {\r\n    tabs: {\r\n      get ({ id }): Promise<Tab> {\r\n        return chrome.tabs.get(id)\r\n      }\r\n    }\r\n  }\r\n})\r\n```\r\n```ts\r\n// some other process\r\n\r\n// existing bus\r\nbus.call<Tab, { id: number }>('tabs/get', { id: 1 }).then(tab => {\r\n  if (tab) {\r\n    console.log(tab.url)\r\n  }\r\n})\r\n```\r\n\r\nThis PR doesn't intend to provide any type safety between the handlers and the call, but allows a user to type the call parameters / return itself.\r\n\r\n@oliverdunk - does this answer your request?",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2024-01-16T16:19:20Z",
+                                    "bodyText": "This is great!\n\nThis PR doesn't intend to provide any type safety between the handlers and the call\n\nI think that would be nice eventually (when I've worked on things like this before, I've used an object with message names mapped to request and response types) which you can index into to provide this. I understand not being able to have everything on day one though \ud83d\ude05",
+                                    "url": "https://github.com/davestewart/extension-bus/pull/3#issuecomment-1894072627",
+                                    "author": {
+                                        "login": "oliverdunk"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-16T16:55:02Z",
+                                    "bodyText": "I've used an object with message names mapped to request and response types\n\nNuxt has an automatic way of building types from source code, which it compiles into a definition file.\nI'm not 100% on this, but from what I've seen elsewhere, suspect the solution might like in some level of AST traversal and augmenting core types?\n// bus, somewhere in source code\nexport const bus = makeBus ('content', {\n  handlers: {\n    tabs: {\n      get (id: number) { ... },\n      remove (id: number) {... },\n    }\n  }\n})\n// generated output (pseudo-code)\ndeclare module 'extension-bus' {\n  export interface Bus {\n    call (path: 'tabs/get', data: number): Promise<Tab>\n    call (path: 'tabs/remove', data: number): Promise<void>\n    ...\n  }\n}\n// other process\nbus.call('tabs/get', value) // <-- autocomplete here\nBut I'm outside my comfort zone here. Would need to get more input",
+                                    "url": "https://github.com/davestewart/extension-bus/pull/3#issuecomment-1894137688",
+                                    "author": {
+                                        "login": "davestewart"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-17T08:14:02Z",
+                                    "bodyText": "@oliverdunk I explored some options with Chat GPT:\nhttps://chat.openai.com/share/d1560171-e884-4d2b-946f-7f75f72dc4cc\nI've checked some of it, but not all of it.\nWill do that in the next week or so (have to get on with other work now!)\nIf you have any thoughts / feedback, it would be very welcome.",
+                                    "url": "https://github.com/davestewart/extension-bus/pull/3#issuecomment-1895300263",
+                                    "author": {
+                                        "login": "davestewart"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-17T10:19:04Z",
+                                    "bodyText": "Just read through that conversation - really cool how it slowly built up the solution. I personally think the end result is really nice, at least as something to support optionally for developers that want it.",
+                                    "url": "https://github.com/davestewart/extension-bus/pull/3#issuecomment-1895505369",
+                                    "author": {
+                                        "login": "oliverdunk"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-17T17:00:58Z",
+                                    "bodyText": "OK! I can confirm that the augmentation to add paths, payloads and response types works:\n\nI'm going to move this conversation to an issue so feel free to make any input there:\n\n#5\n\nMeantime, I'll merge this :)",
+                                    "url": "https://github.com/davestewart/extension-bus/pull/3#issuecomment-1896225829",
+                                    "author": {
+                                        "login": "davestewart"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-19T13:55:53Z",
+                                    "bodyText": "Closing in favour of #7",
+                                    "url": "https://github.com/davestewart/extension-bus/pull/3#issuecomment-1900468769",
+                                    "author": {
+                                        "login": "davestewart"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjI=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 2
+        }
+    }
+}

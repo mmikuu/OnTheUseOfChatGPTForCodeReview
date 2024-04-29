@@ -1,0 +1,1984 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 184,
+                        "title": "Feat : Create checkbox component",
+                        "repository": {
+                            "nameWithOwner": "nishiki-tech/nishiki-frontend",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2024-01-13T07:17:47Z",
+                        "mergedAt": "2024-01-17T20:39:01Z",
+                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "kanta1207"
+                        },
+                        "editor": {
+                            "login": "kanta1207"
+                        },
+                        "body": "<!--\r\n\r\nTitle Naming Conventions:\r\n\r\n- Start with a capitalized prefix followed by an imperative form of a verb, just like a commit message.\r\n- Refer to the \"Commit Convention\" for the prefix:\r\n  https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/CONTRIBUTING.md#commit-convention.\r\n\r\nExample:\r\n- Fix: Resolve memory leak in data processing module\r\n- Feat: Add two-factor authentication\r\n- Refactor: Improve state management in React components\r\n- Docs: Add Windows setup instructions\r\n\r\n-->\r\n\r\n## Overview\r\n\r\n<!-- Provide a brief description of the changes introduced by this PR. -->\r\nCreate Checkbox component based on shadcn [Checkbox](https://ui.shadcn.com/docs/components/checkbox)\r\n\r\n## Changes\r\n\r\n<!-- List the changes -->\r\n<!-- Delete this section if not needed -->\r\n\r\n- Added `Checkbox.tsx` to `src/components/ui` directory.\r\n- Added `CheckboxUsageExample.tsx`\r\n- Added export of `Checkbox` in `src/components/ui/index.ts` \r\n- Added `icon_check.svg` to `assets/images/icons`\r\n- Added color `white` to Icon component variant\r\n\r\n## Review points\r\n\r\n<!-- List the points you would like to be reviewed in detail and the points you are not confident about. -->\r\n<!-- Delete this section if not needed -->\r\n\r\n- Since there weren't any size variation, I didn't add variants for checkbox, so checkbox rectangle is fixed to be 24px square, and check icon is fixed to be 14px. We can override it any time with `className` tho. **Should I make size variant already, considering the desktop design?**\r\n   \r\n\r\n## Screen Captures\r\n\r\n<!-- Add screenshots or screen recordings of the changes -->\r\n<!-- Necessary for UI changes -->\r\n<!-- Delete this section if not needed -->\r\n\r\n\r\nhttps://github.com/genesis-tech-tribe/nishiki-frontend/assets/99339182/31220b71-7c09-4270-8b37-13f8834e5fdb\r\n\r\n\r\n\r\n## References\r\n\r\n<!-- List all the URLs of the references (documents, articles, youtube videos, etc.) that you used to complete this task -->\r\n<!-- If you have referred to responses from ChatGPT or other AIs, please include the links to the conversations if possible -->\r\n<!-- Delete this section if not needed -->\r\n\r\n- [shadcn Checkbox component](https://ui.shadcn.com/docs/components/checkbox)\r\n\r\n\r\n## Assignee Checklist:\r\n\r\n<!-- You can tick the checkboxes if not applicable -->\r\n\r\n- [ ] The naming convention of the PR title is correct (See the comment at the top of this template)\r\n- [ ] The base branch is correct (See: [Types of Branches](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/CONTRIBUTING.md#types-of-branches))\r\n- [ ] The branch name follows the [Branch Naming Conventions](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/CONTRIBUTING.md#branch-naming-conventions)\r\n- [ ] The correct assignees and reviewers have been designated for this PR\r\n- [ ] The coding style follows the [Coding Style Guide](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/STYLEGUIDE.md)\r\n- [ ] All the related issues are associated with this PR\r\n- [ ] All criteria in the associated issues are met (please tick the checkboxes)\r\n- [ ] My changes do not generate new warnings or errors (especially in the console)\r\n\r\n## Reviewer Checklist:\r\n\r\n<!-- You can tick the checkboxes if not applicable -->\r\n\r\n- [ ] Double-check the \"Assignee Checklist\"\r\n- [ ] The code follows the generic best practices and our [Coding Style Guide](https://github.com/genesis-tech-tribe/nishiki-frontend/blob/develop/docs/STYLEGUIDE.md)\r\n- [ ] The code is well-commented and easy to understand\r\n- [ ] The UI changes accurately reflect the provided design\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "There is no point from me to mention. Thanks!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "@kanta1207\nThank you for your work! I left some comments. Please kindly take a look at them.\nAlso could you tick the checklist, please? So we will be able to double-check them.\nFor your question,\n\nShould I make size variant already, considering the desktop design?\n\nI don't think you should define variants for the size, until it becomes necessary.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This <div> should be the <Label> tag, so that the entire card can toggle the checkbox.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452038121",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I recommend against defining styles not in the provided design. Disabled checkboxes typically have different styles, such as a grayish color.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452041544",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Does the color primary-foregroud exist?",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452045200",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Does this peer have any effects?\nhttps://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-sibling-state",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452050334",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The current border width looks a bit too thin to me.\nI played around and figured out border-[1.2px] and border-[1.5px] looked nicer.\nIn fact, the border width of the original svg image in Figma is around 1.2px.\n1px:\n\n1.2px (this is the closest value to the original design):\n\n1.5px:\n\nI personally prefer 1.5px, but if you stick to the Figma design, around 1.2px would be the best.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1452068890",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I thought we might be able to utilize it, but now I feel like we can remove it!!\nIt doesn't have any effect itself, it can have some effect when checkbox component is used with other sibling element. But anyway we can pass peerclass anytime to CheckboxRoot only when it's needed.\nI removed it in the latest commit!",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453054744",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It was complete mistake of mine, sorry!\nI removed it!",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453055136",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Do you think it's better to add some typical style for disabled state?\nSince it's currently not designed in wire frame, I removed disabled:cursor-not-allowed in the latest commit!",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453055347",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thank you for pointing out!! I was a bit blind about it, sorry \ud83d\ude13\nI didn't have much preference between 1.2px and 1.5px , so I decided to follow the figma, 1.2px!\nThus I set it as 0.075rem since we're using rem in our code base",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453060906",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thank you for updating!\nIn general, disabled checkboxes are usually styled in a design. However, since our current features do not require disabled checkboxes, I suppose there is no need to define a style for them for now. When adding a new style to our code, it would be the time to ask the designers to add a new design to Figma.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453061812",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Using rem for such small values may not be effective... I have never seen that before.\nI asked ChatGPT, and here is the conversation:\nhttps://chat.openai.com/share/a85682c7-e98b-4ab9-9f84-a0a0edc9d88d\nCould you research more about it, please?",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453074111",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Use px when you need fixed-size elements that won't change, such as for borders or shadows.\nYour suggestion and also this article below make sense. I think I'm going to use px for this\nhttps://www.shecodes.io/athena/28078-when-to-use-ems-rems-and-px-in-css#:~:text=Use%20px%20when%20you%20need,their%20browser's%20default%20font%20size.\nOther references:\nhttps://stackoverflow.com/questions/33997943/0-1-rem-border-width-renders-differently-on-chrome-and-safari\nhttps://kheohyeewei.medium.com/in-short-when-to-use-px-em-and-rem-b2de94e1b829",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1453966896",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I see that it still remains \ud83d\udc40",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1454442968",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@kanta1207\nI understand that you have made an update, but it's not what I intended.\nFirst, we should always avoid using the plain <label> tag everywhere, since we have defined the <Label> component.\nSecondly, what I originally meant was to substitute the previously specified <div> with a <Label> tag, which should have its htmlFor attribute referencing the id of the checkbox. Also, the existing <Label> tag needs to be replaced with a normal <div>, <p> or something else.",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1454460397",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thank you for updating and providing additional information :)",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1454471328",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You mean peer on line 28 remains? I suppose it's removed in this commit, and I couldn't find it in the current branch",
+                                                        "author": {
+                                                            "login": "kanta1207"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1456607281",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sorry, I overlooked it... I suppose keeping it is acceptable if it's intentional, but thanks for updating!",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1456610575",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Addressed in this PR: #191",
+                                                        "author": {
+                                                            "login": "nick-y-ito"
+                                                        },
+                                                        "url": "https://github.com/nishiki-tech/nishiki-frontend/pull/184#discussion_r1456634209",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a8cb55a",
+                                                            "authoredDate": "2024-01-13T07:25:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 448,
+                        "title": "Fix for #440 - Removed GuiData class",
+                        "repository": {
+                            "nameWithOwner": "unity-atoms/unity-atoms",
+                            "primaryLanguage": {
+                                "name": "C#"
+                            }
+                        },
+                        "createdAt": "2023-12-20T00:24:17Z",
+                        "mergedAt": "2024-01-07T19:23:25Z",
+                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "toasterhead-master"
+                        },
+                        "editor": null,
+                        "body": "Fixes #440",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "why was forceSingleLine deleted?\nthis is what @AdamRamberg  added as a fix in #447 I gues it got lost, due to the way this PR was created by overriding the changes from the previous PRs",
+                                                        "author": {
+                                                            "login": "soraphis"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1434926437",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7ce4812",
+                                                            "authoredDate": "2023-12-21T14:38:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "My bad, I should've checked if any external changes took place while my repo stayed the same. Fixing it",
+                                                        "author": {
+                                                            "login": "toasterhead-master"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1435214627",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7ce4812",
+                                                            "authoredDate": "2023-12-21T14:38:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We don't want to remove the compiler flag conditions here. I can revert it since I have write access to the PR :)",
+                                                        "author": {
+                                                            "login": "AdamRamberg"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1444057437",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "aa2780d",
+                                                            "authoredDate": "2023-12-22T16:58:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Oh thanks! Sorry, I didn't mean to remove it, don't know how I missed it or how it got removed :/",
+                                                        "author": {
+                                                            "login": "toasterhead-master"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1444057963",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "aa2780d",
+                                                            "authoredDate": "2023-12-22T16:58:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 252,
+                        "title": "Add model for iCubGenova11",
+                        "repository": {
+                            "nameWithOwner": "robotology/icub-models-generator",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2024-01-09T13:14:50Z",
+                        "mergedAt": "2024-01-11T09:14:15Z",
+                        "url": "https://github.com/robotology/icub-models-generator/pull/252",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "traversaro"
+                        },
+                        "editor": {
+                            "login": "traversaro"
+                        },
+                        "body": "The `iCubGenova11` is an iCub 2.7, so we generated the model accordingly.\r\n\r\nIt also fixes https://github.com/robotology/icub-models-generator/issues/255 to ensure that CI is green. I manually run the CI to push the generated files in https://github.com/robotology/icub-models/tree/addicubgenova11 for testing @martinaxgloria .",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 3644,
+                        "title": "Proposal: New CSS selector engine for jsdom",
+                        "repository": {
+                            "nameWithOwner": "jsdom/jsdom",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-12-23T15:13:03Z",
+                        "mergedAt": "2024-01-07T12:26:06Z",
+                        "url": "https://github.com/jsdom/jsdom/pull/3644",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "asamuzaK"
+                        },
+                        "editor": null,
+                        "body": "`nwsapi` has been working great so far, and I appreciate the developer's hard work, but `nwsapi` is unable to support Selectors Level 4 properly at the moment.\r\nYou can find many selector-related bug reports in the `jsdom` issues.\r\n\r\nTherefore, I recommend changing to a different CSS selector engine [dom-selector](https://github.com/asamuzaK/domSelector).\r\nIt supports many features of the Selectors Level 4 and also the Shadow Hosts.\r\nRef [Supported CSS selectors](https://github.com/asamuzaK/domSelector#supported-css-selectors)\r\n\r\n# Benchmark results\r\n\r\n```\r\nnpm run benchmark\r\n```\r\n\r\n|API|nwsapi|dom-selector|\r\n|:--------|:--------|:--------|\r\n|closest()|jsdom x 126,133 ops/sec \u00b10.75% (73 runs sampled)|jsdom x 7,449 ops/sec \u00b113.28% (64 runs sampled)|\r\n|matches()|jsdom x 120,369 ops/sec \u00b18.31% (65 runs sampled)|jsdom x 8,507 ops/sec \u00b17.84% (60 runs sampled)|\r\n|querySelector()|jsdom x 3.12 ops/sec \u00b12.60% (12 runs sampled)|jsdom x 14.72 ops/sec \u00b11.94% (35 runs sampled)|\r\n|querySelectorAll()|jsdom x 2.93 ops/sec \u00b11.52% (11 runs sampled)|jsdom x 12.41 ops/sec \u00b12.47% (31 runs sampled)|\r\n\r\nFor `closest()` and `matches()`, `nwsapi` is about 15 times faster, but in reality, `dom-selector` processed in 0.11 to 0.13 msec, so I don't think it's extremely slow.\r\nRather, it is `querySelector()` and `querySelectorAll()` that often have speed performance issues, and in this benchmark, `dom-selector` is about 4 times faster than `nwsapi`.\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I noticed that the global window is accessible via document.defaultView.\nSo if dom-selector throws an exception like throw new document.defaultView.DOMException(), these try-catch can be completely removed, right?",
+                                                        "author": {
+                                                            "login": "asamuzaK"
+                                                        },
+                                                        "url": "https://github.com/jsdom/jsdom/pull/3644#discussion_r1442599751",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "33bbfc9",
+                                                            "authoredDate": "2024-01-05T00:20:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, that's right!",
+                                                        "author": {
+                                                            "login": "domenic"
+                                                        },
+                                                        "url": "https://github.com/jsdom/jsdom/pull/3644#discussion_r1442606696",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "33bbfc9",
+                                                            "authoredDate": "2024-01-05T00:20:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thanks for the  quick reply.\nI will rewrite the code and PR.",
+                                                        "author": {
+                                                            "login": "asamuzaK"
+                                                        },
+                                                        "url": "https://github.com/jsdom/jsdom/pull/3644#discussion_r1442621495",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "33bbfc9",
+                                                            "authoredDate": "2024-01-05T00:20:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 100,
+                        "title": "Fix for unneeded path fixing in Windows",
+                        "repository": {
+                            "nameWithOwner": "Regression-Games/RGUnityBots",
+                            "primaryLanguage": {
+                                "name": "C#"
+                            }
+                        },
+                        "createdAt": "2023-11-18T20:30:38Z",
+                        "mergedAt": "2023-11-20T21:04:00Z",
+                        "url": "https://github.com/Regression-Games/RGUnityBots/pull/100",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "vontell"
+                        },
+                        "editor": null,
+                        "body": "In Windows, there was an error (described in the linear ticket for this task). I _believe_ this is because in windows, there is no trailing slash included in the path, so there is an out of bounds error when trimming the path because of a -1 index.\r\n\r\nHowever, I have no access to a Windows computer rn, so I cannot confirm that this works. However, I did the next best thing and had GPT review this error, and it came to the same conclusion and reasoning, so I'm pretty confident this should work... https://chat.openai.com/share/1b7c364c-9a91-4ac1-ba2e-f14e1560d2ef\r\n\r\n---\r\n\r\nFind the pull request instructions [here](https://www.notion.so/regressiongg/Pull-Request-Process-0d57a7eb582a446983edfacafa406f1e?pvs=4)\r\n\r\nEvery reviewer and the owner of the PR should consider these points in their request (feel free to copy this checklist so you can fill it out yourself in the overall PR comment)\r\n\r\n- [ ] The code is extensible and backward compatible\r\n- [ ] New public interfaces are extensible and open to backward compatibility in the future\r\n- [ ] If preparing to remove a field in the future (i.e. this PR removes an argument), the argument stays but is no longer functional, and attaches a deprecation warning. A linear task is also created to track this deletion task.\r\n- [ ] Non-critical or potentially modifiable arguments are optional\r\n- [ ] Breaking changes and the approach to handling them have been verified with the team (in the Linear task, design doc, or PR itself)\r\n- [ ] The code is easy to read\r\n- [ ] Unit tests are added for expected and edge cases\r\n- [ ] Integration tests are added for expected and edge cases\r\n- [ ] Functions and classes are documented\r\n- [ ] Migrations for both up and down operations are completed\r\n- [ ] A documentation PR is created and being reviewed for anything in this PR that requires knowledge to use\r\n- [ ] Implications on other dependent code (i.e. sample games and sample bots) is considered, mentioned, and properly handled\r\n- [ ] Style changes and other non-blocking changes are marked as non-blocking from reviewers\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 71,
+                        "title": "update-game-list-viewbar",
+                        "repository": {
+                            "nameWithOwner": "star82620/join-joy",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-11-16T07:49:42Z",
+                        "mergedAt": "2023-11-19T13:19:55Z",
+                        "url": "https://github.com/star82620/join-joy/pull/71",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "star82620"
+                        },
+                        "editor": null,
+                        "body": "- \u8abf\u6574\u7d50\u69cb\u3001\u6a23\u5f0f",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "a\uff1f",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1397434230",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24c10c9",
+                                                            "authoredDate": "2023-11-16T08:30:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "className \u6709\u591a\u9918\u7a7a\u683c",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1397434820",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24c10c9",
+                                                            "authoredDate": "2023-11-16T08:30:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u4e0d\u8981\u5c0d\u50b3\u9032\u4f86\u7684 props \u6216 data \u91cd\u65b0\u8ce6\u503c\nFYI\uff1a\nconst data = gamesData ? gamesData : [];\n\nor\nconst data = gamesData || [];",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1397446810",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24c10c9",
+                                                            "authoredDate": "2023-11-16T08:30:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "isEmptyGames or isEmptyList",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1397454969",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24c10c9",
+                                                            "authoredDate": "2023-11-16T08:30:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u5df2\u4fee\u6b63",
+                                                        "author": {
+                                                            "login": "star82620"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1398238300",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24c10c9",
+                                                            "authoredDate": "2023-11-16T08:30:09Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "isDefault \u61c9\u8a72\u5c31\u884c\u4e86",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1398334500",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e871da3",
+                                                            "authoredDate": "2023-11-19T02:09:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "useMemo \u4e0d\u8981\u4e82\u7528\uff0c\u4e0d\u662f\u4ec0\u9ebc\u5f88\u91cd\u7684\u904b\u7b97\u6216\u8d85\u5927\u4e00\u5305\u8cc7\u6599\uff0c\u7528\u6211\u7559\u8a00\u7684\u65b9\u5f0f\u5373\u53ef",
+                                                        "author": {
+                                                            "login": "seonkuraito"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1398334845",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e871da3",
+                                                            "authoredDate": "2023-11-19T02:09:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u6539\u56de  const data = gamesData || [];\n\u4f46\u6709\u932f\u8aa4\u8a0a\u606f\u53ef\u4ee5\u518d\u7559\u610f\u512a\u5316\uff1a\nhttps://chat.openai.com/share/2c928a8a-d6eb-4914-ad46-0c35e75dd981",
+                                                        "author": {
+                                                            "login": "star82620"
+                                                        },
+                                                        "url": "https://github.com/star82620/join-joy/pull/71#discussion_r1398399390",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e871da3",
+                                                            "authoredDate": "2023-11-19T02:09:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 61,
+                        "title": "Enhanced error handling in key functions",
+                        "repository": {
+                            "nameWithOwner": "OthersideAI/self-operating-computer",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-02T16:25:49Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/OthersideAI/self-operating-computer/pull/61",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "Prureddy"
+                        },
+                        "editor": null,
+                        "body": "# Enhanced error handling in key functions:\r\n- Added specific exception handling to 'summarize' and 'get_next_action_from_openai' functions for improved reliability and debugging.\r\n- Introduced granular error handling for FileNotFound, Permission, Image, I/O, Base64 encoding, API request, and other potential exceptions.\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Instead of adding additional lines for every exception, we can have only one line to capture all the exceptions.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Lines 473 - 484 are redundant as 388-412.\nWe should try to optimize this such that we should not repeat code",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Why once you print and again you return ?\nDo you do any thing on returning? Why you didn't print on function result?",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 364,
+                        "title": "feat: improve footer",
+                        "repository": {
+                            "nameWithOwner": "okp4/docs",
+                            "primaryLanguage": {
+                                "name": "SCSS"
+                            }
+                        },
+                        "createdAt": "2023-12-19T17:49:41Z",
+                        "mergedAt": "2024-01-03T14:55:19Z",
+                        "url": "https://github.com/okp4/docs/pull/364",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "MdechampG"
+                        },
+                        "editor": {
+                            "login": "coderabbitai"
+                        },
+                        "body": "This PR aims at improving the footer of the website (navigation, logo, background of light theme). \r\nIt is related to the issue #353 \r\n\r\nStill to be done : center the column -> help needed. \r\n\r\n<img width=\"1437\" alt=\"Capture d\u2019e\u0301cran 2023-12-19 a\u0300 18 47 08\" src=\"https://github.com/okp4/docs/assets/92780073/bcf18438-2056-46dc-b965-ab6dac0fe055\">\r\n\r\n\r\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n- **Documentation**\n\t- Updated the footer section with new links and sections for improved navigation and resource accessibility.\n\n- **Style**\n\t- Enhanced the footer's visual appeal with a new gradient background.\n\t- Improved the layout of the footer for better alignment and readability using flexbox properties.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 1\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between d37d1a2 and dc753f8.\n\n\nFiles selected for processing (3)\n\ndocusaurus.config.js (3 hunks)\nsrc/scss/custom.scss (1 hunks)\nsrc/scss/main.scss (1 hunks)\n\n\n\nFiles skipped from review due to trivial changes (2)\n\ndocusaurus.config.js\nsrc/scss/custom.scss\n\n\nAdditional comments: 2\nsrc/scss/main.scss (2)\n\n\n147-147: The use of CSS variables for styling is consistent with the rest of the file, which is good for maintainability and theming.\n\n\n145-153: The changes to the .footer class appear to be isolated and should not conflict with other styles in the file. Ensure that these changes are tested across different browsers and screen sizes to confirm that the centering works as expected.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The CSS properties added to the .footer class are intended to center the content horizontally and vertically. However, the comments in French (/* Cette propri\u00e9t\u00e9 aligne horizontalement */ and /* Cette propri\u00e9t\u00e9 aligne verticalement */) should be translated to English to maintain consistency in code comments, assuming the rest of the codebase uses English for comments.\n-    justify-content: center; /* Cette propri\u00e9t\u00e9 aligne horizontalement */\n-    align-items: center; /* Cette propri\u00e9t\u00e9 aligne verticalement */\n+    justify-content: center; /* This property aligns horizontally */\n+    align-items: center; /* This property aligns vertically */\n\n\n\n\nCommittable suggestion\n\n\u2757 IMPORTANT\nCarefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation.\n\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                display: flex;\n          \n          \n            \n                justify-content: center; /* Cette propri\u00e9t\u00e9 aligne horizontalement */\n          \n          \n            \n                align-items: center; /* Cette propri\u00e9t\u00e9 aligne verticalement */\n          \n          \n            \n                display: flex;\n          \n          \n            \n                justify-content: center; /* This property aligns horizontally */\n          \n          \n            \n                align-items: center; /* This property aligns vertically */",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/okp4/docs/pull/364#discussion_r1431756866",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dc753f8",
+                                                            "authoredDate": "2023-12-19T17:48:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Device\nURL\n\n\n\n\ndesktop\nhttp://localhost:3000/\n\n\n\n    \n\n\n\nDevice\nURL\n\n\n\n\nmobile\nhttp://localhost:3000/\n\n\n\nNot what you expected? Are your scores flaky? GitHub runners could be the cause.\nTry running on Foo instead",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Good point. But I'd go further and delete the comments. They're useless in this context.",
+                                                        "author": {
+                                                            "login": "ccamel"
+                                                        },
+                                                        "url": "https://github.com/okp4/docs/pull/364#discussion_r1431853404",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dc753f8",
+                                                            "authoredDate": "2023-12-19T17:48:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@ccamel: I agree, the comments explaining the CSS properties justify-content and align-items can be considered common knowledge and thus redundant. Here's the updated code snippet without the comments:\n.footer {\n  background: var(--ifm-footer-background-color-main);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\nThis should make the code cleaner and more in line with standard practices.",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/okp4/docs/pull/364#discussion_r1431854143",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dc753f8",
+                                                            "authoredDate": "2023-12-19T17:48:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 0\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between d37d1a2 and 9665596.\n\n\nFiles selected for processing (3)\n\ndocusaurus.config.js (3 hunks)\nsrc/scss/custom.scss (1 hunks)\nsrc/scss/main.scss (1 hunks)\n\n\n\nFiles skipped from review due to trivial changes (3)\n\ndocusaurus.config.js\nsrc/scss/custom.scss\nsrc/scss/main.scss",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 0\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between d37d1a2 and da7d430.\n\n\nFiles selected for processing (2)\n\ndocusaurus.config.js (3 hunks)\nsrc/scss/custom.scss (1 hunks)\n\n\n\nFiles skipped from review due to trivial changes (2)\n\ndocusaurus.config.js\nsrc/scss/custom.scss",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 1\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between da7d430 and 1c91c79.\n\n\nFiles selected for processing (2)\n\ndocusaurus.config.js (3 hunks)\nsrc/scss/main.scss (1 hunks)\n\n\n\nFiles skipped from review due to trivial changes (1)\n\nsrc/scss/main.scss\n\n\nAdditional comments: 4\ndocusaurus.config.js (4)\n\n\n156-160: The new logo properties added to the footer object are consistent with the existing code style and correctly formatted.\n\n\n169-184: The additional link items under 'Docs' are correctly formatted and consistent with the existing structure.\n\n\n202-210: The new items added under 'Community' are correctly formatted and consistent with the existing structure.\n\n\n231-241: The new 'Tools' section is correctly formatted and follows the established pattern of the other sections in the footer object.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ud83d\udca1 NOTE\nCodebase verification is a beta feature.\n\nThe verification of the URLs added to the docusaurus.config.js file has been completed. The results are as follows:\n\nhttps://okp4.network: Passed\nhttps://chat.openai.com/g/g-zUzcYmVbX-okp4-druid-oracle-beta: Failed\nhttps://t.me/okp4network: Passed\nhttps://zealy.io/c/okp4/questboard: Passed\nhttps://explore.okp4.network/OKP4%20testnet: Passed\nhttps://faucet.okp4.network: Failed\n\nBased on the output, two URLs did not pass the check. It is recommended to verify these URLs manually to ensure they are correct and accessible.\n\nThe URL https://chat.openai.com/g/g-zUzcYmVbX-okp4-druid-oracle-beta failed the check and may not be accessible.\nThe URL https://faucet.okp4.network failed the check and may not be accessible.\n\n\nAnalysis chain\n\nNote: This review was outside the patches, so it was mapped to the patch with the greatest overlap. Original lines [156-240]\n\nPlease verify that all new URLs are valid and lead to the intended destinations. This is to ensure that the footer links are functional and do not lead to broken pages.\n\n\nScripts Executed\nThe following scripts were executed for the analysis:\n\nScript:\n#!/bin/bash\n# Verify the URLs added to the footer. Expecting HTTP status 200 for all.\nurls=(\n  'https://okp4.network'\n  'https://chat.openai.com/g/g-zUzcYmVbX-okp4-druid-oracle-beta'\n  'https://t.me/okp4network'\n  'https://zealy.io/c/okp4/questboard'\n  'https://explore.okp4.network/OKP4%20testnet'\n  'https://faucet.okp4.network'\n)\n\nfor url in \"${urls[@]}\"; do\n  if ! curl --output /dev/null --silent --head --fail \"$url\"; then\n    echo \"URL check failed for $url\"\n  else\n    echo \"URL check passed for $url\"\n  fi\ndone\n\nLength of output: 1632",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/okp4/docs/pull/364#discussion_r1432368378",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c91c79",
+                                                            "authoredDate": "2023-12-20T07:45:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thanks for reporting. It's under control:\n\nhttps://chat.openai.com/g/g-zUzcYmVbX-okp4-druid-oracle-beta is accessible\nhttps://faucet.okp4.network is indeed down, but we're dealing with it.",
+                                                        "author": {
+                                                            "login": "ccamel"
+                                                        },
+                                                        "url": "https://github.com/okp4/docs/pull/364#discussion_r1432425533",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c91c79",
+                                                            "authoredDate": "2023-12-20T07:45:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@ccamel: Understood, I'm glad to hear that the URL situation is being managed. If there's anything else you need assistance with, feel free to let me know!\n\n\nIf you found this review helpful, would you consider giving us a shout-out on X?\nThank you for using CodeRabbit!",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/okp4/docs/pull/364#discussion_r1432425829",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c91c79",
+                                                            "authoredDate": "2023-12-20T07:45:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 0\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between da7d430 and ee21879.\n\n\nFiles selected for processing (2)\n\ndocusaurus.config.js (3 hunks)\nsrc/scss/main.scss (1 hunks)\n\n\n\nFiles skipped from review due to trivial changes (1)\n\nsrc/scss/main.scss\n\n\n\nFiles skipped from review as they are similar to previous changes (1)\n\ndocusaurus.config.js",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 0\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between da7d430 and 28c9acb.\n\n\nFiles selected for processing (1)\n\ndocusaurus.config.js (3 hunks)\n\n\n\nFiles skipped from review as they are similar to previous changes (1)\n\ndocusaurus.config.js",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 0\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between 28c9acb and c4b4d29.\n\n\nFiles selected for processing (1)\n\nsrc/scss/main.scss (1 hunks)\n\n\n\nFiles skipped from review as they are similar to previous changes (1)\n\nsrc/scss/main.scss",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 0\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between a53f18a and 84b1f51.\n\n\nFiles selected for processing (2)\n\ndocusaurus.config.js (3 hunks)\nsrc/scss/custom.scss (1 hunks)\n\n\n\nFiles skipped from review due to trivial changes (1)\n\ndocusaurus.config.js\n\n\nAdditional comments: 1\nsrc/scss/custom.scss (1)\n\n39-40: Ensure the new gradient color values for --ifm-footer-background-color-main are consistent with the design specifications and check for potential accessibility issues, such as contrast and readability, especially for users with visual impairments.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Review Status\nActionable comments generated: 0\nConfiguration used: CodeRabbit UI\n\nCommits\nFiles that changed from the base of the PR and between a53f18a and f1cb4dd.\n\n\nFiles selected for processing (3)\n\ndocusaurus.config.js (3 hunks)\nsrc/scss/custom.scss (1 hunks)\nsrc/scss/main.scss (1 hunks)\n\n\n\nFiles skipped from review due to trivial changes (1)\n\nsrc/scss/main.scss\n\n\n\nFiles skipped from review as they are similar to previous changes (2)\n\ndocusaurus.config.js\nsrc/scss/custom.scss",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "\ud83d\udc4d \ud83d\ude80",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 563,
+                        "title": "WIP - Improve docker images for faster build and deploy",
+                        "repository": {
+                            "nameWithOwner": "shakacode/react-webpack-rails-tutorial",
+                            "primaryLanguage": {
+                                "name": "Ruby"
+                            }
+                        },
+                        "createdAt": "2023-10-29T17:24:49Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "ahangarha"
+                        },
+                        "editor": {
+                            "login": "ahangarha"
+                        },
+                        "body": "Creating a base Dockerfile for this project so that it can be used in `.controlplane/Dockerfile` to speed up the build time.\r\n\r\n- This file is based on Rails 7.1 Dockerfile.\r\n- The Docker base image should be built from `Dockerfile_base` and pushed to the Docker hub.\r\n- For deploying on Control Plane, we should use `.controlplane/Dockerfile_from_base`. For this, we need to uncomment the line for the custom Dockerfile path in `.controlplane/controlplane.yml` file.\r\n\r\nThese new Dockerfiles are made originally with the idea of having a way to make a faster build/deploy process on cpln. We still need the existing Dockerfiles to have more control and flexibility when experimenting with deployment. \r\n\r\n## Result:\r\n![Screenshot from 2023-12-09 19-36-43-e](https://github.com/shakacode/react-webpack-rails-tutorial/assets/11241315/adf8c7c7-3e7f-422a-ac77-15224020386d)\r\n\r\n<!-- Reviewable:start -->\r\n- - -\r\nThis change is\u2002[<img src=\"https://reviewable.io/review_button.svg\" height=\"34\" align=\"absmiddle\" alt=\"Reviewable\"/>](https://reviewable.io/reviews/shakacode/react-webpack-rails-tutorial/563)\r\n<!-- Reviewable:end -->\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Why are we adding the root docker file?\nHow does it relate to the .controlplane/Dockerfile?\n@rafaelgomesxyz @ahangarha @Judahmeek",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@dzirtusss should this be recommended?\nSee https://chat.openai.com/share/f7e6d78b-ab5c-4e2f-808c-12c717053613",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1378219428",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4c83670",
+                                                            "authoredDate": "2023-10-29T17:12:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@ahangarha why is this duplicated in the bin script in this PR?",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1402861083",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4c83670",
+                                                            "authoredDate": "2023-10-29T17:12:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why is postgresql-client installed? I tried to find references to psql and couldn't find it.",
+                                                        "author": {
+                                                            "login": "borela"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1420388424",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd8580e",
+                                                            "authoredDate": "2023-11-16T14:32:33Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is it worth it having a separate build step image vs a single one where you delete the unneeded stuff afterward? You already did some cleaning on line 37.",
+                                                        "author": {
+                                                            "login": "borela"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1420392929",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd8580e",
+                                                            "authoredDate": "2023-11-16T14:32:33Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It comes from Rails new Dockerfile.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1421432854",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd8580e",
+                                                            "authoredDate": "2023-11-16T14:32:33Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I just followed the Dockerfile proposed by Rails.\nIt might still be faulty, but it follows the same structure.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1421434783",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd8580e",
+                                                            "authoredDate": "2023-11-16T14:32:33Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The bin/docker-entrypoint file comes from new Rails setup.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1421435873",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4c83670",
+                                                            "authoredDate": "2023-10-29T17:12:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "WTFs:\n\npersonal name.\nneed comments on why file exists and how to use",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1428463885",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6400c7a",
+                                                            "authoredDate": "2023-12-10T14:22:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The reason behind this was that before pushing this base image to the official docker hub of the company, I could demonstrate deployment. I needed a review on the implementation of this Docker base image. Now I got it and now I can move forward.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1428491983",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6400c7a",
+                                                            "authoredDate": "2023-12-10T14:22:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "why the -e flag?",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1435974468",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "72712d4",
+                                                            "authoredDate": "2023-12-15T22:04:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is going to confuse people.",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1435974877",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "72712d4",
+                                                            "authoredDate": "2023-12-15T22:04:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I understand.\nPerhaps we can move these files into .shakacode folder which will be the place for keeping files only related to our development tasks.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1436027937",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "72712d4",
+                                                            "authoredDate": "2023-12-15T22:04:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I applied it based on the new Rails 7.1 Dockerfile. It is needed for the next changes to run; the == operation in the condition.\nIt is to make the whole Dockerfiles have similar content, making it easier to debug issues in the future.\nUpdate:\nActually, bash is required for the == operator.\nThe -e option is used to exit running the script immediately after a command returns with a non-zero status.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1436029551",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "72712d4",
+                                                            "authoredDate": "2023-12-15T22:04:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 405,
+                        "title": "fix: Add cleanups in device,vlan and ports e2e tests to stabilise the CI pipeline",
+                        "repository": {
+                            "nameWithOwner": "equinix/metal-cli",
+                            "primaryLanguage": {
+                                "name": "Go"
+                            }
+                        },
+                        "createdAt": "2023-12-11T20:48:11Z",
+                        "mergedAt": "2023-12-18T19:04:38Z",
+                        "url": "https://github.com/equinix/metal-cli/pull/405",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "aayushrangwala"
+                        },
+                        "editor": {
+                            "login": "displague"
+                        },
+                        "body": "fixes https://github.com/equinix/metal-cli/issues/343\r\nfixes https://github.com/equinix/metal-cli/issues/387",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I believe that all of the occurrences of:\nt.Error(err)\nreturn\n\ncan be replaced by the following which provides additional logging context:\nt.Fatal(err)\n\nhttps://pkg.go.dev/testing#T.Fatal",
+                                                        "author": {
+                                                            "login": "displague"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1425608248",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "A few more points are discussed here, https://chat.openai.com/share/4d97fa93-08b7-4e4d-8a7c-2343394a6ffe\n\nwe could handle the Close() and remapping of Stdout in a defer call so that it happens in error conditions\nthere are potential error conditions that are not being checked by the tests",
+                                                        "author": {
+                                                            "login": "displague"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1425616429",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's use the existing GenerateRandomString function (defined above) rather than adding a second function to serve the same purpose.",
+                                                        "author": {
+                                                            "login": "ctreatma"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1425690277",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The random string should be generated once at the start of a test, and the same value should be used in all resource names for the test (so the test project and the test devices in that project should have the same random string in their names).",
+                                                        "author": {
+                                                            "login": "ctreatma"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1425692400",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The project name prefix here should be passed in, not hard-coded to metal-cli-test-project; I see a couple orphaned projects from these tests, but I can't tell which tests they came from because of the generic prefix.",
+                                                        "author": {
+                                                            "login": "ctreatma"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1425696908",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@aayushrangwala good call using t.Cleanup instead of defer. \ud83d\udc4d",
+                                                        "author": {
+                                                            "login": "displague"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1426728877",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ah right didnt notice as it recently got merged I guess",
+                                                        "author": {
+                                                            "login": "aayushrangwala"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1427393975",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done",
+                                                        "author": {
+                                                            "login": "aayushrangwala"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1427877700",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Right. Fixed",
+                                                        "author": {
+                                                            "login": "aayushrangwala"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1427879480",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes right. Fixed",
+                                                        "author": {
+                                                            "login": "aayushrangwala"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1427886518",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "578a0a5",
+                                                            "authoredDate": "2023-12-13T13:19:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The signature and implementation of this function shouldn't change; it should be used as-is.",
+                                                        "author": {
+                                                            "login": "ctreatma"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1430368927",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8919638",
+                                                            "authoredDate": "2023-12-15T11:48:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "panic: runtime error: slice bounds out of range [:5] with length 4\nThe base64 encoding produces less characters as is unnecessary for this task. Here's a simplified approach that doesn't panic:\nfunc GenerateRandomString(length int) string {\n\tcharSet := \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\"\n\trand.Seed(time.Now().UnixNano()) // seeding could happen outside of this function, in the test runner construction / init\n\tresult := make([]byte, length)\n\tfor i := range result {\n\t\tresult[i] = charSet[rand.Intn(len(charSet))]\n\t}\n\treturn string(result)\n}",
+                                                        "author": {
+                                                            "login": "displague"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1430375492",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8919638",
+                                                            "authoredDate": "2023-12-15T11:48:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The problem with the original function was that it would error out on smaller sized lengths - 5 for example. Somewhere in the history of this PR the random string length was modified from 32 to 5 and the E2E tests started failing.  We have seen more restrictive resource lengths introduced in the EM API, specifically around tags. I don't know if that was a motivation for the initial change.\nOnce the E2E tests started failing, I took a look at what would be needed to fix the base64-based GenerateRandomString function. The complexity hid the problem. As rewritten, the function can not fall into an error condition so the signature was modified to remove the unused error.  If we are ok with accepting that change in this PR, we'll see the echo of that change in this PR.\nhttps://go.dev/play/p/Z2zkdK5lSEU",
+                                                        "author": {
+                                                            "login": "displague"
+                                                        },
+                                                        "url": "https://github.com/equinix/metal-cli/pull/405#discussion_r1430516772",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8919638",
+                                                            "authoredDate": "2023-12-15T11:48:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "approving contingent on tests (which seem to be stuck)",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjUw",
+                "hasNextPage": true,
+                "hasPreviousPage": true,
+                "startCursor": "Y3Vyc29yOjQx"
+            },
+            "issueCount": 177
+        }
+    }
+}

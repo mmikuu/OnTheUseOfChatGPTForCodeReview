@@ -1,0 +1,190 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 670,
+                        "title": "Embedding similarity uses closeness max function",
+                        "repository": {
+                            "nameWithOwner": "marqo-ai/marqo",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-18T07:22:02Z",
+                        "mergedAt": "2023-12-20T23:25:55Z",
+                        "url": "https://github.com/marqo-ai/marqo/pull/670",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "vicilliar"
+                        },
+                        "editor": {
+                            "login": "vicilliar"
+                        },
+                        "body": "* **What kind of change does this PR introduce?** (Bug fix, feature, docs update, ...)\r\nBug fix\r\n\r\n* **What is the current behavior?** (You can also link to an open issue here)\r\nIn structured index schema rank profile, tensor search similarity uses SUM (+) on embedding closeness per field, instead of MAX.\r\n\r\n* **What is the new behavior (if this is a feature change)?**\r\nSimilarity is now calculated with MAX. Uses binary max tree since max function is only a binary function.\r\n`test_structured_vespa_schema` and `test_structured_vespa_index` tests are now fixed by adding vector count field to test schemas.\r\n\r\n* **Does this PR introduce a breaking change?** (What changes might users need to make in their application due to this PR?)\r\nno\r\n\r\n* **Have unit tests been run against this PR?** (Has there also been any additional testing?)\r\nyes\r\n\r\n* **Related Python client changes** (link commit/PR here)\r\n\r\n\r\n* **Related documentation changes** (link commit/PR here)\r\n\r\n\r\n* **Other information**:\r\n\r\n\r\n* **Please check if the PR fulfills these requirements**\r\n- [x] The commit message follows our guidelines\r\n- x] Tests for the changes have been added (for bug fixes/features)\r\n- [] Docs have been added / updated (for bug fixes / features)\r\n\r\n",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "DISMISSED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This doesn't read well?",
+                                                        "author": {
+                                                            "login": "farshidz"
+                                                        },
+                                                        "url": "https://github.com/marqo-ai/marqo/pull/670#discussion_r1430887300",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0af655c",
+                                                            "authoredDate": "2023-12-18T13:44:51Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm assuming max won't accept one argument? e.g., max(value1)? Because if it did, you would only need one base case",
+                                                        "author": {
+                                                            "login": "farshidz"
+                                                        },
+                                                        "url": "https://github.com/marqo-ai/marqo/pull/670#discussion_r1430888448",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0af655c",
+                                                            "authoredDate": "2023-12-18T13:44:51Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Though this is still better. We don't know if an unnecessary max is going to cause inefficiency, even if it is mathematically inconsequential",
+                                                        "author": {
+                                                            "login": "farshidz"
+                                                        },
+                                                        "url": "https://github.com/marqo-ai/marqo/pull/670#discussion_r1430888931",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0af655c",
+                                                            "authoredDate": "2023-12-18T13:44:51Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I would argue that you don't need these tests.  You can add full schema tests like the ones you fixed above to cover these cases if you find these necessary. As a rule of thumb, we don't write unit tests for private methods -- we only test the public interface. If you find it impossible to get good coverage without unit-testing private methods, then chances are your design isn't cohesive (which is not the case, your design is fine here). Check this out also https://chat.openai.com/share/d6c43184-1ad5-49b5-b209-e659bdb68c33",
+                                                        "author": {
+                                                            "login": "farshidz"
+                                                        },
+                                                        "url": "https://github.com/marqo-ai/marqo/pull/670#discussion_r1430890944",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0af655c",
+                                                            "authoredDate": "2023-12-18T13:44:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yep according to documentation, max is for 2 arguments: https://docs.vespa.ai/en/reference/ranking-expressions.html#max-x",
+                                                        "author": {
+                                                            "login": "vicilliar"
+                                                        },
+                                                        "url": "https://github.com/marqo-ai/marqo/pull/670#discussion_r1430897115",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0af655c",
+                                                            "authoredDate": "2023-12-18T13:44:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Got this, I'll note this for future private methods. That being said, should I just keep them in since I already wrote them? Or would you prefer them removed?",
+                                                        "author": {
+                                                            "login": "vicilliar"
+                                                        },
+                                                        "url": "https://github.com/marqo-ai/marqo/pull/670#discussion_r1430898042",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0af655c",
+                                                            "authoredDate": "2023-12-18T13:44:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I would argue though that it's cumbersome to make 5 full new schemas just to test the output of 5 different cases of _generate_max_similarity_expression. It seems like a lot of wasted space.",
+                                                        "author": {
+                                                            "login": "vicilliar"
+                                                        },
+                                                        "url": "https://github.com/marqo-ai/marqo/pull/670#discussion_r1430901338",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0af655c",
+                                                            "authoredDate": "2023-12-18T13:44:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

@@ -1,0 +1,188 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 2323,
+                        "title": "[small] tidy up warnings",
+                        "repository": {
+                            "nameWithOwner": "lcompilers/lpython",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2023-09-13T05:58:32Z",
+                        "mergedAt": "2023-09-15T19:56:17Z",
+                        "url": "https://github.com/lcompilers/lpython/pull/2323",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "khushi-411"
+                        },
+                        "editor": {
+                            "login": "khushi-411"
+                        },
+                        "body": "Hi, the PR removes warnings during build time and tests. Please see:\r\n```cpp\r\n/home/khushi/Documents/lpython/src/libasr/runtime/lfortran_intrinsics.c: In function \u2018_lfortran_read_int64\u2019:\r\n/home/khushi/Documents/lpython/src/libasr/runtime/lfortran_intrinsics.c: In function \u2018_lfortran_read_int64\u2019:\r\n/home/khushi/Documents/lpython/src/libasr/runtime/lfortran_intrinsics.c:1994:19: warning: format \u2018%lld\u2019 expects argument of type \u2018long long int *\u2019, but argument 2 has type \u2018int64_t *\u2019 {aka \u2018long int *\u2019} [-Wformat=]\r\n 1994 |         scanf(\"%lld\", p);\r\n      |                ~~~^   ~\r\n      |                   |   |\r\n      |                   |   int64_t * {aka long int *}\r\n      |                   long long int *\r\n      |                %ld\r\n/home/khushi/Documents/lpython/src/libasr/runtime/lfortran_intrinsics.c:1994:19: warning: format \u2018%lld\u2019 expects argument of type \u2018long long int *\u2019, but argument 2 has type \u2018int64_t *\u2019 {aka \u2018long int *\u2019} [-Wformat=]\r\n 1994 |         scanf(\"%lld\", p);\r\n      |                ~~~^   ~\r\n      |                   |   |\r\n      |                   |   int64_t * {aka long int *}\r\n      |                   long long int *\r\n      |                %ld\r\n/home/khushi/Documents/lpython/src/libasr/runtime/lfortran_intrinsics.c:2008:27: warning: format \u2018%lld\u2019 expects argument of type \u2018long long int *\u2019, but argument 3 has type \u2018int64_t *\u2019 {aka \u2018long int *\u2019} [-Wformat=]\r\n 2008 |         fscanf(filep, \"%lld\", p);\r\n      |                        ~~~^   ~\r\n      |                           |   |\r\n      |                           |   int64_t * {aka long int *}\r\n      |                           long long int *\r\n      |                        %ld\r\n/home/khushi/Documents/lpython/src/libasr/runtime/lfortran_intrinsics.c:2008:27: warning: format \u2018%lld\u2019 expects argument of type \u2018long long int *\u2019, but argument 3 has type \u2018int64_t *\u2019 {aka \u2018long int *\u2019} [-Wformat=]\r\n 2008 |         fscanf(filep, \"%lld\", p);\r\n      |                        ~~~^   ~\r\n      |                           |   |\r\n      |                           |   int64_t * {aka long int *}\r\n      |                           long long int *\r\n      |                        %ld\r\n```\r\nand\r\n```python\r\nwarning: The symbol 'f' imported from modules_02b will shadow the existing symbol 'f'\r\n --> /home/khushi/Documents/lpython/integration_tests/modules_02.py:1:25\r\n  |\r\n1 | from modules_02b import f, f\r\n  |                         ^ old symbol\r\n  |\r\n1 | from modules_02b import f, f\r\n  |                            ^ new symbol\r\n```\r\ncc @certik @czgdp1807 ",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-13T06:47:39Z",
+                                    "bodyText": "Please enable -Werror for this file.\nAlso I think, now this shows warnings in macos. For example, from the build step in https://github.com/lcompilers/lpython/actions/runs/6168547819/job/16741232055?pr=2323:\n/Users/runner/work/lpython/lpython/lpython-0.19.0-220-g8e845514a/src/libasr/runtime/lfortran_intrinsics.c:1994:22: warning: format specifies type 'long *' but the argument has type 'int64_t *' (aka 'long long *') [-Wformat]\n        scanf(\"%ld\", p);\n               ~~~   ^\n               %lld\n/Users/runner/work/lpython/lpython/lpython-0.19.0-220-g8e845514a/src/libasr/runtime/lfortran_intrinsics.c:2008:30: warning: format specifies type 'long *' but the argument has type 'int64_t *' (aka 'long long *') [-Wformat]\n        fscanf(filep, \"%ld\", p);\n                       ~~~   ^\n                       %lld\n/Users/runner/work/lpython/lpython/lpython-0.19.0-220-g8e845514a/src/libasr/runtime/lfortran_intrinsics.c:1994:22: warning: format specifies type 'long *' but the argument has type 'int64_t *' (aka 'long long *') [-Wformat]\n        scanf(\"%ld\", p);\n               ~~~   ^\n               %lld\n/Users/runner/work/lpython/lpython/lpython-0.19.0-220-g8e845514a/src/libasr/runtime/lfortran_intrinsics.c:2008:30: warning: format specifies type 'long *' but the argument has type 'int64_t *' (aka 'long long *') [-Wformat]\n        fscanf(filep, \"%ld\", p);\n                       ~~~   ^\n                       %lld",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1717043302",
+                                    "author": {
+                                        "login": "Shaikh-Ubaid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-13T08:49:51Z",
+                                    "bodyText": "Ah, I see. You are right; there are warning messages in macos but not in ubuntu. I think it's related to the compilers.\nJust to confirm this, I checked my previous PR; there were warning messages in ubuntu but not in macos. Please see: https://github.com/lcompilers/lpython/actions/runs/6164474892/job/16730254578\nI also checked on the Godbolt and found that gcc and clang work pretty well, but there are warnings in msvc(windows). Link: https://godbolt.org/z/ba3vdTxeh.\n.\nI used PRId64 in my latest commit (de9bd28); let's see if all the build system are happy with it or not :-)\nI mainly referred to this hack from stack-overflow.\nThanks!",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1717212408",
+                                    "author": {
+                                        "login": "khushi-411"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-13T08:53:28Z",
+                                    "bodyText": "Please also enable -Werror check for this file. I think that would ensure checking for warnings at the CI and thus help warning free builds in future.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1717218390",
+                                    "author": {
+                                        "login": "Shaikh-Ubaid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-13T09:30:26Z",
+                                    "bodyText": "The runtime library must be build with -Werror and we need to ensure it fails on both macOS and Linux at the CI. That's a separate task.\nThen we need to fix it. Yes, this %lld gives warnings on either macOS or Linux. We faced this before and I think I put some ifdefs, and use %lld on one, but %ld on the other, or something like that.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1717278381",
+                                    "author": {
+                                        "login": "certik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-13T09:51:00Z",
+                                    "bodyText": "See: \n  \n    \n      lpython/src/libasr/runtime/lfortran_intrinsics.c\n    \n    \n        Lines 2598 to 2602\n      in\n      df414fb\n    \n  \n  \n    \n\n        \n          \n           #ifdef HAVE_LFORTRAN_MACHO \n        \n\n        \n          \n                           DIM \", line %lld\\n\" S_RESET \n        \n\n        \n          \n           #else \n        \n\n        \n          \n                           DIM \", line %ld\\n\" S_RESET \n        \n\n        \n          \n           #endif",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1717310595",
+                                    "author": {
+                                        "login": "Thirumalai-Shaktivel"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-13T10:38:26Z",
+                                    "bodyText": "Interesting! Thanks for sharing. I have updated it using Macros.\nEDIT: I see there are warnings on unused variables, I'm looking into it. Will update it soon. Thanks",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1717379772",
+                                    "author": {
+                                        "login": "khushi-411"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-15T06:58:29Z",
+                                    "bodyText": "Hi, @certik @Shaikh-Ubaid @Thirumalai-Shaktivel,\nIn LPython CI (3.10, ubuntu-latest), we are currently getting the following warning:\n/home/runner/work/lpython/lpython/lpython-0.19.0-232-g05cd6c4a7/src/libasr/runtime/lfortran_intrinsics.c: In function \u2018_lfortran_read_int32\u2019:\n/home/runner/work/lpython/lpython/lpython-0.19.0-232-g05cd6c4a7/src/libasr/runtime/lfortran_intrinsics.c:1972:9: warning: ignoring return value of \u2018scanf\u2019 declared with attribute \u2018warn_unused_result\u2019 [-Wunused-result]\n 1972 |         scanf(\"%d\", p);\n      |         ^~~~~~~~~~~~~~\nI stumbled upon an interesting discussion  here. I found it is the expected behavior of the scanf function (because scanf is user-defined and the GCC compiler wants to warn the user about its input type).\nI initially thought we might be getting this warning due to the unused variable p, I considered using [[maybe_unused]], I could have also used __attribute__((unused)) (for GCC and clang), but this case is not related to unused variable/function, etc.\nWhat do you think we should do in these cases to remove the warning? I'd appreciate your response. Thank you!",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1720774219",
+                                    "author": {
+                                        "login": "khushi-411"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-15T07:05:46Z",
+                                    "bodyText": "I think we can try if (scanf(\"%d\", p)) { } // Suppress unused result warning\nBut let's wait for other's opinions as well.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1720781958",
+                                    "author": {
+                                        "login": "Thirumalai-Shaktivel"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-15T16:04:29Z",
+                                    "bodyText": "I think we can also disable the warning related to the unused result using the flag -Wno-unused-result only for the specific lfortran_intrinsics.c file.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1721518876",
+                                    "author": {
+                                        "login": "Shaikh-Ubaid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-15T19:17:55Z",
+                                    "bodyText": "We can, but I think those are good warnings, and we should only disable them when we know the result value was meant to be ignored with the [[maybe_unused]] syntax. So I would keep the warning on.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1721732525",
+                                    "author": {
+                                        "login": "certik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-15T19:40:07Z",
+                                    "bodyText": "I think we can try if (scanf(\"%d\", p)) { } // Suppress unused result warning\nBut let's wait for other's opinions as well.\n\n\nI think we can also disable the warning related to the unused result using the flag -Wno-unused-result only for the specific lfortran_intrinsics.c file.\n\nThanks, @Thirumalai-Shaktivel and @Shaikh-Ubaid, for sharing two other ways to disable the warning message.\n\nWe can, but I think those are good warnings, and we should only disable them when we know the result value was meant to be ignored with the [[maybe_unused]] syntax. So I would keep the warning on.\n\nGot it! Thanks, @certik, for clarifying it. It sounds totally reasonable to me.\nThis PR is ready by my side. Please let me know if there's anything to be improved in this PR.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1721754095",
+                                    "author": {
+                                        "login": "khushi-411"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-15T19:56:21Z",
+                                    "bodyText": "Thanks!",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1721769863",
+                                    "author": {
+                                        "login": "certik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-15T23:12:06Z",
+                                    "bodyText": "Thank you so much @khushi-411. Great work! I appreciate it.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1721985413",
+                                    "author": {
+                                        "login": "Shaikh-Ubaid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-15T23:14:41Z",
+                                    "bodyText": "I used PRId64 in my latest commit (de9bd28); let's see if all the build system are happy with it or not :-)\n\nThe above seems to be a correct approach. Please see https://chat.openai.com/share/51fe5b13-86a1-4ebe-809d-a71d7d284cab. It seems for scanf() it is SCNd64 and for printf() it is PRId64.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1721988847",
+                                    "author": {
+                                        "login": "Shaikh-Ubaid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-15T23:32:45Z",
+                                    "bodyText": "For the unused result warnings, it seems we also have the possibility/approach of casting the result to void (when we do not need/use the result). For example,\n$ cat examples/main.c \n#include <stdio.h>\n\n__attribute__((warn_unused_result))\nint custom_function(int value) {\n    return value * 2;\n}\n\nint main() {\n    custom_function(5); // This will trigger a warning for unused result\n    return 0;\n}\n$ clang -Wunused-result -o unused_result examples/main.c\nexamples/main.c:9:5: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]\n    custom_function(5); // This will trigger a warning for unused result\n    ^~~~~~~~~~~~~~~ ~\n1 warning generated.\nCasting the result to void like\nint main() {\n    (void) custom_function(5);\n    return 0;\n}\n$ clang -Wunused-result -o unused_result examples/main.c\n$ \nPS: It seems to work on mac. We might need to check on Linux.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1722026164",
+                                    "author": {
+                                        "login": "Shaikh-Ubaid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-16T05:53:30Z",
+                                    "bodyText": "It seems for scanf() it is SCNd64 and for printf() it is PRId64.\n\nAh, right. My bad, I missed it. Thanks for pointing it out, @Shaikh-Ubaid! :-)\nI think it might have worked earlier but would have shown some miscellaneous effect while dtype conversion. Happy we haven't used that.\n\nPS: It seems to work on mac. We might need to check on Linux.\n\nNice approach!\nI tested it on Ubuntu, and it appears clang is happy, but gcc still throws the same warning msg. Please see:\n(lp) khushi@khushi:~/Documents/lpython$ clang -Wunused-result -o result main.c\n(lp) khushi@khushi:~/Documents/lpython$\n(lp) khushi@khushi:~/Documents/lpython$ gcc -Wunused-result -o result main.c\nmain.c: In function \u2018main\u2019:\nmain.c:9:12: warning: ignoring return value of \u2018custom_function\u2019 declared with attribute \u2018warn_unused_result\u2019 [-Wunused-result]\n    9 |     (void) custom_function(5); // This will trigger a warning for unused result\n      |            ^~~~~~~~~~~~~~~~~~",
+                                    "url": "https://github.com/lcompilers/lpython/pull/2323#issuecomment-1722145644",
+                                    "author": {
+                                        "login": "khushi-411"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "I think this looks good. We should probably use a different ifdef for apple (I am not sure if this define can be off sometimes for apple), but for now this is good.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

@@ -1,0 +1,561 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 37,
+                        "title": "language touchups",
+                        "repository": {
+                            "nameWithOwner": "Bananapus/nana-core",
+                            "primaryLanguage": {
+                                "name": "Solidity"
+                            }
+                        },
+                        "createdAt": "2023-11-13T14:58:32Z",
+                        "mergedAt": "2023-12-06T01:41:51Z",
+                        "url": "https://github.com/Bananapus/nana-core/pull/37",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "mejango"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-16T02:13:51Z",
+                                    "bodyText": "this might be useful for files like JBController as they're currently shown in Files Changed\nhttps://chat.openai.com/share/94d9b5cd-bd5e-4dfd-a11e-39cef1f0634e",
+                                    "url": "https://github.com/Bananapus/nana-core/pull/37#issuecomment-1813675412",
+                                    "author": {
+                                        "login": "mejango"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-16T02:24:09Z",
+                                    "bodyText": "this might be useful for files like JBController as they're currently shown in Files Changed https://chat.openai.com/share/94d9b5cd-bd5e-4dfd-a11e-39cef1f0634e\n\nYes! I'll do this in one pass at the end. This PR will likely end up quite messy, I'm using commits more as checkpoints than anything. I can go back and refactor at the end if helpful.",
+                                    "url": "https://github.com/Bananapus/nana-core/pull/37#issuecomment-1813689518",
+                                    "author": {
+                                        "login": "filipviz"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Actually, to be in line with the rest of the lib, this should be getData (as we parse the metadata to find the data of a given id)\nWhy \"hook\"? This should now be usage agnostic (that's why I removed the delegate references in the non-language touched-up PR), no issue for this lib to be used in whatever metadata",
+                                                        "author": {
+                                                            "login": "drgorillamd"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1412803936",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7e916a2",
+                                                            "authoredDate": "2023-12-02T03:04:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "meh, thought I removed the ref to delegates, as it can be used wherever (cf lib natspecs which should be correct then, including little ascii art and stuff)",
+                                                        "author": {
+                                                            "login": "drgorillamd"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1412804206",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7e916a2",
+                                                            "authoredDate": "2023-12-02T03:04:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "see https://github.com/Bananapus/juice-contracts-v4/pull/37/files#diff-4cefaec2ffaef06618565b1b0a4e1472dfd6937ea0a3471c4ea318b978bfe510L5\ncan be copy-pasted, as this contract is just to test the lib anyway",
+                                                        "author": {
+                                                            "login": "drgorillamd"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1412804310",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7e916a2",
+                                                            "authoredDate": "2023-12-02T03:04:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "used is an odd verb here, this is the minimum number of tokens the user should receive. Maybe something like  _minTokensReceived or _minTokenAmount",
+                                                        "author": {
+                                                            "login": "xBA5ED"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1413219592",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "693cd17",
+                                                            "authoredDate": "2023-12-02T23:08:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                                _reason = __reason.length == 0 ? abi.encode(\"Process fail\") : __reason;\n          \n          \n            \n                                _reason = __reason.length == 0 ? abi.encode(\"splitHook fail\") : __reason;",
+                                                        "author": {
+                                                            "login": "xBA5ED"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1413222928",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "693cd17",
+                                                            "authoredDate": "2023-12-02T23:08:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Adding both of these. Thank you @xBA5ED",
+                                                        "author": {
+                                                            "login": "filipviz"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1413306907",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "693cd17",
+                                                            "authoredDate": "2023-12-02T23:08:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Changed to minTokensPaidOut. Thank you!",
+                                                        "author": {
+                                                            "login": "filipviz"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1413307058",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "693cd17",
+                                                            "authoredDate": "2023-12-02T23:08:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Should this be renamed? Appears it's not the total supply.",
+                                                        "author": {
+                                                            "login": "simplemachine92"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1416279063",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ba7e925",
+                                                            "authoredDate": "2023-12-05T20:45:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "BURN_PAUSED_AND_SENDER_NOT_VALID_TERMINAL_HOOK() unused, coming later?",
+                                                        "author": {
+                                                            "login": "simplemachine92"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1416280698",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ba7e925",
+                                                            "authoredDate": "2023-12-05T20:45:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "NOT_CURRENT_CONTROLLER(); unused",
+                                                        "author": {
+                                                            "login": "simplemachine92"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1416281244",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ba7e925",
+                                                            "authoredDate": "2023-12-05T20:45:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@ who's discretion? Is it worth being more specific here i.e. \"allowAdminMinting()\"?",
+                                                        "author": {
+                                                            "login": "simplemachine92"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1416291228",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ba7e925",
+                                                            "authoredDate": "2023-12-05T20:45:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Just wanted to point out how great this is- It gives so much more context.",
+                                                        "author": {
+                                                            "login": "simplemachine92"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1416296886",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ba7e925",
+                                                            "authoredDate": "2023-12-05T20:45:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\"deployJBERC20For\"?",
+                                                        "author": {
+                                                            "login": "simplemachine92"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1416300864",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ba7e925",
+                                                            "authoredDate": "2023-12-05T20:45:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "nope, remove. we removed the pauseBurn metadata flag. good call",
+                                                        "author": {
+                                                            "login": "mejango"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1416322283",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ba7e925",
+                                                            "authoredDate": "2023-12-05T20:45:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "meh. as far as JBTokens is concerned it is the total supply. just needs to add the pending reserved.",
+                                                        "author": {
+                                                            "login": "mejango"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1416322707",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ba7e925",
+                                                            "authoredDate": "2023-12-05T20:45:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "nice",
+                                                        "author": {
+                                                            "login": "mejango"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1416322761",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ba7e925",
+                                                            "authoredDate": "2023-12-05T20:45:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "nice",
+                                                        "author": {
+                                                            "login": "mejango"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1416323070",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ba7e925",
+                                                            "authoredDate": "2023-12-05T20:45:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "nice",
+                                                        "author": {
+                                                            "login": "mejango"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1416323152",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ba7e925",
+                                                            "authoredDate": "2023-12-05T20:45:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Going with allowOwnerMinting. Nice",
+                                                        "author": {
+                                                            "login": "filipviz"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1416327503",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ba7e925",
+                                                            "authoredDate": "2023-12-05T20:45:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "<3",
+                                                        "author": {
+                                                            "login": "filipviz"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1416327643",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ba7e925",
+                                                            "authoredDate": "2023-12-05T20:45:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes",
+                                                        "author": {
+                                                            "login": "filipviz"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1416327758",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ba7e925",
+                                                            "authoredDate": "2023-12-05T20:45:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Keeping totalSupplyOf for now. But I think this is fair and worth revisiting if we can think of something really clear.",
+                                                        "author": {
+                                                            "login": "filipviz"
+                                                        },
+                                                        "url": "https://github.com/Bananapus/nana-core/pull/37#discussion_r1416377193",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ba7e925",
+                                                            "authoredDate": "2023-12-05T20:45:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

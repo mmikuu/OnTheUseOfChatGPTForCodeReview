@@ -1,0 +1,771 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 25,
+                        "title": "add shortcode for qa listing",
+                        "repository": {
+                            "nameWithOwner": "expresstechsoftware/product-questions-answers-for-woocommerce",
+                            "primaryLanguage": {
+                                "name": "PHP"
+                            }
+                        },
+                        "createdAt": "2023-10-04T12:35:37Z",
+                        "mergedAt": "2024-02-21T12:31:17Z",
+                        "url": "https://github.com/expresstechsoftware/product-questions-answers-for-woocommerce/pull/25",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "ruchitamalviya"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-10-14T04:22:29Z",
+                                    "bodyText": "Check the last comments.",
+                                    "url": "https://github.com/expresstechsoftware/product-questions-answers-for-woocommerce/pull/25#issuecomment-1762591228",
+                                    "author": {
+                                        "login": "geek92sunny"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-16T16:47:49Z",
+                                    "bodyText": "QA's are no more appearing in the 'Q & A' WC product tab. You have create a common function to load QA but not called in QA, we are adding a shortcode feature, the existing features will keep working as it is.",
+                                    "url": "https://github.com/expresstechsoftware/product-questions-answers-for-woocommerce/pull/25#issuecomment-1948866443",
+                                    "author": {
+                                        "login": "geek92sunny"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Create a new method to render the QA list and use it in the shortcode callback too.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We created this shortcode, and we are internally using it internally, it does not make sense. Sometimes we may have to use third party shortcode in our code with do_shortcode but registering and using the shortcode within the same plugin does not make sense.\nCheck this: https://chat.openai.com/share/436ae660-af14-4c8c-9cfb-a5654d15a8be\nCreate a function to do all the common stuff and use the same function inside the method display_qa_listing_shortcode",
+                                                        "author": {
+                                                            "login": "geek92sunny"
+                                                        },
+                                                        "url": "https://github.com/expresstechsoftware/product-questions-answers-for-woocommerce/pull/25#discussion_r1350722241",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "33643a6",
+                                                            "authoredDate": "2023-10-04T12:27:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This method is now being used in the callback for QA listing shortcode as well, users may add the shortcode on other pages / posts as well intentionally / unintentionally.\nif there is no global 1$product` variable (no set or null or blank) then this function should return blank string.",
+                                                        "author": {
+                                                            "login": "geek92sunny"
+                                                        },
+                                                        "url": "https://github.com/expresstechsoftware/product-questions-answers-for-woocommerce/pull/25#discussion_r1351873335",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f8814a4",
+                                                            "authoredDate": "2023-10-10T05:09:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We wrapped the whole code in this condition, this will not on other pages than product pages, we have added 'product_id' parameter in the shortcode so that we can call this shortcode anywhere to show the QA of that product.",
+                                                        "author": {
+                                                            "login": "geek92sunny"
+                                                        },
+                                                        "url": "https://github.com/expresstechsoftware/product-questions-answers-for-woocommerce/pull/25#discussion_r1356528781",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dbb3d57",
+                                                            "authoredDate": "2023-10-10T11:07:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Move this add_shortcode from between the two ajax actions for load_more_qa, and place it after all hooks.",
+                                                        "author": {
+                                                            "login": "geek92sunny"
+                                                        },
+                                                        "url": "https://github.com/expresstechsoftware/product-questions-answers-for-woocommerce/pull/25#discussion_r1492943476",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d59a268",
+                                                            "authoredDate": "2023-10-16T08:36:22Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 235,
+                        "title": "fix: adding `... FOR UPDATE` to lock the row while client creation",
+                        "repository": {
+                            "nameWithOwner": "WalletConnect/echo-server",
+                            "primaryLanguage": {
+                                "name": "Rust"
+                            }
+                        },
+                        "createdAt": "2023-10-04T19:55:58Z",
+                        "mergedAt": "2023-10-05T17:40:23Z",
+                        "url": "https://github.com/WalletConnect/echo-server/pull/235",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "geekbrother"
+                        },
+                        "editor": {
+                            "login": "geekbrother"
+                        },
+                        "body": "# Description\r\n\r\nAdding an additional `SELECT ... FOR UPDATE` statement for explicitly locks the row and avoids the `unique constraint violation` errors while executing create client transactions in parallel.\r\n\r\nResolves #230\r\n\r\n## How Has This Been Tested?\r\n\r\nPassing functional CI unit tests.\r\n\r\n## Due Diligence\r\n\r\n* [ ] Breaking change\r\n* [ ] Requires a documentation update\r\n* [ ] Requires a e2e/integration test update",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-10-05T09:08:15Z",
+                                    "bodyText": "The expected behavior is that when the row is locked by SELECT ... FOR UPDATE another concurrent transaction with FOR UPDATE will wait until the first one COMMIT and will not throw any errors in this case.\nMore about FOR UPDATE and concurrent transactions: https://chat.openai.com/share/9cf007cd-fb8f-4281-ba66-e5924d884ca2",
+                                    "url": "https://github.com/WalletConnect/echo-server/pull/235#issuecomment-1748443410",
+                                    "author": {
+                                        "login": "geekbrother"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 364,
+                        "title": "feat: make compilation stale on asset host change",
+                        "repository": {
+                            "nameWithOwner": "shakacode/shakapacker",
+                            "primaryLanguage": {
+                                "name": "Ruby"
+                            }
+                        },
+                        "createdAt": "2023-10-04T12:32:47Z",
+                        "mergedAt": "2023-12-01T06:03:57Z",
+                        "url": "https://github.com/shakacode/shakapacker/pull/364",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "ahangarha"
+                        },
+                        "editor": {
+                            "login": "ahangarha"
+                        },
+                        "body": "### Summary\r\n\r\nThis PR adds a feature for making digest strategy sensitive towards asset_host change. This way, by changing `SHAKAPACKER_ASSET_HOST`, we get new asset compilation.\r\n\r\nThis is an opt-in feature.\r\n\r\n### Pull Request checklist\r\n- [x] Add/update test to cover these changes\r\n- [x] Update documentation\r\n- [x] Update CHANGELOG file\r\n\r\n### Other Information\r\n\r\nCloses #328",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-10-05T07:51:01Z",
+                                    "bodyText": "@Judahmeek\nThere was an issue with memoization. I fixed it. Now it only runs the digest algorithm once.",
+                                    "url": "https://github.com/shakacode/shakapacker/pull/364#issuecomment-1748307621",
+                                    "author": {
+                                        "login": "ahangarha"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-27T03:47:07Z",
+                                    "bodyText": "I think the problem here is that these are mincing config with env variables: SHAKAPACKER_ASSET_HOST gets set within a private instance method and the resulting env object is passed straight to Open3.capture3 so there's no way you can access it from the digest strategies (aka Shakapacker::Compiler.env[\"SHAKAPACKER_ASSET_HOST\"] will never work).\nWhat they do have is an instance of Shakapacker::Configuration, which feels like a suitable way to expose this anyway i.e. support asset_host within shakapacker.yml whose default value is ActionController::Base.helpers.compute_asset_host unless SHAKAPACKER_ASSET_HOST is set.\nYou should be able do that by adding this to Shakapacker::Configuration:\n  def asset_host\n    ENV.fetch(\"SHAKAPACKER_ASSET_HOST\", fetch(:asset_host) || ActionController::Base.helpers.compute_asset_host)\n  end\n\nThen in the digest strategy and Shakapacker::Compiler#webpack_env you can do config.asset_host.\nAlso, I've not tested this but I'm pretty sure you can make this part of the digest returned by watched_files_digest rather than the filepath digest - I think that's nicer because it means those semantics are preserved and you also avoid growing the file name significantly which after a while will tend to annoy Windows.",
+                                    "url": "https://github.com/shakacode/shakapacker/pull/364#issuecomment-1782244368",
+                                    "author": {
+                                        "login": "G-Rath"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-31T04:06:00Z",
+                                    "bodyText": "this needs rebasing. I merged #374",
+                                    "url": "https://github.com/shakacode/shakapacker/pull/364#issuecomment-1786407259",
+                                    "author": {
+                                        "login": "justin808"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-06T23:25:23Z",
+                                    "bodyText": "@ahangarha please make changes suggested by @G-Rath!",
+                                    "url": "https://github.com/shakacode/shakapacker/pull/364#issuecomment-1797022641",
+                                    "author": {
+                                        "login": "justin808"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-07T09:21:51Z",
+                                    "bodyText": "Regarding reviews:\n\n Make asset_host changes affect the digest of the files rather than filenames from this comment.\n Update the changelog and list this PR as a fix instead of a new feature from this comment.\n No change in this PR regarding this comment since this should be done in another PR (#376).",
+                                    "url": "https://github.com/shakacode/shakapacker/pull/364#issuecomment-1798111648",
+                                    "author": {
+                                        "login": "ahangarha"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-23T02:15:42Z",
+                                    "bodyText": "LGTM",
+                                    "url": "https://github.com/shakacode/shakapacker/pull/364#issuecomment-1823745108",
+                                    "author": {
+                                        "login": "justin808"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T18:34:58Z",
+                                    "bodyText": "the readme change is still there\n\nFrankly, I don't know how that happened.\nIn any case, in resolving the merge conflict, I fixed this issue too.",
+                                    "url": "https://github.com/shakacode/shakapacker/pull/364#issuecomment-1825987197",
+                                    "author": {
+                                        "login": "ahangarha"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM. Just have one question.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why did you enable generate_host_hash to take parameters when you don't provide parameters when generate_host_hash is called by compilation_digest_path or for any sort of testing?",
+                                                        "author": {
+                                                            "login": "Judahmeek"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1346745307",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a5870cf",
+                                                            "authoredDate": "2023-10-04T14:39:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Good point!\nI thought of different ways of implementation. And with this implementation, there is no need to take arguments.\nIn general, I like to make pure functions as much as possible. But, in this case, the method can be unpure as a private method.\nI will remove the arguments.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1346871467",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a5870cf",
+                                                            "authoredDate": "2023-10-04T14:39:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think this is necessary. If the asset host changes, recompile. Why have an option?",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1359742530",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4e89ba0",
+                                                            "authoredDate": "2023-10-05T07:49:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Not setting it off by default, we get failed tests for backward compatibility.\nI'll check it again.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1359924234",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4e89ba0",
+                                                            "authoredDate": "2023-10-05T07:49:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I added 4082109 where I simplify the logic, removed the mentioned config entry, and yet get the same result:\n\nIf there is no asset_host and SHAKAPACKER_ASSET_HOST, we don't touch the path.\nOtherwise, we add a computed hash based on the combination of the two mentioned values to the path.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1360462769",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4e89ba0",
+                                                            "authoredDate": "2023-10-05T07:49:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This improper.\nCreate a method for this code:\n\n  \n    \n      shakapacker/lib/shakapacker/compiler.rb\n    \n    \n         Line 109\n      in\n      28a969a\n    \n  \n  \n    \n\n        \n          \n           env.merge(\"SHAKAPACKER_ASSET_HOST\"        => ENV.fetch(\"SHAKAPACKER_ASSET_HOST\", ActionController::Base.helpers.compute_asset_host), \n        \n    \n  \n\n\nthat way you dry up the logic.\nthen you just have one simple string value for those host hash\nand when you change either configs or ENVs, you HAVE to restart, so no need for hash for the memoization.",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1364741229",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6c6d4af",
+                                                            "authoredDate": "2023-10-16T10:48:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "no need for 2 lines and the if statement...\ncode below never returns nil for the method call.",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1364741240",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6c6d4af",
+                                                            "authoredDate": "2023-10-16T10:48:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Based on my comments, I wonder if we are testing the actual behavior of Shakapacker. In actual apps, I couldn't get any value for Shakapacker::Compiler.env except an empty hash.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I tried in different ways to get the value of this Shakapacker::Compiler.env but in all cases, I got an empty hash. If we cannot access the value, then it means the code inside this condition never gets running.\nEither my approaches were wrong or we need to investigate Shakapacker::Compiler.env deeper.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1371351831",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dc333f0",
+                                                            "authoredDate": "2023-10-24T22:22:52Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Regarding my other comment, I am afraid we get false positive test passages with such tests.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1371368397",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dc333f0",
+                                                            "authoredDate": "2023-10-24T22:22:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't understand this part of the code. There should be a method to give the value.\nPlus you repeated the long Shakapacker::Compiler.env[\"SHAKAPACKER_ASSET_HOST\"]. WHY???",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1374013163",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dc333f0",
+                                                            "authoredDate": "2023-10-24T22:22:52Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is not the right way to stub envs.",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1374013354",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dc333f0",
+                                                            "authoredDate": "2023-10-24T22:22:52Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "why is the env method on the Compiler class?",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1374013580",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dc333f0",
+                                                            "authoredDate": "2023-10-24T22:22:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "can we try including this as part of the digest of the files themselves rather than the file path? that way the path will remain consistent and smaller, especially if in future there are other elements we decide we should be cachebusting on too",
+                                                        "author": {
+                                                            "login": "G-Rath"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1378352191",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2aaa372",
+                                                            "authoredDate": "2023-10-31T14:39:11Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "fwiw imo this is a bug not a feature since its reasonable to assume given how digest works that changing the asset host would result in the digest changing, and as such doesn't require explicit documentation (similarly, I don't think it does for mtime either because that clearly says its based on timestamps only)",
+                                                        "author": {
+                                                            "login": "G-Rath"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1379204003",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2aaa372",
+                                                            "authoredDate": "2023-10-31T14:39:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://chat.openai.com/share/64cf0aa2-81dd-4cf2-b67a-ac54007d6bbe",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1382109487",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dc333f0",
+                                                            "authoredDate": "2023-10-24T22:22:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is done in e43d164.\nIn another PR, many more tests should be updated for this. We never stubbed ENV in our tests.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1383400826",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dc333f0",
+                                                            "authoredDate": "2023-10-24T22:22:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is a good point, and I will try to implement it.\nThanks for the suggestion.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1383491918",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2aaa372",
+                                                            "authoredDate": "2023-10-31T14:39:11Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@G-Rath is this what you had in mind?",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1384627869",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfa7d65",
+                                                            "authoredDate": "2023-11-07T09:16:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "This is looking good to me, just needs the change to the readme removed and then should be good to go",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yup this looks good to me!",
+                                                        "author": {
+                                                            "login": "G-Rath"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1385529804",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfa7d65",
+                                                            "authoredDate": "2023-11-07T09:16:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "the readme change is still there, but happy to do a follow-up PR removing it instead of blocking this :)",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@ahangarha this looks like a previous doc update that was since removed - I think it would probably be best to just do a brand new commit manually undoing the changes to the readme rather than trying to do git revert since everything will be squashed anyway",
+                                                        "author": {
+                                                            "login": "G-Rath"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1404604422",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "15c7a6d",
+                                                            "authoredDate": "2023-11-24T18:28:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Well...\nI removed it manually.\nFinally... \ud83d\ude42",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/shakapacker/pull/364#discussion_r1404650503",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "15c7a6d",
+                                                            "authoredDate": "2023-11-24T18:28:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

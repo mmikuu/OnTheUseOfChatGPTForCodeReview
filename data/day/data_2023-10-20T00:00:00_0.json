@@ -1,0 +1,1595 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 1,
+                        "title": "Branch 1",
+                        "repository": {
+                            "nameWithOwner": "chacon44/Module_3",
+                            "primaryLanguage": {
+                                "name": "Java"
+                            }
+                        },
+                        "createdAt": "2023-10-20T11:58:06Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/chacon44/Module_3/pull/1",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "chacon44"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Please add entire .idea folder to git ignore.",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411586145",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Add  test here as well.",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411586302",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You need to configure Maven Surefire plugin version to at least 2.22, otherwise you tests would not work through maven, if plugin is older.",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411586632",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why did you change name and group to something different from your package structure? It should in theory be com.epam.esm as",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411587117",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Change mapping to just \"/certificate\". In REST, when we want to get list of values for some (filtered or not) we usually call just GET /.",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411588688",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In general bunch of static global flags look like terrible idea.",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411590218",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Do you actually use builder for GiftCertificate? If not, you can drop the annotation.",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411592771",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Do you actually use builder for Tag? If not, you can drop the annotation.",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411593335",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "That's not a good approach. We do not want to compare strings to check result. Please, make TagValidator return Optional (empty optional would mean Valid) or better custom class ValidationResult with boolean \"valid\" field and String \"message\" field. Than since this method is used only in save, just inline entire logic of it into saveTag method. Thus you avoid additional null comparison there.",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411596764",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I would highly advice wrapping tag into Optional, when returning from giftCertificateTagRepository (and unwrapping here). But is up to you.",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411597311",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You do second request to DB for same tag here. Back on line 34, where \"tagExists =...\" instead save result as Tag. Calculate tagExists on the next line as \"tagExists = tagFound !=null\". Thus, you would only do getTagByName once.",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411598203",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why request it again, if you return entire Tag from \"saveTag\" method? Could not you use \"tag\" instead of \"tagResponse\"?",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411599054",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Make it return Optional<String>",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411599284",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Optional.empty()",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411599415",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Optional.of(String.join...)",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411599495",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Same here with the Optional",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411599611",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You pass in GiftCertificate, but your controller expects GiftCertificateRequestDTO",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411600447",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is problematic operation. You do NOT copy \"giftCertificate\" into  \"giftCertificateResponse1\". You instead point second name to the same object. Now, both \"giftCertificateResponse1\" and \"giftCertificate\" are same and changes to one, would apply to other. Which is problematic, since \"giftCertificateResponse1\" supposed to have more fields set later. Please, replace this line with\ngiftCertificateResponse1  = new GiftCertificate(\n\"certificate for test\", \"description for test\", 10.50, 10L);\nto create separate independent copy.",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411601334",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I have thought about improving this part. My suggestion: is doing it like this example: https://chat.openai.com/share/86b29c8a-ba4c-479c-9dfa-e102bc9c92a8\nDo checks for Status Code and content type as is now, than return JSON of response as string, convert it via Object mapper into  GiftCertificate object and than use assertEquals to validate it vs \"giftCertificateResponse1\".",
+                                                        "author": {
+                                                            "login": "KuzymVas"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411607131",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "done",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411777846",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "done",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411780333",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "added",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411782712",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It was accidental because I copied and pasted a pom file from example codes on internet just to import plugins for some part of the code that I would have been testing",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411791432",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "done",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411791531",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "ok will delete this and refactor the code",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411792068",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, in the row mapper class",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411792992",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In tag row mapper",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411793536",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411798098",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "changed and deleted tag validator",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411812201",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "solved",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411812416",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "solved",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411812602",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "done",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411822813",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "done",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411822907",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "done",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411823156",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "deleted this class and wrote logic in the tag repository implementation, since it was only one line",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411823850",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, I made changes so I need to reconfigure this test",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411827517",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "done",
+                                                        "author": {
+                                                            "login": "chacon44"
+                                                        },
+                                                        "url": "https://github.com/chacon44/Module_3/pull/1#discussion_r1411830238",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b54b41c",
+                                                            "authoredDate": "2023-11-30T19:11:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 26792,
+                        "title": "Use an immutable workspace for all non-incremental transforms",
+                        "repository": {
+                            "nameWithOwner": "gradle/gradle",
+                            "primaryLanguage": {
+                                "name": "Groovy"
+                            }
+                        },
+                        "createdAt": "2023-10-20T12:00:07Z",
+                        "mergedAt": "2023-11-02T22:28:45Z",
+                        "url": "https://github.com/gradle/gradle/pull/26792",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "lptr"
+                        },
+                        "editor": {
+                            "login": "asodja"
+                        },
+                        "body": "Previously project-bound transforms were always executed in a mutable, project-bound workspace, even when they were non-incremental. By allocating immutable workspaces for non-incremental work we get to reuse their outputs locally more often without having to hit the build cache.\r\n\r\nA consequence of this change is that running `clean` does not remove the outputs of non-incremental project-bound transforms anymore. Only the outputs of incremental transforms will be stored in `$buildDir/.transforms`.\r\n\r\nFixes https://github.com/gradle/gradle/issues/26694\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-10-27T19:16:23Z",
+                                    "bodyText": "Also, what do you think about this suggestion: #26792 (comment)?\n\nI think it's important to have \"identity\" mentioned in that name. We can remove \"identity\" once we can drop the non-normalized version.",
+                                    "url": "https://github.com/gradle/gradle/pull/26792#issuecomment-1783391420",
+                                    "author": {
+                                        "login": "lptr"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-27T19:16:44Z",
+                                    "bodyText": "I've triggered a build for you. Click here to see all failures if there's any.",
+                                    "url": "https://github.com/gradle/gradle/pull/26792#issuecomment-1783391776",
+                                    "author": {
+                                        "login": "bot-gradle"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-27T20:30:34Z",
+                                    "bodyText": "Pre-tested commit build failed. Click here to see all build failures.",
+                                    "url": "https://github.com/gradle/gradle/pull/26792#issuecomment-1783477521",
+                                    "author": {
+                                        "login": "bot-gradle"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-02T21:07:23Z",
+                                    "bodyText": "@bot-gradle test and merge please.",
+                                    "url": "https://github.com/gradle/gradle/pull/26792#issuecomment-1791538768",
+                                    "author": {
+                                        "login": "lptr"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-02T21:07:39Z",
+                                    "bodyText": "I've triggered a build for you. Click here to see all failures if there's any.",
+                                    "url": "https://github.com/gradle/gradle/pull/26792#issuecomment-1791539119",
+                                    "author": {
+                                        "login": "bot-gradle"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "In general, I am good with the approach to use Gradle user home workspaces for non-incremental project transforms, as long as their input artifact are normalized. There still will be some negative effect for folks that don't use @Classpath on their input artifacts when those are project artifacts. Also, it seems like some test coverage is missing - given that we now have three options how to decide on a workspace, we'd need to have one extra variation of quite some tests, right?",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ud83e\udd14 This also means that we'd use the in-memory cache for non-incremental project transforms. Is that a problem?",
+                                                        "author": {
+                                                            "login": "wolfs"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1368425941",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ud83e\udd14 I am surprised you can calculate the unique id up front now, given that we had the different subclasses with specialized identities before so we'd avoid calculating them when doing the locking on the loading cache. Are you sure this doesn't introduce any performance regressions?",
+                                                        "author": {
+                                                            "login": "wolfs"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1368430033",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u274c We still want a test here that a non-incremental project transform execution can be up-to-date or from the build-cache, right?",
+                                                        "author": {
+                                                            "login": "wolfs"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1368433132",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u274c We'd be losing some test coverage here by not checking what happens for non-incremental project transforms.",
+                                                        "author": {
+                                                            "login": "wolfs"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1368434011",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u2753 Are we losing some coverage here?",
+                                                        "author": {
+                                                            "login": "wolfs"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1368434828",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u2753 Again, are we losing some coverage here?",
+                                                        "author": {
+                                                            "login": "wolfs"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1368436016",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u2753 Do we now need some test coverage for non-incrementally transformed artifact directories as well?",
+                                                        "author": {
+                                                            "login": "wolfs"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1368439816",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u2754 I don't understand why we don't need this optimization any more when we move to all-scheduled transforms. Though it is also not very important in this context.",
+                                                        "author": {
+                                                            "login": "wolfs"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1368441629",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u2753 Would we need a test here that this works as well for incremental transforms?",
+                                                        "author": {
+                                                            "login": "wolfs"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1368452379",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ud83e\udd14 Maybe we can skip \"Identity\" from the name and have only NonNormalizedImmutableTransformExecution",
+                                                        "author": {
+                                                            "login": "asodja"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1368729250",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Or maybe even UnnormalizedImmutableTransformExecution",
+                                                        "author": {
+                                                            "login": "asodja"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1368753915",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ud83c\udf89So we use normalized for projects, nice.\nI guess here performance regression are not seen, since project normally doesn't have a lot of project dependencies, right?",
+                                                        "author": {
+                                                            "login": "asodja"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1368762986",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u2754 Do we still need that now, that we don't include it in equals?",
+                                                        "author": {
+                                                            "login": "asodja"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1368764534",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeah, I was also somewhat surprised. But ran the performance tests and they show no regression, see link above.",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1369682364",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We need this because it gets accessed from IdentifyTransformExecutionProgressDetails.",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1369684358",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why would it be a problem? Because of the additional memory usage?",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1369685485",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "My understanding is that this optimization is needed because we \"execute\" transforms every time their output is needed, and then we de-duplicate the many executions in the IdentityCache step. For external artifacts like guava.jar we run the identify part for every subproject where the transformed JAR is needed; for large projects the difference between using the snapshot vs using the fingerprint can add up.\nOnce we change this and all transforms are discovered as part of execution graph building my expectation is that we can do this de-duplication based on the identity of the transformed dependency instead. This is just an assumption, though, that I haven't verified, so I'm okay with removing the comment here.",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1369691182",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm not sure I understand your question about performance. We already used normalized for project artifacts (both incremental and non-incremental). And why would the number of dependencies matter for calculating a hash for the primary artifact?",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1369693867",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I understand that we could do the de-duplication while scheduling, though that also means we'd do the identification there. In other words for de-duplication we need to identify a transform, and if my understanding is correct that doesn't change whether we schedule the transforms or not.",
+                                                        "author": {
+                                                            "login": "wolfs"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1369722078",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In this spike #26765 we did normalization for all artifacts, so we did see some performance regression. But quoted sentence explains my question why we don't see regression here:\n\nWe already used normalized for project artifacts (both incremental and non-incremental)\n\n\n\nAnd why would the number of dependencies matter for calculating a hash for the primary artifact?\n\nI should phrase it differently: my assumption was that in dependency graph there is less project dependencies than external dependencies, and that is why we don't see any regression. But my assumption was incorrect and we don't see any regression because we anyway did a normalization already before as mentioned above.",
+                                                        "author": {
+                                                            "login": "asodja"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1369818333",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Adding a test for that.",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1370477521",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is the same comment essentially as the one a few lines higher, correct?",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1370478526",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Added a test specifically for non-incremental transforms.",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1374307985",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Added a where: clause.",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1374312744",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think we need that here. This is not about testing how the transform is executed, but about the fact that you can use the output of an included build as an input to (some) transform.",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1374316290",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yep, that's correct.",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1374317958",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "As discussed in person: my expectation is that we can de-duplicate while creating the execution graph by observing the input artifact's coordinates, and that'll be somehow cheaper. Or we can use the input snapshot there if that doesn't work. But here we will be able to use the full fingerprint instead.\nI've removed the comment in any case.",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1374319565",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Added coverage for both incremental and non-incremental.",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1374467807",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM overall, added some comments if we could \ud83d\udc85 some tests.\nAlso, what do you think about this suggestion: #26792 (comment)?",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ud83d\udc85This looks a bit complicated, can it be simplified with a table?",
+                                                        "author": {
+                                                            "login": "asodja"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1374644753",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c8ec37c",
+                                                            "authoredDate": "2023-10-27T12:12:19Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ud83d\udc85 Would it make sense to split this test in two?",
+                                                        "author": {
+                                                            "login": "asodja"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1374644982",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c8ec37c",
+                                                            "authoredDate": "2023-10-27T12:12:19Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ud83d\udc85 What if we set this in the where: table instead of having imperative logic here?",
+                                                        "author": {
+                                                            "login": "asodja"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1374646406",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c8ec37c",
+                                                            "authoredDate": "2023-10-27T12:12:19Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "While I agree this is not the nicest API from Spock, we do use .combinations() in several other places in our tests to handle similar situations where we need to test all the combinations of two vectors. This format lets us discuss the two dimensions without introducing redundancy.\nI tried doing the de-normalized table version, but I'm not sure I like it any better:\nwhere:\nincremental | sensitivity\ntrue        | null\ntrue        | PathSensitivity.ABSOLUTE\ntrue        | PathSensitivity.RELATIVE\ntrue        | PathSensitivity.NAME_ONLY\nfalse       | null\nfalse       | PathSensitivity.ABSOLUTE\nfalse       | PathSensitivity.RELATIVE\nfalse       | PathSensitivity.NAME_ONLY\nI don't feel strongly either way, so let's go with your suggestion.",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1374953886",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c8ec37c",
+                                                            "authoredDate": "2023-10-27T12:12:19Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Like into two test cases? I think that would make things worse. Incrementality should have little to do with what this test is about, we are only checking both cases to be extra sure. For that reason I think it's better to have the if here. To be honest, I think it would also be okay to remove this last when:/then: section.",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1374955509",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c8ec37c",
+                                                            "authoredDate": "2023-10-27T12:12:19Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Once again I don't feel strongly either way, so I made the change.",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1374960346",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c8ec37c",
+                                                            "authoredDate": "2023-10-27T12:12:19Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I talked to the Chat about this, here's the gist of what it said, and I mostly agree:\n\n\n\n\"Non-normalized\" is more neutral and simply states the absence of normalization without implying that normalization should have occurred. It suggests that the data has not been subjected to the process of normalization, and it's more of a passive state. It's commonly used in technical and scientific contexts where precision is valued.\n\n\n\"Unnormalized\" could suggest that the data was normalized at some point and has been changed back to its original state, or it could also just indicate the lack of normalization. However, in practice, \"unnormalized\" is often used in mathematics and computing to simply mean \"not normalized,\" without necessarily implying a process of denormalization.\n\n\nGiven that \"normalized\" data implies that an active process of normalization has been applied, using \"non-normalized\" would unambiguously indicate that this process has not been applied, and there is no suggestion that it is a state that has been reverted to. Thus, \"non-normalized\" might be the more technically appropriate term for your case, emphasizing that this is the default or natural state.\n\nhttps://chat.openai.com/share/2901f5fc-81a4-4c6c-a3d3-604e19e1b90f",
+                                                        "author": {
+                                                            "login": "lptr"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1380785273",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes.",
+                                                        "author": {
+                                                            "login": "wolfs"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1387633490",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I am not sure if it makes a difference whether the transform is incremental or not for the reuse. I'd be happier if there were a test for this.",
+                                                        "author": {
+                                                            "login": "wolfs"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1387636220",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We already used normalized for project artifacts (both incremental and non-incremental).\n\nI don't understand this. For project artifacts, we used a mutable workspace, so we didn't normalize the contents for the workspace location. And now instead, we put non-incremental project transforms into a normalized immutable workspace location. We did normalize the inputs of project transforms in every build, since they have not been a part of the cross-build identity cache.\nI think the main point here is that we didn't change anything for external dependencies regarding their workspaces, so this extra work doesn't show up.",
+                                                        "author": {
+                                                            "login": "wolfs"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1387643291",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2cc0019",
+                                                            "authoredDate": "2023-10-20T20:06:27Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u2753 There are quite a few tests that use multiProjectWithJarSizeTransform() and, by extension, registerFileSizer that now all use non-incremental transforms. I think most of those tests should be added for incremental transforms, especially transform is applied to each file once per build, transform is run again and old output is removed after it failed in previous build,  and maybe a few more.",
+                                                        "author": {
+                                                            "login": "wolfs"
+                                                        },
+                                                        "url": "https://github.com/gradle/gradle/pull/26792#discussion_r1387855819",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a4ad236",
+                                                            "authoredDate": "2023-10-27T19:15:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjI=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 2
+        }
+    }
+}

@@ -1,0 +1,242 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 261,
+                        "title": "WEBDEV-6167 Make tiles show creator matching letter filter, if one is applied",
+                        "repository": {
+                            "nameWithOwner": "internetarchive/iaux-collection-browser",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-06-21T00:56:12Z",
+                        "mergedAt": "2023-06-23T03:28:21Z",
+                        "url": "https://github.com/internetarchive/iaux-collection-browser/pull/261",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "latonv"
+                        },
+                        "editor": null,
+                        "body": "Currently, search results in grid view & compact list view only show the first creator when there are multiple creators for the item. However, the \u201cinitial letter\u201d filters (available when sorting by creator) match _any_ of the creators in the list, not just the first. So it can look strange when such a filter is applied, but results still show a creator that doesn\u2019t match the filter.\r\n\r\nThis PR makes search results with multiple creators adjust to show the first _matching_ creator on the tile, rather than the first overall.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-06-21T00:57:28Z",
+                                    "bodyText": "PR Preview Action v1.4.4\n\n\n\n\nPreview removed because the pull request was closed.\n\n\n2023-06-23 03:29 UTC",
+                                    "url": "https://github.com/internetarchive/iaux-collection-browser/pull/261#issuecomment-1599841871",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-21T00:58:09Z",
+                                    "bodyText": "Codecov Report\n\nMerging #261 (194f2fb) into main (047068d) will increase coverage by 0.07%.\nThe diff coverage is 97.83%.\n\n\n\u2757 Current head 194f2fb differs from pull request most recent head b96f5d1. Consider uploading reports for the commit b96f5d1 to get more accurate results\n\n@@            Coverage Diff             @@\n##             main     #261      +/-   ##\n==========================================\n+ Coverage   96.25%   96.33%   +0.07%     \n==========================================\n  Files          82       82              \n  Lines       11889    12046     +157     \n  Branches      571      569       -2     \n==========================================\n+ Hits        11444    11604     +160     \n+ Misses        427      425       -2     \n+ Partials       18       17       -1     \n\n\n\nImpacted Files\nCoverage \u0394\n\n\n\n\n\nsrc/tiles/tile-dispatcher.ts\n92.61% <88.23%> (-1.21%)\n\u2b07\ufe0f\n\n\nsrc/tiles/list/tile-list-compact.ts\n92.57% <94.11%> (+1.05%)\n\u2b06\ufe0f\n\n\nsrc/tiles/list/tile-list.ts\n97.43% <97.87%> (+0.57%)\n\u2b06\ufe0f\n\n\nsrc/tiles/tile-display-value-provider.ts\n99.05% <99.05%> (\u00f8)\n\n\n\nsrc/collection-browser.ts\n93.50% <100.00%> (+<0.01%)\n\u2b06\ufe0f\n\n\nsrc/styles/item-image-styles.ts\n100.00% <100.00%> (\u00f8)\n\n\n\nsrc/tiles/base-tile-component.ts\n100.00% <100.00%> (\u00f8)\n\n\n\nsrc/tiles/grid/account-tile.ts\n100.00% <100.00%> (\u00f8)\n\n\n\nsrc/tiles/grid/collection-tile.ts\n99.37% <100.00%> (+0.01%)\n\u2b06\ufe0f\n\n\nsrc/tiles/grid/item-tile.ts\n98.68% <100.00%> (+0.88%)\n\u2b06\ufe0f\n\n\n... and 1 more",
+                                    "url": "https://github.com/internetarchive/iaux-collection-browser/pull/261#issuecomment-1599845862",
+                                    "author": {
+                                        "login": "codecov"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Lgtm! A few code readability/thoughts, but everything is just suggestions. Seems solid!",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Chat GPT recommends this to make it so that e.g. \"E\" still matches \"\u00e9mile\" (which the search engine will match).\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                      creator.toUpperCase().startsWith(firstLetter)\n          \n          \n            \n                      creator..normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\").toUpperCase().startsWith(firstLetter)\n          \n      \n    \n    \n  \n\nI tested with this: https://internetarchive.github.io/iaux-collection-browser/pr/pr-261/?query=creator%3A%C3%A9mile&sort=creator&and%5B%5D=firstCreator%3AE , look for \"albert\"",
+                                                        "author": {
+                                                            "login": "cdrini"
+                                                        },
+                                                        "url": "https://github.com/internetarchive/iaux-collection-browser/pull/261#discussion_r1237701446",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dacdd77",
+                                                            "authoredDate": "2023-06-21T00:58:32Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'd drop the firstLetter declaration ; this.selectedCreatorFilter is pretty clear.",
+                                                        "author": {
+                                                            "login": "cdrini"
+                                                        },
+                                                        "url": "https://github.com/internetarchive/iaux-collection-browser/pull/261#discussion_r1237703004",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dacdd77",
+                                                            "authoredDate": "2023-06-21T00:58:32Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is a little duplicate ? Maybe putting a helper function on model might be cleaner, cause then you can do this.model?.getDisplayedCreator(selectedCreatorFilter).",
+                                                        "author": {
+                                                            "login": "cdrini"
+                                                        },
+                                                        "url": "https://github.com/internetarchive/iaux-collection-browser/pull/261#discussion_r1237713643",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dacdd77",
+                                                            "authoredDate": "2023-06-21T00:58:32Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Selected feels a bit redundant; creatorFilter or creatorLetterFilter seem a little clearer to me.\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              @property({ type: String }) selectedCreatorFilter?: string;\n          \n          \n            \n              @property({ type: String }) creatorFilter?: string;",
+                                                        "author": {
+                                                            "login": "cdrini"
+                                                        },
+                                                        "url": "https://github.com/internetarchive/iaux-collection-browser/pull/261#discussion_r1237716313",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dacdd77",
+                                                            "authoredDate": "2023-06-21T00:58:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I agree in principle, but TypeScript can't guarantee this.selectedCreatorFilter isn't undefined within the find callback (technically correct, I suppose). So it was either this or an explicit type assertion of some sort.",
+                                                        "author": {
+                                                            "login": "latonv"
+                                                        },
+                                                        "url": "https://github.com/internetarchive/iaux-collection-browser/pull/261#discussion_r1237748753",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dacdd77",
+                                                            "authoredDate": "2023-06-21T00:58:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "ahhhh gotcha didn't think of that! Makes sense",
+                                                        "author": {
+                                                            "login": "cdrini"
+                                                        },
+                                                        "url": "https://github.com/internetarchive/iaux-collection-browser/pull/261#discussion_r1237751365",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dacdd77",
+                                                            "authoredDate": "2023-06-21T00:58:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeah, I'll try rethinking this a bit. It's tough because two of our three display modes use this new handling, while the third displays things another way entirely. I'm not sure I want the tile model to have to know about the display logic, but maybe this can be abstracted out somewhere cleaner.",
+                                                        "author": {
+                                                            "login": "latonv"
+                                                        },
+                                                        "url": "https://github.com/internetarchive/iaux-collection-browser/pull/261#discussion_r1237754465",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dacdd77",
+                                                            "authoredDate": "2023-06-21T00:58:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Good catch! I wonder if the replace step is actually necessary here... If that range of code points only includes combining characters that modify the character before them, then the decomposition alone should still start with the bare letter... I think? (I'll subject this to some more testing \ud83d\ude04)",
+                                                        "author": {
+                                                            "login": "latonv"
+                                                        },
+                                                        "url": "https://github.com/internetarchive/iaux-collection-browser/pull/261#discussion_r1237758972",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dacdd77",
+                                                            "authoredDate": "2023-06-21T00:58:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Oh good thinking! ChatGPT agrees \ud83d\ude01 https://chat.openai.com/share/0d1e3d87-9515-40fb-a010-23f3d8bdb11d",
+                                                        "author": {
+                                                            "login": "cdrini"
+                                                        },
+                                                        "url": "https://github.com/internetarchive/iaux-collection-browser/pull/261#discussion_r1237761478",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dacdd77",
+                                                            "authoredDate": "2023-06-21T00:58:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

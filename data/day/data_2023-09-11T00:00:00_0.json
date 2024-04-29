@@ -1,0 +1,483 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 3130,
+                        "title": "fix: `open_url` not working on windows",
+                        "repository": {
+                            "nameWithOwner": "cataclysmbnteam/Cataclysm-BN",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2023-09-11T00:23:53Z",
+                        "mergedAt": "2023-09-11T15:29:26Z",
+                        "url": "https://github.com/cataclysmbnteam/Cataclysm-BN/pull/3130",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "scarf005"
+                        },
+                        "editor": null,
+                        "body": "\r\n#### Summary\r\n\r\nSUMMARY: Bugfixes \"Made 'Submit a bug report on Github debug' work correctly on windows\"\r\n\r\n#### Purpose of change\r\n\r\n- fixes #3128\r\n\r\n#### Describe the solution\r\n\r\nhttps://chat.openai.com/share/af7046b4-832d-467f-a1d9-700546554c31\r\n\r\n#### Testing\r\n\r\nmanually typing the command on CMD.exe worked\r\n\r\nhttps://github.com/cataclysmbnteam/Cataclysm-BN/issues/3128#issuecomment-1712982005\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-11T14:24:21Z",
+                                    "bodyText": "https://chat.openai.com/share/af7046b4-832d-467f-a1d9-700546554c31\n\nThat link is dead or private.\nAlso, LLMs are not always correct when it comes to code, their results should be double-checked.",
+                                    "url": "https://github.com/cataclysmbnteam/Cataclysm-BN/pull/3130#issuecomment-1713996428",
+                                    "author": {
+                                        "login": "olanti-p"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-11T14:26:59Z",
+                                    "bodyText": "strange, i can access it from private mode.\nhttps://learn.microsoft.com/en-us/windows-server/administration/windows-commands/start suggests start can be used on both 32bit and 64bit machine, so i think it'd be okay.",
+                                    "url": "https://github.com/cataclysmbnteam/Cataclysm-BN/pull/3130#issuecomment-1714001629",
+                                    "author": {
+                                        "login": "scarf005"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-30T04:09:17Z",
+                                    "bodyText": "doesn't seem to work, #3321",
+                                    "url": "https://github.com/cataclysmbnteam/Cataclysm-BN/pull/3130#issuecomment-1741670483",
+                                    "author": {
+                                        "login": "scarf005"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            #if defined(_WIN32) || defined(_WIN64)\n          \n          \n            \n                    \"start \\\"\\\"\";\n          \n          \n            \n            #if defined(_WIN32)\n          \n          \n            \n                    \"start \\\"\\\"\";\n          \n      \n    \n    \n  \n\n_WIN32 is defined for both x32 and x64 targets, so check for _WIN64 is redundant here\nhttps://learn.microsoft.com/en-us/cpp/preprocessor/predefined-macros?view=msvc-170",
+                                                        "author": {
+                                                            "login": "olanti-p"
+                                                        },
+                                                        "url": "https://github.com/cataclysmbnteam/Cataclysm-BN/pull/3130#discussion_r1321640498",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "090669b",
+                                                            "authoredDate": "2023-09-11T00:20:24Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 5068,
+                        "title": "Expand the Standard Library: Option and Result",
+                        "repository": {
+                            "nameWithOwner": "darklang/dark",
+                            "primaryLanguage": {
+                                "name": "F#"
+                            }
+                        },
+                        "createdAt": "2023-09-11T12:24:24Z",
+                        "mergedAt": "2023-09-14T16:47:38Z",
+                        "url": "https://github.com/darklang/dark/pull/5068",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "OceanOak"
+                        },
+                        "editor": {
+                            "login": "OceanOak"
+                        },
+                        "body": "Changelog:\r\n\r\n```\r\nStandard library\r\n- Add new Option and Result functions to the standard library\r\n```\r\nThis PR introduces new Option and Result functions to the standard library, along with some tests.\r\n\r\nResult :\r\n- [x] isOK\r\n- [x] isError\r\n- [x] map3\r\n- [x] map4\r\n- [x] map5\r\n- [x] mapWithDefault\r\n- [x] or\r\n- [x] and\r\n- [x] toList\r\n- [x] join\r\n- [x] combine\r\n- [x] values\r\n\r\nOption: \r\n- [x] isSome\r\n- [x] isNone\r\n- [x] mapWithDefault\r\n- [x] map3\r\n- [x] map4\r\n- [x] map5\r\n- [x] join\r\n- [x] toResult\r\n- [x] or\r\n- [x] and\r\n- [x] toList\r\n- [x]  andThen2\r\n- [x]  andThen3\r\n- [x]  andThen4\r\n- [x] combine\r\n- [x] values\r\n\r\n\r\n\r\n\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-14T16:13:09Z",
+                                    "bodyText": "Ready to merge. Conflicts with your other PR, sorry!",
+                                    "url": "https://github.com/darklang/dark/pull/5068#issuecomment-1719751311",
+                                    "author": {
+                                        "login": "pbiggar"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Looks great.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "(a, b, c) here is a tuple, so it confuses me that this works (since the rest seems to be using non-tuples, which is correct).\n(fun a b c -> a - b - c) is the non-tuple syntax.",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1321781955",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "08890ff",
+                                                            "authoredDate": "2023-09-11T12:20:40Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I would expect test1 to be the result here - why did you go with test2?",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1321783075",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "08890ff",
+                                                            "authoredDate": "2023-09-11T12:20:40Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Same comment as on Result.map3",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1321812134",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "951835e",
+                                                            "authoredDate": "2023-09-11T12:20:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "mapWithDefault applies the function to a result if it's Result.Ok. If the result is a Result.Error, it returns the default value. In this case, the default value is also an Error, which is why test2 was returned.\nWere you expecting a different behavior?",
+                                                        "author": {
+                                                            "login": "OceanOak"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1321867652",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "08890ff",
+                                                            "authoredDate": "2023-09-11T12:20:40Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I am not sure why they passed",
+                                                        "author": {
+                                                            "login": "OceanOak"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1321871866",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "08890ff",
+                                                            "authoredDate": "2023-09-11T12:20:40Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I remember you mentioning that the performance of pushback isn't great. Do you recommend a different approach?",
+                                                        "author": {
+                                                            "login": "OceanOak"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1321879933",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "670e2e7",
+                                                            "authoredDate": "2023-09-11T17:39:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Gotcha. This seems correct, thanks for the clarification.",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1321924880",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "08890ff",
+                                                            "authoredDate": "2023-09-11T12:20:40Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think appending it to the front and then reversing should do it.\n(ChatGPT agrees: https://chat.openai.com/share/7fe27ca4-5c0e-431b-953b-7f6e23710b5c)",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1321927695",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "670e2e7",
+                                                            "authoredDate": "2023-09-11T17:39:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You could use result here. That means you won't have to create another value, you can just reuse the already-created value.",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1321929546",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "366e8ca",
+                                                            "authoredDate": "2023-09-11T13:21:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is just the identity function, which I guess we don't have. Maybe add it, or add a TODO to use it when we have it.\nlet identity (v : 'a) : 'a = v",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1321931318",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2ae295a",
+                                                            "authoredDate": "2023-09-11T16:51:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This doesn't appear to be resolved.\nAlso, can we do the same for map2?",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1321932873",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "951835e",
+                                                            "authoredDate": "2023-09-11T12:20:58Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Could you fix map2 as well - not sure why it's also wrong",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1321963982",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "670e2e7",
+                                                            "authoredDate": "2023-09-11T17:39:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "new blog post: Dark's standard library now includes Fun!",
+                                                        "author": {
+                                                            "login": "StachuDotNet"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1323194447",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2b6efc0",
+                                                            "authoredDate": "2023-09-11T19:41:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                    (default_: 'b)\n          \n          \n            \n                    (default_: 'b) // CLEANUP once we're no longer using F# parser, remove the `_` here",
+                                                        "author": {
+                                                            "login": "StachuDotNet"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1323196737",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2b6efc0",
+                                                            "authoredDate": "2023-09-11T19:41:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ah, this isn't quite what I meant. I mean that we could do this:\nList.filterMap options (fun option -> option)\n\nwhich should be the same as this:\nList.filterMap options Fun.identity",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1324678085",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "02ed8a2",
+                                                            "authoredDate": "2023-09-11T19:39:45Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Actaully, a blog post on the changes to the standard library would be cool (separate from the language changes)",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1324678935",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2b6efc0",
+                                                            "authoredDate": "2023-09-11T19:41:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Oh yeah, sorry. Fixed",
+                                                        "author": {
+                                                            "login": "OceanOak"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5068#discussion_r1324733345",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "02ed8a2",
+                                                            "authoredDate": "2023-09-11T19:39:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjI=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 2
+        }
+    }
+}

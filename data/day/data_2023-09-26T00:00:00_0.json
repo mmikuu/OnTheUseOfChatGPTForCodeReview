@@ -1,0 +1,184 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 282,
+                        "title": "Mark incoming orders automatically Ready For Pick Up",
+                        "repository": {
+                            "nameWithOwner": "lightward/mechanic-tasks",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-09-26T02:45:00Z",
+                        "mergedAt": "2023-09-26T02:46:24Z",
+                        "url": "https://github.com/lightward/mechanic-tasks/pull/282",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "mattsodomsky"
+                        },
+                        "editor": null,
+                        "body": "https://mechanic.canny.io/task-requests/p/make-the-incoming-orders-automaticly-ready-for-pick-up\r\n\r\nThis task was written with the assistance of ChatGPT check out the conversation here - https://chat.openai.com/share/e42b5476-6ec0-4ac8-8738-263858150ec4",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 534,
+                        "title": "Add map view",
+                        "repository": {
+                            "nameWithOwner": "theosanderson/taxonium",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-09-26T22:16:25Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/theosanderson/taxonium/pull/534",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "simonbukin"
+                        },
+                        "editor": null,
+                        "body": "# Taxonium Map View\r\n\r\nThis PR adds a map view to Taxonium, which allows for tracking origins of samples in the tree.\r\n\r\n## Screenshots\r\n\r\nTBA\r\n\r\n### [Video](https://streamable.com/7ozvpl)  (will need to be updated with a permanent link after expiry in a few days)\r\n\r\nThis is a pretty large PR, and I think some of the merge difficulty may come from the swap of naming from `taxonium_web_client` to `taxonium_component` (it took a little while to get this working locally).\r\n\r\nThe other more major change in the layout of the code was in `useView.js`, in which I switched to checking the `viewId` and using `setViewState` to compartmentalize the viewState updates. This was necessary because keeping both the map state (like zoom, latitude, longitude, etc) and tree state in the same viewState led to tons of problems and unexpected crashes when a viewState update for one view overwrote another. I'm a little weary that this change didn't introduce bugs in other parts of Taxonium, since I was mostly focused on the map view, so this is definitely something to check on.\r\n\r\nCan definitely add more to this PR and fix any problems you may find. Thanks!\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-26T22:16:29Z",
+                                    "bodyText": "Someone is attempting to deploy a commit to a Personal Account owned by @theosanderson on Vercel.\n@theosanderson first needs to authorize it.",
+                                    "url": "https://github.com/theosanderson/taxonium/pull/534#issuecomment-1736378743",
+                                    "author": {
+                                        "login": "vercel"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-26T22:34:00Z",
+                                    "bodyText": "The latest updates on your projects. Learn more about Vercel for Git \u2197\ufe0e\n\n\n\nName\nStatus\nPreview\nComments\nUpdated (UTC)\n\n\n\n\ncov2tree\n\u2705 Ready (Inspect)\nVisit Preview\n\ud83d\udcac Add feedback\nSep 29, 2023 8:50am",
+                                    "url": "https://github.com/theosanderson/taxonium/pull/534#issuecomment-1736394373",
+                                    "author": {
+                                        "login": "vercel"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-26T22:41:16Z",
+                                    "bodyText": "(thanks so much for this, still haven't had a chance to dive in but just wanted to communicate: the failing tests are my fault not yours!)",
+                                    "url": "https://github.com/theosanderson/taxonium/pull/534#issuecomment-1736400268",
+                                    "author": {
+                                        "login": "theosanderson"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-27T08:53:40Z",
+                                    "bodyText": "Thanks a lot for proposing this. I think the latest merge has maybe created a general breakage? But I found an old commit that was working.\nAdding geographical features is definitely on the roadmap for Taxonium, so this is something I'm interested in, but that also means I want to be careful to implement anything in a way that is compatible with future developement.\nIs there a specific use case you have so far had in mind during development? It feels a bit like a visual legend/key for the tree?",
+                                    "url": "https://github.com/theosanderson/taxonium/pull/534#issuecomment-1736984342",
+                                    "author": {
+                                        "login": "theosanderson"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-27T16:28:42Z",
+                                    "bodyText": "Exactly right, the general idea here was to create a mapping between the tree and the geography of where samples originate. This was originally proposed by Russ, and I believe he mentioned that he knew of some potential users who wanted to upload their own data to be able to better visualize the distribution of the samples on a map, not just their relation in the tree.\nThere could definitely be more work done on colors / more clearly communicating the relationship between the samples and their position on the map. I originally played with the idea of drawing lines between the tree and the map, but that seemed pretty infeasible with some of particularities of deckgl and drawing views on top of each other (the code got incredibly messy without much tangible benefit). I also explored adding a 3D map to better communicate density of samples, but that also proved to be a headache.\nI think a key problem to solve here is communicating the density of samples better, because as you said, right now it's more of just a visual mapping.\nWhat do you think would be the best way to make this sort of change as compatible as possible with future development? I'd be happy to write some tests or clean up the changes in if that would be of any help.\n(I'm also not super sure about the merges, I had to do a bit of fiddling locally to pull in the upstream changes since my local copy was stale, but the merged copy worked fine afterwards)",
+                                    "url": "https://github.com/theosanderson/taxonium/pull/534#issuecomment-1737723026",
+                                    "author": {
+                                        "login": "simonbukin"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-28T08:29:55Z",
+                                    "bodyText": "Firstly, I'm really grateful for your work on this.\nRe. merge: If I clone your repo, checkout the branch, cd to taxonium-component and run yarn storybook I get nodes is not defined errors, which are also what happen on the vercel preview here.\nAs discussed, for me the current feature is like a legend. For me that doesn't  provide a lot of utility for users. In general we don't have a pattern that as you zoom in on the tree that anything else changes, with the exception of the Key (but the Key is integrated into the tree panel so that makes sense). In my vision for Taxonium, zooming the tree should not affect the map (or anything else). Instead, selecting a node would probably cause the map to update to display information about the descendant nodes. Searches also might be represented on the map as well as the tree.\nI think some quantitative represenation on the map is going to be crucial. It's worth having a look at how Nextstrain (or Microreact) goes about this. I think I probably imagine something relatively similar for Taxonium. But in our case I think the slider to select a date window would be built into the map panel. But there's a lot of work to get there, probably with extra backend routes.\nIn terms of future-proofing, this is both about making sure that things are moving in the direction of the vision above, and also about configurability. At the moment there are more-or-less no hardcoded metadata fields, so country doesn't need to be called country, and samples don't need to have a country, they could have a city or something instead. In the public tree (as you've seen), country has values \"England\", \"Scotland\" and \"Wales\". So we would want to use a geojson for that with those countries separate. For other trees a geojson with \"UK\" may be appropriate. For analyses of a particular country, a map of that country with points distributed by city may be appropriate. I think I'd imagine something like a field in the config JSON which could be configured like:\ngeoData : [\n{name: 'Sampling country',\ngeoJson: 'http://example.com/mygeojson.json' (or raw geojson),\nmetadata_field: 'country'\n},\n{name: 'Sampling city',\ngeoJson: 'http://example.com/mygeojson2.json' (or raw geojson),\nmetadata_field: 'city'\n},\n{name: 'Departure country', // (for travel cases)\ngeoJson: 'http://example.com/mygeojson.json' (or raw geojson),\nmetadata_field: 'departure_country'\n},\n]",
+                                    "url": "https://github.com/theosanderson/taxonium/pull/534#issuecomment-1738706658",
+                                    "author": {
+                                        "login": "theosanderson"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-28T20:10:11Z",
+                                    "bodyText": "Currently taking a look at the errors from Vercel, it looks like the merge may have swallowed some changes so I'm fixing that. The nodes issue is solved locally but that's spawned a few more problems to look into :)\nI get what you mean about the map updating as the tree is manipulated, which is a new pattern. I think the selection approach you mentioned should be possible, since currently the map is updated using the nodes as the set of data (which as far as I could tell during development updates to be all nodes in the main viewport), and it would just be a matter of hooking up the selected node and it's descendants to the map. The metadata json would also be possible, and a lot more flexible than the current approach.\nI've looked at the Microreact implementation, and it looks like they rely on a histogram view alongside the map view, with a pie chat centered on each region showing proportions of different samples there. That should be possible, but would be a solid chunk of work to implement. I'd be happy to take a look at it, but I am wondering what the development process should be here. Since the current work is in progress, would it be best to keep it in a draft PR that I update as I go, or should changes be merged into a feature branch in the main Taxonium repo and then merged in to master when finished?",
+                                    "url": "https://github.com/theosanderson/taxonium/pull/534#issuecomment-1739940875",
+                                    "author": {
+                                        "login": "simonbukin"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-29T09:01:49Z",
+                                    "bodyText": "Thanks for taking these comments in good spirit. I totally agree that there is a chunk of work here. I think that some sort of quantitative representation will probably be in the first version of this to launch. I really don't have preferences about how we go about the process of moving closer to that. I'd definitely be happy to accept merges into a feature branch at any time.\nUnfortunately I think it will need work at the backend - the way things are set up the client is only available of a downsampled version of the dataset depending on how you zoom. The closest current analogue for this is the \"getTipAtts\" feature. We would need to create a new backend route from the local and server backends that gets the total counts for an attribute for each country. I can help with that aspect (at least).",
+                                    "url": "https://github.com/theosanderson/taxonium/pull/534#issuecomment-1740551923",
+                                    "author": {
+                                        "login": "theosanderson"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-30T16:15:43Z",
+                                    "bodyText": "Sounds good! I can start work in a feature branch then. I think that I can get a histogram view alongside the map, which should allow for viewing relative proportions of samples from different countries.\nFor now I think I can keep using the nodes to test the histogram (once that's done), and we can hook up the new source of attribute data to the map / histogram combo at a later date when the backend work is finished (no rush here)",
+                                    "url": "https://github.com/theosanderson/taxonium/pull/534#issuecomment-1741805598",
+                                    "author": {
+                                        "login": "simonbukin"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-01T21:19:09Z",
+                                    "bodyText": "I think at the moment I'm imagining something closer to the Nextstrain approach with scaled pies than a histogram. This was ChatGPT's idea for that in DeckGL: https://chat.openai.com/share/664b626d-8255-429b-8e0a-6390087affd0 (No pressure on any of this of course, I can also work from the feature branch in due course).",
+                                    "url": "https://github.com/theosanderson/taxonium/pull/534#issuecomment-1742205192",
+                                    "author": {
+                                        "login": "theosanderson"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-04T17:12:21Z",
+                                    "bodyText": "Neat! I think that approach could work. Let me see if I can get something working in a feature branch when I have a second",
+                                    "url": "https://github.com/theosanderson/taxonium/pull/534#issuecomment-1747320251",
+                                    "author": {
+                                        "login": "simonbukin"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-09T17:51:35Z",
+                                    "bodyText": "I'm looking into merging into a feature branch (add-map-view), but it looks like you may need to create a new branch on the main repo before I can contribute to it. Would you be able to do that? Thanks!",
+                                    "url": "https://github.com/theosanderson/taxonium/pull/534#issuecomment-1753419963",
+                                    "author": {
+                                        "login": "simonbukin"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-09T18:17:24Z",
+                                    "bodyText": "Thanks - I've created an add-map-view branch!",
+                                    "url": "https://github.com/theosanderson/taxonium/pull/534#issuecomment-1753451347",
+                                    "author": {
+                                        "login": "theosanderson"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjI=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 2
+        }
+    }
+}

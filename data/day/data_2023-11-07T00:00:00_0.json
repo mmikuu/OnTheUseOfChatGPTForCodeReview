@@ -1,0 +1,1204 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 477,
+                        "title": "Fix mkdocs deployment",
+                        "repository": {
+                            "nameWithOwner": "hackforla/CivicTechJobs",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-11-07T22:51:11Z",
+                        "mergedAt": "2023-11-08T00:30:25Z",
+                        "url": "https://github.com/hackforla/CivicTechJobs/pull/477",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "MattPereira"
+                        },
+                        "editor": {
+                            "login": "MattPereira"
+                        },
+                        "body": "<!-- Please link an issue via keyword. If you do not know what this means, please click this link: https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword. -->\r\n\r\nFixes #456\r\n\r\n<!-- Please note all the changes you've made. A good rule of thumb is to have at least one bullet point per file changed. -->\r\n\r\n### Changes\r\n- updated python setup action version \r\n- fixed python version to 3.9 based on advice from docs\r\n- combined `cd` operations to make deploy script less confusing\r\n\r\n\r\n### Resources\r\n- https://chat.openai.com/share/b9a11492-1029-401c-a93e-05fbef0e7295\r\n- https://github.com/actions/setup-python\r\n",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Thanks for working on this issue, @MattPereira! Let's give this a try \ud83d\ude80",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 1528,
+                        "title": "@W-14446652@ Change CSP enforcement to an opt-in middleware.",
+                        "repository": {
+                            "nameWithOwner": "SalesforceCommerceCloud/pwa-kit",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-11-07T17:30:26Z",
+                        "mergedAt": "2023-11-07T23:25:44Z",
+                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "wjhsf"
+                        },
+                        "editor": null,
+                        "body": "<!--- Provide a short summary of your changes in the Title field above -->\r\n\r\nIn v3.2.0, to facilitate adoption of Storefront Preview, we introduced logic to enforce a Content-Security-Policy header containing all the directives that are required for PWA Kit / Storefront Preview to function. However, while making CSP management easier for those who use it, this is a breaking change for users who explicitly do _not_ use the Content-Security-Policy header. \ud83e\udd15 Oops.\r\n\r\nThis PR simply removes the middleware function from the internal logic of `pwa-kit-runtime` and exports it so that end users must opt in to using the function.\r\n\r\n# Description\r\n\r\n<!--- A longer summary of your changes, including: a description of the issue that you\u2019re addressing, a list of required dependencies (if applicable), and any other relevant context. -->\r\n\r\n# Types of Changes\r\n\r\n<!--- What types of changes does your code introduce? Put an `x` in all the boxes that apply: -->\r\n\r\n- [ ] **Bug fix** (non-breaking change that fixes an issue)\r\n- [ ] **New feature** (non-breaking change that adds functionality)\r\n- [ ] **Documentation update**\r\n- [ ] **Breaking change** (could cause existing functionality to not work as expected)\r\n- [ ] **Other changes** (non-breaking changes that does not fit any of the above)\r\n\r\n> Breaking changes include:\r\n>\r\n> - Removing a public function or component or prop\r\n> - Adding a required argument to a function\r\n> - Changing the data type of a function parameter or return value\r\n> - Adding a new peer dependency to `package.json`\r\n\r\n# Changes\r\n\r\n- (change1)\r\n\r\n# How to Test-Drive This PR\r\n\r\n- Check out v3.2.0, launch the app, save the CSP header.\r\n- Check out this code, launch the app. CSP header should be the same.\r\n- Remove the two security header middleware functions. Restart the app. CSP header should not be present.\r\nhttps://github.com/SalesforceCommerceCloud/pwa-kit/blob/3582944d8fc0053ac19022e0637610646f494384/packages/template-retail-react-app/app/ssr.js#L38-L60\r\n- Bonus fun: move the `defaultSecurityHeaders` middleware to after the `helmet` middleware and see that it doesn't change the CSP!\r\n\r\n# Checklists\r\n\r\n<!--- Enter an `x` in all the boxes that apply. -->\r\n<!--- If you\u2019re unsure about any of these, don\u2019t hesitate to ask. We\u2019re here to help! -->\r\n\r\n## General\r\n\r\n- [ ] Changes are covered by test cases\r\n- [ ] CHANGELOG.md updated with a short description of changes (_not_ required for documentation updates)\r\n\r\n## Accessibility Compliance\r\n\r\nYou must check off all items in **one** of the follow two lists:\r\n\r\n- [ ] There are no changes to UI\r\n\r\n_or..._\r\n\r\n- [ ] Changes were tested with a Screen Reader (iOS VoiceOver or Android Talkback) and had no issues\r\n- [ ] Changes comply with [WCAG 2.0 guidelines levels A and AA](https://www.wuhcag.com/wcag-checklist/)\r\n- [ ] Changes to common UI patterns and interactions comply with [WAI-ARIA best practices](https://www.w3.org/TR/wai-aria-practices-1.1/)\r\n\r\n## Localization\r\n\r\n- [ ] Changes include a UI text update in the Retail React App (which requires translation)\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-07T22:07:13Z",
+                                    "bodyText": "@wjhsf Let's review what the target branch should be for this PR. If we want this to be a hot fix, then we'll want to merge it into the release-3.2.x branch instead.",
+                                    "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#issuecomment-1800264606",
+                                    "author": {
+                                        "login": "vmarta"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What does \"default\" mean in this context? \ud83e\udd14  we might want to be a bit more specific and call it  likestorefrontPreviewSecurityHeaders(prob also a bad name) ?",
+                                                        "author": {
+                                                            "login": "kevinxh"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385337953",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3582944",
+                                                            "authoredDate": "2023-11-07T17:20:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The behavior of enabling default headers seems more natural to me if it\u2019s a configuration value\u2026\nconst options = {\n   ...,\n   enableDefaultSecurityHeaders: true\n}",
+                                                        "author": {
+                                                            "login": "kevinxh"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385342068",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3582944",
+                                                            "authoredDate": "2023-11-07T17:20:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "DISMISSED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "By \"default\" I just mean \"mandatory for PWA Kit to work\". So it's not just Storefront Preview, even though that was the motivation for the change. And they're not strictly required if a project is using pwa-kit-runtime for something other than the retail react app.\nNaming things is hard. \ud83e\udd14",
+                                                        "author": {
+                                                            "login": "wjhsf"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385345124",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3582944",
+                                                            "authoredDate": "2023-11-07T17:20:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If I'm a developer, I would want to know the benefit of opting in defaultSecurityHeaders\nThe answer is: you can't use storefront preview on runtime admin... <- this might not be clear to end users.",
+                                                        "author": {
+                                                            "login": "kevinxh"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385345685",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3582944",
+                                                            "authoredDate": "2023-11-07T17:20:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "wait... i think i might have misunderstanding...\nif it is \"mandatory for PWA Kit to work\", why do we make it an opt-in?",
+                                                        "author": {
+                                                            "login": "kevinxh"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385348178",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3582944",
+                                                            "authoredDate": "2023-11-07T17:20:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Because some users don't want to have any CSP header, and @johnboxall said we should make it opt-in, rather than opt-out.",
+                                                        "author": {
+                                                            "login": "wjhsf"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385369299",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3582944",
+                                                            "authoredDate": "2023-11-07T17:20:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@wjhsf would you consider putting this code in packages/pwa-kit-runtime/src/utils? We could always re-export from this file to maintain the interface you describe in the changelog.",
+                                                        "author": {
+                                                            "login": "johnboxall"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385374284",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bd427ee",
+                                                            "authoredDate": "2023-11-07T18:07:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This comment describes part of what this function does:\n\nIt is an express.js middleware that sets default security headers including CSP + HSTS for PWA Kit sites.\nIt patches res.setHeader to include defaults normally required for PWA Kit operation.",
+                                                        "author": {
+                                                            "login": "johnboxall"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385383375",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bd427ee",
+                                                            "authoredDate": "2023-11-07T18:07:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We do have an existing place where we apply patches:\n\n  \n    \n      pwa-kit/packages/pwa-kit-runtime/src/ssr/server/build-remote-server.js\n    \n    \n        Lines 1134 to 1193\n      in\n      a726c49\n    \n  \n  \n    \n\n        \n          \n           const applyPatches = once((options) => { \n        \n\n        \n          \n               // If we're running remotely, we also override the send() \n        \n\n        \n          \n               // method for ExpressJS's Response class (which is actually \n        \n\n        \n          \n               // a function). See responseSend for details. \n        \n\n        \n          \n               if (isRemote()) { \n        \n\n        \n          \n                   // http.ServerResponse.prototype \n        \n\n        \n          \n                   const expressResponse = express.response \n        \n\n        \n          \n                   expressResponse.send = responseSend(expressResponse.send) \n        \n\n        \n          \n               } \n        \n\n        \n          \n            \n        \n\n        \n          \n               // Patch the http.request/get and https.request/get \n        \n\n        \n          \n               // functions to allow us to intercept them (since \n        \n\n        \n          \n               // there are multiple ways to make requests in Node). \n        \n\n        \n          \n               http.request = outgoingRequestHook(http.request, options) \n        \n\n        \n          \n               http.get = outgoingRequestHook(http.get, options) \n        \n\n        \n          \n               https.request = outgoingRequestHook(https.request, options) \n        \n\n        \n          \n               https.get = outgoingRequestHook(https.get, options) \n        \n\n        \n          \n            \n        \n\n        \n          \n               // Patch the ExpressJS Response class's redirect function to suppress \n        \n\n        \n          \n               // the creation of a body (DESKTOP-485). Including the body may \n        \n\n        \n          \n               // trigger a parsing error in aws-serverless-express. \n        \n\n        \n          \n               express.response.redirect = function (status, url) { \n        \n\n        \n          \n                   let workingStatus = status \n        \n\n        \n          \n                   let workingUrl = url \n        \n\n        \n          \n            \n        \n\n        \n          \n                   if (typeof status === 'string') { \n        \n\n        \n          \n                       workingUrl = status \n        \n\n        \n          \n                       workingStatus = 302 \n        \n\n        \n          \n                   } \n        \n\n        \n          \n            \n        \n\n        \n          \n                   // Duplicate behaviour in node_modules/express/lib/response.js \n        \n\n        \n          \n                   const address = this.location(workingUrl).get('Location') \n        \n\n        \n          \n            \n        \n\n        \n          \n                   // Send a minimal response with just a status and location \n        \n\n        \n          \n                   this.status(workingStatus).location(address).end() \n        \n\n        \n          \n               } \n        \n\n        \n          \n            \n        \n\n        \n          \n               // Patch the whatwg-encoding decode function so that it will accept plain \n        \n\n        \n          \n               // JS strings and return them as-is. \n        \n\n        \n          \n               // eslint-disable-next-line @typescript-eslint/no-var-requires \n        \n\n        \n          \n               const whatWGEncoding = require('whatwg-encoding') \n        \n\n        \n          \n               const originalDecode = whatWGEncoding.decode \n        \n\n        \n          \n               whatWGEncoding.decode = (buffer, fallbackEncodingName) => { \n        \n\n        \n          \n                   /* istanbul ignore else */ \n        \n\n        \n          \n                   if (typeof buffer === 'string') { \n        \n\n        \n          \n                       return buffer \n        \n\n        \n          \n                   } \n        \n\n        \n          \n                   /* istanbul ignore next */ \n        \n\n        \n          \n                   return originalDecode(buffer, fallbackEncodingName) \n        \n\n        \n          \n               } \n        \n\n        \n          \n            \n        \n\n        \n          \n               // The 'http-proxy-middleware' module pollutes global by adding a lodash \n        \n\n        \n          \n               // reference to it as '_' (this global reference is not used). We kill \n        \n\n        \n          \n               // that reference here because otherwise it can hold on to references \n        \n\n        \n          \n               // to other objects. \n        \n\n        \n          \n               /* istanbul ignore next */ \n        \n\n        \n          \n               if (global._) { \n        \n\n        \n          \n                   delete global._ \n        \n\n        \n          \n               } \n        \n\n        \n          \n           }) \n        \n    \n  \n\n\nI don't have a strong opinion about whether this patch should also be applied there.",
+                                                        "author": {
+                                                            "login": "johnboxall"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385385186",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bd427ee",
+                                                            "authoredDate": "2023-11-07T18:07:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "On naming: https://chat.openai.com/share/d5a18a26-08b3-47ea-a1ac-952dee512285\nI don't have strong feelings, but the name should communicate that a) it is a express.js middleware [can also be implied from import] b) it sets security related headers required for using the PWA Kit\nYes, folks should be allowed to opt into these headers \u2013\u00a0LWR sites as an example don't want the PWA Kit CSP.\nAlso, some customers struggle to create a CSP. They're hard. Sometimes letting them go is the only way they can truly be free.",
+                                                        "author": {
+                                                            "login": "johnboxall"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385392365",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3582944",
+                                                            "authoredDate": "2023-11-07T17:20:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            const {handler} = runtime.createHandler(options, (app) => {\n          \n          \n            \n            const runtime = getRuntime()\n          \n          \n            \n            const {handler} = runtime.createHandler(options, (app) => {",
+                                                        "author": {
+                                                            "login": "vmarta"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385458789",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bd427ee",
+                                                            "authoredDate": "2023-11-07T18:07:10Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "My vote is on adding 'pwakit' to the name, like defaultPwaKitSecurityHeaders, so that it's more distinguishable. Because helmet also has a similar concept of defaults (see useDefaults on line 43).",
+                                                        "author": {
+                                                            "login": "vmarta"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385522075",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3582944",
+                                                            "authoredDate": "2023-11-07T17:20:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "+1 agree defaultPwaKitSecurityHeaders is preferable",
+                                                        "author": {
+                                                            "login": "bfeister"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385557142",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3582944",
+                                                            "authoredDate": "2023-11-07T17:20:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "I think @johnboxall's point about extending the existing patch and then the PWA Kit namespacing of the mixin variable need some resolution before we merge this",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Seems like it would be a bit awkward to apply the patch there, as that's always run, and this middleware is conditional.",
+                                                        "author": {
+                                                            "login": "wjhsf"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385579331",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bd427ee",
+                                                            "authoredDate": "2023-11-07T18:07:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "That's fair",
+                                                        "author": {
+                                                            "login": "bfeister"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385580046",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bd427ee",
+                                                            "authoredDate": "2023-11-07T18:07:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is just an example snippet; not intended to be fully working code.",
+                                                        "author": {
+                                                            "login": "wjhsf"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385581546",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bd427ee",
+                                                            "authoredDate": "2023-11-07T18:07:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I believe this comment you've removed it earlier. Let's delete it.",
+                                                        "author": {
+                                                            "login": "vmarta"
+                                                        },
+                                                        "url": "https://github.com/SalesforceCommerceCloud/pwa-kit/pull/1528#discussion_r1385664793",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f045e2b",
+                                                            "authoredDate": "2023-11-07T22:20:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 7,
+                        "title": "feat: add landing page",
+                        "repository": {
+                            "nameWithOwner": "OsmosysSoftware/angular-foundation",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-11-07T11:47:48Z",
+                        "mergedAt": "2023-11-23T12:37:55Z",
+                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "ashutosh-bisoyi"
+                        },
+                        "editor": {
+                            "login": "ashutosh-bisoyi"
+                        },
+                        "body": "Added a demo landing page that contains the following\r\n\r\n1. A navigation bar with sample links\r\n2. A hero section\r\n3. Footer\r\n\r\nThis is where a user lands when navigating to the app.\r\nThis page can be used as a sample to create more sections based on the project's requirements.\r\n\r\nSpecifications\r\n\r\n1. Semantic tags\r\n2. Responsive behaviour\r\n\r\n![hero](https://github.com/OsmosysSoftware/angular-foundation/assets/108815380/e8713cb2-fa3a-485c-8d9e-e346dbcdfc1e)\r\n![hero-mobile](https://github.com/OsmosysSoftware/angular-foundation/assets/108815380/ff09bcc0-38f6-49cc-8a44-9228a45dfe95)\r\n",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Get these text values from the i18n language json file instead with translation service.\nWe would also need to maintain a document which would include things a  user need to replace like name of the app, hero.png etc..",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1386291138",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Get these text values from the i18n language json file instead with translation service.",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1386291939",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why do we have to import this here? Can we not do it in the main style.scss? As this is going to be common. Where does it get added by default(maybe in angular.json too)?",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1386292970",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Lets these text values from the i18n language json file instead with translation service.\nAnd keep them descriptive for now. Like her header text, hero header description.",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1386295539",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Run lint:fix, console logs should not be present.",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1386296226",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Get these text values from the i18n language json file instead with translation service.",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1386296837",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "console.logs should not be present as per eslint",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1386297212",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@xixas\n\nYes, internationalization was planned to be covered later. I will add a new commit to this PR and implement that along with it.\nChanges may vary broadly depending on the project's requirements. I don't think there is much requirement to add such doc that says what to replace and all. Would like to discuss more on this.",
+                                                        "author": {
+                                                            "login": "ashutosh-bisoyi"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1386527621",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Background\nWe have imported prime flex to the main.scss. That allows us to use the utility classes to any HTML page.\nI didn't wanted to mess up HTMLs with the utility classes so the idea was to use them in scss file.\nObservation\nWhat I observed is the classes does not work until we import it to the particular style file. It's just like we import mixins in scss to every file before using, even if that is imported in the main.scss file.",
+                                                        "author": {
+                                                            "login": "ashutosh-bisoyi"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1386579985",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes agree. But we have a rule for angular which do not allow empty constructors. So had to add dummy logs here.",
+                                                        "author": {
+                                                            "login": "ashutosh-bisoyi"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1386582193",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I have added localization feature to the app in my latest commit. The localization has following features\n\nFor the first time visitor detects browser language and translate the app to that language if available.\nUser get an option to choose the languages in the footer.\nThe app gets translated to chosen language and the preference gets saved until the user changes it.",
+                                                        "author": {
+                                                            "login": "ashutosh-bisoyi"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1389022993",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I have added localization feature to the app in my latest commit. The localization has following features\n\nFor the first time visitor detects browser language and translate the app to that language if available.\nUser get an option to choose the languages in the footer.\nThe app gets translated to chosen language and the preference gets saved until the user changes it.",
+                                                        "author": {
+                                                            "login": "ashutosh-bisoyi"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1389023246",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I have added localization feature to the app in my latest commit. The localization has following features\n\nFor the first time visitor detects browser language and translate the app to that language if available.\nUser get an option to choose the languages in the footer.\nThe app gets translated to chosen language and the preference gets saved until the user changes it.",
+                                                        "author": {
+                                                            "login": "ashutosh-bisoyi"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1389023478",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I have added localization feature to the app in my latest commit. The localization has following features\n\nFor the first time visitor detects browser language and translate the app to that language if available.\nUser get an option to choose the languages in the footer.\nThe app gets translated to chosen language and the preference gets saved until the user changes it.",
+                                                        "author": {
+                                                            "login": "ashutosh-bisoyi"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1389023718",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thats fine, you can add the disable rule for constructor there instead of console.log.",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1389082221",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You can remove the french file, just english is enough, don't want to spend time on adding french later on.\nAlso we usually use UPPER_SNAKE_CASE for these properties instead of camelCase for distinctive recognition in html files.",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1389085057",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "eaa4646",
+                                                            "authoredDate": "2023-11-10T07:32:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Add disbale rule for line for empty constructor instead of console log",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1389087516",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I had only used this once that too in one component.\nAnd this is how it was used in src/style.scss\n\nNo other import was added.",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1389091492",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@xixas  Were you then able to use the utility classes in the scss file with out importing them?\nBy utility classes I mean the classes they provide and those being used with  styleclass mixin\n@include styleclass('py-4 flex align-items-center justify-content-between relative lg:static mb-3');\n\nTo add context, the purpose we are solving here is using the primeflex classes in our style.scss files.",
+                                                        "author": {
+                                                            "login": "ashutosh-bisoyi"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1389141407",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Alright, @xixas  I have added inline disable comments and removed console logs in constructors.",
+                                                        "author": {
+                                                            "login": "ashutosh-bisoyi"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1389154838",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I have added inline disable comments and removed console logs in constructors.",
+                                                        "author": {
+                                                            "login": "ashutosh-bisoyi"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1389155701",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We can choose to keep the french file by doing that efficiently. Reason being, this file it will serve others as an example if they want to use multiple languages. We'll let them remove/add more based on their needs.\n\nYour concern for time spend is right. Regarding that, I'm making sure I don't waste more time and get the whole file quickly from en.json by using ai tools.\n\nYou are right. I have converted all the translation keys to uppercase.",
+                                                        "author": {
+                                                            "login": "ashutosh-bisoyi"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1389185990",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "eaa4646",
+                                                            "authoredDate": "2023-11-10T07:32:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I was able to use it directly. Not much used in my usecase, these were the classes I used.",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1403285738",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, you are right. As I said, classes can be used in HTML by importing once.\nBut while using the classes in SCSS we will have to import them to each file to use the mixins.\nUsing the classes in HTML is not preferable since it will make things look messy. We can choose to have cleaner code by taking things to scss.",
+                                                        "author": {
+                                                            "login": "ashutosh-bisoyi"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1403288912",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@ashutosh-bisoyi  Is there any degradation in performance?\nBecasue we are using complete @import 'primeflex/primeflex.scss' in all scss files\nChecked with chatgpt and this was a suggested organisation.\nhttps://chat.openai.com/share/90ea192f-f25a-4560-a221-7cf9a3cce627\n// styles.scss (main entry point)\n@import 'primeflex/primeflex.scss';\n@import 'global-styles.scss';\n@import 'component-styles.scss';\n\n// global-styles.scss\n// Your global styles, variables, and mixins\n\n// component-styles.scss\n// Import styles for specific components or modules\n@import 'button.scss';\n@import 'grid.scss';\n// ...\n\n// button.scss\n// Styles for buttons using PrimeFlex classes\n.button {\n  @include p-button;\n  // Additional styles or customizations\n}\n\n// grid.scss\n// Styles for grid layout using PrimeFlex classes\n.container {\n  @include p-container;\n  // Additional styles or customizations\n}",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1403297744",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This line seems to be longer did line limit not trigger on this or this was under the limit?",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1403311468",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "22ae625",
+                                                            "authoredDate": "2023-11-10T09:58:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "About performance, I am not really sure, but hope it should not be a problem. This is the way they suggest to use their classes in scss.\nReferences:\n\nOfficial doc\ndiscussion",
+                                                        "author": {
+                                                            "login": "ashutosh-bisoyi"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1403318033",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is it a newly added linting config? This version do not have the updated eslint config.",
+                                                        "author": {
+                                                            "login": "ashutosh-bisoyi"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1403319064",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "22ae625",
+                                                            "authoredDate": "2023-11-10T09:58:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Not newly added. The change in eslint was done before this PR.\nYou can use the updated one if not using it.",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1403321271",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "22ae625",
+                                                            "authoredDate": "2023-11-10T09:58:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Okay we will proceed with this approach.\nThough we might want a session on this or add this as a coding standard for angular with primeng.",
+                                                        "author": {
+                                                            "login": "xixas"
+                                                        },
+                                                        "url": "https://github.com/OsmosysSoftware/angular-foundation/pull/7#discussion_r1403322240",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cfc87aa",
+                                                            "authoredDate": "2023-11-08T09:27:36Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

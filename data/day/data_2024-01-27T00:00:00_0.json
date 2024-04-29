@@ -1,0 +1,433 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 12,
+                        "title": "Create data_loader.py",
+                        "repository": {
+                            "nameWithOwner": "grodtron/TodoistAutomation",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2024-01-27T23:57:21Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/grodtron/TodoistAutomation/pull/12",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "grodtron"
+                        },
+                        "editor": null,
+                        "body": "https://chat.openai.com/share/2f9ae3a3-89f3-4242-8c1c-342bcb54a554",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 89,
+                        "title": "faceswap with inpaint",
+                        "repository": {
+                            "nameWithOwner": "InstantID/InstantID",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2024-01-27T22:40:40Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/InstantID/InstantID/pull/89",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "nosiu"
+                        },
+                        "editor": null,
+                        "body": "Face swap with inpainting (sample code uses LCM Lora)\r\n\r\nWorks with **stabilityai/stable-diffusion-xl-base-1.0** and probably any base XL model tested it on a few others \r\n(do not use models for inpaint!)\r\n\r\n**Steps**\r\n\r\n1. finding the face,\r\n2. adding padding,\r\n3. cutting the face with padding,\r\n4.  creating the mask,\r\n5.  rescaling all that (optional)\r\n6.  sending all that to the inpainting pipeline\r\n7.  integrating face from the pipeline into the original image.\r\n\r\nbecause InstantID doesn't handle small faces well, they are (optionally) scaled up, and after exiting the pipeline they are scaled back to their original size\r\n\r\n![image](https://github.com/InstantID/InstantID/assets/5691179/a72a9e17-3c5b-46e2-802b-2bdf945af4ca)\r\n\r\n**Example 1:**\r\n\r\nOriginal Image:\r\n![image](https://github.com/InstantID/InstantID/assets/5691179/311d1bb4-eb57-4041-bb42-4022860625e6)\r\nResized face from the pipeline (1 face embedding):\r\n![image](https://github.com/InstantID/InstantID/assets/5691179/f1ba3b7c-aa32-4995-b600-e712558e371e)\r\nResult (original image + downscaled face):\r\n![image](https://github.com/InstantID/InstantID/assets/5691179/d72fe0f2-a324-48a3-aa2e-587902c88c7f)\r\nResult (4 face embeddings):\r\n![image](https://github.com/InstantID/InstantID/assets/5691179/ababe180-d2fb-4f06-8ecf-41f1942f892e)\r\n\r\n**Example 2:**\r\nOriginal image:\r\n![image](https://github.com/InstantID/InstantID/assets/5691179/fd9aa936-fae8-4d6e-8de1-64d8793f8025)\r\nFace embed from:\r\n![image](https://github.com/InstantID/InstantID/assets/5691179/a21c7e0d-ca96-44b7-8a1b-f29804a95992)\r\nResult:\r\n![image](https://github.com/InstantID/InstantID/assets/5691179/8a602b11-df98-46f3-bde6-8a9f9e741371)\r\n\r\n\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2024-01-28T03:43:15Z",
+                                    "bodyText": "this is cool.  I made a gist (using chatgpt) to simplify from gradio demo\nhttps://gist.github.com/johndpope/4f2f237fab4b15101ccbe62ab8ab7af2\npresumably you modify a few lines to add the faceswap into image pipeline?\ncould you share lines / or even update this code?\nUpgrade gradio samples?\n(if you start a new chat with chat.openai.com - and paste in the sample python gradio demo from this repo -\nyou can simply ask it to upgrade it with your code snippet.)\nhttps://chat.openai.com/share/2d039730-f0e6-43d6-a299-5873172cbf59",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1913436344",
+                                    "author": {
+                                        "login": "johndpope"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-28T12:59:06Z",
+                                    "bodyText": "@johndpope I don't want to play with GUI (no experience with gradio) but if you make a fork, add a checkbox for example \"use mask\" which will allow you to draw a mask on the copy of the uploaded image then I can probably make it work.",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1913588379",
+                                    "author": {
+                                        "login": "nosiu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-28T21:24:30Z",
+                                    "bodyText": "Hi @nosiu  - understand completely.\nmy gist code actually throws away gradio code - it does not play with gui.\njust runs from terminal. if you can help show how to wire up the pipeline  - would help testing.",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1913726409",
+                                    "author": {
+                                        "login": "johndpope"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-28T21:55:46Z",
+                                    "bodyText": "Hi @johndpope I don't understand the problem because the provided faceswap.py file in this pull request is a minimal example of how to swap faces just python faceswap.py it.\nYou just run this file and it will swap the faces. Just look at this code (faceswap.py) from the 131 line down if you want to change some parameters like padding, mask size, or of course input / output images.\nSo if you want to add/change something it would be better to work from faceswap.py as a base",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1913734220",
+                                    "author": {
+                                        "login": "nosiu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-28T23:37:55Z",
+                                    "bodyText": "hi @nosiu  - thanks for clarifying.\nrun your code - python faceswap.py\nafter loggging into huggingface - i get this error.\na quick change to this should fix -\n#adapter_id = 'loras/pytorch_lora_weights.safetensors'\nadapter_id = \"latent-consistency/lcm-lora-sdxl\"\n\npython faceswap.py   \n/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/diffusers/utils/outputs.py:63: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.\n  torch.utils._pytree._register_pytree_node(\n/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/diffusers/utils/outputs.py:63: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.\n  torch.utils._pytree._register_pytree_node(\n/media/2TB/InstantID/faceswap.py:17: DeprecationWarning: BILINEAR is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.BILINEAR instead.\n  pad_to_max_side=False, mode=Image.BILINEAR, base_pixel_number=64):\n/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py:69: UserWarning: Specified provider 'CUDAExecutionProvider' is not in available provider names.Available providers: 'AzureExecutionProvider, CPUExecutionProvider'\n  warnings.warn(\nApplied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}\nfind model: ./models/antelopev2/1k3d68.onnx landmark_3d_68 ['None', 3, 192, 192] 0.0 1.0\nApplied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}\nfind model: ./models/antelopev2/2d106det.onnx landmark_2d_106 ['None', 3, 192, 192] 0.0 1.0\nApplied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}\nfind model: ./models/antelopev2/genderage.onnx genderage ['None', 3, 96, 96] 0.0 1.0\nApplied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}\nfind model: ./models/antelopev2/glintr100.onnx recognition ['None', 3, 112, 112] 127.5 127.5\nApplied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}\nfind model: ./models/antelopev2/scrfd_10g_bnkps.onnx detection [1, 3, '?', '?'] 127.5 128.0\nset det-size: (640, 640)\nLoading pipeline components...: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 7/7 [00:01<00:00,  6.35it/s]\nThe config attributes {'skip_prk_steps': True} were passed to LCMScheduler, but are not expected and will be ignored. Please verify your scheduler_config.json configuration file.\nTraceback (most recent call last):\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/huggingface_hub/utils/_errors.py\", line 286, in hf_raise_for_status\n    response.raise_for_status()\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/requests/models.py\", line 1021, in raise_for_status\n    raise HTTPError(http_error_msg, response=self)\nrequests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/api/models/loras/pytorch_lora_weights.safetensors\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/media/2TB/InstantID/faceswap.py\", line 127, in <module>\n    pipe.load_lora_weights(adapter_id)\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/diffusers/loaders/lora.py\", line 1441, in load_lora_weights\n    state_dict, network_alphas = self.lora_state_dict(\n                                 ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py\", line 118, in _inner_fn\n    return fn(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/diffusers/loaders/lora.py\", line 263, in lora_state_dict\n    weight_name = cls._best_guess_weight_name(\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/diffusers/loaders/lora.py\", line 318, in _best_guess_weight_name\n    files_in_repo = model_info(pretrained_model_name_or_path_or_dict).siblings\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py\", line 118, in _inner_fn\n    return fn(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/huggingface_hub/hf_api.py\", line 2085, in model_info\n    hf_raise_for_status(r)\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/huggingface_hub/utils/_errors.py\", line 323, in hf_raise_for_status\n    raise RepositoryNotFoundError(message, response) from e\nhuggingface_hub.utils._errors.RepositoryNotFoundError: 404 Client Error. (Request ID: Root=1-65b6e44c-74ae84201c41506c012f12d1;1329239b-0ad7-4d28-98f2-dde339113861)\n\nRepository Not Found for url: https://huggingface.co/api/models/loras/pytorch_lora_weights.safetensors.\nPlease make sure you specified the correct `repo_id` and `repo_type`.\nIf you are trying to access a private or gated repo, make sure you are authenticated.\n(comfyui) \u279c  InstantID git:(main) \u2717",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1913761099",
+                                    "author": {
+                                        "login": "johndpope"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-28T23:55:30Z",
+                                    "bodyText": "hi @nosiu - thanks for clarifying. run your code - python faceswap.py after loggging into huggingface - i get this error.\na quick change to this should fix -\n#adapter_id = 'loras/pytorch_lora_weights.safetensors' adapter_id = \"latent-consistency/lcm-lora-sdxl\"\n\npython faceswap.py   \n/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/diffusers/utils/outputs.py:63: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.\n  torch.utils._pytree._register_pytree_node(\n/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/diffusers/utils/outputs.py:63: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.\n  torch.utils._pytree._register_pytree_node(\n/media/2TB/InstantID/faceswap.py:17: DeprecationWarning: BILINEAR is deprecated and will be removed in Pillow 10 (2023-07-01). Use Resampling.BILINEAR instead.\n  pad_to_max_side=False, mode=Image.BILINEAR, base_pixel_number=64):\n/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py:69: UserWarning: Specified provider 'CUDAExecutionProvider' is not in available provider names.Available providers: 'AzureExecutionProvider, CPUExecutionProvider'\n  warnings.warn(\nApplied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}\nfind model: ./models/antelopev2/1k3d68.onnx landmark_3d_68 ['None', 3, 192, 192] 0.0 1.0\nApplied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}\nfind model: ./models/antelopev2/2d106det.onnx landmark_2d_106 ['None', 3, 192, 192] 0.0 1.0\nApplied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}\nfind model: ./models/antelopev2/genderage.onnx genderage ['None', 3, 96, 96] 0.0 1.0\nApplied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}\nfind model: ./models/antelopev2/glintr100.onnx recognition ['None', 3, 112, 112] 127.5 127.5\nApplied providers: ['CPUExecutionProvider'], with options: {'CPUExecutionProvider': {}}\nfind model: ./models/antelopev2/scrfd_10g_bnkps.onnx detection [1, 3, '?', '?'] 127.5 128.0\nset det-size: (640, 640)\nLoading pipeline components...: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 7/7 [00:01<00:00,  6.35it/s]\nThe config attributes {'skip_prk_steps': True} were passed to LCMScheduler, but are not expected and will be ignored. Please verify your scheduler_config.json configuration file.\nTraceback (most recent call last):\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/huggingface_hub/utils/_errors.py\", line 286, in hf_raise_for_status\n    response.raise_for_status()\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/requests/models.py\", line 1021, in raise_for_status\n    raise HTTPError(http_error_msg, response=self)\nrequests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/api/models/loras/pytorch_lora_weights.safetensors\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/media/2TB/InstantID/faceswap.py\", line 127, in <module>\n    pipe.load_lora_weights(adapter_id)\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/diffusers/loaders/lora.py\", line 1441, in load_lora_weights\n    state_dict, network_alphas = self.lora_state_dict(\n                                 ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py\", line 118, in _inner_fn\n    return fn(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/diffusers/loaders/lora.py\", line 263, in lora_state_dict\n    weight_name = cls._best_guess_weight_name(\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/diffusers/loaders/lora.py\", line 318, in _best_guess_weight_name\n    files_in_repo = model_info(pretrained_model_name_or_path_or_dict).siblings\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py\", line 118, in _inner_fn\n    return fn(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/huggingface_hub/hf_api.py\", line 2085, in model_info\n    hf_raise_for_status(r)\n  File \"/home/oem/miniconda3/envs/comfyui/lib/python3.11/site-packages/huggingface_hub/utils/_errors.py\", line 323, in hf_raise_for_status\n    raise RepositoryNotFoundError(message, response) from e\nhuggingface_hub.utils._errors.RepositoryNotFoundError: 404 Client Error. (Request ID: Root=1-65b6e44c-74ae84201c41506c012f12d1;1329239b-0ad7-4d28-98f2-dde339113861)\n\nRepository Not Found for url: https://huggingface.co/api/models/loras/pytorch_lora_weights.safetensors.\nPlease make sure you specified the correct `repo_id` and `repo_type`.\nIf you are trying to access a private or gated repo, make sure you are authenticated.\n(comfyui) \u279c  InstantID git:(main) \u2717 \n\n\nThanks, this is path to the file on my HDD not huggingface repo address.\nIt's just annoying downloading 12 GB models just because you have them in a different place than default.\nThat's why I usually use paths on my drive and put links to the file in the comment.",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1913766358",
+                                    "author": {
+                                        "login": "nosiu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-30T07:20:24Z",
+                                    "bodyText": "how to understand this instantid inpaint with stable diffusion's  original inpaint ?",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1916217317",
+                                    "author": {
+                                        "login": "t00350320"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-30T09:14:31Z",
+                                    "bodyText": "python faceswap.py\ni get this error.\nFile \"xx/InstantID/pipeline_stable_diffusion_xl_instantid_inpaint.py\", line 326, in call\ninit_image = self.image_processor.preprocess(\nTypeError: VaeImageProcessor.preprocess() got an unexpected keyword argument 'resize_mode'",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1916388923",
+                                    "author": {
+                                        "login": "t00350320"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-30T10:12:13Z",
+                                    "bodyText": "hi @t00350320, You are probably using a different version of diffusers pip show diffusers to show the version you have installed.\nIt works on version 0.25.0. A good way to fix your problem might be simply updating this outdated package.",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1916504400",
+                                    "author": {
+                                        "login": "nosiu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-31T03:44:56Z",
+                                    "bodyText": "hi @t00350320, You are probably using a different version of diffusers pip show diffusers to show the version you have installed. It works on version 0.25.0. A good way to fix your problem might be simply updating this outdated package.\n\nthanks for your proposal. Here is our test result with your default scripts,\nbut it seems weird : 1) a box around face corner; 2) face location does not matched well with original image",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1918328426",
+                                    "author": {
+                                        "login": "t00350320"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-31T12:14:53Z",
+                                    "bodyText": "you can play with these 2x values",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1918991215",
+                                    "author": {
+                                        "login": "johndpope"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-31T20:15:25Z",
+                                    "bodyText": "@t00350320 There are two things wrong with this picture.\n\nThe mask seems to be too big and it tried to generate part of the collar you can also try to fix it with a negative prompt just add  negative_prompt_2 parameter into the pipeline\n\"The box\" around. You need to be extremely lucky not to get any kind of box, even tiny by simply pasting inpainted image into the source image. Solution? One I can think of is adding blur to the mask before pasting it into source image.\n\nI implemented all those features to ComfyUI as a custom node  (at least I've tried).\nYou don't need to be familiar with comfy to look here and check what is done to the image after it was spat out from the pipeline.",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1919876099",
+                                    "author": {
+                                        "login": "nosiu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-04T07:54:25Z",
+                                    "bodyText": "It works much better with a good inpaint model. I swapped in mine that takes the huggingface inpaint model and trains it heavily with random masks on people and it works great - my first attempt with the base model came with an extra forearm/hand thing (subject had hands on head kind of) :) Then use fpie/taichi_solver to do the replacement into the original image and results are super. I have not done a detailed comparison with insightface, but much higher resolution of course, and the patch in looks at least as good.",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1925616221",
+                                    "author": {
+                                        "login": "markrmiller"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-24T11:44:59Z",
+                                    "bodyText": "faceswap.py TypeError\uff1aStableDiffusionXLControlNetInpaintPipeline.prepare_control_image() missing 2 required positional arguments: 'crops_coords' and 'resize_mode'",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1962336851",
+                                    "author": {
+                                        "login": "qwerdf4"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-24T12:16:16Z",
+                                    "bodyText": "@qwerdf4 This branch is using diffusers 0.25.0",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1962345694",
+                                    "author": {
+                                        "login": "nosiu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-25T04:26:13Z",
+                                    "bodyText": "@qwerdf4 This branch is using diffusers 0.25.0\n\nuncomment this \uff0ci solved it",
+                                    "url": "https://github.com/InstantID/InstantID/pull/89#issuecomment-1962809044",
+                                    "author": {
+                                        "login": "qwerdf4"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 10,
+                        "title": "Update models.py",
+                        "repository": {
+                            "nameWithOwner": "grodtron/TodoistAutomation",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2024-01-27T18:40:01Z",
+                        "mergedAt": "2024-01-27T23:33:10Z",
+                        "url": "https://github.com/grodtron/TodoistAutomation/pull/10",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "grodtron"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2024-01-27T23:32:57Z",
+                                    "bodyText": "Example of updating the default color fully \"via\" ChatGPT:\nhttps://chat.openai.com/share/9a3068ee-73a1-4214-b069-e0fd59b43dab",
+                                    "url": "https://github.com/grodtron/TodoistAutomation/pull/10#issuecomment-1913367070",
+                                    "author": {
+                                        "login": "grodtron"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 29,
+                        "title": "ODY-334  Iput\u306b\u5358\u4f4d\u3092\u3064\u3051\u308b\u3001ODY-335  \u30a4\u30f3\u30b9\u30c8\u30fc\u30eb\u30a2\u30a4\u30b3\u30f3\u306e\u4f4d\u7f6e\u4fee\u6b63",
+                        "repository": {
+                            "nameWithOwner": "daydule/odyssey-frontend",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2024-01-27T08:31:21Z",
+                        "mergedAt": "2024-02-10T04:40:05Z",
+                        "url": "https://github.com/daydule/odyssey-frontend/pull/29",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Mellbrother"
+                        },
+                        "editor": {
+                            "login": "tom-takeru"
+                        },
+                        "body": "# \u4e8b\u524d\u78ba\u8a8d(\u5171\u901a)\r\n\r\n- [x] PR \u524d\u306b\u52d5\u4f5c\u78ba\u8a8d\u3092\u3057\u305f\u304b\r\n- [x] \u30d3\u30eb\u30c9\u30a8\u30e9\u30fc/ESLint \u30a8\u30e9\u30fc\u306f\u8d77\u304d\u3066\u3044\u306a\u3044\u304b\r\n- [x] [\u958b\u767a\u30eb\u30fc\u30eb](https://daydule.atlassian.net/wiki/spaces/DAYDULE/pages/9765029)\u3092\u5b88\u3063\u3066\u5b9f\u88c5\u3057\u3066\u3044\u308b\u304b\r\n- [x] \u5358\u4f53\u30c6\u30b9\u30c8\u304c\u5168\u3066 OK \u306b\u306a\u3063\u3066\u3044\u308b\u304b\uff08\u73fe\u72b6\u306f\u30d5\u30ed\u30f3\u30c8\u30a8\u30f3\u30c9\u306e\u5358\u4f53\u30c6\u30b9\u30c8\u3092\u5b9f\u884c\u3067\u304d\u3066\u3044\u306a\u3044\u305f\u3081\uff09\r\n- [x] \u6a5f\u5bc6\u60c5\u5831\u3092\u542b\u3093\u3067\u3044\u306a\u3044\u304b\r\n- [x] \u6700\u65b0\u306e`develop`\u30d6\u30e9\u30f3\u30c1\u3092\u53cd\u6620\u3057\u3066\u3044\u308b\u304b\r\n\r\n# \u30ec\u30d3\u30e5\u30fc\u512a\u5148\u5ea6\uff08\u3069\u308c\u304b\u4e00\u3064\uff09\r\n\r\n- [ ] \u3059\u3050\u898b\u3066\u3082\u3089\u3044\u305f\u3044\r\n- [x] 3 \u65e5\u304f\u3089\u3044\u3067\u898b\u3066\u3082\u3089\u3044\u305f\u3044\r\n- [ ] 7 \u65e5\u304f\u3089\u3044\u3067\u898b\u3066\u3082\u3089\u3044\u305f\u3044\r\n\r\n# \u30ec\u30d3\u30e5\u30fc\u306e\u5ea6\u5408\u3044\r\n\r\n- [ ] \u30b3\u30fc\u30c9\u3092\u3071\u3063\u3068\u78ba\u8a8d\u3057\u3066\u3082\u3089\u3044\u305f\u3044\r\n- [x] \u30b3\u30fc\u30c9\u3092\u3071\u3063\u3068\u78ba\u8a8d & \u52d5\u4f5c\u78ba\u8a8d\u3057\u3066\u3082\u3089\u3044\u305f\u3044\r\n- [ ] \u30b3\u30fc\u30c9\u3092\u3057\u3063\u304b\u308a\u78ba\u8a8d & \u52d5\u4f5c\u78ba\u8a8d\u3057\u3066\u3082\u3089\u3044\u305f\u3044\r\n\r\n# \u30ec\u30d3\u30e5\u30ef\u30fc\u306b\u3088\u308b\u52d5\u4f5c\u78ba\u8a8d\r\n\r\n- [x] @tom-takeru \r\n- [ ] @atoook \r\n- [ ] @kzk27 \r\n\r\n# \u3084\u3063\u305f\u3053\u3068<!-- \u3053\u306e\u30d7\u30eb\u30ea\u30af\u30a8\u30b9\u30c8\u3067\u3084\u3063\u305f\u3053\u3068\u3092\u66f8\u304f -->\r\n\r\n- input\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\u306b\u5358\u4f4d\u8ffd\u52a0\r\n- \u30d5\u30c3\u30bf\u30fc\u8ffd\u52a0\r\n- \u30a2\u30d7\u30ea\u30a4\u30f3\u30b9\u30c8\u30fc\u30eb\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\u306e\u4f4d\u7f6e\u5909\u66f4\r\n\r\n# \u3084\u3089\u306a\u3044\u3053\u3068<!-- \u3053\u306e\u30d7\u30eb\u30ea\u30af\u30a8\u30b9\u30c8\u3067\u3084\u3063\u3066\u3082\u304a\u304b\u3057\u304f\u306a\u3044\u3051\u3069\u3084\u3089\u306a\u304b\u3063\u305f\u3053\u3068\u3092\u66f8\u304f -->\r\n\r\n\u7279\u306b\u306a\u3057\r\n\r\n# \u61f8\u5ff5\u70b9\u3084\u6ce8\u610f\u70b9<!-- \u3053\u306e\u30d7\u30eb\u30ea\u30af\u30a8\u30b9\u30c8\u306b\u304a\u3051\u308b\u61f8\u5ff5\u70b9\u3084\u6ce8\u610f\u70b9\u3092\u66f8\u304f -->\r\n\r\n\u7279\u306b\u306a\u3057\r\n\r\n# \u305d\u306e\u4ed6<!-- \u3053\u306e\u30d7\u30eb\u30ea\u30af\u30a8\u30b9\u30c8\u3067\u4e0a\u8a18\u306e\u9805\u76ee\u4ee5\u5916\u306b\u4f1d\u3048\u308b\u3079\u304d\u3053\u3068\u3092\u66f8\u304f -->\r\n\r\n\u7279\u306b\u306a\u3057\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2024-02-10T04:25:36Z",
+                                    "bodyText": "Deploying with \u00a0 \u00a0Cloudflare Pages\nLatest commit: \n5b910e5\n\nStatus:\u00a0\u2705\u00a0 Deploy successful!\nPreview URL:\nhttps://c10d3411.odyssey-frontend-f4c.pages.dev\n\nBranch Preview URL:\nhttps://feature-ody-334.odyssey-frontend-f4c.pages.dev\n\n\nView logs",
+                                    "url": "https://github.com/daydule/odyssey-frontend/pull/29#issuecomment-1936856139",
+                                    "author": {
+                                        "login": "cloudflare-pages"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u7de8\u96c6\u30dc\u30bf\u30f3\u62bc\u3057\u305f\u6642\u306b\u30ab\u30fc\u30bd\u30eb\u304c\u5f53\u305f\u308b\u3088\u3046\u306b\u51e6\u7406\u8ffd\u52a0",
+                                                        "author": {
+                                                            "login": "Mellbrother"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/29#discussion_r1468416922",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "979b773",
+                                                            "authoredDate": "2024-01-27T08:28:17Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "input\u4ee5\u5916\u3092\u30af\u30ea\u30c3\u30af\u3057\u305f\u3068\u304d\u306b\u7de8\u96c6\u30e2\u30fc\u30c9\u3092\u30ea\u30bb\u30c3\u30c8\u3057\u3001\u5358\u4f4d\u304c\u633f\u5165\u3055\u308c\u308b\u3088\u3046\u306b\u3059\u308b\u51e6\u7406\ncovertValueToDisplayText\u3067\u7de8\u96c6\u30e2\u30fc\u30c9\u306e\u5834\u5408\u3082\u5358\u4f4d\u304c\u3064\u304f\u3088\u3046\u306b\u3057\u3088\u3046\u3068\u3057\u305f\u304c\u3001\u51e6\u7406\u304c\u3046\u307e\u304f\u3044\u304b\u306a\u3044\u306e\u3068\u3001\u3042\u307e\u308a\u5165\u529b\u6642\u306b\u5358\u4f4d\u304c\u306a\u304f\u3066\u3082\u56f0\u3089\u306a\u3044\u306e\u3067\u3001\u3053\u306e\u6848\u3092\u63a1\u7528\u3057\u3066\u3044\u308b",
+                                                        "author": {
+                                                            "login": "Mellbrother"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/29#discussion_r1468417224",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "979b773",
+                                                            "authoredDate": "2024-01-27T08:28:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "\u30b3\u30e1\u30f3\u30c8\u3057\u305f\uff01\n\u78ba\u8a8d\u304a\u9858\u3044\ud83d\ude4f",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u305d\u3046\u3044\u3048\u3070\u30d5\u30c3\u30bf\u30fc\u5165\u308c\u308b\u306e\u3059\u3063\u304b\u308a\u5fd8\u308c\u3066\u305f\u306d\ud83d\ude05\u3000\n\u3042\u308a\u304c\u3068\u3046\ud83d\udc4d\n\u30e1\u30a4\u30f3\u753b\u9762\u306e\u65b9\u304c\u3001\u30d5\u30c3\u30bf\u30fc\u306e\u9ad8\u3055\u306e\u5206\u3060\u3051\u7e26\u30b9\u30af\u30ed\u30fc\u30eb\u3067\u304d\u308b\u3088\u3046\u306b\u306a\u3063\u3061\u3083\u3063\u3066\u308b\u307f\u305f\u3044\u3060\u304b\u3089\u3001\u305d\u306e\u5206\u3060\u3051\u30e1\u30a4\u30f3\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\u306e\u9ad8\u3055\u3092\u524a\u3063\u3066\u3082\u3089\u3044\u305f\u3044\ud83d\ude4f",
+                                                        "author": {
+                                                            "login": "tom-takeru"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/29#discussion_r1478288402",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "979b773",
+                                                            "authoredDate": "2024-01-27T08:28:17Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "MainCardInput.tsx\u306e\u4e2d\u3067 convertValueToDisplayText\u3092\u5b9a\u7fa9\u3059\u308b\u306a\u3089\n  const formattedValue = value.toLocaleString();\n  const displayValue = unitPosition === 'left' ? `${unit}${formattedValue}` : `${formattedValue}${unit}`;\n\u3063\u3066\u3057\u3066\n          <input\n            disabled={true}\n            className='max-w-[70%] text-right outline-none placeholder:text-gray-700'\n            onChange={onChange}\n            value={displayValue || 0}\n            placeholder={value ? String(value) : '\u5165\u529b\u5024'}\n            id={label}\n            type='tel'\n          />\n\u3063\u3066\u3057\u3061\u3083\u3063\u3066\u826f\u3044\u6c17\u304c\u3059\u308b\uff01\n\u305f\u3060\u3001\u5c06\u6765\u7684\u306bMoneyResult\u3067\u306e\u8868\u8a18\u306b\u3082\u4f7f\u3048\u305d\u3046\u3060\u304b\u3089\u3001\u5f15\u6570\u306f\u5909\u3048\u305a\u306b\u305d\u306e\u307e\u307e\u5916\u51fa\u3057\u306e\u65b9\u304c\u826f\u3044\u304b\u3082\u3068\u601d\u3063\u3066\u304d\u305f\uff01\nsrc/utils/formatting.ts\u307f\u305f\u3044\u306a\u30d5\u30a1\u30a4\u30eb\u3092\u4f5c\u3063\u3066\u305d\u3053\u306b\u3053\u306e\u95a2\u6570\u3092\u914d\u7f6e\u3059\u308b\uff1f",
+                                                        "author": {
+                                                            "login": "tom-takeru"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/29#discussion_r1479077710",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "979b773",
+                                                            "authoredDate": "2024-01-27T08:28:17Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "src/utils/formatting.ts\u3068\u3059\u308b\u3084\u308a\u65b9\u306b\u95a2\u3059\u308b\u53c2\u8003\u60c5\u5831\nhttps://chat.openai.com/share/a9452ad4-6b33-40a9-9e73-6d85fd5bd8fc",
+                                                        "author": {
+                                                            "login": "tom-takeru"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/29#discussion_r1479078733",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "979b773",
+                                                            "authoredDate": "2024-01-27T08:28:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u5916\u3060\u3057\u3057\u305f",
+                                                        "author": {
+                                                            "login": "Mellbrother"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/29#discussion_r1484947931",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "979b773",
+                                                            "authoredDate": "2024-01-27T08:28:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u4fee\u6b63\u3057\u305f",
+                                                        "author": {
+                                                            "login": "Mellbrother"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/29#discussion_r1484947956",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "979b773",
+                                                            "authoredDate": "2024-01-27T08:28:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM! \ud83c\udf3e",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjQ=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 4
+        }
+    }
+}

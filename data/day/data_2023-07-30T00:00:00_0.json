@@ -1,0 +1,354 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 555,
+                        "title": "Python API\u306e`Synthesizer`\u3092`close()`\u53ef\u80fd\u306b\u3059\u308b",
+                        "repository": {
+                            "nameWithOwner": "VOICEVOX/voicevox_core",
+                            "primaryLanguage": {
+                                "name": "Rust"
+                            }
+                        },
+                        "createdAt": "2023-07-30T04:42:21Z",
+                        "mergedAt": "2023-08-15T16:27:15Z",
+                        "url": "https://github.com/VOICEVOX/voicevox_core/pull/555",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "qryxip"
+                        },
+                        "editor": null,
+                        "body": "## \u5185\u5bb9\n\n\u4ee5\u4e0b\u306e\u3053\u3068\u3092\u3084\u308a\u307e\u3059\u3002\n\n> \u3068\u3053\u308d\u3067\u6700\u8fd1\u8003\u3048\u3066\u3044\u308b\u3053\u3068\u3068\u3057\u3066\u3001Synthsizer\u3068\u304b\u306e\u30aa\u30d6\u30b8\u30a7\u30af\u30c8\u3001Python API\u3067\u306f`.close()`\u3068`__enter__`\u3092\u6301\u3064\u3079\u304d\u306a\u3093\u3058\u3083\u306a\u3044\u304b\u3068\u601d\u3063\u3066\u307e\u3059\n\n<https://discord.com/channels/879570910208733277/893889888208977960/1131974735920635985>\n\n`Synthsizer`\u306f\u8a08\u7b97\u8cc7\u6e90\u3092\u5927\u304d\u304f\u5360\u6709\u3059\u308b\u305f\u3081\u3001\u4e38\u3054\u3068\u7834\u68c4\u3059\u308b\u9078\u629e\u80a2\u3092Python API\u3067\u3082\u53d6\u308c\u308b\u3088\u3046\u306b\u3057\u305f\u65b9\u304c\u3088\u3044\u3068\u601d\u3044\u307e\u3057\u305f\u3002\u307e\u305f\u6163\u7fd2\u7684\u306b\u3082\u3001`close()`\u3067\u7834\u68c4\u3067\u304d\u308b\u306e\u304c\u671f\u5f85\u3055\u308c\u308b\u53ef\u80fd\u6027\u306f\u305d\u3053\u305d\u3053\u3042\u308b\u3093\u3058\u3083\u306a\u3044\u304b\u3068\u601d\u3044\u307e\u3059\u3002\n\n\u9006\u306b`UserDict`\u3084`OpenJtalk`\u3042\u305f\u308a\u306f\u3001\u307e\u3042GC\u306b\u4efb\u305b\u3066\u3082\u3044\u3044\u306e\u304b\u306a\u3068\u601d\u3044\u307e\u3059\u3002\n\n## \u95a2\u9023 Issue\n\nref #545\n\n## \u305d\u306e\u4ed6\n\n\u3082\u3057\u304b\u3057\u305f\u3089\u5fc5\u8981\u306a\u306e\u306f`unload_all(self) -> None`\u304b\u3082\u3057\u308c\u306a\u3044...? (\u3053\u306e\u5834\u5408C API\u306b\u3082\u540c\u3058\u3082\u306e\u304c\u3042\u3063\u305f\u65b9\u304c\u3088\u3044)\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-07-30T11:20:31Z",
+                                    "bodyText": "\u500b\u4eba\u7684\u306b\u306f__enter__\u3084close()\u306e\u5b9f\u88c5\u306f\u3060\u3044\u3076\u5426\u5b9a\u7684\u3067\u3059\u3002\n\nclose()\u3067\u30e1\u30e2\u30ea\u89e3\u653e\u3059\u308b\u306e\u306fPython\u3067\u4e00\u822c\u7684\u3067\u306f\u306a\u3044\n\n\u30d3\u30eb\u30c8\u30a4\u30f3\u30e9\u30a4\u30d6\u30e9\u30ea\u3067\u305d\u3046\u3044\u3046\u306e\u3092\u3054\u5b58\u77e5\u3067\u3057\u305f\u3089\u6559\u3048\u3066\u9802\u3051\u308c\u3070 \ud83d\ude47\n\u5de8\u5927\u306a\u30e1\u30e2\u30ea\u3092\u78ba\u4fdd\u3057\u3046\u308bnumpy\u306earray\u3082\u30e1\u30e2\u30ea\u89e3\u653e\u306e\u305f\u3081\u306e\u30e1\u30bd\u30c3\u30c9\u306f\u306a\u3055\u305d\u3046\n\n\nwith\u306e\u4e00\u822c\u7684\u306a\u4f7f\u3044\u65b9\u3067\u306f\u306a\u3044\n\n\u30b3\u30f3\u30c6\u30ad\u30b9\u30c8\u30de\u30cd\u30fc\u30b8\u30e3\u306e\u4ee3\u8868\u7684\u306a\u4f7f\u3044\u65b9\u3068\u3057\u3066\u306f\u3001\u69d8\u3005\u306a\u30b0\u30ed\u30fc\u30d0\u30eb\u60c5\u5831\u306e\u4fdd\u5b58\u304a\u3088\u3073\u66f4\u65b0\u3001\u30ea\u30bd\u30fc\u30b9\u306e\u30ed\u30c3\u30af\u3068\u30a2\u30f3\u30ed\u30c3\u30af\u3001\u30d5\u30a1\u30a4\u30eb\u306e\u30aa\u30fc\u30d7\u30f3\u3068\u30af\u30ed\u30fc\u30ba\u306a\u3069\u304c\u6319\u3052\u3089\u308c\u307e\u3059\u3002\n\n\nSynthesizer\u3067with\u3092\u4f7f\u3046\u6a5f\u4f1a\u304c\u306a\u3044\n\nwith\u306f\u5c40\u6240\u7684\u306b\u6a5f\u80fd\u3092\u4f7f\u3044\u305f\u3044\u3068\u304d\u306b\u7528\u3044\u308b\u3053\u3068\u304c\u591a\u3044\u3051\u3069\u3001Synthesizer\u3092\u5c40\u6240\u7684\u306b\u4f7f\u3046\u6a5f\u4f1a\u304c\u601d\u3044\u3064\u304b\u306a\u3044\n\n\n\n\n\u3082\u3057\u304b\u3057\u305f\u3089\u5fc5\u8981\u306a\u306e\u306funload_all(self) -> None\u304b\u3082\u3057\u308c\u306a\u3044...?\n\n\u3053\u308c\u306f\u3042\u3063\u3066\u3082\u826f\u3044\u306a\u3068\u601d\u3044\u307e\u3059\uff01\n\uff11\u3064\u306eSynthesizer\u3092\u4f7f\u3044\u307e\u308f\u3057\u305f\u3044\u4eba\u3082\u3044\u305d\u3046\u3067\u3001\u305d\u306e\u5834\u5408\u306funload_all\u3057\u3066\u5225VVM\u3092load\u3059\u308b\u4f7f\u3044\u65b9\u3068\u306a\u308a\u305d\u3046\u3067\u3059\u3002",
+                                    "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#issuecomment-1657113063",
+                                    "author": {
+                                        "login": "Hiroshiba"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-30T14:55:39Z",
+                                    "bodyText": "\u307e\u305aONNX Runtime\u306esession\u306b\u6ce8\u76ee\u3059\u308b\u3068\u3001\u30e1\u30e2\u30ea\u3068\u3044\u3046\u3088\u308a\u306f\u5916\u90e8\u30ea\u30bd\u30fc\u30b9\u306b\u8fd1\u3044\u3082\u306e\u3060\u3068\u7406\u89e3\u3057\u3066\u3044\u307e\u3059 (\u300c\u8a08\u7b97\u8cc7\u6e90\u300d\u3068\u3044\u3046\u8868\u73fe\u306f\u3088\u304f\u306a\u304b\u3063\u305f\u304b\u3082\u3057\u308c\u307e\u305b\u3093)\u3002\n\u3042\u3068Python\u4ee5\u5916\u3060\u3068\u3001ONNX Runtime\u306e\u516c\u5f0fJava API\u3067\u306fSession\u306fAutoClosable\u3067\u3059\u3057\u3001\u516c\u5f0fC# API\u3067\u306fIDisposable\u3067\u3059\u3002\u3057\u304b\u3082C#\u306e\u65b9\u306f\u30d5\u30a1\u30a4\u30ca\u30e9\u30a4\u30b6\u3067\u306f\u4e2d\u8eab\u306e\u7834\u68c4\u304c\u884c\u308f\u308c\u305a\u3001\u305d\u308c\u306b\u3064\u3044\u3066\u306e\u6ce8\u610f\u66f8\u304d\u3082\u3042\u308a\u307e\u3059\u3002\n\u809d\u5fc3\u306ePython API\u306b\u306f\u305d\u306e\u3088\u3046\u306a\u3082\u306e\u306f\u3042\u308a\u307e\u305b\u3093\u304c\u3001\u305d\u308c\u4ee5\u524d\u306b__del__\u306e\u5b9f\u88c5\u3059\u3089\u7121\u3055\u305d\u3046\u306a\u306e\u3067\u3001Python API\u3060\u3068context manager\u4ee5\u524d\u306bsession\u304c\u62b1\u3048\u308b\u30ea\u30bd\u30fc\u30b9\u306e\u7834\u68c4\u306b\u3064\u3044\u3066\u4f55\u3082\u8003\u3048\u3089\u308c\u3066\u3044\u306a\u3044\u3068\u3044\u3046\u3053\u3068\u304b\u3068\u601d\u308f\u308c\u307e\u3059\u3002\n(\u3053\u308c\u3001\u56f0\u308b\u4eba\u306f\u3044\u306a\u3044\u3093\u3067\u3057\u3087\u3046\u304b...?)\n\u276f rg ReleaseSession ./onnxruntime/python/\n\u276f echo $?\n1\n\u276f rg __del__ ./onnxruntime/python/\n\u276f echo $?\n1\n\u4ee5\u4e0a\u3088\u308aSession\u306b\u3064\u3044\u3066\u306f\u3001Python\u3067\u3082(\u5e83\u7fa9\u306e)RAII\u304c\u3067\u304d\u3066\u3082\u3088\u3044\u3068\u601d\u3044\u307e\u3057\u305f\u3002\n\u305f\u3060\u3053\u308c\u306f\u3055\u3063\u304d\u6c17\u3065\u3044\u305f\u306e\u3067\u3059\u304c\u3001Synthesizer\u306b\u5bfe\u3059\u308bSession(\u3082\u3057\u304f\u306fVVM\u5358\u4f4d\u3067\u306eSession\u306e\u7d44)\u3063\u3066is-a\u3058\u3083\u306a\u3044\u3093\u3067\u3059\u3088\u306d\u3002Synthesizer\u306f\u8907\u6570\u306eSession\u3092\u305d\u306e\u4e2d\u306b\u6301\u3061\u3001\u8ffd\u52a0/\u524a\u9664\u306eI/F\u3092\u6301\u3061\u307e\u3059\u3002\n\u4f55\u3067\u4eca\u3053\u3093\u306a\u3053\u3068\u3092\u8a00\u3046\u306e\u304b\u3068\u3044\u3046\u3068\u3001Java API\u3068C# API\u306e\u9700\u8981\u304c\u3042\u308b\u304b\u3082\u3057\u308c\u306a\u3044\u3053\u3068\u3067\u305d\u308c\u3089\u306e\u5b9f\u88c5\u304c\u73fe\u5b9f\u7684\u306b\u306a\u3063\u305f\u304b\u3089\u3067\u3059\u306d\u3002\u6163\u7fd2\u306b\u53cd\u3057\u306a\u3044\u7bc4\u56f2\u306b\u304a\u3044\u3066\u306f\u3001\u5408\u308f\u305b\u308b\u306e\u304c\u3088\u3044\u306e\u3067\u306f\u306a\u3044\u304b\u3068\u601d\u3063\u3066\u3044\u307e\u3059\u3002\n@windymelt @shigobu @yamachu \u304a\u6642\u9593\u304c\u3042\u308b\u306a\u3089\u3067\u3044\u3044\u306e\u3067\u3059\u304c\u3001\u4e00\u70b9\u3054\u610f\u898b\u3092\u4f3a\u3048\u308b\u3068\u5e78\u3044\u3067\u3059\u3002Session\u304cAutoClosable/IDisposable\u3060\u3068\u3057\u3066\u3001\u305d\u308c\u3092\u675f\u306d\u3066\u8ffd\u52a0/\u524a\u9664\u306e\u64cd\u4f5c\u3092\u63d0\u4f9b\u3059\u308bSynthesizer\u3082\u305d\u3046\u3067\u3042\u308b\u3079\u304d\u3067\u3057\u3087\u3046\u304b?\n(\u8ffd\u8a18) \u91cd\u8981\u306a\u60c5\u5831\u304c\u629c\u3051\u3066\u307e\u3057\u305f\u3002Synthesizer\u306b\u306f\u30d5\u30a1\u30a4\u30eb\u30d1\u30b9\u3067Session\u306e\u8ffd\u52a0\u304c\u884c\u308f\u308c\u3001\u30e6\u30fc\u30b6\u30fc\u306fSession\u306e\u5b58\u5728\u3092\u76f4\u63a5\u8a8d\u8b58\u3057\u307e\u305b\u3093\u3002\n\n\nclose()\u3067\u30e1\u30e2\u30ea\u89e3\u653e\u3059\u308b\u306e\u306fPython\u3067\u4e00\u822c\u7684\u3067\u306f\u306a\u3044\n\ncollections.abc\u3082\u898b\u305f\u306e\u3067\u3059\u304c\u3001close()\u3068\u3044\u3046\u540d\u524d\u3063\u3066\u305d\u3093\u306a\u306b\u72ed\u3044\u610f\u5473\u3092\u6301\u3063\u3066\u307e\u3057\u305f\u3063\u3051...? \u3053\u308c\u306b\u3064\u3044\u3066\u306f\u79c1\u306e\u7d4c\u9a13\u304c\u305d\u3053\u307e\u3067\u7121\u3044\u306e\u3067\u306f\u3063\u304d\u308a\u3068\u306f\u8a00\u3048\u306a\u3044\u306e\u3067\u3059\u304c\u3002\n\n\n\nwith\u306e\u4e00\u822c\u7684\u306a\u4f7f\u3044\u65b9\u3067\u306f\u306a\u3044\n\n\u30b3\u30f3\u30c6\u30ad\u30b9\u30c8\u30de\u30cd\u30fc\u30b8\u30e3\u306e\u4ee3\u8868\u7684\u306a\u4f7f\u3044\u65b9\u3068\u3057\u3066\u306f\u3001\u69d8\u3005\u306a\u30b0\u30ed\u30fc\u30d0\u30eb\u60c5\u5831\u306e\u4fdd\u5b58\u304a\u3088\u3073\u66f4\u65b0\u3001\u30ea\u30bd\u30fc\u30b9\u306e\u30ed\u30c3\u30af\u3068\u30a2\u30f3\u30ed\u30c3\u30af\u3001\u30d5\u30a1\u30a4\u30eb\u306e\u30aa\u30fc\u30d7\u30f3\u3068\u30af\u30ed\u30fc\u30ba\u306a\u3069\u304c\u6319\u3052\u3089\u308c\u307e\u3059\u3002\n\n\n\n\n\u305d\u306e\u8aac\u660e\u3060\u3068\u3001\u5e83\u7fa9\u306eRAII\u3068\u3057\u3066\u62ec\u3063\u3066\u3088\u3044\u306e\u3067\u306f?\u3068\u3044\u3046\u6c17\u304c\u3057\u307e\u3059\u3002RAM\u3082\u62e1\u5927\u89e3\u91c8\u3059\u308c\u3070\u3001\u30ea\u30bd\u30fc\u30b9\u3068\u8a00\u3048\u308b\u3067\u3057\u3087\u3046\u3057\u3002\n\n\n\u5de8\u5927\u306a\u30e1\u30e2\u30ea\u3092\u78ba\u4fdd\u3057\u3046\u308bnumpy\u306earray\u3082\u30e1\u30e2\u30ea\u89e3\u653e\u306e\u305f\u3081\u306e\u30e1\u30bd\u30c3\u30c9\u306f\u306a\u3055\u305d\u3046\n\nNumPy\u306f\u307e\u3042\u3001\u305d\u306e\u4ed5\u7d44\u307f\u4e0a\u5bb9\u6613\u306b\u306f\u63d0\u4f9b\u3067\u304d\u306a\u3044\u3068\u3044\u3046\u3053\u3068\u3067\u306f\u306a\u3044\u3067\u3057\u3087\u3046\u304b\u3002\n\n\u3042\u3068\u4eca\u56de\u306e\u4ef6\u3067\u6539\u3081\u3066\u601d\u3063\u305f\u306e\u3067\u3059\u304c\u3001\u4eca\u306eVoiceModel\u3001\u30d5\u30a1\u30a4\u30eb\u30d1\u30b9\u3068manifest\u3068metas\u3060\u3051\u77e5\u3063\u3066\u3044\u3066\u3001\u30d5\u30a1\u30a4\u30eb\u30c7\u30a3\u30b9\u30af\u30ea\u30d7\u30bf\u3092\u62b1\u3048\u3066\u3044\u308b\u308f\u3051\u3067\u3082\u306a\u3051\u308c\u3070ONNX\u30e2\u30c7\u30eb\u306e\u4e2d\u8eab\u3092\u6301\u3063\u3066\u3044\u308b\u308f\u3051\u3067\u3082\u306a\u3044\u3093\u3067\u3059\u3088\u306d\u3002\u5f79\u5272\u304c\u3061\u3087\u3063\u3068\u4e2d\u9014\u534a\u7aef\u306a\u3088\u3046\u306b\u601d\u3048\u3066\u304d\u307e\u3057\u305f\u3002",
+                                    "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#issuecomment-1657193930",
+                                    "author": {
+                                        "login": "qryxip"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-31T00:39:41Z",
+                                    "bodyText": "\u3061\u3087\u3063\u3068\u8a00\u8a9e\u30ec\u30d9\u30eb\u306e\u8a71\u3092\u3059\u308b\u3068\u8b70\u8ad6\u304c\u5e73\u884c\u3057\u305d\u3046\u306a\u306e\u3067\u3001API\u3092\u5229\u7528\u3059\u308b\u30e6\u30fc\u30b6\u30fc\u306e\u30cb\u30fc\u30ba\u30d9\u30fc\u30b9\u3067\u8a71\u3059\u3068\u65e9\u3044\u304b\u3082\u3068\u601d\u3044\u307e\u3057\u305f\u3002\n\uff08\u305d\u3082\u305d\u3082\u30e6\u30fc\u30b6\u30fc\u306e\u30cb\u30fc\u30ba\u3092\u6e80\u305f\u3059\u305f\u3081\u306b\u30e9\u30a4\u30d6\u30e9\u30ea\u3092\u63d0\u4f9b\u3057\u3066\u3044\u308b\u306e\u3067\u3001\u305d\u306e\u76ee\u7dda\u304c\u3044\u3061\u3070\u3093\u5927\u4e8b\u306a\u306f\u305a\uff09\nunload_all\u306b\u95a2\u3057\u3066\u306f\u3001\uff11\u3064\u306eSynthesizer\u3092\u4f7f\u3044\u307e\u308f\u3057\u305f\u3044\u4eba\u306b\u3068\u3063\u3066\u4fbf\u5229\u305d\u3046\u306a\u306e\u3067\u8cdb\u6210\u3067\u3059\u3002\n\u4f8b\u3048\u3070VVM\uff11\u3064\u3060\u3051\u3092load\u3059\u308bweb\u30b5\u30fc\u30d0\u30fc\u3092\u4f5c\u308b\u5834\u5408\u3001\u3053\u3046\u3084\u3063\u3066\u4f7f\u3046\u3068\u601d\u3044\u307e\u3059\u3002\uff08\u304b\u306a\u308a\u9069\u5f53\u306a\u64ec\u4f3c\u30b3\u30fc\u30c9\u3067\u3059\uff09\nsynthesizer = Synthesizer()\n\n@POST_API\ndef set_vvm(vvm_path: str):\n  synthesizer.unload_all()\n  synthesizer.load(vvm_path)\n\n@POST_API\ndef synthesize(text: str):\n  return synthesizer.synthesis(text)\n\u3053\u306e\u30b3\u30fc\u30c9\u306fwith\u3092\u4f7f\u3063\u3066\u66f8\u3051\u306a\u3044\u3093\u3067\u3059\u3088\u306d\u3002\n\u3053\u3093\u306a\u611f\u3058\u3067\u3001Synthesizer\u3092\u30c7\u30fc\u30e2\u30f3\u306e\u4e2d\u3067\u4f7f\u3046\u4eba\u304c\u4e3b\u3060\u3068\u601d\u3063\u3066\u3044\u3066\u3001\u305d\u308c\u3068with\u304c\u76f8\u6027\u60aa\u3044\u304b\u3089\u8ab0\u3082\u4f7f\u308f\u306a\u3044\u3093\u3058\u3083\u306a\u3044\u304b\u306a\uff5e\u3068\u3044\u3046\u611f\u3058\u3067\u3059\u3002\nwith\u304c\u5fc5\u8981\u306b\u306a\u308b\u3042\u308a\u305d\u3046\u306a\u30e6\u30fc\u30b9\u30b1\u30fc\u30b9\u304c\u3042\u308c\u3070\u7d0d\u5f97\u3067\u304d\u308b\u3068\u601d\u3044\u307e\u3059\u3002\n\uff08unload_all\u306f\u8cdb\u6210\u3067\u3059\uff01\uff01\uff01\uff01\uff09\n\n(\u3053\u308c\u3001\u56f0\u308b\u4eba\u306f\u3044\u306a\u3044\u3093\u3067\u3057\u3087\u3046\u304b...?)\n\n\u5c11\u306a\u304f\u3068\u3082\u30e1\u30e2\u30ea\u30fc\u30ea\u30fc\u30af\u3057\u306a\u3044\u306e\u3067\u3042\u308c\u3070\u3001\u307e\u3042\u56f0\u308b\u3053\u3068\u306f\u307b\u307c\u306a\u3044\u3060\u308d\u3046\u306a\u3068\u601d\u3044\u307e\u3057\u305f\u3002\n\u3082\u3057GC\u306e\u30bf\u30a4\u30df\u30f3\u30b0\u304c\u554f\u984c\u3067\u30e1\u30e2\u30ea\u30a8\u30e9\u30fc\u3092\u8d77\u3053\u3059\u306e\u3067\u3042\u308c\u3070\u3001\u30e1\u30e2\u30ea\u5897\u5f37\u3059\u308b\u3068\u601d\u3044\u307e\u3059 \ud83d\ude07",
+                                    "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#issuecomment-1657330271",
+                                    "author": {
+                                        "login": "Hiroshiba"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-31T15:40:18Z",
+                                    "bodyText": "\u30e6\u30fc\u30b9\u30b1\u30fc\u30b9\n\nJupyter\u3068\u304bColab\u3067synthesizer\u3092\u898b\u5931\u308f\u306a\u3044\u3088\u3046\u306b\u3068\u304b...? \u3042\u3068\u306f\u5229\u7528\u983b\u5ea6\u304c\u4f4e\u3044\u3068\u8003\u3048\u3089\u308c\u308b\u58f0\u3092\u518d\u751f\u3059\u308b\u969b\u3001\u4e00\u56de\u9650\u308a\u306eSynthesizer\u3092\u4f5c\u3063\u305f\u308a\u3059\u308b\u30b1\u30fc\u30b9\u304c\u3082\u3057\u304b\u3057\u305f\u3089\u3042\u308b\u304b\u3082\u3057\u308c\u307e\u305b\u3093\u3002\nwith await Synthesizer.new_with_initialize(open_jtalk) as synthesizer:\n    await synthesizer.load_voice_model(vvm)\n    aq = await synthesizer.audio_query(\"\u3053\u3093\u306b\u3061\u306f\", 0)\n    wav = await synthesizer.synthesis(aq, 0)\n\n    IPython.display.Audio(wav)\n\n\n\u3082\u3057GC\u306e\u30bf\u30a4\u30df\u30f3\u30b0\u304c\u554f\u984c\u3067\u30e1\u30e2\u30ea\u30a8\u30e9\u30fc\u3092\u8d77\u3053\u3059\u306e\u3067\u3042\u308c\u3070\u3001\u30e1\u30e2\u30ea\u5897\u5f37\u3059\u308b\u3068\u601d\u3044\u307e\u3059 \ud83d\ude07\n\n...VRAM\u3092\u3067\u3059\u304b? \u305d\u308c\u306f\u5c11\u3057\u3070\u304b\u308a\u30cf\u30fc\u30c9\u30eb\u304c\u9ad8\u3044\u3088\u3046\u306a...",
+                                    "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#issuecomment-1658622873",
+                                    "author": {
+                                        "login": "qryxip"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-31T19:47:27Z",
+                                    "bodyText": "Jupyter\u3068\u304bColab\u3067synthesizer\u3092\u898b\u5931\u308f\u306a\u3044\u3088\u3046\u306b\u3068\u304b...? \u3042\u3068\u306f\u5229\u7528\u983b\u5ea6\u304c\u4f4e\u3044\u3068\u8003\u3048\u3089\u308c\u308b\u58f0\u3092\u518d\u751f\u3059\u308b\u969b\u3001\u4e00\u56de\u9650\u308a\u306eSynthesizer\u3092\u4f5c\u3063\u305f\u308a\u3059\u308b\u30b1\u30fc\u30b9\u304c\u3082\u3057\u304b\u3057\u305f\u3089\u3042\u308b\u304b\u3082\u3057\u308c\u307e\u305b\u3093\u3002\n\n\u3042\u30fc\u3000API\u3092\u5229\u7528\u3059\u308b\u30e6\u30fc\u30b6\u30fc\u306e\u30cb\u30fc\u30ba\u30d9\u30fc\u30b9\u306a\u306e\u3067\u3001\u30e6\u30fc\u30b6\u30fc\u304c\u4f55\u306e\u4f5c\u696d\u3092\u3057\u3066\u3044\u308b\u3068\u304d\u306b\u305d\u306e\u30b3\u30fc\u30c9\u3092\u66f8\u304f\u306e\u304b\u306e\u30e6\u30fc\u30b9\u30b1\u30fc\u30b9\u304c\u77e5\u308a\u305f\u3044\u611f\u3058\u3067\u3057\u305f\u3002\u300cWeb API\u30b5\u30fc\u30d0\u30fc\u3092\u4f5c\u308b\u3068\u304d\u300d\u3068\u304b\u3002\n\n...VRAM\u3092\u3067\u3059\u304b? \u305d\u308c\u306f\u5c11\u3057\u3070\u304b\u308a\u30cf\u30fc\u30c9\u30eb\u304c\u9ad8\u3044\u3088\u3046\u306a...\n\n\u666e\u901a\u306e\u30e1\u30e2\u30ea\u3092\u60f3\u50cf\u3057\u3066\u307e\u3057\u305f\u3002\u307e\u3042\u3068\u3082\u304b\u304f\u30e6\u30fc\u30b9\u30b1\u30fc\u30b9\u304b\u306a\u3068\uff01\uff01\n\n\n\u30e6\u30fc\u30b9\u30b1\u30fc\u30b9\u3092\u8b70\u8ad6\u3057\u3066with\u3092\u5b9f\u88c5\n\u30c6\u30b9\u30c8\u5b9f\u88c5\u3057\u3066with\u3092\u5b9f\u88c5\nunload_all\u3060\u3051\u3092\u5b9f\u88c5\n\n\u3069\u308c\u3067\u3082OK\u3067\u3059\uff01\n\uff12\u304b\uff13\u306a\u3089\u30e6\u30fc\u30b9\u30b1\u30fc\u30b9\u306e\u8b70\u8ad6\u306f\u30d1\u30b9\u3067\u304d\u308b\u3068\u601d\u3044\u307e\u3059\u3002",
+                                    "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#issuecomment-1659031442",
+                                    "author": {
+                                        "login": "Hiroshiba"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-09T16:37:03Z",
+                                    "bodyText": "Merge branch 'main' into HEAD\n\u6319\u52d5\u3092IOBase\u306e\u3088\u3046\u306b\u3059\u308b (10c468b (#555))\ndef __exit__\u306b\u3001-> None\u3092\u660e\u793a( 068f635 (#555))",
+                                    "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#issuecomment-1671769537",
+                                    "author": {
+                                        "login": "qryxip"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-09T16:40:16Z",
+                                    "bodyText": "\u306a\u3093\u304b\u540d\u7121\u3057\u3002\u3055\u3093\u306eJava\u3082\u3061\u3085\u3046\u3053\u3055\u3093\u306eC#\u3082\u3001\"closable\"\u306b\u3059\u308b\u65b9\u5411\u306b\u306a\u3063\u3066\u3044\u308b...?",
+                                    "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#issuecomment-1671775420",
+                                    "author": {
+                                        "login": "qryxip"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-09T22:42:42Z",
+                                    "bodyText": "\u5185\u90e8\u3067Rust\u306e\u578b\u3092\u6301\u3064\u305f\u3081\u306bJNIEnv.set_rust_field\u3092\u4f7f\u3063\u3066\u3044\u308b\u3093\u3067\u3059\u3051\u3069\u3001\u3053\u308c\u306ftake_rust_field\u3092\u547c\u3070\u306a\u3044\u3068\u30e1\u30e2\u30ea\u30ea\u30fc\u30af\u3059\u308b\u3093\u3067\u3059\u3088\u306d\u3002Safety\u306b\u300cAutoClosable\u3068\u304b\u3092\u5b9f\u88c5\u3057\u3066\u3001close\u3055\u308c\u308b\u3053\u3068\u3092\u4fdd\u8a3c\u3059\u3079\u304d\u300d\u3068\u66f8\u304b\u308c\u3066\u3044\u308b\u306e\u3067close\u3092\u8ffd\u52a0\u3057\u307e\u3057\u305f\u3002\uff08finalizer\u3082\u3042\u3063\u305f\u3089\u3057\u3044\u3093\u3067\u3059\u3051\u3069Java9\u304b\u3089\u975e\u63a8\u5968\u306b\u306a\u3063\u3066\u308b\u306e\u3067\uff09",
+                                    "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#issuecomment-1672275884",
+                                    "author": {
+                                        "login": "sevenc-nanashi"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-10T15:00:33Z",
+                                    "bodyText": "@sevenc-nanashi\nJava API\u3063\u3066\u78ba\u304bJava8\u5411\u3051\u3067\u3059\u3088\u306d\u3002\u3060\u3068\u3059\u308b\u3068finalizer\u3067\u3082\u3088\u3055\u305d\u3046\u306a\u6c17\u304c\u3057\u307e\u3059\u3002\n(Java9\u3067\u3082\u30c7\u30b9\u30c8\u30e9\u30af\u30bf\u306e\u63d0\u4f9b\u81ea\u4f53\u304c\u975e\u63a8\u5968\u306b\u306a\u3063\u305f\u308f\u3051\u3067\u306f\u306a\u304f\u3001\u4ed5\u7d44\u307f\u304c\u5909\u308f\u3063\u305f\u3060\u3051\u3060\u3068\u601d\u3046\u306e\u3067)",
+                                    "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#issuecomment-1673395324",
+                                    "author": {
+                                        "login": "qryxip"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-12T15:31:33Z",
+                                    "bodyText": "Merge branch 'main' into HEAD\n\n#571\n#573\n#574\n#575\n\n\n\u7c21\u5358\u306a\u30c6\u30b9\u30c8\u3092\u8ffd\u52a0 (1e5f590 (#555))",
+                                    "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#issuecomment-1675966073",
+                                    "author": {
+                                        "login": "qryxip"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-12T15:38:49Z",
+                                    "bodyText": "\u2191\u306e\u30c6\u30b9\u30c8\u306e\u66f4\u65b0 (244acb6 (#555))",
+                                    "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#issuecomment-1675968046",
+                                    "author": {
+                                        "login": "qryxip"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-12T15:53:30Z",
+                                    "bodyText": "\u2191\u306e\u30c6\u30b9\u30c8\u306e\u66f4\u65b0(OpenJtalk\u3092fixture\u306b) (47f5388 (#555))",
+                                    "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#issuecomment-1675973758",
+                                    "author": {
+                                        "login": "qryxip"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-12T22:56:42Z",
+                                    "bodyText": "Java API\u3063\u3066\u78ba\u304bJava8\u5411\u3051\u3067\u3059\u3088\u306d\u3002\u3060\u3068\u3059\u308b\u3068finalizer\u3067\u3082\u3088\u3055\u305d\u3046\u306a\u6c17\u304c\u3057\u307e\u3059\u3002\n\n\u78ba\u304b\u306b\u3002",
+                                    "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#issuecomment-1676135081",
+                                    "author": {
+                                        "login": "sevenc-nanashi"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-13T01:26:50Z",
+                                    "bodyText": "Synthesizer\u3082fixture\u306b (2f557f3 (#555))",
+                                    "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#issuecomment-1676175556",
+                                    "author": {
+                                        "login": "qryxip"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-15T16:27:13Z",
+                                    "bodyText": "\u30de\u30fc\u30b8\u3057\u307e\u3059\uff01",
+                                    "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#issuecomment-1679254291",
+                                    "author": {
+                                        "login": "Hiroshiba"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "\u307e\u3042\u3067\u3082\u3001\u30ea\u30bd\u30fc\u30b9\u3092\u5168\u90e8\u30ad\u30ec\u30a4\u306b\u6383\u9664\u3057\u305f\u3044\u3068\u3044\u3046\u9700\u8981\u304cPython\u30e6\u30fc\u30b6\u30fc\u306b\u7d76\u5bfe\u306a\u3044\u304b\u3068\u3044\u3046\u3068\u3001\u305d\u3093\u306a\u3053\u3068\u306f\u7121\u3044\u3068\u601d\u3044\u307e\u3059\u3002\n\u5225\u306b\u91cd\u3044\u5b9f\u88c5\u3067\u3082\u306a\u3044\uff08\u30e1\u30f3\u30c6\u30ca\u30f3\u30b9\u30b3\u30b9\u30c8\u304c\u9ad8\u3044\u8a33\u3067\u306f\u7121\u3044\uff09\u306e\u3067\u3001\u3042\u3068\u306f\u30c6\u30b9\u30c8\u304c\u3042\u308c\u3070\u826f\u3044\u304b\u306a\uff5e\u3068\u601d\u3044\u307e\u3057\u305f\uff65\uff65\uff65\uff01\uff01",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "\u30c6\u30b9\u30c8\u306e\u5b9f\u88c5\u3060\u3051\u304a\u9858\u3044\u3057\u307e\u3059 \ud83d\ude47\ne2e\u30c6\u30b9\u30c8\u3067\u3001with\u3057\u305f\u3042\u3068\u306bclose\u3055\u308c\u3066\u3044\u308b\u3079\u304d\u30ea\u30bd\u30fc\u30b9\u306b\u30a2\u30af\u30bb\u30b9\u3067\u304d\u306a\u3044\u3001\u307f\u305f\u3044\u306a\u611f\u3058\u306e\u30c6\u30b9\u30c8\u3067\u3082\u3044\u3044\u306e\u304b\u306a\u3068\u3002\n\uff08with\u304c\u4f7f\u3048\u308b\u3053\u3068\u306e\u6b63\u5e38\u7cfb\u30c6\u30b9\u30c8\u3092\u3084\u3063\u3068\u304d\u305f\u3044\u611f\u3058\u3067\u3059\uff01\uff09\n\u3061\u306a\u307f\u306bwith\u3092\uff12\u56de\u547c\u3079\u306a\u3044\u3053\u3068\u306b\u95a2\u3057\u3066\u3001Python\u306f\u305d\u308c\u304c\u3069\u3061\u3089\u304b\u3068\u3044\u3046\u3068\u666e\u901a\u307f\u305f\u3044\u306a\u611f\u3058\u3067\u3057\u305f\uff01\nhttps://docs.python.org/ja/3/library/contextlib.html#single-use-reusable-and-reentrant-context-managers",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM\uff01\uff01\uff01\n\u8abf\u6574\u3042\u308a\u304c\u3068\u3046\u3054\u3056\u3044\u307e\u3059\uff01\uff01\u660e\u78ba\u3067\u7dba\u9e97\u306a\u30c6\u30b9\u30c8\u306b\u611f\u3058\u307e\u3057\u305f\u3002\n\u30b3\u30e1\u30f3\u30c8\u3044\u305f\u3060\u3051\u308c\u3070\u30de\u30fc\u30b8\u3057\u305f\u3044\u3068\u601d\u3044\u307e\u3059\u3002",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3053\u306e\u30c6\u30b9\u30c8\u306e\u76ee\u6a19\u3092\u66f8\u3044\u3066\u304a\u3044\u3066\u3082\u3044\u3044\u304b\u3082\uff1f\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            import conftest\n          \n          \n            \n            \"\"\"\n          \n          \n            \n            Synthesizer\u3092with\u3067\u4f7f\u3063\u305f\u308aclose\u3057\u305f\u308a\u306e\u30c6\u30b9\u30c8\n          \n          \n            \n            \"\"\"\n          \n          \n            \n            \n          \n          \n            \n            import conftest\n          \n      \n    \n    \n  \n\n\uff08\u3067\u3082\u7d50\u69cb\u81ea\u660e\u306a\u306e\u3067\u306a\u304f\u3066\u3082\u3044\u3044\u304b\u3082\uff09",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#discussion_r1293846816",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2f557f3",
+                                                            "authoredDate": "2023-08-13T01:26:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3088\u304f\u308f\u304b\u3063\u3066\u306a\u3044\u3093\u3067\u3059\u304c\u3001\u3053\u306e\u8fba\u306e\u5b9f\u88c5\u306f\u307b\u304b\u8a00\u8a9e\u3067\u3082\u4f7f\u3044\u56de\u305b\u308b\u304b\u3082\u3067\u3059\u304b\u306d\uff01",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#discussion_r1293849362",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2f557f3",
+                                                            "authoredDate": "2023-08-13T01:26:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3061\u3087\u3063\u3068\u5f8c\u5b66\u306e\u305f\u3081\u306b\u77e5\u308a\u305f\u3044\u306e\u3067\u3059\u304c\u3001\u3053\u3053\u306a\u3093\u3067Mutex\u304c\u4e0d\u8981\u306b\u3067\u304d\u305f\u3093\u3067\u3057\u3087\u3046\uff65\uff65\uff65\uff1f",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#discussion_r1293849990",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2f557f3",
+                                                            "authoredDate": "2023-08-13T01:26:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u5909\u66f4\u5f8c\u306esynthesizer\u306e\u578b\u304cMutex<voicevox_core::Synthesizer>\u3060\u304b\u3089\u3067\u3059\u306d... #553 \u304c\u30de\u30fc\u30b8\u3055\u308c\u308c\u3070\u3053\u306eMutex\u3082\u4e0d\u8981\u306b\u306a\u308b\u306f\u305a\u3067\u3059\u306d\u3002\n(\u3061\u306a\u307f\u306b\u3067\u3059\u304cClosable\u306e\u65b9\u306bMutex\u304c\u8981\u3089\u306a\u3044\u306e\u306f\u3001PyO3\u304cGIL\u3092\u524d\u63d0\u306bself\u3092\u5c02\u6709\u3055\u305b\u3066\u304f\u308c\u308b\u304b\u3089\u3067\u3059\u306d)",
+                                                        "author": {
+                                                            "login": "qryxip"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#discussion_r1294141265",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2f557f3",
+                                                            "authoredDate": "2023-08-13T01:26:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "/crates/voicevox_core_interop_utils\u3092\u8ffd\u52a0\u3059\u308b\u5f62\u3067\u3059\u304b\u306d...? \u3044\u3044\u3068\u601d\u3044\u307e\u3059\u3002",
+                                                        "author": {
+                                                            "login": "qryxip"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#discussion_r1294142359",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2f557f3",
+                                                            "authoredDate": "2023-08-13T01:26:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u30d5\u30a1\u30a4\u30eb\u540d\u306b\u5408\u308f\u305b\u3066\u3053\u3046\u3057\u307e\u3057\u305f\u3002\naf52951 (#555)\n\"\"\"\n``Synthesizer`` \u306b\u3064\u3044\u3066\u3001(\u5e83\u7fa9\u306e)RAII\u304c\u3067\u304d\u308b\u3053\u3068\u3092\u30c6\u30b9\u30c8\u3059\u308b\u3002\n\"\"\"\n\u3061\u306a\u307f\u306b\u3053\u308c\u3092RAII\u3068\u547c\u3076\u3053\u3068\u306b\u3064\u3044\u3066\u306f\u3001ChatGPT\u306b\u805e\u3044\u3066\u307f\u307e\u3057\u305f\u304c\u53cd\u5bfe\u306f\u3055\u308c\u307e\u305b\u3093\u3067\u3057\u305f\u3002\nhttps://chat.openai.com/share/5b141624-2b16-4a78-9c48-5f6ba67c62e2",
+                                                        "author": {
+                                                            "login": "qryxip"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#discussion_r1294151838",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2f557f3",
+                                                            "authoredDate": "2023-08-13T01:26:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u5185\u90e8\u306e\u958b\u767a\u8005\u5411\u3051\u3060\u3063\u305f\u3089\u307e\u3042\u3042\u308b\u7a0b\u5ea6\u5c02\u9580\u7684\u306a\u7528\u8a9e\u3092\u4f7f\u3063\u3061\u3083\u3046\u306e\u306f\u5225\u306b\u3044\u3044\u6c17\u304c\u3057\u307e\u3059\uff01",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#discussion_r1294844551",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2f557f3",
+                                                            "authoredDate": "2023-08-13T01:26:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3061\u3087\u3063\u3068\u5b8c\u74a7\u306b\u306f\u7406\u89e3\u3067\u304d\u3066\u3044\u306a\u3044\u306e\u3067\u3059\u304c\u3001\u4e00\u65e6\u306a\u308b\u307b\u3069\u3067\u3059\uff01",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox_core/pull/555#discussion_r1294846096",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2f557f3",
+                                                            "authoredDate": "2023-08-13T01:26:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

@@ -1,0 +1,1057 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 259,
+                        "title": "Updated to include webhook subscription",
+                        "repository": {
+                            "nameWithOwner": "Altinn/altinn-broker",
+                            "primaryLanguage": {
+                                "name": "C#"
+                            }
+                        },
+                        "createdAt": "2024-01-08T10:32:13Z",
+                        "mergedAt": "2024-01-08T13:55:17Z",
+                        "url": "https://github.com/Altinn/altinn-broker/pull/259",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "tomshag"
+                        },
+                        "editor": null,
+                        "body": "Updated Webhook for malware scanning to include handling of subscription.\r\n\r\n## Description\r\nThe existing webhook functionality only handled the actual update of file status based on malware scan result.\r\nThis update will handle subscription requests so that Azure can actually connect to the webhook.\r\n\r\n## Related Issue(s)\r\n- #220\r\n\r\n## Verification\r\n- [x] **Your** code builds clean without any errors or warnings\r\n- [x] Manual testing done (required)\r\n- [x] Relevant automated test added (if you find this hard, leave it and we'll help out)\r\n- [x] All tests run green\r\n\r\n## Documentation\r\n- [x] User documentation is updated with a separate linked PR in [altinn-studio-docs.](https://github.com/Altinn/altinn-studio-docs) (if applicable)\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Jeg tror denne kan skrives som:\nstring jsonBody = File.ReadAllText(\"Data/WebHookSubscriptionValidationTest.json\");\nMen WebHookSubscriptionValidationTest.json m\u00e5 settes til \u00e5 v\u00e6re en Content-ressurs med \"Copy if newer\" (eller always).",
+                                                        "author": {
+                                                            "login": "Ceredron"
+                                                        },
+                                                        "url": "https://github.com/Altinn/altinn-broker/pull/259#discussion_r1444506661",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b294083",
+                                                            "authoredDate": "2024-01-08T10:27:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ref:\nhttps://chat.openai.com/share/b7853f70-84b8-477b-9879-a93a51215f81",
+                                                        "author": {
+                                                            "login": "Ceredron"
+                                                        },
+                                                        "url": "https://github.com/Altinn/altinn-broker/pull/259#discussion_r1444508795",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b294083",
+                                                            "authoredDate": "2024-01-08T10:27:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Nyeste commit skal ordne det.\nBasert p\u00e5 det jeg husker fra Visual Studio er det best \u00e5 alltid bruke CopyIfNewer; dersom du alltid kopierer vil dette kunne kreve at du gj\u00f8r bygg av prosjektet og dermed alle avhengige prosjekter hver gang du gj\u00f8r bygg av solution selv om ingenting er endret av kode eller fil.",
+                                                        "author": {
+                                                            "login": "tomshag"
+                                                        },
+                                                        "url": "https://github.com/Altinn/altinn-broker/pull/259#discussion_r1444566699",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b294083",
+                                                            "authoredDate": "2024-01-08T10:27:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 338,
+                        "title": "[Service] NIT followups to `AddService` in #316",
+                        "repository": {
+                            "nameWithOwner": "pokt-network/poktroll",
+                            "primaryLanguage": {
+                                "name": "Go"
+                            }
+                        },
+                        "createdAt": "2024-01-19T16:29:19Z",
+                        "mergedAt": "2024-01-19T21:41:23Z",
+                        "url": "https://github.com/pokt-network/poktroll/pull/338",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Olshansk"
+                        },
+                        "editor": null,
+                        "body": "## Summary\r\n\r\nNIT followups to #316 added in a separate PR to avoid blocking the base PR.\r\n\r\n## Type of change\r\n\r\nSelect one or more:\r\n\r\n- [ ] New feature, functionality or library\r\n- [ ] Bug fix\r\n- [x] Code health or cleanup\r\n- [ ] Documentation\r\n- [ ] Other (specify)\r\n\r\n## Testing\r\n\r\n- [ ] **Run all unit tests**: `make go_develop_and_test`\r\n- [ ] **Run E2E tests locally**: `make test_e2e`\r\n- [ ] **Run E2E tests on DevNet**: Add the `devnet-test-e2e` label to the PR. This is VERY expensive, only do it after all the reviews are complete.\r\n\r\n## Sanity Checklist\r\n\r\n- [ ] I have tested my changes using the available tooling\r\n- [ ] I have performed a self-review of my own code\r\n- [ ] I have commented my code, updated documentation and left TODOs throughout the codebase\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Left a few nits on imports but gunna approve please fix then merge <3",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "NIT: These should be in the second block",
+                                                        "author": {
+                                                            "login": "h5law"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/338#discussion_r1459422117",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3e842b",
+                                                            "authoredDate": "2024-01-19T16:32:17Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "NIT: Move this back to second block.",
+                                                        "author": {
+                                                            "login": "h5law"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/338#discussion_r1459422986",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3e842b",
+                                                            "authoredDate": "2024-01-19T16:32:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Do you have any idea why this doesn't format it correctly?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/338#discussion_r1459666500",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3e842b",
+                                                            "authoredDate": "2024-01-19T16:32:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://github.com/incu6us/goimports-reviser\nhttps://github.com/golang/vscode-go/wiki/features#format-and-organize-imports\nhttps://github.com/golang/vscode-go/wiki/advanced#formatting-code-and-organizing-imports\n\n  \n    \n      poktroll/.golangci.yml\n    \n    \n         Line 30\n      in\n      943669e\n    \n  \n  \n    \n\n        \n          \n           gci: \n        \n    \n  \n\n\nThese links should help, I don't know exactly as I don't use vscode - but the last code reference to my linting PR should help as a reference on the 2nd link.",
+                                                        "author": {
+                                                            "login": "h5law"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/338#discussion_r1459703230",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3e842b",
+                                                            "authoredDate": "2024-01-19T16:32:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "goimports != goimports-reviser you want a final group which is prefixed with our repo name. Pretty sure there is a goimports-reviser plugin maybe for vscode but whatever way you find to make it work - document it somewhere so we can make a configs section",
+                                                        "author": {
+                                                            "login": "h5law"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/338#discussion_r1459706335",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3e842b",
+                                                            "authoredDate": "2024-01-19T16:32:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://chat.openai.com/share/d2590505-31e2-4e34-be93-8e4fabf8d872 @Olshansk this should do it ;)",
+                                                        "author": {
+                                                            "login": "h5law"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/338#discussion_r1459717523",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3e842b",
+                                                            "authoredDate": "2024-01-19T16:32:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "incu6us/goimports-reviser#147 \ud83e\udd37",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/338#discussion_r1459914701",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3e842b",
+                                                            "authoredDate": "2024-01-19T16:32:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 9209,
+                        "title": "Add debugging to user settings page",
+                        "repository": {
+                            "nameWithOwner": "PrairieLearn/PrairieLearn",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2024-01-04T14:39:45Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/PrairieLearn/PrairieLearn/pull/9209",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "trombonekenny"
+                        },
+                        "editor": null,
+                        "body": "It would be helpful to have an endpoint in PL that showed what data we received from the authentication provider. This wouldn't be an everyday requirement, but might help us quickly troubleshoot SSO setup with institution admins.\r\n\r\nThe User Settings page seemed like a reasonable place to display some additional authn information. This PR adds a \"?debug\" query flag to the page to enable embedding more information. There is a toggle for this mode at the bottom of the page -- if we want this functionality to be more hidden, we can remove the visible link to debug mode.\r\n\r\nRight now it only shows LTI 1.3 authentication data from the session. That still needs to be saved there; either in this PR or a different one.",
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 2272,
+                        "title": "Keep updates and messages in outbox until client is connected",
+                        "repository": {
+                            "nameWithOwner": "zauberzeug/nicegui",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2024-01-01T20:21:16Z",
+                        "mergedAt": "2024-01-05T14:13:56Z",
+                        "url": "https://github.com/zauberzeug/nicegui/pull/2272",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "falkoschindler"
+                        },
+                        "editor": {
+                            "login": "falkoschindler"
+                        },
+                        "body": "This PR is trying to delay updates and messages in case the corresponding client is not yet connected. This will solve problems like this:\r\n\r\n```py\r\n@ui.page('/')\r\ndef page():\r\n    label = ui.label('Hello world!')\r\n\r\n    async def update():\r\n        label.text = 'Hello again!'  # problem 1\r\n        with label:\r\n            ui.run_javascript('alert(\"Hello from JavaScript!\")')  # problem 2\r\n    background_tasks.create(update())\r\n```\r\n\r\nBecause element updates and other messages are kept in separate queues, there are basically two distinct problems. Messages are already solved, updates are still work in progress.",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "I think it would be better to have one loop for each client. Otherwise a blocking client.outbox.send() from one client will affect all the others. Even though a sio.emit() does not wait for a response object from the other side, it still can take time. See my inquiry with ChatGPT: https://chat.openai.com/share/266efdfa-5002-4670-abc5-e9941e437cf0",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Wonderful \ud83e\udd42",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 3,
+                        "title": "Type call function data and response",
+                        "repository": {
+                            "nameWithOwner": "davestewart/extension-bus",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2024-01-16T13:40:34Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/davestewart/extension-bus/pull/3",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "davestewart"
+                        },
+                        "editor": {
+                            "login": "davestewart"
+                        },
+                        "body": "This PR types the `call()` function `data` and `response`:\r\n\r\n```ts\r\n// background\r\nimport { makeBus } from '../src'\r\n\r\nimport Tab = chrome.tabs.Tab\r\n\r\nconst bus = makeBus('content', {\r\n  handlers: {\r\n    tabs: {\r\n      get ({ id }): Promise<Tab> {\r\n        return chrome.tabs.get(id)\r\n      }\r\n    }\r\n  }\r\n})\r\n```\r\n```ts\r\n// some other process\r\n\r\n// existing bus\r\nbus.call<Tab, { id: number }>('tabs/get', { id: 1 }).then(tab => {\r\n  if (tab) {\r\n    console.log(tab.url)\r\n  }\r\n})\r\n```\r\n\r\nThis PR doesn't intend to provide any type safety between the handlers and the call, but allows a user to type the call parameters / return itself.\r\n\r\n@oliverdunk - does this answer your request?",
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 290,
+                        "title": "Create mouse_from_analog.lua",
+                        "repository": {
+                            "nameWithOwner": "letoram/arcan",
+                            "primaryLanguage": {
+                                "name": "C"
+                            }
+                        },
+                        "createdAt": "2023-11-28T20:57:54Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/letoram/arcan/pull/290",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "ingenieroariel"
+                        },
+                        "editor": null,
+                        "body": "Background:\r\nIn some cases like Apple touchpads or inside VMs, mice input is not recognized properly, this hook turns an analog device into a mouse signal. Adapt to your needs.\r\n\r\nUsage:\r\narcan -H hooks/mouse_from_analog.lua <appl>\r\n\r\nI assign any copyright I may have for this changes to letoram.\r\n\r\nProvenance: \r\nhttps://chat.openai.com/share/60c5f152-dd21-41db-9abc-7de49b8363a6",
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 29,
+                        "title": "ODY-334  Iput\u306b\u5358\u4f4d\u3092\u3064\u3051\u308b\u3001ODY-335  \u30a4\u30f3\u30b9\u30c8\u30fc\u30eb\u30a2\u30a4\u30b3\u30f3\u306e\u4f4d\u7f6e\u4fee\u6b63",
+                        "repository": {
+                            "nameWithOwner": "daydule/odyssey-frontend",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2024-01-27T08:31:21Z",
+                        "mergedAt": "2024-02-10T04:40:05Z",
+                        "url": "https://github.com/daydule/odyssey-frontend/pull/29",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Mellbrother"
+                        },
+                        "editor": {
+                            "login": "tom-takeru"
+                        },
+                        "body": "# \u4e8b\u524d\u78ba\u8a8d(\u5171\u901a)\r\n\r\n- [x] PR \u524d\u306b\u52d5\u4f5c\u78ba\u8a8d\u3092\u3057\u305f\u304b\r\n- [x] \u30d3\u30eb\u30c9\u30a8\u30e9\u30fc/ESLint \u30a8\u30e9\u30fc\u306f\u8d77\u304d\u3066\u3044\u306a\u3044\u304b\r\n- [x] [\u958b\u767a\u30eb\u30fc\u30eb](https://daydule.atlassian.net/wiki/spaces/DAYDULE/pages/9765029)\u3092\u5b88\u3063\u3066\u5b9f\u88c5\u3057\u3066\u3044\u308b\u304b\r\n- [x] \u5358\u4f53\u30c6\u30b9\u30c8\u304c\u5168\u3066 OK \u306b\u306a\u3063\u3066\u3044\u308b\u304b\uff08\u73fe\u72b6\u306f\u30d5\u30ed\u30f3\u30c8\u30a8\u30f3\u30c9\u306e\u5358\u4f53\u30c6\u30b9\u30c8\u3092\u5b9f\u884c\u3067\u304d\u3066\u3044\u306a\u3044\u305f\u3081\uff09\r\n- [x] \u6a5f\u5bc6\u60c5\u5831\u3092\u542b\u3093\u3067\u3044\u306a\u3044\u304b\r\n- [x] \u6700\u65b0\u306e`develop`\u30d6\u30e9\u30f3\u30c1\u3092\u53cd\u6620\u3057\u3066\u3044\u308b\u304b\r\n\r\n# \u30ec\u30d3\u30e5\u30fc\u512a\u5148\u5ea6\uff08\u3069\u308c\u304b\u4e00\u3064\uff09\r\n\r\n- [ ] \u3059\u3050\u898b\u3066\u3082\u3089\u3044\u305f\u3044\r\n- [x] 3 \u65e5\u304f\u3089\u3044\u3067\u898b\u3066\u3082\u3089\u3044\u305f\u3044\r\n- [ ] 7 \u65e5\u304f\u3089\u3044\u3067\u898b\u3066\u3082\u3089\u3044\u305f\u3044\r\n\r\n# \u30ec\u30d3\u30e5\u30fc\u306e\u5ea6\u5408\u3044\r\n\r\n- [ ] \u30b3\u30fc\u30c9\u3092\u3071\u3063\u3068\u78ba\u8a8d\u3057\u3066\u3082\u3089\u3044\u305f\u3044\r\n- [x] \u30b3\u30fc\u30c9\u3092\u3071\u3063\u3068\u78ba\u8a8d & \u52d5\u4f5c\u78ba\u8a8d\u3057\u3066\u3082\u3089\u3044\u305f\u3044\r\n- [ ] \u30b3\u30fc\u30c9\u3092\u3057\u3063\u304b\u308a\u78ba\u8a8d & \u52d5\u4f5c\u78ba\u8a8d\u3057\u3066\u3082\u3089\u3044\u305f\u3044\r\n\r\n# \u30ec\u30d3\u30e5\u30ef\u30fc\u306b\u3088\u308b\u52d5\u4f5c\u78ba\u8a8d\r\n\r\n- [x] @tom-takeru \r\n- [ ] @atoook \r\n- [ ] @kzk27 \r\n\r\n# \u3084\u3063\u305f\u3053\u3068<!-- \u3053\u306e\u30d7\u30eb\u30ea\u30af\u30a8\u30b9\u30c8\u3067\u3084\u3063\u305f\u3053\u3068\u3092\u66f8\u304f -->\r\n\r\n- input\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\u306b\u5358\u4f4d\u8ffd\u52a0\r\n- \u30d5\u30c3\u30bf\u30fc\u8ffd\u52a0\r\n- \u30a2\u30d7\u30ea\u30a4\u30f3\u30b9\u30c8\u30fc\u30eb\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\u306e\u4f4d\u7f6e\u5909\u66f4\r\n\r\n# \u3084\u3089\u306a\u3044\u3053\u3068<!-- \u3053\u306e\u30d7\u30eb\u30ea\u30af\u30a8\u30b9\u30c8\u3067\u3084\u3063\u3066\u3082\u304a\u304b\u3057\u304f\u306a\u3044\u3051\u3069\u3084\u3089\u306a\u304b\u3063\u305f\u3053\u3068\u3092\u66f8\u304f -->\r\n\r\n\u7279\u306b\u306a\u3057\r\n\r\n# \u61f8\u5ff5\u70b9\u3084\u6ce8\u610f\u70b9<!-- \u3053\u306e\u30d7\u30eb\u30ea\u30af\u30a8\u30b9\u30c8\u306b\u304a\u3051\u308b\u61f8\u5ff5\u70b9\u3084\u6ce8\u610f\u70b9\u3092\u66f8\u304f -->\r\n\r\n\u7279\u306b\u306a\u3057\r\n\r\n# \u305d\u306e\u4ed6<!-- \u3053\u306e\u30d7\u30eb\u30ea\u30af\u30a8\u30b9\u30c8\u3067\u4e0a\u8a18\u306e\u9805\u76ee\u4ee5\u5916\u306b\u4f1d\u3048\u308b\u3079\u304d\u3053\u3068\u3092\u66f8\u304f -->\r\n\r\n\u7279\u306b\u306a\u3057\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u7de8\u96c6\u30dc\u30bf\u30f3\u62bc\u3057\u305f\u6642\u306b\u30ab\u30fc\u30bd\u30eb\u304c\u5f53\u305f\u308b\u3088\u3046\u306b\u51e6\u7406\u8ffd\u52a0",
+                                                        "author": {
+                                                            "login": "Mellbrother"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/29#discussion_r1468416922",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "979b773",
+                                                            "authoredDate": "2024-01-27T08:28:17Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "input\u4ee5\u5916\u3092\u30af\u30ea\u30c3\u30af\u3057\u305f\u3068\u304d\u306b\u7de8\u96c6\u30e2\u30fc\u30c9\u3092\u30ea\u30bb\u30c3\u30c8\u3057\u3001\u5358\u4f4d\u304c\u633f\u5165\u3055\u308c\u308b\u3088\u3046\u306b\u3059\u308b\u51e6\u7406\ncovertValueToDisplayText\u3067\u7de8\u96c6\u30e2\u30fc\u30c9\u306e\u5834\u5408\u3082\u5358\u4f4d\u304c\u3064\u304f\u3088\u3046\u306b\u3057\u3088\u3046\u3068\u3057\u305f\u304c\u3001\u51e6\u7406\u304c\u3046\u307e\u304f\u3044\u304b\u306a\u3044\u306e\u3068\u3001\u3042\u307e\u308a\u5165\u529b\u6642\u306b\u5358\u4f4d\u304c\u306a\u304f\u3066\u3082\u56f0\u3089\u306a\u3044\u306e\u3067\u3001\u3053\u306e\u6848\u3092\u63a1\u7528\u3057\u3066\u3044\u308b",
+                                                        "author": {
+                                                            "login": "Mellbrother"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/29#discussion_r1468417224",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "979b773",
+                                                            "authoredDate": "2024-01-27T08:28:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "\u30b3\u30e1\u30f3\u30c8\u3057\u305f\uff01\n\u78ba\u8a8d\u304a\u9858\u3044\ud83d\ude4f",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u305d\u3046\u3044\u3048\u3070\u30d5\u30c3\u30bf\u30fc\u5165\u308c\u308b\u306e\u3059\u3063\u304b\u308a\u5fd8\u308c\u3066\u305f\u306d\ud83d\ude05\u3000\n\u3042\u308a\u304c\u3068\u3046\ud83d\udc4d\n\u30e1\u30a4\u30f3\u753b\u9762\u306e\u65b9\u304c\u3001\u30d5\u30c3\u30bf\u30fc\u306e\u9ad8\u3055\u306e\u5206\u3060\u3051\u7e26\u30b9\u30af\u30ed\u30fc\u30eb\u3067\u304d\u308b\u3088\u3046\u306b\u306a\u3063\u3061\u3083\u3063\u3066\u308b\u307f\u305f\u3044\u3060\u304b\u3089\u3001\u305d\u306e\u5206\u3060\u3051\u30e1\u30a4\u30f3\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\u306e\u9ad8\u3055\u3092\u524a\u3063\u3066\u3082\u3089\u3044\u305f\u3044\ud83d\ude4f",
+                                                        "author": {
+                                                            "login": "tom-takeru"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/29#discussion_r1478288402",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "979b773",
+                                                            "authoredDate": "2024-01-27T08:28:17Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "MainCardInput.tsx\u306e\u4e2d\u3067 convertValueToDisplayText\u3092\u5b9a\u7fa9\u3059\u308b\u306a\u3089\n  const formattedValue = value.toLocaleString();\n  const displayValue = unitPosition === 'left' ? `${unit}${formattedValue}` : `${formattedValue}${unit}`;\n\u3063\u3066\u3057\u3066\n          <input\n            disabled={true}\n            className='max-w-[70%] text-right outline-none placeholder:text-gray-700'\n            onChange={onChange}\n            value={displayValue || 0}\n            placeholder={value ? String(value) : '\u5165\u529b\u5024'}\n            id={label}\n            type='tel'\n          />\n\u3063\u3066\u3057\u3061\u3083\u3063\u3066\u826f\u3044\u6c17\u304c\u3059\u308b\uff01\n\u305f\u3060\u3001\u5c06\u6765\u7684\u306bMoneyResult\u3067\u306e\u8868\u8a18\u306b\u3082\u4f7f\u3048\u305d\u3046\u3060\u304b\u3089\u3001\u5f15\u6570\u306f\u5909\u3048\u305a\u306b\u305d\u306e\u307e\u307e\u5916\u51fa\u3057\u306e\u65b9\u304c\u826f\u3044\u304b\u3082\u3068\u601d\u3063\u3066\u304d\u305f\uff01\nsrc/utils/formatting.ts\u307f\u305f\u3044\u306a\u30d5\u30a1\u30a4\u30eb\u3092\u4f5c\u3063\u3066\u305d\u3053\u306b\u3053\u306e\u95a2\u6570\u3092\u914d\u7f6e\u3059\u308b\uff1f",
+                                                        "author": {
+                                                            "login": "tom-takeru"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/29#discussion_r1479077710",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "979b773",
+                                                            "authoredDate": "2024-01-27T08:28:17Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "src/utils/formatting.ts\u3068\u3059\u308b\u3084\u308a\u65b9\u306b\u95a2\u3059\u308b\u53c2\u8003\u60c5\u5831\nhttps://chat.openai.com/share/a9452ad4-6b33-40a9-9e73-6d85fd5bd8fc",
+                                                        "author": {
+                                                            "login": "tom-takeru"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/29#discussion_r1479078733",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "979b773",
+                                                            "authoredDate": "2024-01-27T08:28:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u5916\u3060\u3057\u3057\u305f",
+                                                        "author": {
+                                                            "login": "Mellbrother"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/29#discussion_r1484947931",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "979b773",
+                                                            "authoredDate": "2024-01-27T08:28:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u4fee\u6b63\u3057\u305f",
+                                                        "author": {
+                                                            "login": "Mellbrother"
+                                                        },
+                                                        "url": "https://github.com/daydule/odyssey-frontend/pull/29#discussion_r1484947956",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "979b773",
+                                                            "authoredDate": "2024-01-27T08:28:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM! \ud83c\udf3e",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 171,
+                        "title": "fix: disable button on submit",
+                        "repository": {
+                            "nameWithOwner": "ory/elements",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-12-13T07:47:34Z",
+                        "mergedAt": "2023-12-13T09:17:58Z",
+                        "url": "https://github.com/ory/elements/pull/171",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "hperl"
+                        },
+                        "editor": null,
+                        "body": "<!--\nDescribe the big picture of your changes here to communicate to the maintainers why we should accept this pull request.\n\nThis text will be included in the changelog. If applicable, include links to documentation or pieces of code.\nIf your change includes breaking changes please add a code block documenting the breaking change:\n\n```\nBREAKING CHANGES: This patch changes the behavior of configuration item `foo` to do bar. To keep the existing\nbehavior please do baz.\n```\n-->\n\n## Related Issue or Design Document\n\n<!--\nIf this pull request\n\n1. is a fix for a known bug, link the issue where the bug was reported in the format of `#1234`;\n2. is a fix for a previously unknown bug, explain the bug and how to reproduce it in this pull request;\n3. implements a new feature, link the issue containing the design document in the format of `#1234`;\n4. improves the documentation, no issue reference is required.\n\nPull requests introducing new features, which do not have a design document linked are more likely to be rejected and take on average 2-8 weeks longer to\nget merged.\n\nYou can discuss changes with maintainers either in the Github Discussions in this repository or\njoin the [Ory Chat](https://www.ory.sh/chat).\n-->\n\n## Checklist\n\n<!--\nPut an `x` in the boxes that apply. You can also fill these out after creating the PR. If you're unsure about any of\nthem, don't hesitate to ask. We're here to help! This is simply a reminder of what we are going to look for before merging your code.\n-->\n\n- [ ] I have read the [contributing guidelines](../blob/master/CONTRIBUTING.md) and signed the CLA.\n- [ ] I have referenced an issue containing the design document if my change introduces a new feature.\n- [ ] I have read the [security policy](../security/policy).\n- [ ] I confirm that this pull request does not address a security vulnerability. \n      If this pull request addresses a security vulnerability, \n      I confirm that I got approval (please contact [security@ory.sh](mailto:security@ory.sh)) from the maintainers to push the changes.\n- [ ] I have added tests that prove my fix is effective or that my feature works.\n- [ ] I have added the necessary documentation within the code base (if appropriate).\n\n## Further comments\n\n<!--\nIf this is a relatively large or complex change, kick off the discussion by explaining why you chose the solution\nyou did and what alternatives you considered, etc...\n-->\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "\ud83d\ude24",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 33,
+                        "title": "feat: Add altfire_lints",
+                        "repository": {
+                            "nameWithOwner": "altive/altfire",
+                            "primaryLanguage": {
+                                "name": "Dart"
+                            }
+                        },
+                        "createdAt": "2023-12-15T11:43:58Z",
+                        "mergedAt": "2023-12-26T02:51:41Z",
+                        "url": "https://github.com/altive/altfire/pull/33",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "naipaka"
+                        },
+                        "editor": {
+                            "login": "naipaka"
+                        },
+                        "body": "## \ud83d\udd17 Issue Link\r\n\r\ncloses #40\r\n\r\n## \ud83d\ude4c What I did\r\n\r\n<!-- What did you do in this pull request? -->\r\n\r\n- Add flutterfire lint package\r\n- Add dispose_config lint\r\n\r\n## \u270d\ufe0f What I didn't do\r\n\r\n<!-- What didn't you address in this pull request? If none, you can write \"None\". -->\r\n\r\n- None\r\n\r\n## \u2705 Verification\r\n\r\n<!-- Build and launch verification + any necessary operational checks -->\r\n\r\n- [ ] Android\r\n- [ ] iOS\r\n- [ ] macOS\r\n- [ ] Web\r\n\r\n## Screenshots\r\n\r\n<!-- If there are UI changes, attach Before and After screenshots or videos -->\r\n\r\n## Additional Information\r\n\r\n<!-- Any reference information for the reviewer (such as concerns or notes about the implementation) -->\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Added a melos command for custom_lint!",
+                                                        "author": {
+                                                            "login": "naipaka"
+                                                        },
+                                                        "url": "https://github.com/altive/altfire/pull/33#discussion_r1434763641",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a4fb9a6",
+                                                            "authoredDate": "2023-12-22T06:22:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Added missing dispose in tests.",
+                                                        "author": {
+                                                            "login": "naipaka"
+                                                        },
+                                                        "url": "https://github.com/altive/altfire/pull/33#discussion_r1434763804",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a4fb9a6",
+                                                            "authoredDate": "2023-12-22T06:22:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Added a dummy test as the test would fail without any test files.",
+                                                        "author": {
+                                                            "login": "naipaka"
+                                                        },
+                                                        "url": "https://github.com/altive/altfire/pull/33#discussion_r1434763928",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a4fb9a6",
+                                                            "authoredDate": "2023-12-22T06:22:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is a test file for Custom Lint Rule. Referenced riverpod_lint tests from https://github.com/rrousselGit/riverpod/tree/master/packages/riverpod_lint_flutter_test.",
+                                                        "author": {
+                                                            "login": "naipaka"
+                                                        },
+                                                        "url": "https://github.com/altive/altfire/pull/33#discussion_r1434764051",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a4fb9a6",
+                                                            "authoredDate": "2023-12-22T06:22:34Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm starting to think that naming it flutterfire_adapter_lint might be better than fluttefire_lints, as the latter could be mistaken for a lint package of FlutterFire itself. What do you think?\ud83e\uddd0",
+                                                        "author": {
+                                                            "login": "naipaka"
+                                                        },
+                                                        "url": "https://github.com/altive/altfire/pull/33#discussion_r1434811836",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a4fb9a6",
+                                                            "authoredDate": "2023-12-22T06:22:34Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Hmmm, I'm stumped. I guess it's correct that it's adpter that's the target.\nIf it's flutterfire_lint, it feels like a linter on using FlutterFire itself directly \ud83e\uddd0.",
+                                                        "author": {
+                                                            "login": "riscait"
+                                                        },
+                                                        "url": "https://github.com/altive/altfire/pull/33#discussion_r1434819691",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a4fb9a6",
+                                                            "authoredDate": "2023-12-22T06:22:34Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "How about alt(ive) + fire(base) for altfire_lints?\nwith an alternate meaning for alt.\nMaybe the plural would be better since we have multiple lint rules?\nhttps://chat.openai.com/share/a979e3fb-f3fc-4216-bd93-7b6265b32a46",
+                                                        "author": {
+                                                            "login": "riscait"
+                                                        },
+                                                        "url": "https://github.com/altive/altfire/pull/33#discussion_r1435908762",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a4fb9a6",
+                                                            "authoredDate": "2023-12-22T06:22:34Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thank you for the suggestion!\nI like the idea of using altfire_lints. I'll make the change!",
+                                                        "author": {
+                                                            "login": "naipaka"
+                                                        },
+                                                        "url": "https://github.com/altive/altfire/pull/33#discussion_r1435978137",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a4fb9a6",
+                                                            "authoredDate": "2023-12-22T06:22:34Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Thanks for the rename too!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 670,
+                        "title": "Embedding similarity uses closeness max function",
+                        "repository": {
+                            "nameWithOwner": "marqo-ai/marqo",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-18T07:22:02Z",
+                        "mergedAt": "2023-12-20T23:25:55Z",
+                        "url": "https://github.com/marqo-ai/marqo/pull/670",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "vicilliar"
+                        },
+                        "editor": {
+                            "login": "vicilliar"
+                        },
+                        "body": "* **What kind of change does this PR introduce?** (Bug fix, feature, docs update, ...)\r\nBug fix\r\n\r\n* **What is the current behavior?** (You can also link to an open issue here)\r\nIn structured index schema rank profile, tensor search similarity uses SUM (+) on embedding closeness per field, instead of MAX.\r\n\r\n* **What is the new behavior (if this is a feature change)?**\r\nSimilarity is now calculated with MAX. Uses binary max tree since max function is only a binary function.\r\n`test_structured_vespa_schema` and `test_structured_vespa_index` tests are now fixed by adding vector count field to test schemas.\r\n\r\n* **Does this PR introduce a breaking change?** (What changes might users need to make in their application due to this PR?)\r\nno\r\n\r\n* **Have unit tests been run against this PR?** (Has there also been any additional testing?)\r\nyes\r\n\r\n* **Related Python client changes** (link commit/PR here)\r\n\r\n\r\n* **Related documentation changes** (link commit/PR here)\r\n\r\n\r\n* **Other information**:\r\n\r\n\r\n* **Please check if the PR fulfills these requirements**\r\n- [x] The commit message follows our guidelines\r\n- x] Tests for the changes have been added (for bug fixes/features)\r\n- [] Docs have been added / updated (for bug fixes / features)\r\n\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "DISMISSED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This doesn't read well?",
+                                                        "author": {
+                                                            "login": "farshidz"
+                                                        },
+                                                        "url": "https://github.com/marqo-ai/marqo/pull/670#discussion_r1430887300",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0af655c",
+                                                            "authoredDate": "2023-12-18T13:44:51Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm assuming max won't accept one argument? e.g., max(value1)? Because if it did, you would only need one base case",
+                                                        "author": {
+                                                            "login": "farshidz"
+                                                        },
+                                                        "url": "https://github.com/marqo-ai/marqo/pull/670#discussion_r1430888448",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0af655c",
+                                                            "authoredDate": "2023-12-18T13:44:51Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Though this is still better. We don't know if an unnecessary max is going to cause inefficiency, even if it is mathematically inconsequential",
+                                                        "author": {
+                                                            "login": "farshidz"
+                                                        },
+                                                        "url": "https://github.com/marqo-ai/marqo/pull/670#discussion_r1430888931",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0af655c",
+                                                            "authoredDate": "2023-12-18T13:44:51Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I would argue that you don't need these tests.  You can add full schema tests like the ones you fixed above to cover these cases if you find these necessary. As a rule of thumb, we don't write unit tests for private methods -- we only test the public interface. If you find it impossible to get good coverage without unit-testing private methods, then chances are your design isn't cohesive (which is not the case, your design is fine here). Check this out also https://chat.openai.com/share/d6c43184-1ad5-49b5-b209-e659bdb68c33",
+                                                        "author": {
+                                                            "login": "farshidz"
+                                                        },
+                                                        "url": "https://github.com/marqo-ai/marqo/pull/670#discussion_r1430890944",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0af655c",
+                                                            "authoredDate": "2023-12-18T13:44:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yep according to documentation, max is for 2 arguments: https://docs.vespa.ai/en/reference/ranking-expressions.html#max-x",
+                                                        "author": {
+                                                            "login": "vicilliar"
+                                                        },
+                                                        "url": "https://github.com/marqo-ai/marqo/pull/670#discussion_r1430897115",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0af655c",
+                                                            "authoredDate": "2023-12-18T13:44:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Got this, I'll note this for future private methods. That being said, should I just keep them in since I already wrote them? Or would you prefer them removed?",
+                                                        "author": {
+                                                            "login": "vicilliar"
+                                                        },
+                                                        "url": "https://github.com/marqo-ai/marqo/pull/670#discussion_r1430898042",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0af655c",
+                                                            "authoredDate": "2023-12-18T13:44:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I would argue though that it's cumbersome to make 5 full new schemas just to test the output of 5 different cases of _generate_max_similarity_expression. It seems like a lot of wasted space.",
+                                                        "author": {
+                                                            "login": "vicilliar"
+                                                        },
+                                                        "url": "https://github.com/marqo-ai/marqo/pull/670#discussion_r1430901338",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0af655c",
+                                                            "authoredDate": "2023-12-18T13:44:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjIw",
+                "hasNextPage": true,
+                "hasPreviousPage": true,
+                "startCursor": "Y3Vyc29yOjEx"
+            },
+            "issueCount": 51
+        }
+    }
+}

@@ -1,0 +1,766 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 7614,
+                        "title": "Update rule.md",
+                        "repository": {
+                            "nameWithOwner": "SSWConsulting/SSW.Rules.Content",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-12-20T04:49:39Z",
+                        "mergedAt": "2023-12-20T05:01:09Z",
+                        "url": "https://github.com/SSWConsulting/SSW.Rules.Content/pull/7614",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "YalalCakirSSW"
+                        },
+                        "editor": {
+                            "login": "YalalCakirSSW"
+                        },
+                        "body": "**Tip: Use [SSW Rule Writer GPT](https://chat.openai.com/g/g-cOvrRzEnU-ssw-rules-writer) for help with writing rules \ud83e\udd16**\r\n>\r\n> 1. What triggered this change? (PBI link, Email Subject, conversation + reason, etc)\r\nGrammar mistake, ChatGPT is not a person. \r\nI got an approval from Gert for this change.\r\n\u270f\ufe0f\r\n\r\n> 2. What was changed?\r\nFrom:\r\nFigure: ChatGPT is built by OpenAI, who have Microsoft as an investor!\r\nTo:\r\nFigure: ChatGPT is built by OpenAI, which has Microsoft as an investor!\r\n\u270f\ufe0f\r\n\r\n> 3. Did you do pair or mob programming (list names)?\r\nN/A\r\n\u270f\ufe0f\r\n<!-- E.g. I worked with @gordonbeeming and @sethdailyssw -->\r\n\r\n<!-- \r\nCheck out the relevant rules\r\n- https://www.ssw.com.au/rules/rules-to-better-pull-requests\r\n- https://www.ssw.com.au/rules/write-a-good-pull-request\r\n- https://www.ssw.com.au/rules/over-the-shoulder-prs \r\n- https://www.ssw.com.au/rules/do-you-use-co-creation-patterns\r\n-->\r\n",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Approved - ChatGPT agrees with this change\nhttps://chat.openai.com/share/d7be0b08-bdfc-4822-aa9a-bd4843e83078",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 448,
+                        "title": "Fix for #440 - Removed GuiData class",
+                        "repository": {
+                            "nameWithOwner": "unity-atoms/unity-atoms",
+                            "primaryLanguage": {
+                                "name": "C#"
+                            }
+                        },
+                        "createdAt": "2023-12-20T00:24:17Z",
+                        "mergedAt": "2024-01-07T19:23:25Z",
+                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "toasterhead-master"
+                        },
+                        "editor": null,
+                        "body": "Fixes #440",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-20T08:01:58Z",
+                                    "bodyText": "Not sure what the issue with the File Changes preview is, tbh.\nI guess it's because #440 was squashed into a new merge commit and now this branch has trouble to find the nearest common ancestor.\nwhich results in the conflict and the changes looking more complex than they have to be.\nI guess the simplest solution would be to reset this branch (soft?) to canary. this should keep the file changes but adjust the commit history. then doing the \"Removed GuiData\" commit with the remaining changes.\ngit reset --soft canary  # keeps changes as unstaged, should be equal to the last commit only\ngit add . \ngit commit -m \"Removed `GuiData`\" \ngit push origin auto-usage-reference-drag-and-drop-detection --force  # important because history is changed",
+                                    "url": "https://github.com/unity-atoms/unity-atoms/pull/448#issuecomment-1864027527",
+                                    "author": {
+                                        "login": "soraphis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-20T14:04:05Z",
+                                    "bodyText": "Not sure what the issue with the File Changes preview is\n\nI'm just as confused as you are. I thought since my feature was pushed into the newest version then the Files changed would reflect that, but I guess I'm missing something here. If I had created a new fork, would we not have this problem?",
+                                    "url": "https://github.com/unity-atoms/unity-atoms/pull/448#issuecomment-1864529888",
+                                    "author": {
+                                        "login": "toasterhead-master"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-20T22:54:47Z",
+                                    "bodyText": "It's not about the fork, it's because the first PR was merged by squashing.\nLets say before #440 the last commit was X\nSo 440 introduced the commits A, B, ....., C on top of X and this PR introduces commit D on top of C\nso git thinks to merge this PR it has to apply A, B, ...., C, D on top of X and make that the new header.\nBut in the meantime PR 440 was merged by squasing so the current git commit tree is X, Z (where Z contains all the changes from A, B, ...., C in a single commit).\nBasically like this\n                         \u2502PR440\n                         \u2502       \u2502PR448\n                         \u25bc       \u25bc\n       \u250c\u2500\u2500\u2500\u2500A\u2500\u2500B\u2500\u2500\u2500\u2500...\u2500\u2500C\u2500\u2500\u2500\u2500\u2500\u2500\u2500D\n       \u2502\n  \u2500\u2500\u2500X\u2500\u2534\u2500\u2500\u2500\u2500[     Z      ]\n                  \u25b2\n                  \u2502Canary\n\n\nSo, you have to rebase D onto Z, or like i suggested create a new commit D' that contains the same changes as D but ontop of Z\n(more explanation here: https://chat.openai.com/share/d30de92e-1ced-4eab-b255-e035079d1a5d (note: don't copy and paste commands blindly from chatGPT, but the explanation is kinda spot on))",
+                                    "url": "https://github.com/unity-atoms/unity-atoms/pull/448#issuecomment-1865248934",
+                                    "author": {
+                                        "login": "soraphis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-21T14:40:32Z",
+                                    "bodyText": "Ok, I got it and fixed it, thanks for the help. I just needed to pull the changes from the recent 4.5.0 version into my forked repo and then push my changes again for it to work. Makes sense overall.",
+                                    "url": "https://github.com/unity-atoms/unity-atoms/pull/448#issuecomment-1866390441",
+                                    "author": {
+                                        "login": "toasterhead-master"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-22T10:13:35Z",
+                                    "bodyText": "Yeah, should work too. and will get squashed anyways when accepted. so should be fine",
+                                    "url": "https://github.com/unity-atoms/unity-atoms/pull/448#issuecomment-1867500069",
+                                    "author": {
+                                        "login": "soraphis"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "why was forceSingleLine deleted?\nthis is what @AdamRamberg  added as a fix in #447 I gues it got lost, due to the way this PR was created by overriding the changes from the previous PRs",
+                                                        "author": {
+                                                            "login": "soraphis"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1434926437",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7ce4812",
+                                                            "authoredDate": "2023-12-21T14:38:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "My bad, I should've checked if any external changes took place while my repo stayed the same. Fixing it",
+                                                        "author": {
+                                                            "login": "toasterhead-master"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1435214627",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7ce4812",
+                                                            "authoredDate": "2023-12-21T14:38:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We don't want to remove the compiler flag conditions here. I can revert it since I have write access to the PR :)",
+                                                        "author": {
+                                                            "login": "AdamRamberg"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1444057437",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "aa2780d",
+                                                            "authoredDate": "2023-12-22T16:58:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Oh thanks! Sorry, I didn't mean to remove it, don't know how I missed it or how it got removed :/",
+                                                        "author": {
+                                                            "login": "toasterhead-master"
+                                                        },
+                                                        "url": "https://github.com/unity-atoms/unity-atoms/pull/448#discussion_r1444057963",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "aa2780d",
+                                                            "authoredDate": "2023-12-22T16:58:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 33679,
+                        "title": "airbyte-lib: Add telemetry",
+                        "repository": {
+                            "nameWithOwner": "airbytehq/airbyte",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-20T16:03:59Z",
+                        "mergedAt": "2024-01-16T09:25:25Z",
+                        "url": "https://github.com/airbytehq/airbyte/pull/33679",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "flash1293"
+                        },
+                        "editor": {
+                            "login": "flash1293"
+                        },
+                        "body": "This PR adds tracking to airbyte-lib.\r\n\r\nOn start of each sync, an event is sent to segment, tracking the date, the used source, cache and airbyte-lib version.\r\nOnce the sync finishes, a second event is sent, tracking whether the sync was successful or not.\r\n\r\nThis is done using basic http requests.\r\n\r\nIf the `DO_NOT_TRACK` env variable is set, no tracking events are sent.\r\n\r\nThis PR also sets the user agent for the connector registry json file request to make it possible to identify airbyte-lib requests.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-20T16:04:05Z",
+                                    "bodyText": "The latest updates on your projects. Learn more about Vercel for Git \u2197\ufe0e\n1 Ignored Deployment\n\n\n\nName\nStatus\nPreview\nComments\nUpdated (UTC)\n\n\n\n\nairbyte-docs\n\u2b1c\ufe0f Ignored (Inspect)\nVisit Preview\n\nJan 15, 2024 11:32am",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33679#issuecomment-1864743954",
+                                    "author": {
+                                        "login": "vercel"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-04T21:45:54Z",
+                                    "bodyText": "Note from @evantahler - \"SyncStats\" is the object to match.",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33679#issuecomment-1877803150",
+                                    "author": {
+                                        "login": "aaronsteers"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-04T22:00:09Z",
+                                    "bodyText": "^ SyncStats is the object in the platform that we send to segment today, and then get into BQ and use in our analysis.  If you could match as much of that object as you can, and tag your lib syncs with a new 'platform' name, all the business tables we have should work fine with this new data!",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33679#issuecomment-1877817595",
+                                    "author": {
+                                        "login": "evantahler"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-05T10:51:02Z",
+                                    "bodyText": "Thanks for the hint @evantahler\nThe thing I'm unsure about is the ways this is different from our regular sync stats which seems to make it incompatible in some key ways that make a separate business table the best approach:\n\nThere is no destination connector\nThere is no workspace / user identifier\nThe source can be run in multiple ways (venv vs. local installation)\nairbyte-lib follows its own versioning which is independent from platform versions but can overlap\n\nThis mixture of additional properties and the absence of properties that are guaranteed to be available for regular sync stats makes me suspect that a separate business table is the way to go.\n@alex-gron what's your opinion on this? What would be the best way to handle this new data?",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33679#issuecomment-1878476097",
+                                    "author": {
+                                        "login": "flash1293"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-09T10:11:25Z",
+                                    "bodyText": "Thanks for the review @aaronsteers - Your comment about the target made me think that the current PR was a little underspecified in terms of the data shape of the telemetry.\nI adjusted that and introduced data classes and enums for all the bits instead of dicts and strings, feels safer now and a little more \"self-documenting\".\nUsing loose types can be really deceiving as the data needs to be shaped correctly to be handled correctly in the downstream processing anyway.\nLet me know what you think",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33679#issuecomment-1882777664",
+                                    "author": {
+                                        "login": "flash1293"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-09T15:38:53Z",
+                                    "bodyText": "Thanks for the hint @evantahler\nThe thing I'm unsure about is the ways this is different from our regular sync stats which seems to make it incompatible in some key ways that make a separate business table the best approach:\n\nThere is no destination connector\nThere is no workspace / user identifier\nThe source can be run in multiple ways (venv vs. local installation)\nairbyte-lib follows its own versioning which is independent from platform versions but can overlap\n\nThis mixture of additional properties and the absence of properties that are guaranteed to be available for regular sync stats makes me suspect that a separate business table is the way to go.\n@alex-gron what's your opinion on this? What would be the best way to handle this new data?\n\n@flash1293 A few thoughts here:\n\nIs it possible for the airbyte-lib to simply use SyncStats since it is in the airbyte repo?\n\nIf yes, then this is a viable solution and worth considering\nThat said, it is also fine to have these events in a new table, and we can union the data together in dbt. We do this already, and it is not a big lift to add another table.\n\n\nMy biggest request is that we add some telemetry for all of the things you mention above (especially venv vs local if that is something you want to track)\nIf in the SyncStats table/object, then we will definitely want a column to indicate that this event is from airbyte-lib\n\nThere is an existing airbyte_source field that we could use for this, but it is currently set to unknown a majority of the time, so I'm not 100% sure what it is supposed to contain.\n\n\nRegardless of how we get the raw data (same table or a new one), we can consider adding this data to the Connection Sync business table.\n\nThe drivers of that decision will be: what is the granularity of the data and what types of questions do we want to answer about it?",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33679#issuecomment-1883285213",
+                                    "author": {
+                                        "login": "alex-gron"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-09T15:47:58Z",
+                                    "bodyText": "Thanks for the look @alex-gron\n\nIs it possible for the airbyte-lib to simply use SyncStats since it is in the airbyte repo?\n\nThis is a separate code base and it's not 100% the same data that's provided so we can't reuse on that level.\n\nMy biggest request is that we add some telemetry for all of the things you mention above\n\nThe practical things I'm worried about adding this to the existing business table are:\n\ndbt transforms getting more complex because some columns are not always set (like workspace or destination)\nadding new columns to the existing business table (for local vs. venv, which cache type is used and the version of airbyte-lib) that are only relevant for airbyte-lib and nothing else\n\nIf you feel like these are not really problems, then let's go for that.",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33679#issuecomment-1883301974",
+                                    "author": {
+                                        "login": "flash1293"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-15T11:36:40Z",
+                                    "bodyText": "Thanks for your comments @aaronsteers - I addressed everything and it seems like it's ready to merge but leaving it in place in case you want to take a final look.",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33679#issuecomment-1892000254",
+                                    "author": {
+                                        "login": "flash1293"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-15T16:34:03Z",
+                                    "bodyText": "@flash1293  Sorry for my delay here. Not sure where you ended up on the same/separate Segment table.\n\nTo keep things cleaner, I think using a separate Segment table makes sense. Especially since we won't be reusing the existing SyncStats code.\nOnce we have the data in BQ, we can decide if it makes sense to do a separate business table or not. I'm thinking this will probably be similar to the API where we do have a separate table because the granularity is different.\n\nLet me know if that answers your questions and unblocks this PR",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33679#issuecomment-1892483771",
+                                    "author": {
+                                        "login": "alex-gron"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-15T16:37:49Z",
+                                    "bodyText": "@alex-gron Thanks for cycling back to this - your points match with my understanding. Let spin off the discussion of whether to put it into a separate table. As you mention this is separate and can be changed after the fact.",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33679#issuecomment-1892489236",
+                                    "author": {
+                                        "login": "flash1293"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-15T19:26:25Z",
+                                    "bodyText": "Thanks for your comments @aaronsteers - I addressed everything and it seems like it's ready to merge but leaving it in place in case you want to take a final look.\n\nThanks! Looks great. For my part, at least, feel free to merge when ready.",
+                                    "url": "https://github.com/airbytehq/airbyte/pull/33679#issuecomment-1892677154",
+                                    "author": {
+                                        "login": "aaronsteers"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Totally optional, but a common convention in Python if you want to call out that the intentional dropping of a return value - you can use \"_ = ...\"\nThis isn't necessary by any means, but will inform the reader \"yes, I know there's a return value and no, I don't want to use it.\" \ud83d\ude04\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                # Do not handle the response, we don't want to block the execution\n          \n          \n            \n                requests.post(\"https://api.segment.io/v1/track\", auth=(TRACKING_KEY, \"\"), json=payload)\n          \n          \n            \n                # Do not handle the response, we don't want to block the execution\n          \n          \n            \n                _ = requests.post(\"https://api.segment.io/v1/track\", auth=(TRACKING_KEY, \"\"), json=payload)",
+                                                        "author": {
+                                                            "login": "aaronsteers"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1445637684",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "799fe84",
+                                                            "authoredDate": "2024-01-03T15:44:05Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It's not clear to me what 'target' means in this context. Can we add a docstring to explain it?",
+                                                        "author": {
+                                                            "login": "aaronsteers"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1445639299",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "799fe84",
+                                                            "authoredDate": "2024-01-03T15:44:05Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ditto above. I'm not sure what 'target' means here.",
+                                                        "author": {
+                                                            "login": "aaronsteers"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1445639454",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "799fe84",
+                                                            "authoredDate": "2024-01-03T15:44:05Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This might be a nit and/or semantic distinction, but I slightly prefer a name like get_telemetry_info or get_telemetry_markers over get_tracking_info. The work 'tracking', to me at least, implies ability to 'track' personally, to perhaps identify or de-anonymize, which this isn't doing.",
+                                                        "author": {
+                                                            "login": "aaronsteers"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1445642005",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "799fe84",
+                                                            "authoredDate": "2024-01-03T15:44:05Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Makes sense to me, I pondered the name a bit. Telemetry has the risk to be confused with telemetry in the sense of OpenTelemetry and the like, but it's probably better than tracking. \"analytics\" would be another option, but thinking about it calling this kind of thing telemetry is probably an industry standard for software running on the client.",
+                                                        "author": {
+                                                            "login": "flash1293"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1445851972",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "799fe84",
+                                                            "authoredDate": "2024-01-03T15:44:05Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It's about where the data is loaded to - a cache or streamed directly via iterable.",
+                                                        "author": {
+                                                            "login": "flash1293"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1445883594",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "799fe84",
+                                                            "authoredDate": "2024-01-03T15:44:05Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "@flash1293 - Thanks for moving this forward! I've added several suggestions, but none need to block this increment. I'm approving with the noted suggestions, and we can follow-up in subsequent iterations if needed.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Not a blocker, but what happens if we omit ip altogether?",
+                                                        "author": {
+                                                            "login": "aaronsteers"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1451584728",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Not a blocker, but should we add a \"suppress error\" block here for any network issues or host availability issues? We wouldn't want those to cause a crash.\nIn some environments, only specific network endpoints are whitelisted, for instance - and this will (and should) fail if network access is not available to our telemetry endpoint.\nI think we want the telemetry to fail gracefully/silently, so functionality is not affected.",
+                                                        "author": {
+                                                            "login": "aaronsteers"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1451585083",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "For my info, what does this tracking key represent?",
+                                                        "author": {
+                                                            "login": "aaronsteers"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1451585949",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Since in-memory is out of scope for now, what do you think of the cache types just being the name of the DB backed? So, something like DUCKDB, POSTGRES, SNOWFLAKE, etc.? Or do you have something else in mind for this?",
+                                                        "author": {
+                                                            "login": "aaronsteers"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1451586194",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "A nit, but could we rename this to source_info just to clarify it is not the original source object?\nFor context, when reading through, I panicked for a sec when I thought asdict(source) might contain the original source config and creds - and then relaxed on scrolling up to see the type was SourceTelemetryInfo. A slight rename to source_info or similar would just make this line more clear, since we use source elsewhere for the Source class instances.\n(Edit: To clarify, I have no problem with the telemetry object schema having it's node called \"source\". Just the object on the right side is what I meant.)",
+                                                        "author": {
+                                                            "login": "aaronsteers"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1451586539",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This test is great. I think it also would be good to add a test that blocks network access, as mentioned above, to ensure that inability to reach the endpoint doesn't hang or crash the program.\nI haven't done this myself but a quick ChatGPT session proposed code something like this:\nimport socket\nimport pytest\nfrom unittest.mock import patch\n\n# This function will replace socket.socket.connect\ndef block_network(*args, **kwargs):\n    raise OSError(\"Network access not allowed during test\")\n\n# Use the patch decorator to replace socket.socket.connect with block_network\n@patch('socket.socket.connect', new=block_network)\ndef test_telemetry_no_network():\n    # Our test code here should call the tracking function and just\n    # make sure that the OSError is caught and handled internally, aka _not_ raised.\nI don't think we need to block this PR on the above, but I think we should track a follow-on action if not in scope for this iteration.",
+                                                        "author": {
+                                                            "login": "aaronsteers"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1451588497",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Something like this using contextlib.suppress, I think:\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                # Do not handle the response, we don't want to block the execution\n          \n          \n            \n                _ = requests.post(\"https://api.segment.io/v1/track\", auth=(TRACKING_KEY, \"\"), json=payload)\n          \n          \n            \n                # Suppress exceptions if host is unreachable or network is unavailable\n          \n          \n            \n                with suppress(OSError):  # Network errors are subclasses of `OSError`\n          \n          \n            \n                    # Do not handle the response, we don't want to block the execution\n          \n          \n            \n                    _ = requests.post(\"https://api.segment.io/v1/track\", auth=(TRACKING_KEY, \"\"), json=payload)",
+                                                        "author": {
+                                                            "login": "aaronsteers"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1451589243",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think we should use a context manager for this override, to prevent bleeding to other tests:\nSomething like this:\n    with patch.dict('os.environ', {'DO_NOT_TRACK': ''}):\n        # Our test code here\n        # Within this block, 'DO_NOT_TRACK' is set to ''\n        # Other environment variables are kept\nOr if we want DO_NOT_TRACK to be unset, then maybe something like this:\n    with patch.dict('os.environ', values={}, remove=['DO_NOT_TRACK']):\n        # Our test code here\n        # Within this block, 'DO_NOT_TRACK' is unset\n        # Other environment variables are kept\nI also think we should be clear about whether an empty string still counts as the variable being 'set'. I think this implementation would treat the empty string as 'unset', which makes sense I think. In the implementation files, I was originally going to recommend checking for \"DO_NOT_CHECK\" not in os.environ but that check would not work if we want the empty string to count as not being set.\nI'm totally okay with either approach. Just calling out the distinction to make sure we're not missing anything.",
+                                                        "author": {
+                                                            "login": "aaronsteers"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1451590812",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think I'd like to request one more attribute here, which is capturing the presence of a \"CI\" flag in os.environ.\nCI tests are very noisy on our metrics - with the possibility to make up 50-80% of usage stats in some extreme cases, or in specific cross-sections of usage. Luckily, the industry has a convention:\nhttps://chat.openai.com/share/eb500944-8bb6-43a1-b64e-5f901f4587c4\n(Turns out \"CI environment variable\" is hard to google. I've previously seen a third party site advocating for this standard but I couldn't find it today so the above link is a ChatGPT conversation.)\nRather than return the value stored in the \"CI\" environment variable, I think it is sufficient to list it in 'extra_flags' or similar, or just as its own boolean (\"True\" means present\").\nWdyt?",
+                                                        "author": {
+                                                            "login": "aaronsteers"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1451591808",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Even though it wouldn't contain much, we could also adopt the \"TelemetryInfo\" convention to be parallel with the source side. In that case, this would be a \"CacheTelemetryInfo\" dataclass, perhaps just with one member, and would render as a dict instead of a string in the telemetry object.",
+                                                        "author": {
+                                                            "login": "aaronsteers"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1451593248",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "After giving this some more thought and research, I think I'm in the camp of the empty string being 'falsey' (tracking enabled) and any other set value being 'truthy' (meaning opted-out) - which is exactly how you have it now. This is easy to document and communicate, easy to modify, and unlikely to lead to any users thinking they are opted out when they actually aren't.",
+                                                        "author": {
+                                                            "login": "aaronsteers"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1451596325",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "then segment would automatically add back the actual IP",
+                                                        "author": {
+                                                            "login": "flash1293"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1452213635",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Great suggestion!",
+                                                        "author": {
+                                                            "login": "flash1293"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1452214517",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Since in-memory is out of scope for now, what do you think of the cache types just being the name of the DB backed? So, something like DUCKDB, POSTGRES, SNOWFLAKE, etc\n\nYes, that's what the TODO on top is meant for.\n\nEven though it wouldn't contain much, we could also adopt the \"TelemetryInfo\" convention to be parallel with the source side. In that case, this would be a \"CacheTelemetryInfo\" dataclass, perhaps just with one member, and would render as a dict instead of a string in the telemetry object.\n\nGood suggestion, I will adjust it like that - maybe we want to add other dimensions later on.",
+                                                        "author": {
+                                                            "login": "flash1293"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1452220314",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Good suggestion, added a test for this (I made it part of the same block via a new parameter tuple.",
+                                                        "author": {
+                                                            "login": "flash1293"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1452240794",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Good suggestion to use patch.dict here!\nAgreed, it depends on the nature of the environment variable, but for something like do_not_track it feels right to err on the side of interpreting something as truthy even if it wasn't meant like that - better than the other way around.",
+                                                        "author": {
+                                                            "login": "flash1293"
+                                                        },
+                                                        "url": "https://github.com/airbytehq/airbyte/pull/33679#discussion_r1452246773",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "56314e4",
+                                                            "authoredDate": "2024-01-12T10:12:54Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

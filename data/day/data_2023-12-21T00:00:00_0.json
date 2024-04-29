@@ -1,0 +1,150 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 69,
+                        "title": "WIP Initial attempt at fetching oAuth1 and oAuth2 tokens",
+                        "repository": {
+                            "nameWithOwner": "kochka/WeightLogger",
+                            "primaryLanguage": {
+                                "name": "Java"
+                            }
+                        },
+                        "createdAt": "2023-12-21T21:34:50Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/kochka/WeightLogger/pull/69",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "Syntax753"
+                        },
+                        "editor": null,
+                        "body": "## This is a draft PR and requires further coding\r\n\r\nI have added the steps to fetch the v1 and v2 oAuth tokens. However, getting a 400 when attempting to retrieve v1 using the \"ticket\". I have a feeling this is to do with missing cookies that need to be passed so need to fetch those from the sign-in -> ticket call return entity.\r\n\r\nThis is based on the great insights by matin and referencing https://github.com/matin/garth/blob/6aeb0faaf0d6b473d8dc161373068d2f5413fdfe/garth/sso.py#L21.\r\n\r\nI'm in and out over the Christmas period but will pick this up when I can. The foundational logic flow has been typed up at least :)",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-23T16:56:16Z",
+                                    "bodyText": "I recommend looking at this successful login session as a reference. The last two requests show the OAuth1 requests.",
+                                    "url": "https://github.com/kochka/WeightLogger/pull/69#issuecomment-1868330805",
+                                    "author": {
+                                        "login": "matin"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-17T01:42:49Z",
+                                    "bodyText": "I have built upon the changes in this PR.\nMy changes can be found on the following branch: https://github.com/louisjennings/WeightLogger/tree/unable-to-upload-to-garmin-%2368\nThanks to @matin for the clear code in garth.\nWith commit 6c5cdb9, I am successfully able to upload data to Garmin (but only if MFA is disabled for the account). In my mind, the next steps (either for this PR or a separate PR) will be:\n\nAdd support for MFA (this will require a user input)\nAdd support for saving and renewing OAuth2 tokens (this will prevent MFA users from having to enter a code for every upload and may generally speed up the upload process slightly)\n\nI had to remove the redirection logic that was present after the ticket is obtained. For some reason this invalidated the ticket. I don't know if this is unneeded legacy code or whether it covers a case that my configuration doesn't replicate. As I didn't see similar logic in the garth login flow, I dropped it.",
+                                    "url": "https://github.com/kochka/WeightLogger/pull/69#issuecomment-1949581686",
+                                    "author": {
+                                        "login": "louisjennings"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Make sure you're signing the requests to obtain the OAuth1 and OAuth2 keys with the correct consumer key and secret.\nHere's what ChatGPT recommends on how to do it:\nhttps://chat.openai.com/share/c6bdefea-a9e0-4c6e-b261-2aa0a73fa4cd",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This request needs to be signed with the OAuth1 consumer keys",
+                                                        "author": {
+                                                            "login": "matin"
+                                                        },
+                                                        "url": "https://github.com/kochka/WeightLogger/pull/69#discussion_r1434539402",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f2f5ca4",
+                                                            "authoredDate": "2023-12-21T21:19:32Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This request needs to be signed with the OAuth1 keys provided in the earlier request.",
+                                                        "author": {
+                                                            "login": "matin"
+                                                        },
+                                                        "url": "https://github.com/kochka/WeightLogger/pull/69#discussion_r1434540073",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f2f5ca4",
+                                                            "authoredDate": "2023-12-21T21:19:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ah this is the missing piece no doubt! Not sure how I scanned over that in your walk-through :)",
+                                                        "author": {
+                                                            "login": "Syntax753"
+                                                        },
+                                                        "url": "https://github.com/kochka/WeightLogger/pull/69#discussion_r1434550095",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f2f5ca4",
+                                                            "authoredDate": "2023-12-21T21:19:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Agreed - hopefully that will be the easy bit once I get hold of OAuth1 :)",
+                                                        "author": {
+                                                            "login": "Syntax753"
+                                                        },
+                                                        "url": "https://github.com/kochka/WeightLogger/pull/69#discussion_r1434552578",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f2f5ca4",
+                                                            "authoredDate": "2023-12-21T21:19:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

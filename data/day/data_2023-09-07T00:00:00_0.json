@@ -1,0 +1,252 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 297,
+                        "title": "Add MetricsLogger to the Capture Proxy",
+                        "repository": {
+                            "nameWithOwner": "opensearch-project/opensearch-migrations",
+                            "primaryLanguage": {
+                                "name": "Java"
+                            }
+                        },
+                        "createdAt": "2023-09-07T05:39:59Z",
+                        "mergedAt": "2023-09-08T22:06:09Z",
+                        "url": "https://github.com/opensearch-project/opensearch-migrations/pull/297",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "mikaylathompson"
+                        },
+                        "editor": {
+                            "login": "gregschohn"
+                        },
+                        "body": "### Description\r\nAdds a MetricsLogger to the Capture Proxy. For now, it creates a limited number of events, with a limited number of dimensions.\r\n\r\nEvents:\r\n- Component of request received (logged on `LoggingHttpRequestHandler::channelRead`)\r\n- Full request received (logged on `LoggingHttpRequestHandler::channelFinishedReadingAnHttpMessage`)\r\n- Sending message to Kafka (logged on `KafkaCaptureFactory::createOffloader` in the handler for a completed CodedOutputStream)\r\n- Message to Kafka failed (same as above)\r\n- Component of a response received (logged on `LoggingHttpResponseHandler::write`)\r\n\r\nAll messages are logged with the `channelId` which corresponds to the `connectionId`/`diagnosticId` used throughout the Replayer. Some messages have additional context info, e.g. full request received also has the http method & endpoint.\r\n\r\nThe event I would like to include but wasn't able to find already existing in our code is when a full response is received. I don't think this is an essential enough event that it's worth adding a HTTP accumulator to the pipeline, but if I missed a spot where this message is accumulated already, I'd like to add it.\r\n\r\nEvents are logged in a json format (see example below). After playing with various text based log formats, this was by far the cleanest way to extract components as an AWS Metrics Filter, and should give us flexibility in the docker solution as well.\r\nTo test this out, I created a metrics filter that looked specifically for \"Full request received\" events and plotted them while I did two `./runTestBenchmarks.sh` runs.\r\n\r\n\r\n<img width=\"1331\" alt=\"Screen Shot 2023-09-06 at 11 08 10 PM\" src=\"https://github.com/opensearch-project/opensearch-migrations/assets/3933820/9efb9a6f-acd8-4498-bc80-a6cb9e4f0fee\">\r\n\r\n\r\nExample logs:\r\nThis shows MetricsLogger events mixed in with default logger events from the docker solution:\r\n```\r\n[DEBUG] 2023-09-07 04:33:27.088 [nioEventLoopGroup-3-1] FrontsideHandler - channelRead COMPLETE\r\n{\"instant\":{\"epochSecond\":1694061092,\"nanoOfSecond\":224314749},\"thread\":\"nioEventLoopGroup-3-1\",\"level\":\"INFO\",\"loggerName\":\"MetricsLogger\",\"message\":\"Component of response received\",\"endOfBatch\":false,\"loggerFqcn\":\"org.apache.logging.slf4j.Log4jLogger\",\"contextMap\":{\"channelId\":\"0242c0fffea83007-0000000d-00000003-cb2c2632a520d48e-8e3efc89\",\"topic\":\"logging-traffic-topic\"},\"threadId\":17,\"threadPriority\":10}\r\n{\"instant\":{\"epochSecond\":1694061092,\"nanoOfSecond\":242391443},\"thread\":\"nioEventLoopGroup-3-1\",\"level\":\"INFO\",\"loggerName\":\"MetricsLogger\",\"message\":\"Sending message to Kafka\",\"endOfBatch\":false,\"loggerFqcn\":\"org.apache.logging.slf4j.Log4jLogger\",\"contextMap\":{\"channelId\":\"0242c0fffea83007-0000000d-00000003-cb2c2632a520d48e-8e3efc89\",\"diagnosticId\":\"0242c0fffea83007-0000000d-00000003-cb2c2632a520d48e-8e3efc89.1\",\"topic\":\"logging-traffic-topic\"},\"threadId\":17,\"threadPriority\":10}\r\n{\"instant\":{\"epochSecond\":1694061207,\"nanoOfSecond\":85524207},\"thread\":\"nioEventLoopGroup-3-1\",\"level\":\"INFO\",\"loggerName\":\"MetricsLogger\",\"message\":\"Component of request received\",\"endOfBatch\":false,\"loggerFqcn\":\"org.apache.logging.slf4j.Log4jLogger\",\"contextMap\":{\"channelId\":\"0242c0fffea83007-0000000d-00000005-6aed442019229d30-21ba833a\",\"topic\":\"logging-traffic-topic\"},\"threadId\":17,\"threadPriority\":10}\r\n{\"instant\":{\"epochSecond\":1694061207,\"nanoOfSecond\":87228901},\"thread\":\"nioEventLoopGroup-3-1\",\"level\":\"INFO\",\"loggerName\":\"MetricsLogger\",\"message\":\"Full request received\",\"endOfBatch\":false,\"loggerFqcn\":\"org.apache.logging.slf4j.Log4jLogger\",\"contextMap\":{\"channelId\":\"0242c0fffea83007-0000000d-00000005-6aed442019229d30-21ba833a\",\"httpEndpoint\":\"/_cat/nodes\",\"httpMethod\":\"GET\",\"topic\":\"logging-traffic-topic\"},\"threadId\":17,\"threadPriority\":10}\r\n{\"instant\":{\"epochSecond\":1694061207,\"nanoOfSecond\":129397845},\"thread\":\"nioEventLoopGroup-3-1\",\"level\":\"INFO\",\"loggerName\":\"MetricsLogger\",\"message\":\"Component of response received\",\"endOfBatch\":false,\"loggerFqcn\":\"org.apache.logging.slf4j.Log4jLogger\",\"contextMap\":{\"channelId\":\"0242c0fffea83007-0000000d-00000005-6aed442019229d30-21ba833a\",\"topic\":\"logging-traffic-topic\"},\"threadId\":17,\"threadPriority\":10}\r\n{\"instant\":{\"epochSecond\":1694061207,\"nanoOfSecond\":134681378},\"thread\":\"nioEventLoopGroup-3-1\",\"level\":\"INFO\",\"loggerName\":\"MetricsLogger\",\"message\":\"Sending message to Kafka\",\"endOfBatch\":false,\"loggerFqcn\":\"org.apache.logging.slf4j.Log4jLogger\",\"contextMap\":{\"channelId\":\"0242c0fffea83007-0000000d-00000005-6aed442019229d30-21ba833a\",\"diagnosticId\":\"0242c0fffea83007-0000000d-00000005-6aed442019229d30-21ba833a.1\",\"topic\":\"logging-traffic-topic\"},\"threadId\":17,\"threadPriority\":10}\r\n[DEBUG] 2023-09-07 04:33:27.132 [nioEventLoopGroup-3-1] FrontsideHandler - channelRead COMPLETE\r\n```\r\n\r\n### Issues Resolved\r\nIt won't be fully resolved, but this is the first half of https://opensearch.atlassian.net/browse/MIGRATIONS-1299.\r\n\r\nThis should be backported to the capture-and-replay-v0.1.0 branch.\r\n\r\n### Testing\r\nManual testing.\r\n\r\n### Check List\r\n- [ ] New functionality includes testing\r\n  - [ ] All tests pass, including unit test, integration test and doctest\r\n- [ ] New functionality has been documented\r\n- [x] Commits are signed per the DCO using --signoff\r\n\r\nBy submitting this pull request, I confirm that my contribution is made under the terms of the Apache 2.0 license.\r\nFor more information on following Developer Certificate of Origin and signing off your commits, please check [here](https://github.com/opensearch-project/OpenSearch/blob/main/CONTRIBUTING.md#developer-certificate-of-origin).\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-10T20:51:12Z",
+                                    "bodyText": "The backport to capture-and-replay-v0.1.0 failed:\nThe process '/usr/bin/git' failed with exit code 128\n\nTo backport manually, run these commands in your terminal:\n# Fetch latest updates from GitHub\ngit fetch\n# Create a new working tree\ngit worktree add ../.worktrees/backport-capture-and-replay-v0.1.0 capture-and-replay-v0.1.0\n# Navigate to the new working tree\npushd ../.worktrees/backport-capture-and-replay-v0.1.0\n# Create a new branch\ngit switch --create backport/backport-297-to-capture-and-replay-v0.1.0\n# Cherry-pick the merged commit of this pull request and resolve the conflicts\ngit cherry-pick -x --mainline 1 90e5c2c04473a0045796dbcd78c2b3bff09662e6\n# Push it to GitHub\ngit push --set-upstream origin backport/backport-297-to-capture-and-replay-v0.1.0\n# Go back to the original working tree\npopd\n# Delete the working tree\ngit worktree remove ../.worktrees/backport-capture-and-replay-v0.1.0\nThen, create a pull request where the base branch is capture-and-replay-v0.1.0 and the compare/head branch is backport/backport-297-to-capture-and-replay-v0.1.0.",
+                                    "url": "https://github.com/opensearch-project/opensearch-migrations/pull/297#issuecomment-1712933810",
+                                    "author": {
+                                        "login": "opensearch-trigger-bot"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "I'd like to see events for backside connections.  Connections created, closed & exceptions.  Having the timestamps for those will help us understand the general health of the source cluster too.\nThe capture proxy doesn't do any parsing of the request coming back, so we can't tell when it is done.  We could add minimal parsing of the first line w/out taking much of a performance hit at all to get the status code, but going through all of the payload stream with netty's http components would be much more expensive.  We used to do that, but it isn't critical for the logged traffic and is another risk/performance hit on something that we're trying to keep as simple as possible.\nAs a dev, I don't think that I'll ever get comfortable having lines with different formats (JSON, vs. delimited).  I strongly prefer to see them 'blend-in' more with the rest of the context, but be clearly distinguishable (some logs use color, though I'm happy w/ just a different logger name).\nMDC uses ThreadLocal.  Since netty is popping work on/off the same threads many times, ThreadLocals are often brutally difficult to get right.  It's super easy to not clear something or to recurse and smash old values.  The current codebase uses two threadlocals.  One is to handle formatting in a toString call (and the threadlocal values are pushed/popped and restore the old value) and the other is to maintain a per-thread cache of our connections since channels are bound to Threads (so we shouldn't try to move them between threads).\nThis doesn't have any tests associated with it.  Given the criticality of these metrics to the general health and developer experience, I'd like to see some mild integration tests run w/ every build.  Setting up a Log4j2 context specifically for your test and using a SimpleHttpServer could test that you're getting the right counts and values within about a second for even complicated cases.  This can be follow-up work, but it should still be considered a high-priority.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "See the comment at the top-level.  Since MDC is handled as a ThreadLocal, this is going to be tech-debt that is extremely difficult to track and diagnose.  Case in point, there aren't any tests in place to verify that the right values are going to be coming back out into the logs.\nFrom a logging config management perspective, the MDC key/values can be handled fluently.  See https://chat.openai.com/share/08649025-20e3-42e6-abba-32c29722dc0c and #280",
+                                                        "author": {
+                                                            "login": "gregschohn"
+                                                        },
+                                                        "url": "https://github.com/opensearch-project/opensearch-migrations/pull/297#discussion_r1318668172",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "71d907f",
+                                                            "authoredDate": "2023-09-07T05:14:29Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is error prone from a human perspective and an exception-safe one.  It's also far less efficient than just putting it into the logging line.  \"diagnosticId\" is going to be used by this thread in potentially many (global) places, and you're not preserving the old value.  This is a bad pattern.  Globals are bad and that's what these are.",
+                                                        "author": {
+                                                            "login": "gregschohn"
+                                                        },
+                                                        "url": "https://github.com/opensearch-project/opensearch-migrations/pull/297#discussion_r1318672538",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "71d907f",
+                                                            "authoredDate": "2023-09-07T05:14:29Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Notice that you didn't clear these out or put back their old values.",
+                                                        "author": {
+                                                            "login": "gregschohn"
+                                                        },
+                                                        "url": "https://github.com/opensearch-project/opensearch-migrations/pull/297#discussion_r1318689839",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "71d907f",
+                                                            "authoredDate": "2023-09-07T05:14:29Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can you codify what the log levels are going to be for?\nMy thought is that this should be ERROR.  The info level seems appropriate for successes.  I would wrap these decisions in a helper class though - see the comments at the top of the file.\nSecondly, wouldn't this be better as one message?  I would format the message with atError().setCause(e).setMessage(()->\"...\") (personally, I find that positional printf style format statements are more error prone & prefer the string concatenation approach, but you could use String.format() or .setArgument() on the LoggingEventBuilder object returned by atError())",
+                                                        "author": {
+                                                            "login": "gregschohn"
+                                                        },
+                                                        "url": "https://github.com/opensearch-project/opensearch-migrations/pull/297#discussion_r1318698659",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "71d907f",
+                                                            "authoredDate": "2023-09-07T05:14:29Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Please send the size of the record too",
+                                                        "author": {
+                                                            "login": "gregschohn"
+                                                        },
+                                                        "url": "https://github.com/opensearch-project/opensearch-migrations/pull/297#discussion_r1318699766",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "71d907f",
+                                                            "authoredDate": "2023-09-07T05:14:29Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Please canonicalize this within code.  A MetricsLogger class can return WrappedLogger objects that return LoggingEventBuilder objects for errorEvents, successEvents, and traceEvents (if we ever think that those are useful).  Then you can document what the log levels (trace, debug, info, warn, error) mean.  You can also make sure that the loggers are all named something consistent.  \"MetricLogger.KafkaCaptureFactory\" would make sense for MetricLogger.getLogger(\"KafkaCaptureFactory\").",
+                                                        "author": {
+                                                            "login": "gregschohn"
+                                                        },
+                                                        "url": "https://github.com/opensearch-project/opensearch-migrations/pull/297#discussion_r1318703242",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "71d907f",
+                                                            "authoredDate": "2023-09-07T05:14:29Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "see comment above about canonicalizing this",
+                                                        "author": {
+                                                            "login": "gregschohn"
+                                                        },
+                                                        "url": "https://github.com/opensearch-project/opensearch-migrations/pull/297#discussion_r1318703686",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "71d907f",
+                                                            "authoredDate": "2023-09-07T05:14:29Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Did you intentionally not remove the channelId?  There's no reason to here either (& when there is, it probably won't work right or be testable - so it's likely never going to be valuable for us)",
+                                                        "author": {
+                                                            "login": "gregschohn"
+                                                        },
+                                                        "url": "https://github.com/opensearch-project/opensearch-migrations/pull/297#discussion_r1318706266",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "71d907f",
+                                                            "authoredDate": "2023-09-07T05:14:29Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'd like to see the # of bytes that came in.  I'm not sure how easy it is to recover that here (we just need to accumulate the count from the ByteBufs though).",
+                                                        "author": {
+                                                            "login": "gregschohn"
+                                                        },
+                                                        "url": "https://github.com/opensearch-project/opensearch-migrations/pull/297#discussion_r1318707397",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "71d907f",
+                                                            "authoredDate": "2023-09-07T05:14:29Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "dead lines?",
+                                                        "author": {
+                                                            "login": "gregschohn"
+                                                        },
+                                                        "url": "https://github.com/opensearch-project/opensearch-migrations/pull/297#discussion_r1318708573",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "71d907f",
+                                                            "authoredDate": "2023-09-07T05:14:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Please don't set this to JsonLayout by default?  I'd rather have a user turn this on to work with their metrics consumers rather than relegate humans to be second-class citizens of their logs.",
+                                                        "author": {
+                                                            "login": "gregschohn"
+                                                        },
+                                                        "url": "https://github.com/opensearch-project/opensearch-migrations/pull/297#discussion_r1318717218",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "71d907f",
+                                                            "authoredDate": "2023-09-07T05:14:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "I like the approach where I can see everything going into each record!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

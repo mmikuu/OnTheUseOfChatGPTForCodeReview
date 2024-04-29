@@ -1,0 +1,131 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 2,
+                        "title": "Chatgpt",
+                        "repository": {
+                            "nameWithOwner": "AGnias47/AGnias47.github.io",
+                            "primaryLanguage": {
+                                "name": "HTML"
+                            }
+                        },
+                        "createdAt": "2023-06-12T00:45:42Z",
+                        "mergedAt": "2023-06-12T00:46:03Z",
+                        "url": "https://github.com/AGnias47/AGnias47.github.io/pull/2",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "AGnias47"
+                        },
+                        "editor": null,
+                        "body": "Updates with assist from ChatGPT: https://chat.openai.com/share/704e616c-fe62-4b8e-9ab6-075678689e4b",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 64,
+                        "title": "[PR] Using cid with entry upload metadata",
+                        "repository": {
+                            "nameWithOwner": "dwyl/imgup",
+                            "primaryLanguage": {
+                                "name": "Elixir"
+                            }
+                        },
+                        "createdAt": "2023-06-12T11:59:57Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/dwyl/imgup/pull/64",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "LuchoTurtle"
+                        },
+                        "editor": null,
+                        "body": "fixes #62 \r\n\r\nThis changes how the `CID` is created with the entry data. It uses the entry's name, the relative path, the size and the content type to try and generate a `CID` closest to the file's contents with its metadata.\r\n\r\nUnfortunately, we cannot use the file's contents to create a `CID` because, with this method (as described in the [LiveView's documentation](https://hexdocs.pm/phoenix_live_view/uploads.html), which is _different from the [regular file upload-way that is used in the API](https://hexdocs.pm/phoenix/file_uploads.html)_) we do not have access to the file's contents.\r\nI've tried doing this in both LiveView and also in the `js` client but there is no information about where the File is stored (it's not stored anywhere). I've also tried checking if there's a discernable way of seeing the contents of the file in the entry that is used in the Javascript client (e.g. check the screenshot below)\r\n\r\n<img width=\"466\" alt=\"image\" src=\"https://github.com/dwyl/imgup/assets/17494745/38219d46-1d00-4030-953c-a704ddd22912\">\r\n\r\nSo the closest we can do with the LiveView format is to use its metadata and create the `CID` off of that.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-06-12T20:50:59Z",
+                                    "bodyText": "https://web.dev/read-files/#read-content\nhttps://github.com/multiformats/js-multiformats#browser-script-tag",
+                                    "url": "https://github.com/dwyl/imgup/pull/64#issuecomment-1588077893",
+                                    "author": {
+                                        "login": "nelsonic"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-13T10:46:11Z",
+                                    "bodyText": "But to be 100% clear I don't want to be writing JS or doing any of this in the Client.\nThe LiveView example was only to get us up-and-running as quickly as possible.\nI consider direct client uploads to S3 to be an anti-pattern perpetuated by lazy developers.\nWe will not be using this approach in our App.",
+                                    "url": "https://github.com/dwyl/imgup/pull/64#issuecomment-1589050052",
+                                    "author": {
+                                        "login": "nelsonic"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-13T10:47:39Z",
+                                    "bodyText": "@nelsonic\nI've spent the last few hours trying to get this to work because the links you've posted made it seem that you wanted the CID to be derived from the file of the contents, and not through the approach I've made in this PR.\nSo should I discard all of the work I've done since it's not going to be used (it was obvious we weren't going to use LiveView since the app is Flutter-based), and just use the original approach of this PR instead? This PR only affects the LiveView part of the repo.",
+                                    "url": "https://github.com/dwyl/imgup/pull/64#issuecomment-1589052335",
+                                    "author": {
+                                        "login": "LuchoTurtle"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-13T10:58:18Z",
+                                    "bodyText": "Yes, I opened the issue #62\nBut you haven't commented on it and it's not \"in progress\".\nOnce the API PR #53 is finished we can refactor the LiveView upload code to use the DRY upload/1 function which already does the cid as the contents of the file.",
+                                    "url": "https://github.com/dwyl/imgup/pull/64#issuecomment-1589068202",
+                                    "author": {
+                                        "login": "nelsonic"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-13T11:12:03Z",
+                                    "bodyText": "This very PR was made in response to the issue that you've commented on with the links (#64 (comment)), so I assumed it was clear it was \"being worked on\". Regardless, from the links you've posted, it made it seem that you wanted me to get the LiveView to work \"as is\" (which is a client-based upload that is described in the Phoenix LiveView docs) with the cid from the file contents, which is what I've been working on for the past hours.\nThe way file uploads are made through the API differ from LiveView's, which does not save the files in a temporary folder as the API does. So, to use the upload/1 function you are implementing right now means that the LiveView component of this repo will have to be 80-90% modified.\nIn lieu of this, I'll discard the changes I have on my localhost and close this PR because it's considered useless.",
+                                    "url": "https://github.com/dwyl/imgup/pull/64#issuecomment-1589087706",
+                                    "author": {
+                                        "login": "LuchoTurtle"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-13T11:34:02Z",
+                                    "bodyText": "No. I posted links to dispel the myth that:\n\"there's a discernable way of seeing the contents of the file in the entry that is used in the Javascript client\"\n\nFirst result when I Googled for \"how to read files using JavaScript in the browser\".\nBut again, this is not how we want to build image uploading.\nUsing the JavaScript hammer for this is a crutch.\nI'm glad that you've borrowed Chris's code /lib/app_web/s3_upload.ex\n(though you didn't link to the original ... https://gist.github.com/chrismccord/37862f1f8b1f5148644b75d20d1cb073 )\n\nChatGPT \"writes\" code without any attribution. \ud83e\udd16\nI expect better from a human. \ud83e\uddd1\u200d\ud83d\udcbb\n\nhttps://chat.openai.com/share/522cd0a9-1646-49a9-ac05-f9207d903b1b\n\n#done \ud83d\ude44\nI wouldn't use the \"direct\" upload method in a real App ...\nIt's a good demo but the Gist is not robustly tested and has zero error-handling. \ud83d\ude15\nAs for working on an issue without posting a comment. Please stop doing that.\nIf you want to work remotely for any team/company, communication is critical.",
+                                    "url": "https://github.com/dwyl/imgup/pull/64#issuecomment-1589121644",
+                                    "author": {
+                                        "login": "nelsonic"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjI=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 2
+        }
+    }
+}

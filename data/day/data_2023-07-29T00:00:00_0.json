@@ -1,0 +1,1618 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 1451,
+                        "title": "Added Additional and Multiple Submission Types for Quest Submissions",
+                        "repository": {
+                            "nameWithOwner": "bytedeck/bytedeck",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-07-29T17:49:29Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/bytedeck/bytedeck/pull/1451",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "Enprogames"
+                        },
+                        "editor": {
+                            "login": "Enprogames"
+                        },
+                        "body": "## What?\r\nI created the models that will allow us to support quests having multiple questions. I also created CRUDL views to allow teachers to create/view/edit/delete questions for quests. For any quest, they can access these views by clicking the new \"Edit Questions\" button beside the \"Edit Prerequisites\" button. Finally, I added the functionality for students to submit their answers to questions. \r\n\r\nThe new models implement the following ER diagram:\r\n\r\n![question_uml](https://github.com/bytedeck/bytedeck/assets/11304586/2fa687b5-8602-422b-8ebb-760db0f92fe1)\r\n\r\nThe dashed lines indicate weak relationships, meaning, for example, that a Question cannot exist without a Quest.\r\n\r\n## Why?\r\nWith these changes, teachers can add multiple submissions to quests. This will make it easier for them to enforce that students answer certain questions, and will make multi-question quests easier for students to understand.\r\n\r\n## How?\r\n\r\n### Question and QuestionSubmission Models\r\n\r\nEverything related to questions, except for how they are used in the quest_manager app, has been moved to a new app called \"questions\".\r\n\r\n\u2757 **Edit**: I've made a few crucial design decisions since the last review, and these decisions should be evaluated:\r\n#### on_delete behavior for Questions and QuestionSubmissions\r\n- When a Question's Quest is deleted, so is the Question.\r\n- When a QuestionSubmission's Comment is deleted, so is the QuestionSubmission.\r\n- When a QuestionSubmission's Question is deleted, the QuestionSubmission is *not* deleted. This reflects the same relationship that Quests have to QuestSubmissions.\r\n\r\n#### `__str__` String representations of Questions and QuestionSubmissions\r\nThis was tricky to come up with. The string represenations needed to be different from other string representations. I thought it would make sense for a Question to be represented as `<Quest Name> (<Question Ordinal in Quest>)`, but this format is already used by QuestSubmissions, so I had to come up with something new. Below is what I went with for each object:\r\n\r\n```py\r\nclass Question(models.Model):\r\n...\r\n    def __str__(self):\r\n        \"\"\"Return string representation in format of: [Quest Name] ([Question Type] - [Question Ordinal])\r\n        e.g. \"Quest 1 (short_answer - 1)\" for the first question in the quest with name \"Quest 1\"\r\n        \"\"\"\r\n        return f\"{self.quest.name} ({self.type} - {self.ordinal})\"\r\n...\r\nclass QuestionSubmission(models.Model):\r\n...\r\n    def __str__(self):\r\n        \"\"\"Return string representation in format of: [Comment datetime string] - ([question ordinal])\r\n        e.g. \"2022-3-22 1:00PM - (1)\" for the first question in the student's quest submission\r\n        If the question is None, return: [Comment datetime string] - (?)\r\n        \"\"\"\r\n        comment_time = self.comment.timestamp.strftime(\"%Y-%m-%d %-I:%M%p\")\r\n        if self.question:\r\n            return f\"{comment_time} - ({self.question.ordinal})\"\r\n        else:\r\n            return f\"{comment_time} - (?)\"\r\n```\r\n\r\n#### `next_ordinal(cls, quest)` Question Class Method\r\nDeciding how to handle incrementing ordinal values was tricky. We want to ensure that Questions can be added, deleted, and reordered by teachers, and we want to avoid the problems that occurred with the Quest Submission ordinals. I tried overriding the `save()` method, overriding the `delete()` method, and creating a `reorder(self, new_position)` method, but each of these would have been out of the scope of this task. So instead, we opted for creating a simple `new_ordinal(cls, quest)` class method for the Question model. It is implemented as follows:\r\n```py\r\nclass Question(models.Model):\r\n...\r\n    @classmethod\r\n    def next_ordinal(cls, quest):\r\n        \"\"\"Return the next ordinal value for a question in this quest\"\"\"\r\n        max_ordinal = Question.objects.filter(quest=quest).aggregate(Max('ordinal'))['ordinal__max']\r\n        return (max_ordinal or 0) + 1\r\n```\r\n\r\nThis can be called like so:\r\n```py\r\nfrom quest_manager.models import Quest, Question\r\n\r\nquest1 = Quest.objects.get(...)\r\nnext_ordinal_in_quest = Question.next_ordinal(quest1)\r\n\r\nnext_question = Question.objects.create(quest=quest1, ordinal=next_ordinal_in_quest, instructions='')\r\n```\r\n\r\nGo to `src/questions/models.py` for the full implementation of the question models.\r\n\r\n### Question CRUDL Views\r\n\r\nThese views can accessed through the following URLS:\r\n```py\r\npath('<int:quest_id>/questions/', views.QuestionListView.as_view(), name='question_list'),\r\npath('<int:quest_id>/questions/create/<str:question_type>', views.QuestionCreateView.as_view(),\r\n     name='question_create'),\r\npath('<int:quest_id>/questions/<int:pk>/', views.QuestionUpdateView.as_view(), name='question_update'),\r\npath('<int:quest_id>/questions/<int:pk>/delete/', views.QuestionDeleteView.as_view(), name='question_delete'),\r\n```\r\n\r\nThe full implementations for these views can be seen in `src/questions/views.py`.\r\n\r\n### QuestionSubmission Views\r\nWith these changes, when a student fills in their responses for a multi-question quest, they will be shown a form for each question. And teachers can view their responses in a dropdown menu underneath their submission comment.\r\n\r\nPlease see the screenshots below.\r\n\r\n## Testing?\r\n- Tests for Question and QuestionSubmission models in `questions/tests/test_models.py`.\r\n    - 23 new tests\r\n- Tests for Question CRUDL views in `questions/tests/test_views.py`\r\n    - 20 new tests\r\n- Tests for QuestionSubmissions in `quest_manager/tests/test_views.py`\r\n    - SubmissionViewTests\r\n    - `test_ajax_save_draft_has_changes`\r\n    - `test_ajax_save_draft_question_has_changes`\r\n    - `test_ajax_save_draft_question_file_upload`\r\n    - `test_ajax_save_draft_question_file_wrong_type_rejected`\r\n    - `test_ajax_save_draft_questions_no_changes`\r\n    - `test_question_submission_form_fields_for_types`\r\n    - `test_students_can_view_past_question_submissions`\r\n    - `test_teachers_can_view_past_question_submissions`\r\n    - `test_student_cannot_see_solutions_or_notes`\r\n    - `test_teachers_can_see_solutions_and_notes`\r\n    - `test_question_submissions_created_for_new_submission`\r\n    - `test_question_submissions_and_comment_not_created_with_existing_submissions`\r\n    - `test_comment_and_questions_deleted_on_drop`\r\n    - SubmissionCompleteViewTest\r\n    - `test_submit_questions`\r\n    - `test_submit_file_question`\r\n    - `test_students_must_complete_required_questions`\r\n    - `test_questions_allowed_file_type`\r\n- Revised tests for QuestSubmissions in `quest_manager/tests/test_models.py` (due to change of draft_text to draft_comment)\r\n    - `test_submission_mark_completed`\r\n\r\n## Screenshots (if front end is affected)\r\n![image](https://github.com/bytedeck/bytedeck/assets/11304586/ef3fa24c-2b03-4834-88cb-cd5b7c239d61)\r\n\r\n![image](https://github.com/bytedeck/bytedeck/assets/11304586/9b6a734c-6cb9-4e17-894b-67d99f50a10c)\r\n\r\n![image](https://github.com/bytedeck/bytedeck/assets/11304586/3735f9a0-1207-4afd-b6d1-3595037ba482)\r\n\r\nInstructors can see a table of questions, and can easily click to edit or delete them.\r\n![image](https://github.com/bytedeck/bytedeck/assets/11304586/9e963381-da99-447d-9471-14d3caf8a782)\r\n\r\nStudents can see a list of questions for a quest in their version of the quest detailed view.\r\n![image](https://github.com/bytedeck/bytedeck/assets/11304586/ad23f4f5-f467-4abe-8080-2eeaebd01d7f)\r\n\r\nAbove the original quest submission field, a formset of question response fields is shown. This is where the student responds to the quest questions.\r\n![image](https://github.com/bytedeck/bytedeck/assets/11304586/5ecc2b47-9242-448b-b2db-e81fda89cea6)\r\n\r\nQuestion responses can be viewed in a table by clicking the \"Question Submissions\" dropdown.\r\n![image](https://github.com/bytedeck/bytedeck/assets/11304586/a9da9674-4714-496d-9f3e-7e581197454d)\r\n\r\nTeachers are shown a different view of question submissions that includes solutions and marker notes:\r\n![image](https://github.com/bytedeck/bytedeck/assets/11304586/2fb0ba92-0e0f-451e-a313-7a223b2d7d2b)\r\n\r\n## Anything Else?\r\nNone of the frontend code is setup to look good on mobile devices. I suggest that we create an issue for it, and work on doing that in a brand-new PR, after this one is merged.\r\n\r\nI also wanted to mention that a lot of the question content is truncated, since it is difficult to show a lot of content in a table. For this reason, I added tooltips to the question table shown below. I'm not sure how to show this in a screenshot, but the full content of the instructions and solutions can be seen in a bootstrap tooltip by hovering over the content.\r\n![image](https://github.com/bytedeck/bytedeck/assets/11304586/8d6d26d9-b719-4759-8198-bf1c6eca1469)\r\n\r\n## Review request\r\n@tylerecouture\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-07-29T18:17:21Z",
+                                    "bodyText": "Codecov Report\n\nMerging #1451 (b086b24) into develop (444be18) will increase coverage by 0.36%.\nThe diff coverage is 96.00%.\n\n@@             Coverage Diff             @@\n##           develop    #1451      +/-   ##\n===========================================\n+ Coverage    87.71%   88.08%   +0.36%     \n===========================================\n  Files          296      304       +8     \n  Lines         8810     9098     +288     \n  Branches       867      900      +33     \n===========================================\n+ Hits          7728     8014     +286     \n+ Misses         893      890       -3     \n- Partials       189      194       +5     \n\n\n\nFiles Changed\nCoverage \u0394\n\n\n\n\n\nsrc/hackerspace_online/settings.py\n80.13% <\u00f8> (\u00f8)\n\n\n\nsrc/hackerspace_online/urls.py\n70.00% <\u00f8> (\u00f8)\n\n\n\nsrc/questions/forms.py\n90.80% <90.80%> (\u00f8)\n\n\n\nsrc/quest_manager/views.py\n88.53% <94.20%> (+1.46%)\n\u2b06\ufe0f\n\n\nsrc/quest_manager/forms.py\n100.00% <100.00%> (\u00f8)\n\n\n\n...r/migrations/0033_questsubmission_draft_comment.py\n100.00% <100.00%> (\u00f8)\n\n\n\nsrc/quest_manager/models.py\n93.09% <100.00%> (+0.02%)\n\u2b06\ufe0f\n\n\nsrc/questions/admin.py\n100.00% <100.00%> (\u00f8)\n\n\n\nsrc/questions/apps.py\n100.00% <100.00%> (\u00f8)\n\n\n\nsrc/questions/migrations/0001_initial.py\n100.00% <100.00%> (\u00f8)\n\n\n\n... and 4 more\n\n\n\n\n\n... and 1 file with indirect coverage changes",
+                                    "url": "https://github.com/bytedeck/bytedeck/pull/1451#issuecomment-1656811254",
+                                    "author": {
+                                        "login": "codecov"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-01T02:31:31Z",
+                                    "bodyText": "We decided to add a new field allowed_file_type to Question, so I will need some time to implement it. Please don't merge the PR yet \ud83d\ude04.\n# Each tuple contains the file type as both the stored value and the display value\n    # e.g. (\"media\", \"Media\") or (\"image\", \"Image\")\n    allowed_file_type = models.CharField(\n        max_length=50,\n        choices=[(key, key.capitalize()) for key in FILE_MIME_TYPES.keys()],\n        default=\"media\",\n        help_text=(\"The types of files that can be uploaded by a student for this question.\")\n   )",
+                                    "url": "https://github.com/bytedeck/bytedeck/pull/1451#issuecomment-1659472188",
+                                    "author": {
+                                        "login": "Enprogames"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-02T18:47:08Z",
+                                    "bodyText": "I've added and tested the allowed_file_type field. The PR is ready for review.",
+                                    "url": "https://github.com/bytedeck/bytedeck/pull/1451#issuecomment-1662775042",
+                                    "author": {
+                                        "login": "Enprogames"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-10T20:53:45Z",
+                                    "bodyText": "I added a more detailed docstring to the Question class:\n...\n\nclass Question(models.Model):\n    \"\"\"Used for adding additional submission fields to Quests.\n\n    This model is used for all types of questions, including short answer, long answer, file upload, and hopefully more\n    in the future. Different types of questions are distinguished by the question_type field. This field is used in\n    the views and forms to determine what type of question is being created, and to show/hide specific fields.\n\n    For example, with a short_answer question, the solution_file/response_file fields are hidden and the solution_text/\n    response_text fields are shown, but with a file_upload question, the solution_file/response_file fields are shown etc.\n\n    For file_upload questions, teachers can specify what type of file is expected. For example, if they specify \"video\",\n    the student will only be able to upload a video file. This is enforced in the form validation, allowing only specific\n    MIME types. The allowed MIME types are specified in the FILE_MIME_TYPES dictionary.\n    \"\"\"\n\n    instructions = models.TextField(\n        help_text=(\n            \"Appears to the student when they are completing the quest. Should provide \"\n            \"specific guidance, a prompt, or a problem statement for the student to address.\"\n        )\n    )\n...",
+                                    "url": "https://github.com/bytedeck/bytedeck/pull/1451#issuecomment-1673904010",
+                                    "author": {
+                                        "login": "Enprogames"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-10T23:43:23Z",
+                                    "bodyText": "A couple small code notes. I will fetch the PR and check out your views/forms.\n\nWhat do you mean by \"fetching my PR\"? Do you want me to push my work that I've done on views/forms for the Questions and QuestionSubmissions in this PR? or a new one after this one is accepted?",
+                                    "url": "https://github.com/bytedeck/bytedeck/pull/1451#issuecomment-1674058434",
+                                    "author": {
+                                        "login": "Enprogames"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-11T17:16:31Z",
+                                    "bodyText": "A couple small code notes. I will fetch the PR and check out your views/forms.\n\nWhat do you mean by \"fetching my PR\"? Do you want me to push my work that I've done on views/forms for the Questions and QuestionSubmissions in this PR? or a new one after this one is accepted?\n\nI can fetch PRs as a new branch and run them locally.  Yes, please push to the PR.\ngit fetch origin pull/ID/head:BRANCH_NAME\nwhere: ID =  the github PR #\nBRANCH_NAME is whatever I what the local branch to be called that holds the PR",
+                                    "url": "https://github.com/bytedeck/bytedeck/pull/1451#issuecomment-1675121897",
+                                    "author": {
+                                        "login": "tylerecouture"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-01T20:01:57Z",
+                                    "bodyText": "Before taking a look at this, please look at #1476. These changes require that the draft field for quests be changed to a foreignkey to Comment, and any changes I have to make to that PR will result in more GIT issues for this PR.",
+                                    "url": "https://github.com/bytedeck/bytedeck/pull/1451#issuecomment-1703262264",
+                                    "author": {
+                                        "login": "Enprogames"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-13T14:49:24Z",
+                                    "bodyText": "@coderabitai review",
+                                    "url": "https://github.com/bytedeck/bytedeck/pull/1451#issuecomment-1941683947",
+                                    "author": {
+                                        "login": "tylerecouture"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "First look over the models.  Nice work! A few notes for you to look at.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Don't override id, id is a default field all model.Models come with that is equivalent to a primary key (.pk).    .id is used all over the place and will be assumed it is a unique identifier for the object.\nWe don't need to generate primary keys for our models, the default id field works and is what everyone will expect.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1278618901",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8b2dc7d",
+                                                            "authoredDate": "2023-07-29T17:32:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "should be unique=True",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1278619317",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8b2dc7d",
+                                                            "authoredDate": "2023-07-29T17:32:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "help_text=\"This may be used as help text for the question type.\"",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1278619429",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8b2dc7d",
+                                                            "authoredDate": "2023-07-29T17:32:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "None of your string methods are covered by tests.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1278619453",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8b2dc7d",
+                                                            "authoredDate": "2023-07-29T17:32:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thanks for the docstring!",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1278619482",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8b2dc7d",
+                                                            "authoredDate": "2023-07-29T17:32:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why null=true blank=true?  What would it mean for a question to not have a type?",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1278619621",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8b2dc7d",
+                                                            "authoredDate": "2023-07-29T17:32:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What's the difference between solution text and marker notes?",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1278620198",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8b2dc7d",
+                                                            "authoredDate": "2023-07-29T17:32:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "All of these fields should have help_text.  Since these will be user facing models, we want good help text (which by default is the help text that appears in forms) to make use of this feature as easy as possible.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1278620312",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8b2dc7d",
+                                                            "authoredDate": "2023-07-29T17:32:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Make sure this sorts the correct direction (lower number first) and ensure there is a test for that.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1278620356",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8b2dc7d",
+                                                            "authoredDate": "2023-07-29T17:32:57Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You added a nice docstring to Quest model, how about nice docstring to Question and QuestionSubmission models? =)",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1278620801",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8b2dc7d",
+                                                            "authoredDate": "2023-07-29T17:32:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Quite a while ago we had a brief conversation about this: #1304 (comment).\nI suppose the idea is that teachers could insert the actual answer to a text-based answer to the question in solution_text, or a file answer in solution_file. And then the teacher would be able to add additional notes in marker_notes.\nFor example, the instructions would be \"what is the best video game?\", the solution_text would be the explicit solution e.g. \"Tetris\", and the marker_notes might elaborate e.g. \"The quest hints towards tetris being the best video game\".\nIf this doesn't make sense, maybe either marker_notes or solution_text could be scrapped?",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1278623411",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8b2dc7d",
+                                                            "authoredDate": "2023-07-29T17:32:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I added help_text for all user-facing fields. I didn't add it for some fields, like the foreignkeys, because I wasn't sure if it would be helpful. Let me know if I should add help_text for them too.\nclass Question(models.Model):\n...\n    quest = models.ForeignKey(Quest, on_delete=models.CASCADE)\n    type = models.CharField(\n        max_length=20, choices=QuestionType.choices, default=QuestionType.SHORT_ANSWER\n    )\n...",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1279925150",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8b2dc7d",
+                                                            "authoredDate": "2023-07-29T17:32:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "My mistake. I was getting Django migration errors, and it was telling me that I had to either provide a default value or allow null values. I changed it so that now the default value is 'short_answer'.",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1279926085",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8b2dc7d",
+                                                            "authoredDate": "2023-07-29T17:32:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Nice work. I left some comments for you!",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This seems weird that the RestrictedFileField is in the models module, when we have a fields module.  That's not your doing but we should move that at some point.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285091660",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Your human readable labels are identical to what would be inferred by, for example FILE_UPLOAD.label, so seems redundant and unnecessary.  See docs: https://docs.djangoproject.com/en/3.2/ref/models/fields/#enumeration-types",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285092618",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Good for now, but once you get this working, please add a description how it handles different questions types.  Maybe a list of relevant fields for each type or similar info.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285092801",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "...\"ideal or example solution.\"",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285092864",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "...or example",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285092881",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\"This text will appear to the marker, providing additional context and info, if needed.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285093209",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Since the default is True, help text should describe what happens if UNchecked:\n\"If unchecked, the student can complete the quest without completing this question.\" or something like that.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285093315",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\"Questions will be displayed to students in order from lowest ordinal to highest ordinal.\"",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285093458",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is this intended for short answer questions?  Short answer should be a CharField with 128 characters or so.  A TextField would be displayed with a Summernote widget for long-answer (with formatting and embedding etc)",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285093838",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If we are not deleting the QuestionSubmission (which I think is a good idea), we'll need to make sure we have good tests covering deleted Questions and ensure those situation are handled.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285094057",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This could just use self.submission (which would cover the quest.name and the submission ordinal) and require less chaining.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285094204",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I was under the impression that we'd use the same for both, and that for short answer, we'd limit the length in the form field. How does that sound? I think it would be simpler than adding  additional short_solution_text and short_response_text fields.",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285271617",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think this has already been done. Not sure what else could be tested. Maybe I could add a test ensuring that the files also aren't deleted or something.",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285302437",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yep, that makes sense. Short answer can use a charfield widget on the form, and Long answer can use a SafeSummernote. Might need to also look at their processing and display (safe filter or not).\nGood idea!",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285333727",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Looks good!",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285334072",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sure! I'll write down that I have to do that.",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285339448",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You're right. You can do question.get_type_display() and it does the same thing.",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1285341223",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is this because your dev DB has objects with no type, from earlier migrations?  We shouldn't need to provide a type (just as you don't provide a quest).\nMight just be a hazard of re-migrating the same thing multiple timeswith different parameters.  Your DB doesn't get reset, so might be good to refresh your db, i.e start a new one on the dev branch, then switch over to this branch and run migrations, so it more closely matches the state of when these migrations would actually happen.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1289575852",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8b2dc7d",
+                                                            "authoredDate": "2023-07-29T17:32:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Makes sense!",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1289576411",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8b2dc7d",
+                                                            "authoredDate": "2023-07-29T17:32:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "A couple small code notes.  I will fetch the PR and check out your views/forms.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think the quest name here is necessary.  When would a question be viewed independent of it's quest? The quest context will always be there, (i.e. the question will always be listed with the quest or with a submission so I think it just needs \"ordinal - type\".  In the detail view we can add the quest name explicitly.\nIf you think the quest name is still necessary, it should be the part in brackets, not the ordinal and type.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1289582846",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e35bcca",
+                                                            "authoredDate": "2023-08-07T01:56:06Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This feels overly complicated.  Why not just Question.objects.filter(quest=quest).last()? Since we are already setting the order via ordinal property?",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1289584406",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e35bcca",
+                                                            "authoredDate": "2023-08-07T01:56:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "def __str__(self):\n    \"\"\"Return string representation in format of: [Quest Submission __str__] - ()\n    e.g. \"Difficult Quest (1) - (1)\" for the first question in the student's first quest submission\n    \"\"\"\n    if self.question:\n        return f\"{self.submission} - ({self.question.ordinal})\"\n    else:\n        return f\"{self.submission} - (?)\"",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1290446766",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "datetime_created = models.DateTimeField(auto_now_add=True)\n    datetime_last_edit = models.DateTimeField(auto_now=True)\n    ordinal = models.PositiveIntegerField(\n        default=1,\n        help_text=(\n            \"Questions will be displayed to the student in order from lowest ordinal to \"\n            \"highest ordinal.\"\n        ),\n    )",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1290462708",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "required = models.BooleanField(\n        default=True,\n        help_text=(\n            \"If this field is unchecked, the student can complete the quest without \"\n            \"answering this question.\"\n        ),\n    )",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1290476604",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "marker_notes = models.TextField(\n        null=True,\n        blank=True,\n        help_text=(\n            \"This text will appear to the marker, providing additional \"\n            \"context and info, if needed.\"\n        ),\n    )",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1290505741",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "done",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1290598972",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "done",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1290599116",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "As we discussed, we will save this for later.",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1290599801",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3f8b857",
+                                                            "authoredDate": "2023-08-01T22:44:01Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm not sure. I guess my rational was that doing  Question.objects.filter(quest=quest).aggregate(Max('ordinal'))['ordinal__max'] is getting just a single number from the database. But if  we did Question.objects.filter(quest=quest).last().ordinal, I think it's getting the whole object and then the value afterwards?\nPerformance gains for this are probably negligible though, so maybe Question.objects.filter(quest=quest).last().ordinal is better since it is more readable?",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1290616129",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e35bcca",
+                                                            "authoredDate": "2023-08-07T01:56:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@classmethod\n    def next_ordinal(cls, quest):\n        \"\"\"Return the next ordinal value for a question in this quest\"\"\"\n        last_question = Question.objects.filter(quest=quest).last()\n        if last_question:\n            return last_question.ordinal + 1\n        else:  # no questions in this quest yet\n            return 1",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1290630958",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e35bcca",
+                                                            "authoredDate": "2023-08-07T01:56:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "def __str__(self):\n        \"\"\"Return string representation in format of: [Question Ordinal] - [Question Type]\n        e.g. \"1 - short_answer\" for the first question in the quest with type short_answer\n        \"\"\"\n        return f\"{self.ordinal} - {self.type}\"",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1290633806",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e35bcca",
+                                                            "authoredDate": "2023-08-07T01:56:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I doubt there is any performance difference at all.  1. Django will convert the SQL behind the scenes to make it efficient, and both only hit the database once.  2 .You can't get the Max value of a queryset without looking at all objects in the queryset anyway!\nBut you got me curious so I asked ChatGPT.  It thinks first() is probably faster for the reasons it gives (grain of salt of course..)\nhttps://chat.openai.com/share/8a774ccf-da5e-45b0-a4d6-8553fbeea62e",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1290794291",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e35bcca",
+                                                            "authoredDate": "2023-08-07T01:56:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "My first walk through of the feature. It is looking awesome.  Seems like you have the base structure working well, now just a matter of making it look good and tweaking.  I left a lot of comments for you to look at =)\nIf I view a quest, it doesn't show the questions anywhere?  Here it shows some questions:\n\nBut no indication of the questions anywhere in the Quest, only the old submission instructions.  Questions should be included for staff, similar to how Instructor Notes are.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why str instead of pk?  str seems too easy to break and we don't use it anywhere else in urls.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309398942",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "86e3c96",
+                                                            "authoredDate": "2023-08-29T18:11:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Missing whitespace between buttons.  I think you can just add a space after the closing button tag for prereqs button:",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309400970",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "86e3c96",
+                                                            "authoredDate": "2023-08-29T18:11:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The comments app should be independent of other apps.  This should be injected or inserted via the Questions app, not here.\nI think you need a template in the questions app for all this, and that's where Submissions would get their comments from.  You can modify the comments/comments.html to add a named block in a convenient location, then you can extend the comments.html template and insert this stuff into the block. (https://docs.djangoproject.com/en/3.2/ref/templates/language/)\nThat will, for example, prevent question stuff from appearing in Announcement comments (or other uses of the comments model elsewhere if implemented in the future)",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309405668",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "86e3c96",
+                                                            "authoredDate": "2023-08-29T18:11:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is not where the H1 headings go.  All your templates are placing the h1 heading in the wrong location.  Take a look at other templates.  You've removed the block where the h1 heading goes.  Also, these should inherit from their own base template since this is it's own app, not the quest base.html",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309407787",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "86e3c96",
+                                                            "authoredDate": "2023-08-29T18:11:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Put the question type in Quotes like this:\n\nThen add <small><br>for {{quest name}}</small> or something like that",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309411692",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "86e3c96",
+                                                            "authoredDate": "2023-08-29T18:11:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Instructions and Marker notes should use SummernoteSafeWidget\nSolution text should be a short answer, so no need for a big text area.  Can you set it to a text input (shouldn't it be by default? Is this not a CharField?",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309413629",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "86e3c96",
+                                                            "authoredDate": "2023-08-29T18:11:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Similar to the other templates, please fix the heading position to be with the icon, and have the title as:\nQuestion List for {{QUEST NAME}} and have the quest name link to the quest so you can remove button at (1)\n(2) Icon means nothing as there is no legend and no hover info.  Remove icon and just put the type name there unless these icons are used elsewhere?  Pencil is generally an Edit icon.\n(3) Popup on hover, not on click.  Also, this is similar to how it should appear in the comment/question itself.  Looks good!  Also remove button and change to an icon like info or info-circle\nFor consistency, change heading of the popup to Marker Notes (not Marker's Notes).",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309419540",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The file upload  \"Allowed File Type\" should have an option for All/Any filetype as well.  Currently I only see Image, Video, and Media.\nAlso, Media should have a better name, perhaps just call it Image or Video?\nAlso, which of these two formats accept an animated GIF?  Both?  How about SVG?  I think more helptext would be beneficial for this field.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309421295",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Also, if marker notes are empty, the column itself should show \"-\" or None instead of the popup (i.e. no popup)",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309422806",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The Instructions and Marker Notes should both be SummernoteAdvancedWidgets\nThe Solution Text for long answer should also be a SummernoteAdvancedWidget, and for short answer should just be a Text (a line or two, not a big TextArea)",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309426921",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Put required on the top.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309428050",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Add the Quest in small for all the question views, and have it link to the quest.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309428317",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "86e3c96",
+                                                            "authoredDate": "2023-08-29T18:11:47Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm not sure it makes sense to show answers when staff comment on submissions:",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309431941",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Not sure what's going on here with the double heading:",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309432201",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Huge text area doesn't make sense if you can only have limited characters.  This should be the default widget for a CharField?",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309432864",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Needs an inidication for students what the file-type limitations are:\n\nYou can inject this into the help text (via form.py) or however you like.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309433356",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Table appears to be messed up, missing a column:\n\nAlso, the Marker Notes should just be an (i) icon similar to the question list view (see other comment) and appear when you hover.",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1309437803",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "For the hidden column issue, I fixed this in bootstrap-table-accordion.css. I think you have to do ctrl+f5 to refresh your browser's cached css?",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1310594130",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If you are changing CSS files, make sure to also do the cache-busting by incrementing the version number where it is imported into the template, you'll see a ?v9 at the end of the url as a dummy GET parameter (this doesn't change the file name, but most browsers will reload the file anyway because it's a different URL)",
+                                                        "author": {
+                                                            "login": "tylerecouture"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1310599135",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "As we discussed on slack, this is necessary so that the template can know the type of question before it loads. Otherwise, we'd have to have a whole bunch of JavaScript code to show/hide fields based on the teacher's selection of question type. I created a bunch of buttons that allow for the creation of different types of questions, and it seemed easiest to just have the type be in the URL. That way I can pass it in as follows:\n<a class=\"btn btn-primary\" href=\"{% url 'questions:create' quest.id 'short_answer' %}\">Create Short Answer Question</a>\n<a class=\"btn btn-primary\" href=\"{% url 'questions:create' quest.id 'long_answer' %}\">Create Long Answer Question</a>\n<a class=\"btn btn-primary\" href=\"{% url 'questions:create' quest.id 'file_upload' %}\">Create File Upload Question</a>",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1311934674",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "86e3c96",
+                                                            "authoredDate": "2023-08-29T18:11:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You're right. That was a mistake.",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1312392423",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I changed custom_common.css to version 1.7, and bootstrap-table-accordion.css to 1.0.\nlink href=\"{{ STATIC_PREFIX }}css/custom_common.css?v=1.7\" rel=\"stylesheet\">\n<link type=\"text/css\" rel=\"stylesheet\"\n          href=\"{% get_static_prefix %}quest_manager/css/bootstrap-table-accordion.css?v=1.0\" />",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1313307826",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1313318092",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1313325233",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "86e3c96",
+                                                            "authoredDate": "2023-08-29T18:11:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1313327843",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1313328389",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1313332709",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1313333669",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1313335266",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1313336146",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1313337191",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1313355702",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "86e3c96",
+                                                            "authoredDate": "2023-08-29T18:11:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I created a comments_with_questions.html file in the questions app. And now that's what the quest app uses for comments.",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1313360720",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "86e3c96",
+                                                            "authoredDate": "2023-08-29T18:11:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1313361240",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "86e3c96",
+                                                            "authoredDate": "2023-08-29T18:11:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1313362486",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fefe00e",
+                                                            "authoredDate": "2023-08-25T00:58:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "{% extends 'questions/base.html' %}\n{% load crispy_forms_tags %}\n{% load static %}\n\n{% block heading_inner %}Question List for <a href=\"{% url 'quests:quest_detail' quest.id %}\">{{ quest.name }}</a>\n{% if request.user.is_staff %}\n<div class=\"btn-toolbar pt-4\">\n   {% for value, verbose_name in type_choices %}\n      <a class=\"btn btn-primary\"\n            href=\"{% url 'questions:create' quest.id value %}\"\n            title=\"Create {{ verbose_name }} Question\"><i class=\"fa fa-plus-circle\"></i> {{ verbose_name }}</a>\n   {% endfor %}\n</div>\n{% endif %}\n{% endblock %}\n\n{% block content %}\n...",
+                                                        "author": {
+                                                            "login": "Enprogames"
+                                                        },
+                                                        "url": "https://github.com/bytedeck/bytedeck/pull/1451#discussion_r1313365425",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "86e3c96",
+                                                            "authoredDate": "2023-08-29T18:11:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

@@ -1,0 +1,1108 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 9,
+                        "title": "Begin work on query to obtain top product in all regions. I asked for\u2026",
+                        "repository": {
+                            "nameWithOwner": "andrew-lundy/northwind-mysql",
+                            "primaryLanguage": null
+                        },
+                        "createdAt": "2023-11-18T02:46:41Z",
+                        "mergedAt": "2023-11-18T02:46:58Z",
+                        "url": "https://github.com/andrew-lundy/northwind-mysql/pull/9",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "andrew-lundy"
+                        },
+                        "editor": null,
+                        "body": "\u2026 feedback on my query as I was working on it and hit a roadblock: https://chat.openai.com/share/51206d57-01f4-44cb-b698-0be18f3954c6.",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 100,
+                        "title": "Fix for unneeded path fixing in Windows",
+                        "repository": {
+                            "nameWithOwner": "Regression-Games/RGUnityBots",
+                            "primaryLanguage": {
+                                "name": "C#"
+                            }
+                        },
+                        "createdAt": "2023-11-18T20:30:38Z",
+                        "mergedAt": "2023-11-20T21:04:00Z",
+                        "url": "https://github.com/Regression-Games/RGUnityBots/pull/100",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "vontell"
+                        },
+                        "editor": null,
+                        "body": "In Windows, there was an error (described in the linear ticket for this task). I _believe_ this is because in windows, there is no trailing slash included in the path, so there is an out of bounds error when trimming the path because of a -1 index.\r\n\r\nHowever, I have no access to a Windows computer rn, so I cannot confirm that this works. However, I did the next best thing and had GPT review this error, and it came to the same conclusion and reasoning, so I'm pretty confident this should work... https://chat.openai.com/share/1b7c364c-9a91-4ac1-ba2e-f14e1560d2ef\r\n\r\n---\r\n\r\nFind the pull request instructions [here](https://www.notion.so/regressiongg/Pull-Request-Process-0d57a7eb582a446983edfacafa406f1e?pvs=4)\r\n\r\nEvery reviewer and the owner of the PR should consider these points in their request (feel free to copy this checklist so you can fill it out yourself in the overall PR comment)\r\n\r\n- [ ] The code is extensible and backward compatible\r\n- [ ] New public interfaces are extensible and open to backward compatibility in the future\r\n- [ ] If preparing to remove a field in the future (i.e. this PR removes an argument), the argument stays but is no longer functional, and attaches a deprecation warning. A linear task is also created to track this deletion task.\r\n- [ ] Non-critical or potentially modifiable arguments are optional\r\n- [ ] Breaking changes and the approach to handling them have been verified with the team (in the Linear task, design doc, or PR itself)\r\n- [ ] The code is easy to read\r\n- [ ] Unit tests are added for expected and edge cases\r\n- [ ] Integration tests are added for expected and edge cases\r\n- [ ] Functions and classes are documented\r\n- [ ] Migrations for both up and down operations are completed\r\n- [ ] A documentation PR is created and being reviewed for anything in this PR that requires knowledge to use\r\n- [ ] Implications on other dependent code (i.e. sample games and sample bots) is considered, mentioned, and properly handled\r\n- [ ] Style changes and other non-blocking changes are marked as non-blocking from reviewers\r\n",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 8230,
+                        "title": "feat: add DataConverter to convert types",
+                        "repository": {
+                            "nameWithOwner": "codeigniter4/CodeIgniter4",
+                            "primaryLanguage": {
+                                "name": "PHP"
+                            }
+                        },
+                        "createdAt": "2023-11-18T08:29:02Z",
+                        "mergedAt": "2024-02-04T02:09:17Z",
+                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "kenjis"
+                        },
+                        "editor": {
+                            "login": "kenjis"
+                        },
+                        "body": "**Description**\r\nSupersedes #7995\r\n\r\n- add `DataConverter` class to convert column values\r\n- add `DataCaster` class to cast values\r\n\r\nEntity casting works at (1)(4), but DataConverter casting works at (2)(3).\r\n\r\n```\r\n[App Code] --- (1) --> [Entity] --- (2) --> [Database]\r\n[App Code] <-- (4) --- [Entity] <-- (3) --- [Database]\r\n```\r\n\r\nExample:\r\n```php\r\n        $types = [\r\n            'id'   => 'int',\r\n            'date' => 'datetime',\r\n        ];\r\n        $converter = new DataConverter($types);\r\n\r\n        $dbData = [\r\n            'id'   => '1',\r\n            'date' => '2023-11-18 14:18:18',\r\n        ];\r\n        $data = $converter->fromDataSource($dbData);\r\n        dd($data);\r\n```\r\n```\r\narray (2) [\r\n    'id' => integer 1\r\n    'date' => CodeIgniter\\I18n\\Time#44 (6) (\r\n        protected 'timezone' -> DateTimeZone#45 (2) (\r\n            public 'timezone_type' -> integer 3\r\n            public 'timezone' -> string (3) \"UTC\"\r\n        )\r\n        protected 'locale' -> string (2) \"en\"\r\n        protected 'toStringFormat' -> string (19) \"yyyy-MM-dd HH:mm:ss\"\r\n        public 'date' -> string (26) \"2023-11-18 14:18:18.000000\"\r\n        public 'timezone_type' -> integer 3\r\n        public 'timezone' -> string (3) \"UTC\"\r\n    )\r\n]\r\n```\r\n\r\n**Checklist:**\r\n- [x] Securely signed commits\r\n- [x] Component(s) with PHPDoc blocks, only if necessary or adds value\r\n- [ ] Unit testing, with >80% coverage\r\n- [ ] User guide updated\r\n- [x] Conforms to style guide\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-20T08:18:33Z",
+                                    "bodyText": "The codes are almost identical. However, this PR is not a feature in Entity, and can be used in Models (or others)\n\nThe current Entity has problems.\n\nAn Entity is a PHP object, but it holds data retrieved from a DB (except for dates) and does not have the correct type of values in PHP. So there is a bug #5905 where hasChange() returns the wrong value.\nEntity has too much knowledge about DB; since Entity is a PHP representation of a DB record, knowledge of DB is essentially unnecessary.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1818433074",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-20T08:22:51Z",
+                                    "bodyText": "Each handler has a specific type(s) to handle. So, I think I can do it, but as far as I tried a little, I could not specify the types well.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1818438707",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-20T08:48:23Z",
+                                    "bodyText": "Entity has too much knowledge about DB; since Entity is a PHP representation of a DB record, knowledge of DB is essentially unnecessary.\n\nI agree. Entities could have been value objects only.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1818475024",
+                                    "author": {
+                                        "login": "paulbalandan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-20T08:54:59Z",
+                                    "bodyText": "Each handler has a specific type(s) to handle. So, I think I can do it, but as far as I tried a little, I could not specify the types well.\n\n\nI tried something like these:\ndiff --git a/system/Database/DataConverter/Cast/CastInterface.php b/system/Database/DataConverter/Cast/CastInterface.php\nindex 540623ea33..b793b6ea20 100644\n--- a/system/Database/DataConverter/Cast/CastInterface.php\n+++ b/system/Database/DataConverter/Cast/CastInterface.php\n@@ -12,27 +12,28 @@\n namespace CodeIgniter\\Database\\DataConverter\\Cast;\n\n /**\n- * Interface CastInterface\n+ * @template TDbColumn\n+ * @template TPhpValue\n  */\n interface CastInterface\n {\n     /**\n      * Takes value from database, returns its value for PHP.\n      *\n-     * @param bool|float|int|string|null $value  Data\n-     * @param array                      $params Additional param\n+     * @param TDbColumn    $value  Data\n+     * @param list<string> $params Additional param\n      *\n-     * @return array|bool|float|int|object|string|null\n+     * @return TPhpValue\n      */\n-    public static function fromDatabase($value, array $params = []);\n+    public static function fromDatabase(mixed $value, array $params = []): mixed;\n\n     /**\n      * Takes the PHP value, returns its value for database.\n      *\n-     * @param array|bool|float|int|object|string|null $value  Data\n-     * @param array                                   $params Additional param\n+     * @param TPhpValue    $value  Data\n+     * @param list<string> $params Additional param\n      *\n-     * @return bool|float|int|string|null\n+     * @return TDbColumn\n      */\n-    public static function toDatabase($value, array $params = []);\n+    public static function toDatabase(mixed $value, array $params = []): mixed;\n }\ndiff --git a/system/Database/DataConverter/Cast/BaseCast.php b/system/Database/DataConverter/Cast/BaseCast.php\nindex d35b761622..e8ef0e13ba 100644\n--- a/system/Database/DataConverter/Cast/BaseCast.php\n+++ b/system/Database/DataConverter/Cast/BaseCast.php\n@@ -14,28 +14,25 @@ namespace CodeIgniter\\Database\\DataConverter\\Cast;\n use TypeError;\n\n /**\n- * Class BaseCast\n+ * @template TDbColumn\n+ * @template TPhpValue\n+ *\n+ * @implements CastInterface<TDbColumn, TPhpValue>\n  */\n abstract class BaseCast implements CastInterface\n {\n-    /**\n-     * {@inheritDoc}\n-     */\n-    public static function fromDatabase($value, array $params = [])\n+    public static function fromDatabase(mixed $value, array $params = []): mixed\n     {\n         return $value;\n     }\n\n-    /**\n-     * {@inheritDoc}\n-     */\n-    public static function toDatabase($value, array $params = [])\n+    public static function toDatabase(mixed $value, array $params = []): mixed\n     {\n         return $value;\n     }\n\n     /**\n-     * Throws TypeError\n+     * @throws TypeError\n      */\n     protected static function invalidTypeValueError(mixed $value): never\n     {\ndiff --git a/system/Database/DataConverter/Cast/ArrayCast.php b/system/Database/DataConverter/Cast/ArrayCast.php\nindex 4b41d9367d..3f0e517289 100644\n--- a/system/Database/DataConverter/Cast/ArrayCast.php\n+++ b/system/Database/DataConverter/Cast/ArrayCast.php\n@@ -15,13 +15,12 @@ namespace CodeIgniter\\Database\\DataConverter\\Cast;\n  * Class ArrayCast\n  *\n  * DB column: string <--> PHP: array\n+ *\n+ * @extends BaseCast<string, mixed[]>\n  */\n class ArrayCast extends BaseCast implements CastInterface\n {\n-    /**\n-     * {@inheritDoc}\n-     */\n-    public static function fromDatabase($value, array $params = []): array\n+    public static function fromDatabase(mixed $value, array $params = []): array\n     {\n         if (! is_string($value)) {\n             self::invalidTypeValueError($value);\n@@ -34,10 +33,7 @@ class ArrayCast extends BaseCast implements CastInterface\n         return (array) $value;\n     }\n\n-    /**\n-     * {@inheritDoc}\n-     */\n-    public static function toDatabase($value, array $params = []): string\n+    public static function toDatabase(mixed $value, array $params = []): string\n     {\n         return serialize($value);\n     }\nand tested with this script:\n<?php\n\nuse CodeIgniter\\Database\\DataConverter\\Cast\\ArrayCast;\n\nArrayCast::fromDatabase([]);\nresulted in:\n$ vendor/bin/phpstan analyse -v test.php\nNote: Using configuration file C:\\Users\\P\\Desktop\\Web Dev\\CodeIgniter4\\phpstan.neon.\n 1/1 [============================] 100% 2 secs\n\n ------ -------------------------------------------------------------------------------------------------------------------------------------\n  Line   test.php\n ------ -------------------------------------------------------------------------------------------------------------------------------------\n  :5     Parameter #1 $value of static method CodeIgniter\\Database\\DataConverter\\Cast\\ArrayCast::fromDatabase() expects string, array given.\n         \u270f\ufe0f  test.php:5\n ------ -------------------------------------------------------------------------------------------------------------------------------------\n\n\n                                                                                                                        \n [ERROR] Found 1 error                                                                                                  \n                                                                                                                        \n\nUsed memory: 114 MB",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1818484401",
+                                    "author": {
+                                        "login": "paulbalandan"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-20T13:48:42Z",
+                                    "bodyText": "Hmm... Looks like a truncated Entity class with a cast option.\nWhat is the plan for this? A part of the Entity class rewrite or an entirely separate thing?\nAs it stands, it is moderately useful. Sure - it works, but if I have to manually declare types every time, I'll start pulling my hair out. I would like to declare types one time and then reuse them for the data I work with. Just like in the Entity class.\nI'm really curious about a plan for this class.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1819098045",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-22T07:51:14Z",
+                                    "bodyText": "@michalsn This class is now complete.\nThe ultimate goal is to fix bug #5905 in Entity, but it is not easy.\nThe next step is to make this class available from Model so that the model can return data with the correct type of values when Entity is not used.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1822267291",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-22T11:31:19Z",
+                                    "bodyText": "@kenjis IMO the solution for Entity is one and simple, as long as everyone will agree on it. The values provided to the Entity class should be casted right away, when creating an instance and then treated as an original data.\nFrom what you're saying DataConverter class looks like an additional option that we will be able to use instead of the Entity class. Will the final Entity class deprecate the cast option and use the input values provided by the DataConverter class? Because if not, I don't see how this will help resolve the issues with an Entity class.\nI'd like to know a little more concrete plan for what changes you want to make before we add another layer to convert the data. Right now I can't decide if I like the potential level of complexity the new layer adds.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1822598261",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-22T14:29:34Z",
+                                    "bodyText": "I realize I'm out of touch here, but this does seem like an overly complex solution to the original issue. And definitely doesn't seem to follow the old CodeIgniter way of attempting to keep things simple. This problem has been solved before by other frameworks. Have we looked at them to see how they've solved it as inspiration?\nSorry, without diving into the code deeper right now I don't have any advice on solutions but watching the email threads got me a little concerned we're slapping a complex bandaid on an issue that can be solved in a simpler fashion somewhere else.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1822880172",
+                                    "author": {
+                                        "login": "lonnieezell"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-22T21:23:46Z",
+                                    "bodyText": "The values provided to the Entity class should be casted right away, when creating an instance and then treated as an original data.\n\nThat is what I'm trying to do.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1823526970",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-22T21:35:21Z",
+                                    "bodyText": "The big picture at this point looks like this.\n\nThis DataConverter provides some of the functionality of Entity's property casting. It only converts data to and from the database. (This PR)\nUsing DataConverter, Model will have the functionality of casting. (See #8243)\nEntity will use the casting in Model, and we don't need to use Entity's property casting for data conversion to and from the database. (See #8243)",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1823539480",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-22T21:43:26Z",
+                                    "bodyText": "@lonnieezell Thank you for your comment!\nI don't think this is overly complex. The DataConverter just converts data, and I just move a part of functionality from Entity's property casting. Entity is already too complex.\nI have no idea what the solution in other frameworks means. I would appreciate it if you could give me some concrete examples. At the very least, in Laravel the model has casting functionality.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1823546542",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-23T03:11:30Z",
+                                    "bodyText": "Thank you @kenjis for this enhancement. I asked for this feature some time ago.\nMy two cents:\n\nThis is different from using Entity, because using Entity is an ORM pattern, which could be an overcomplicattion for users over the Query Builder. I mean - it forces the user to create and work with new classes, which he might not want to do.\nFor me casting to Number type was fine, but nowadays many tables (almost all of mine) have JSON fields and casting from/to them every time working with DB is very inconvenient and error prone. So this feature is really in demand.\nMy workaround was to have a PHP file with table field type definitions and use Model hooks ($beforeUpdate etc) for type conversions, so it was transparent for users. But native solution would be much better\nThis is the example of that file:\n\nclass ResourcesMeta\n{\n    private static $resources = [\n        \"user_activity\" => [\n            \"exposedFields\" => [\"*\"],\n            \"types\" => [\n                \"number\" => [\"id\", \"userId\"],\n                \"json\" => [\"data\"],\n            ],\n        ],\n        \"user_balance_history\" => [\n            \"exposedFields\" => [\"*\"],\n            \"types\" => [\n                \"number\" => [\"id\", \"userId\", \"balanceAfter\", \"balanceBefore\", \"walletId\"],\n                \"json\" => [\"data\"],\n            ],\n        ],\n\nEntity has problems with updating inner properties of JSON fields - you need to create and reassign new object to that field",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1823771319",
+                                    "author": {
+                                        "login": "altrusl"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-23T06:36:56Z",
+                                    "bodyText": "I sent a draft PR #8243 about casting in the model.\nI think I can make the model without breaking changes, but I'm not sure yet what will happen to Entity.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1823878067",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-23T10:06:42Z",
+                                    "bodyText": "Why these errors by Psalm?\nERROR: NoValue - system/Database/DataConverter/Cast/CSVCast.php:32:29 - All possible types for this argument were invalidated - This may be dead code (see https://psalm.dev/179)\n        return explode(',', $value);\n\n\nERROR: NoValue - system/Database/DataConverter/Cast/CSVCast.php:44:29 - All possible types for this argument were invalidated - This may be dead code (see https://psalm.dev/179)\n        return implode(',', $value);\n\n\nERROR: NoValue - system/Database/DataConverter/Cast/DatetimeCast.php:37:28 - All possible types for this argument were invalidated - This may be dead code (see https://psalm.dev/179)\n        return Time::parse($value);\n\n\nERROR: NoValue - system/Database/DataConverter/Cast/JsonCast.php:41:21 - All possible types for this argument were invalidated - This may be dead code (see https://psalm.dev/179)\n            (strlen($value) > 1 && in_array($value[0], ['[', '{', '\"'], true))\n\n\nERROR: NoValue - system/Database/DataConverter/Cast/JsonCast.php:45:39 - All possible types for this argument were invalidated - This may be dead code (see https://psalm.dev/179)\n                $output = json_decode($value, $associative, 512, JSON_THROW_ON_ERROR);\n\n\nERROR: NoValue - system/Database/DataConverter/Cast/URICast.php:34:24 - All possible types for this argument were invalidated - This may be dead code (see https://psalm.dev/179)\n        return new URI($value);",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1824112825",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-23T13:00:38Z",
+                                    "bodyText": "because using Entity is an ORM pattern\n\n@altrusl Entities are not ORM objects, they are intended to be data source object representations  in the Repository pattern.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1824401673",
+                                    "author": {
+                                        "login": "MGatner"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-23T16:20:32Z",
+                                    "bodyText": "@kenjis\n\nI think I can make the model without breaking changes, but I'm not sure yet what will happen to Entity.\n\nIn the worst-case scenario, I would not be opposed to \"depreciating\" the current one and creating a new Entity class.\nHowever, I believe that the casting functionality in the Entity class should remain as an option (and probably use DataConverter by default?), because no one has said that Entities cannot be used for data that does not come from a database. I personally was using the casting option in Entity class for data that comes from files and API endpoints before.\nGiven this, maybe we should reconsider the chosen namespace since casting should not be reserved only for working with database data.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1824685326",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T00:44:46Z",
+                                    "bodyText": "@MGatner @altrusl There seems to be some confusion as to what Entity is in CI4.\nIn fact, I am not sure what this Entity is either.\nThere seems to be also some confusion as to what \"Repository Pattern\" is.\nThe user guide includes the following statements:\n\nCodeIgniter supports Entity classes as a first-class citizen in it\u2019s database layer\n\n\nAt its core, an Entity class is simply a class that represents a single database row. It has class properties to represent the database columns, and provides any additional methods to implement the business logic for that row.\nhttps://codeigniter4.github.io/CodeIgniter4/models/entities.html#entity-usage\n\nAfter reading this in the past, I understood as the following:\nIt is a database layer object that has database columns and represents a database row.\nHowever, the current discussion seems to be moving in the direction that the Entity is not a DB layer object.\nI agree with that idea.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1825026502",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T00:57:51Z",
+                                    "bodyText": "https://chat.openai.com/share/9437d9ca-6365-4070-b11b-9c31cede7a2a\nThe Repository Pattern is a design pattern commonly used in software development to abstract the data access logic from the rest of the application. In the context of PHP development, the Repository Pattern is often applied to manage database interactions.\nThe main idea behind the Repository Pattern is to create a layer of abstraction that sits between the application's business logic and the data source (usually a database). This layer, known as the repository, provides a set of methods for performing CRUD (Create, Read, Update, Delete) operations on the data without exposing the underlying database details to the rest of the application.\nHere's a simple example of how you might implement a basic UserRepository in PHP using the Repository Pattern:\n// User model representing a user entity\nclass User {\n    public $id;\n    public $username;\n    public $email;\n\n    // Additional properties and methods can be added as needed\n}\n\n// UserRepository interface defining the contract for data access\ninterface UserRepositoryInterface {\n    public function getById($id);\n    public function getByUsername($username);\n    public function save(User $user);\n    public function update(User $user);\n    public function delete(User $user);\n}\n\n// UserRepository implementing the Repository Pattern\nclass UserRepository implements UserRepositoryInterface {\n    private $db;\n\n    public function __construct(PDO $db) {\n        $this->db = $db;\n    }\n\n    public function getById($id) {\n        // Logic to fetch a user by ID from the database\n    }\n\n    public function getByUsername($username) {\n        // Logic to fetch a user by username from the database\n    }\n\n    public function save(User $user) {\n        // Logic to save a new user to the database\n    }\n\n    public function update(User $user) {\n        // Logic to update an existing user in the database\n    }\n\n    public function delete(User $user) {\n        // Logic to delete a user from the database\n    }\n}\n\n// Example of how the UserRepository might be used in your application\n$db = new PDO('mysql:host=localhost;dbname=mydatabase', 'username', 'password');\n$userRepository = new UserRepository($db);\n\n// Example of fetching a user by ID\n$user = $userRepository->getById(1);\n\n// Example of saving a new user\n$newUser = new User();\n$newUser->username = 'john_doe';\n$newUser->email = 'john@example.com';\n$userRepository->save($newUser);\n\n// Example of updating an existing user\n$userToUpdate = $userRepository->getById(2);\n$userToUpdate->email = 'updated_email@example.com';\n$userRepository->update($userToUpdate);\n\n// Example of deleting a user\n$userToDelete = $userRepository->getById(3);\n$userRepository->delete($userToDelete);\nIn this example, the UserRepository class provides methods for fetching users by ID or username, saving new users, updating existing users, and deleting users. The actual database interactions are encapsulated within the repository, allowing the rest of the application to work with user objects without having to know the details of how the data is stored or retrieved from the database.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1825031853",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T02:18:52Z",
+                                    "bodyText": "However, I believe that the casting functionality in the Entity class should remain as an option (and probably use DataConverter by default?), because no one has said that Entities cannot be used for data that does not come from a database. I personally was using the casting option in Entity class for data that comes from files and API endpoints before.\n\nBesides the backward compatibility issue, we have to leave the Entity casting so that we can do something like JoeCast.\n\nGiven this, maybe we should reconsider the chosen namespace since casting should not be reserved only for working with database data.\n\nChanged the namespace to CodeIgniter\\DataConverter.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1825070268",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T05:45:08Z",
+                                    "bodyText": "I have no idea what the solution in other frameworks means. I would appreciate it if you could give me some concrete examples. At the very least, in Laravel the model has casting functionality.\n\nI was just asking if you had looked at their solutions. I haven't done a deep dive in any of the other frameworks around this either. Laravel has it in the model because their model handles the functionality of both our model and our entity.\n\nEntity has too much knowledge about DB; since Entity is a PHP representation of a DB record, knowledge of DB is essentially unnecessary.\n\nLooking through the Entity class I see no direct knowledge of the database. I didn't look through all of the casts, but IIRC the model fills the data into the Entity class and from there it acts as a value object with capabilities to map/cast the data and that should be about it. What am I missing?\n\nUnpopular opinion here, but it seems like maybe the entire issue could be solved by doing a loose check in the hasChanged function instead of a strict check? I haven't thought through every case but if the database returns everything as a string, and web forms provide everything as a string, then we should be able to have the Entity class work with those strings easily. It seems that we're making things difficult by trying to force strict types in a place that is stuck between 2 layers that operate in strings. That would fix the issue that was reported in #5905 that this was trying to fix.\nPHP is and always will be a loosely-typed language at its core so we shouldn't always shy away from that.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1825176082",
+                                    "author": {
+                                        "login": "lonnieezell"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T08:05:36Z",
+                                    "bodyText": "Looking through the Entity class I see no direct knowledge of the database. I didn't look through all of the casts, but IIRC the model fills the data into the Entity class and from there it acts as a value object with capabilities to map/cast the data and that should be about it. What am I missing?\n\nRaw data or raw values in Entity are values from the database.\nThese values are database dependent and can change if the data source changes.\nThese are the knowledge of the database. E.g., MySQL returns a string data even if the column type is integer.\nEntity does not need to know them.\nThe model just needs to fill the correct values to the Entity.\nCast handlers also exist mostly for these raw values and are not needed without them.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1825283567",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T08:15:22Z",
+                                    "bodyText": "This PR is also for fixing #5905, but it is an enhancement.\nCasting in Entity can be used only when we use the Entity, but this PR makes it possible to cast with other custom objects.\nThere was a feature request:\nhttps://forum.codeigniter.com/showthread.php?tid=85956",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1825293120",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T08:33:57Z",
+                                    "bodyText": "if the database returns everything as a string, and web forms provide everything as a string, then we should be able to have the Entity class work with those strings easily.\n\nTrue, but that is a thing of the past, and the PHP world has now moved on to stricter typing many years ago.\nAnd it is currently impossible for all values coming from outside to be strings.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1825312258",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T08:59:29Z",
+                                    "bodyText": "if the database returns everything as a string\n\nThat is not exactly true. PostgreSQL will respect the types by default if I'm not mistaken and in MySQL there is a flag MYSQLI_OPT_INT_AND_FLOAT_NATIVE which can be switched on (even via the connection config in codeigniter) and then results will not contain only strings.\nI agree that this is an upgrade. Now we will be able to cast objects and arrays too, not only Entities. While using DataConverter will still be optional, I see no downsides.\n\nUnpopular opinion here, but it seems like maybe the entire issue could be solved by doing a loose check in the hasChanged function instead of a strict check?\n\nIt might be unpopular, since from what I see we're following the path to strict types as much as possible in the framework. Even if we would follow that route with a loose check, after some time there would be someone who would open a bug report about this, saying that it's working incorrectly.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1825343074",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T14:15:29Z",
+                                    "bodyText": "Just because someone opens a bug report doesn't mean they're right and the thing needs to be changed.\nJust because there's been ways to do type checking doesn't mean the language itself is strictly typed.\nEither way I'm out voted.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1825736301",
+                                    "author": {
+                                        "login": "lonnieezell"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T14:36:52Z",
+                                    "bodyText": "Just because someone opens a bug report doesn't mean they're right and the thing needs to be changed.\nJust because there's been ways to do type checking doesn't mean the language itself is strictly typed.\n\nAgreed, I probably used too much shorthand to describe what I mean. If strong typing is promoted throughout the framework, then changing to loose check for Entity would be pretty hard to defend. At least that's what I think, so reporting it as a bug would be justified. Of course, we can always say that this is by design, but should it really be? Here I have my doubts.\nIn any case, we'll probably come back to this discussion on the occasion of a dedicated PR for Entity and there will be an opportunity to weigh the pros and cons. I have my doubts, but I'm not ruling anything out yet.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1825762021",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T15:20:15Z",
+                                    "bodyText": "Obviously I'm not going to change any minds here but here's my overall issue.\nUnless I've missed it in the latest versions of PHP there is no way to tell the language to be strictly typed. So if I pass a string to a function that requires an int argument its type is going to be coerced into an int if possible. So there's no way to change that which mean the developer generally already expects this and is used to it. So yes we can support that argument I feel. If I wanted to use a language that was strongly typed I would choose another one.\nSo instead of working with the language we have we are choosing to add more complexity and code and technical debt to maintain in the future. Codeigniter's code used to one of finding the simplest solution to a problem, something that I believe we have strayed from over the last few years. And yes I am aware that my rewrite of v4 was partially to blame for that. I apologize. I just miss a framework with a vision for simplicity and clarity. I apologize for my part in that.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1825814148",
+                                    "author": {
+                                        "login": "lonnieezell"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T21:13:10Z",
+                                    "bodyText": "So if I pass a string to a function that requires an int argument its type is going to be coerced into an int if possible.\n\nIt is not true. It will cause a TypeError when we use declare(strict_types=1).\nhttps://3v4l.org/gdeE7",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1826087725",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T21:15:25Z",
+                                    "bodyText": "If strong typing is promoted throughout the framework, then changing to loose check for Entity would be pretty hard to defend. At least that's what I think, so reporting it as a bug would be justified.\n\nI agree with this opinion.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1826088648",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T22:35:39Z",
+                                    "bodyText": "It's been awhile but I'm pretty sure strict types only apply to calls made from that file to functions within the same file. It does not affect calls from outside of the file to those functions.\nThat was a compromise made when they added it so they didn't break all of the existing websites if a library wanted to use strict types.\nAnd that's the only reason I finally agreed with using strict types within the framework. If it caused everyone the headache of having to explicitly cast every variable that was password to the framework I would have fought very hard against that.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1826118074",
+                                    "author": {
+                                        "login": "lonnieezell"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T23:09:36Z",
+                                    "bodyText": "This is actually a huge part of my point. No matter how strict we are on types within the framework itself it has almost no impact on external developers using the framework. Loose typing still works and type coercion happens automatically as they interact with framework code.\nBecause of this - there's nothing to defend on loose typing here. All external usage is loosely typed.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1826131348",
+                                    "author": {
+                                        "login": "lonnieezell"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T23:33:06Z",
+                                    "bodyText": "I'm pretty sure strict types only apply to calls made from that file to functions within the same file. It does not affect calls from outside of the file to those functions.\n\nYes.\n\nStrict typing applies to function calls made from within the file with strict typing enabled, not to the functions declared within that file. If a file without strict typing enabled makes a call to a function that was defined in a file with strict typing, the caller's preference (coercive typing) will be respected, and the value will be coerced.\nhttps://www.php.net/manual/en/language.types.declarations.php#language.types.declarations.strict",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1826137419",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-24T23:40:18Z",
+                                    "bodyText": "So then, from an external developers point of view is this the only place we are forcing strict typing on them?",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1826139151",
+                                    "author": {
+                                        "login": "lonnieezell"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-25T00:32:03Z",
+                                    "bodyText": "@lonnieezell I don't understand your question well.\nHowever, there are developers who have strict mode enabled for all files. Some developers do not like loose typing.\nIt seems impossible to satisfy developers who prefer loose typing and those who don't at the same time.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1826167515",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-25T06:21:53Z",
+                                    "bodyText": "@lonnieezell I don't understand your question well.\n\nI apologize. And I probably didn't phrase it well, but to me the hasChanged method is the only place in the framework that currently requires me, as a developer to care about strict typing. I understand you're trying to fix that by providing ways to cast in a different area and then juggle the types between all of the reads and writes. But it seems like a lot of extra code and maintenance for something that can be resolved by removing an equals sign in that method and dealing with the loose typing there. In my mind that provides what users are expecting to have happen and does so in a much simpler way with less code duplication.\nThe only reason I'm harping on this is because of what you original said this feature was trying to fix:\n\nThe current Entity has problems.\n\n\n\nAn Entity is a PHP object, but it holds data retrieved from a DB (except for dates) and does not have the correct type of values in PHP. So there is a bug #5905 where hasChange() returns the wrong value.\nEntity has too much knowledge about DB; since Entity is a PHP representation of a DB record, knowledge of DB is essentially unnecessary.\n\n\nFirst, I'll say it again, the Entity has no dependency or knowledge of the database. The data provided to it could be from a database, and often will be, but could also be used completely independent of the database.\nSecond, I believe the loose checking fixes all related issues the hasChanged bug that's cropped up a couple of times.\nI really don't see this feature as a useful addition, but it does seem to be one that doesn't really solve the hasChanged bug, if just punts potential issues into a new location and will lead to questions about when to use casting from the model and when from the entity.\nBut I've said my piece (way more than I originally intended) and will leave it to the rest of the team to decide which route they'd like us to go.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1826229281",
+                                    "author": {
+                                        "login": "lonnieezell"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-25T07:09:34Z",
+                                    "bodyText": "I have to say that @lonnieezell's arguments spoke to me and a loose check in Entity can defend itself. I'd not be against it. Still, not sure what would be the best choice, since I never really used the hasChanged feature... would lose type checking work for most cases?\nHowever, when it comes to the idea of implementing casting right in the Model, I would say that this is something I would like to see happen. As something optional - I really see an added value here. I am not afraid to confuse users with options. I think this can be easily explained - if you only need casting, then you can use Model, but if we want something more, something custom, or something that doesn't come from the DB - then Entity is the way to go. But... I would like to find a way to reuse the casting functionality (Cast classes) we already have in the Entity. Is that possible?\nIn general, I do believe that casting in the Model would be useful. And I don't associate it with solving problems in the Entity class.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1826236647",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-25T12:53:10Z",
+                                    "bodyText": "Good conversation here, I'm glad everyone is able to share their opinions. I want to highlight a few things that have fallen off:\nOther frameworks\nPretty much everyone these days uses an ORM - and not even their own, either Eloquent or Doctrine. Cake is the only other one I am aware of that's worked hard on spinning their own, and they went with a hybrid solution.\nFull disclosure: I don't like ORMs. I made my own foray into CodeIgniter-ORMs with Tatter\\Relations and contributed to CI4ORM a bit and found the limitations very quickly. I wasn't part of the original discussion around our data source architecture, but I'm happy with the decision not to offer a native ORM.\nArchitecture\nWhich brings me to the next point: what is our offered architecture? It seems to me that this would guide a lot of the discussion, instead of forging a path and then drawing up the plans later. Our User Guide has a few references to the Repository Pattern, though we don't strictly follow that through.\nI see what we have currently to be tools suggesting a Repository-like pattern, with BaseModel class being the \"repository interface\" and Model being \"repository using SQL\", and Entities being the data objects - but there's a lot of bleeding of concerns. As is typical of this pattern we find the need for a data mapper and we are scrambling to figure out where to put it because it doesn't properly belong in either the Repository or the Data Object.\nIntent\nNow do we want to promote this pattern? CI4 has been content to do its own thing, one of the things I love about it. But I think it is important to be able to state in clear language that non-CI4 devs can understand what we are doing, and using existing architectural terms that we've had for 30 years helps promote that. It will also helps us to keep things clean.\nNoSQL\nSmall addendum here: a lot of my pain with CI4's database layer has come from necessarily. I took a side gig on a project using Firebase and spin up a CI4 project for it - and it has been nothing but pain since. At this point I've pretty much written my own entire data access layer using Tatter\\Firebase and in-project DDD code... but I am always aware in these discussions how coupled we are to SQL databases which I believe are still dominant but less and less popular with new devs. I don't want us to make too many commitments to the framework (outside of Model) based on SQL assumptions, because it not only decreases our viability but it belies poor SOLID practices.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1826301297",
+                                    "author": {
+                                        "login": "MGatner"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-26T07:33:21Z",
+                                    "bodyText": "Indeed, I think that the hasChanged() bug would not cause problems in most cases if it were changed to a loose comparison. However, it does not solve the problem of not knowing the exact type.\nWithout a strong belief that '1' and 1 should be exactly the same, I think we will have a problem someday.\nIn the end, if a dev wants loose typing, the current Entity is fine, and if a dev wants strict typing, the current Entity has many problems.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1826705913",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-26T08:02:48Z",
+                                    "bodyText": "I don't understand the following errors by Psalm, so I suppress them.\nError: system/DataConverter/Cast/ArrayCast.php:22:45: MissingTemplateParam: CodeIgniter\\DataConverter\\Cast\\ArrayCast has missing template params when extending CodeIgniter\\DataConverter\\Cast\\CastInterface, expecting 3 (see https://psalm.dev/182)\nError: system/DataConverter/Cast/CSVCast.php:30:29: NoValue: All possible types for this argument were invalidated - This may be dead code (see https://psalm.dev/179)\nError: system/DataConverter/Cast/CSVCast.php:39:29: NoValue: All possible types for this argument were invalidated - This may be dead code (see https://psalm.dev/179)\nError: system/DataConverter/Cast/CastInterface.php:24:15: UndefinedDocblockClass: Docblock-defined class, interface or enum named CodeIgniter\\DataConverter\\Cast\\TDbColumn does not exist (see https://psalm.dev/200)\nError: system/DataConverter/Cast/CastInterface.php:34:15: UndefinedDocblockClass: Docblock-defined class, interface or enum named CodeIgniter\\DataConverter\\Cast\\TPhpValue does not exist (see https://psalm.dev/200)\nError: system/DataConverter/Cast/DatetimeCast.php:37:48: NoValue: All possible types for this argument were invalidated - This may be dead code (see https://psalm.dev/179)\nError: system/DataConverter/Cast/JsonCast.php:39:35: NoValue: All possible types for this argument were invalidated - This may be dead code (see https://psalm.dev/179)\nError: system/DataConverter/Cast/URICast.php:32:24: NoValue: All possible types for this argument were invalidated - This may be dead code (see https://psalm.dev/179)\n------------------------------\n8 errors found\n------------------------------",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1826716546",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-06T01:18:07Z",
+                                    "bodyText": "I am always aware in these discussions how coupled we are to SQL databases which I believe are still dominant but less and less popular with new devs. I don't want us to make too many commitments to the framework (outside of Model) based on SQL assumptions, because it not only decreases our viability but it belies poor SOLID practices.\n\nCodeIgniter does not support any non-SQL databases. So it is nearly impossible to improve it.\nIn order to improve it, I think we need to set up the environment so that we can write test code for non-SQL databases.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1841919445",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-06T18:40:00Z",
+                                    "bodyText": "CodeIgniter does not support any non-SQL databases. So it is nearly impossible to improve it.\nIn order to improve it, I think we need to set up the environment so that we can write test code for non-SQL databases.\n\nI don't think we ever had a real conversation about this one (or I missed it). But I don't like the idea of the Query Builder to handle NoSQL databases. IMO the differences in working with NoSQL databases are simply too big. We would end up with a totally different API for NoSQL databases. I don't see the point of trying to handle it with the \"same class\".\nIf we want to handle NoSQL, then we should create a separate layer that will be fully adapted to handle this type of database and will make it easier to work with them. Trying to do it in the current Query Builder makes no sense in my opinion.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1843474215",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-06T18:47:26Z",
+                                    "bodyText": "If we want to handle NoSQL, then we should create a separate layer that will be fully adapted to handle this type of database and will make it easier to work with them. Trying to do it in the current Query Builder makes no sense in my opinion.\n\nI would agree with this too. I would even go so far as to say in v5 we remove the BaseModel and simplify back to just the Model. The entire reason that was done originally was making it simpler to extend to NoSQL use cases.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1843494269",
+                                    "author": {
+                                        "login": "lonnieezell"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-06T23:49:16Z",
+                                    "bodyText": "In my understanding, Model is for SQL databases, BaseModel is for all databases including NoSQL.\n\nthe idea of the Query Builder to handle NoSQL databases.\n\nI think nobody has the idea.\nProbably the idea is BaseModel handles both SQL and NoSQL databases.\nThat is it is an abstraction.\nI don't understand why removing BaseModel makes it easier to handle NoSQL.\nModel is tightly coupled to Query Builder, and QB is only for SQL databases.\n(Added) I found this PR.\n\nThe goal with this change is to have BaseModel which does not contain any database related code so that it can easily be extended to support other kinds of databases like NoSQL document based\nSee #3930",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1843870846",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-07T00:10:22Z",
+                                    "bodyText": "Yup - I know that's why it was originally abstracted and why we allowed it. However it adds a fair amount of complexity to the database layer for a feature we don't implement.\nWhenever I have used NoSQL in the past, I have quickly come to realize the way you use them is a fair bit different than a SQL database. If we were to implement our own it would probably make more sense to have it be standalone layer.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1843915042",
+                                    "author": {
+                                        "login": "lonnieezell"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-07T00:24:43Z",
+                                    "bodyText": "@lonnieezell Thank you! I got your point.\nI don't have a strong opinion right now, but my original opinion is similar to that.\nHowever, I don't think the idea of BaseModel is wrong because there are operations common to NoSQL and SQL.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1843932725",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-07T08:20:27Z",
+                                    "bodyText": "However, I don't think the idea of BaseModel is wrong because there are operations common to NoSQL and SQL.\n\nThe only common thing is that we read, write, and delete data. The problem is everything else - how we do it and how we structure the data. Relying on patterns we know from relational databases won't get us very far. Additional methods or additional syntax will be needed.\nI could be wrong but I don't know of any framework that has successfully offered a common API to work with these different databases. Even if we managed to do this, to some simplified extent, it's probably not worth the effort and code complexity it will lead to.\nFor me, the point of using the Model class has always been that it provides an abstraction that can be used regardless of the database being used. In this case, I don't see this portability between NoSQL and RDB. IMO there are enough nuances between different NoSQL databases to justify a separate layer (if it happens).",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1844872313",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-13T05:11:25Z",
+                                    "bodyText": "We left this in flux, but now that I'm not looking at is a fix for the Entity, I think this is a fine feature to have. We should get it merged.\nThe only thing I think that could really be a benefit is if we were able to combine this and the Entity's casting methods since they're all pretty close to identical.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1853279368",
+                                    "author": {
+                                        "login": "lonnieezell"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-15T16:26:51Z",
+                                    "bodyText": "@kenjis Is there a specific problem that prevents us from using the Cast classes that Entity uses?",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1858145309",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-15T22:03:06Z",
+                                    "bodyText": "They are the same in that they are casting, but they are designed differently.\nSo it is difficult to use Entity Cast classes, and we should not do.\nThe difference is that Entity casting works at (1)(4), but this PR casting is designed to work at (2)(3).\n[App Code] --- (1) --> [Entity] --- (2) --> [Database]\n[App Code] <-- (4) --- [Entity] <-- (3) --- [Database]",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1858542443",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-16T07:54:13Z",
+                                    "bodyText": "But can't we just add fromDataSource() and toDataSource() to our existing Casting classes? If the code is the same, they can use set() and get() under the hood, and if not, they will provide a custom implementation. We can also add an interface to handle casting methods that will support the database. I'm open also to other ideas.\nMy point is, that while I really like the idea, I'm not a fan of the redundancy of the code the DataConverter brings.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1858753743",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-16T10:10:03Z",
+                                    "bodyText": "But can't we just add fromDataSource() and toDataSource() to our existing Casting classes?\n\nWe can. set/get and fromDataSource/toDataSource are similar, but different interfaces.\nSo the existing Casting classes will implements two interfaces, but it is possible.\nThen, DataConverter will depend on Entity Casting.\nWe don't/can't use the both Casting at the same time.\nSo I don't see much point in combining them into one class.\nAnd I would like to hear @MGatner opinion. See #7995 (review)",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1858780556",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-16T11:15:08Z",
+                                    "bodyText": "I just checked 3 first casting classes: array, boolean, and csv and they look identical to DataConverter casting classes in terms of what they do. I looked some more into the code and I don't get why we can't use the set/get method when we convert data in the Model.\nHonestly, I don't really get @MGatner concerns described in the linked review since casting is just casting - it converts between different data types. No matter what the source of data is. If you need something custom from the most common usage, then you have to create your own casting type. Although I suggested before that the casting class should be aware of the source of the data: #8230 (comment)\nAnyway, I would suggest a different approach. I would make a DataConverter class to use casting classes from the CodeIgniter\\Entity\\Cast namespace. We could then make changes to the Entity and Model so both would benefit from using the same casting classes. That should prevent any breaking changes and allow us to reuse the code we already have.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1858792544",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-16T12:06:33Z",
+                                    "bodyText": "My point in the linked review was that Entity is tied unnecessarily to Database. Maybe we want to lean into that, but the Repository pattern is all about being agnostic of the data source. Adding database conversion fields belongs to database-specific classes. This approach, of situating them in a dedicated namespace, isn't a problem but they are clearly SQL database mappings (strings => PHP natives).\n\n[BaseModel NoSQL support is] probably not worth the effort and code complexity it will lead to\n\nI've come to agree with this. My Firebase project now uses completely standalone classes because trying to fit it into BaseModel was a giant pain. I agree with @lonnieezell that v5 should probably revert to a single abstract Model class that is SQL-specific. If we want to have some support for NoSQL sources it could be a separate Collection layer of some kind, but should be very basic (I think every project could benefit from a CRUD interface for data sources).",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1858802584",
+                                    "author": {
+                                        "login": "MGatner"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-16T22:09:44Z",
+                                    "bodyText": "I just moved the code in ArrayCast, BooleanCast, CSVCast to Entity Cast classes: 5eebc8f\nIf there is agreement in this way, I will move the other classes into the cast classes in Entity and remove the DataConverter cast classes.\nhttps://github.com/codeigniter4/CodeIgniter4/blob/5eebc8f827a3e6959f0707328d0bb2c010aadafb/system/Entity/Cast/ArrayCast.php\nLooking at the code, it appears possible to make it common since there are similar codes.\nBut in the end, I think what MGatner is trying to say is that the layers are different.\nfromDataSource() and toDataSource() are database (infrastructure) layer knowledge.\nget()/set() should be Entity (domain layer) knowledge.\nIn my opinion, all the cast classes of Entity that we have now are unnecessary in the end.\nAnd if Entity has PHP native data, not raw data from the database,\nEntity will be completely independent of the infrastructure layer.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1858941041",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-17T13:15:07Z",
+                                    "bodyText": "But in the end, I think what MGatner is trying to say is that the layers are different.\nfromDataSource() and toDataSource() are database (infrastructure) layer knowledge.\nget()/set() should be Entity (domain layer) knowledge.\n\nYes layer is different, but from the casting classes perspective, there is no difference. It either casts set or get and it doesn't care what is the source of data. Even more, rn it does not know the source of the data.\n\nIn my opinion, all the cast classes of Entity that we have now are unnecessary in the end.\nAnd if Entity has PHP native data, not raw data from the database,\nEntity will be completely independent of the infrastructure layer.\n\nFrom the v4 perspective casting in the entities should not go away. IMO any breaking changes in this area would be probably too big to swallow for the majority of users.\nAlso, entities are not used exclusively with the database data.\n\nLooking at the ArrayCast it seems the code is identical - except for throwing an exception (not sure if this is a crucial feature).\nI would really like to try a different approach - the one I described in my previous comment.\nA DataConverter class, that would have the castAs() method and would use CodeIgniter\\Entity\\Cast classes. This way we could reduce the redundancy of the code from the Entity class and use DataConverter in both cases: Entity and Model.\nI know it might not sound ideal, but if we think about backward compatibility and code simplicity it makes sense to me. There may be some downsides to what I'm proposing, so please share your concerns.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1859169860",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-19T05:59:04Z",
+                                    "bodyText": "No worry. I just think the Entity cast classes we have now are not originally needed.\nBut I do not intend to discontinue them. We will have to maintain them for a long time.\nI've given it a lot of thought, but my concern is that they are different layers after all.\nBreaking Changes will happen in the future if we move (copy?) the cast classes under DataConverter.\n\nfrom the casting classes perspective, there is no difference.\n\nYes, it is true, but the problem is the casting classes are in the Entity namespace (it is not infrastructure layer).\nHowever, if other members also agree that DataConverter should use the Entity Cast classes, then I do so.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1862171213",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-19T06:27:01Z",
+                                    "bodyText": "I just think the Entity cast classes we have now are not originally needed.\n\nI see the place for casting in the entities - if my model uses custom queries I still would like to have the possibility to cast data when I use getCustomResultObject(). The model casting would only work with the model's methods.\n\nI've given it a lot of thought, but my concern is that they are different layers after all.\n\nUntil we share the same implementation in both places, IMO there is no issue. We can always extend it later (or in v5) to have/support different handlers, although I see no use case for it now.\n\nYes, it is true, but the problem is the casting classes are in the Entity namespace (it is not infrastructure layer).\n\nYes, I agree, 100% that the namespace will not be ideal, but it is only a temporary compromise.\nOk, let's wait for the opinions of other members. Maybe they will come up with something totally different \ud83d\ude1c",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1862195422",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-19T12:26:00Z",
+                                    "bodyText": "I think this is a fork in the path that are both heading in the right direction, just have different implications for the future. I don't know that we'll be able to \"see\" where we want this to go that far out (e.g. v5) so I'd lean more towards getting something in now that at least points us in the general direction. @kenjis PR is ready and acceptable, and doesn't lock us out of consolidating the code in another iteration. I'm not opposed to seeing an alternate if @michalsn wants to show what that would look like? I don't want us to over-spend time though.\n\nI also want to call out that @kenjis has introduced some architecture language (or maybe I did before, not sure, no blame) that we haven't necessarily agreed on but should probably be a topic of discussion at some point; it would help these discussions tremendously to have a blueprint.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1862667302",
+                                    "author": {
+                                        "login": "MGatner"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-19T21:14:04Z",
+                                    "bodyText": "@michalsn\n\nI see the place for casting in the entities - if my model uses custom queries I still would like to have the possibility to cast data when I use getCustomResultObject(). The model casting would only work with the model's methods.\n\nWhat do you mean? How will you do?\ngetCustomResultObject() or fetchObject() does not use Entity casting now.\nIt calls Entity::injectRawData(), just injects raw data into the Entity.\n[App Code] --- set() --> [Entity] --- toRawArray() -----> [Database]\n[App Code] <-- get() --- [Entity] <-- injectRawData() --- [Database]",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1863480986",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-19T21:43:57Z",
+                                    "bodyText": "@kenjis What I'm trying to say is that I can create a custom query, which will not use model methods, like: find(), findAll(), or first(). As I understand only with these methods casting in the model will be available.\nWith my custom query, I can still take advantage of casting with the use of the entity: getCustomResultObject(PostEntity::class). This way the entity will be seeded with the data just like we do it now. I can then define casting rules for my fields and use casted data.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1863514515",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-19T22:38:01Z",
+                                    "bodyText": "Bottom line is the Entity class has to retain them. For a couple of reasons: First, since it can be used without a model it shouldn't have its functionality moved to the database layer. Second, and by far most importantly, a quick look on Packagist shows that CI4 has been download over 1.6 million times. Even if only 1/2 of those ever became websites, that's a huge amount of sites to break for no reason.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1863569108",
+                                    "author": {
+                                        "login": "lonnieezell"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-19T23:53:02Z",
+                                    "bodyText": "@michalsn @lonnieezell I'm confused and am not sure what we are discussing.\n\nWith my custom query, I can still take advantage of casting with the use of the entity: getCustomResultObject(PostEntity::class). This way the entity will be seeded with the data just like we do it now. I can then define casting rules for my fields and use casted data.\n\nIt injects raw data into the Entity and no casting occurs.\nWhen you get a value from the Entity, the casting will occur.\nThis feature is already implemented in Entity class, and you can use it now and after merging this PR.\nI dropped the last commit 5eebc8f (and rebased).\nAs you all see I do not change Entity anything in this PR.\nAll functionality in Entity remains as it is.\nAlso I don't have any plan to remove the casting feature in Entities.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1863629556",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-20T04:06:46Z",
+                                    "bodyText": "Sorry, I was probably responding out of thread and a bit late. I was responding to this quote:\n\nI just think the Entity cast classes we have now are not originally needed.\n\nAnd probably misunderstanding it to mean you didn't think Entity's needed to have casting now that its in the Model. Sorry. I take it back. :)",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1863814795",
+                                    "author": {
+                                        "login": "lonnieezell"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-20T04:32:35Z",
+                                    "bodyText": "No problem. My English may have been misunderstood.\nI also think the current design of Entity keeping raw data is somewhat reasonable, although there are some problems, such as hasChanged() being unreliable in some cases.\nQuery Builder/PHP database functions have the feature to return custom objects.\nSo I think it is probably fastest to have the PHP function generate the Entity object.\nIn that case, Entity should keep raw data.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1863829817",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-20T06:04:14Z",
+                                    "bodyText": "I just think the Entity cast classes we have now are not originally needed.\n\nAnd probably misunderstanding it to mean you didn't think Entity's needed to have casting now that its in the Model.\n\nThat's what I thought too, and I was referring to it. In that case, all is well.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1863904275",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-20T14:39:07Z",
+                                    "bodyText": "I made a draft, that should explain better what I personally expect from the casting feature: #8352",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1864586752",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-20T23:58:43Z",
+                                    "bodyText": "@michalsn Thank you. I got your idea better.\nIf you can handle DatetimeCast well, I can use the DataCaster.\nBut I say again and again,\nEntity casting works at (1)(4), but DataConverter casting works at (2)(3).\nThey are different interfaces even if the 90% of implementations are the exactly same.\n[App Code] --- (1) --> [Entity] --- (2) --> [Database]\n[App Code] <-- (4) --- [Entity] <-- (3) --- [Database]\n\nThe parameter types or meanings are different:",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1865291734",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-21T07:46:45Z",
+                                    "bodyText": "If you can handle DatetimeCast well, I can use the DataCaster.\n\nHmm... that will be tricky.\nIn any case, it was never my intention to force my idea into the framework. Now that I've described in code what I mean, let's hear from others whether they think it would be a good direction or not.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1865798926",
+                                    "author": {
+                                        "login": "michalsn"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-21T16:21:55Z",
+                                    "bodyText": "The parameter types or meanings are different:\n\nI'm still confused. Looking at the methods and typings used, both accept and return the same thing, but one uses mixed for types and one is more explicit like we've been converting the code to be. What am I missing?\nIf that's true, and the code does exactly the same thing but our static analysis tools need to see it differently then maybe this is a case where the static analysis tools aren't right and we make our own call? Duplicating code just to make the SA like it seems crazy.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1866597698",
+                                    "author": {
+                                        "login": "lonnieezell"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-27T12:34:42Z",
+                                    "bodyText": "The crux of it lies in @kenjis's chart. We are talking about crossing two different boundaries, the traversal of which is often handled the same way. Here's another visualization of it helps: https://www.dotnetcurry.com/images/mvc/ASP.NET-MVC-5-Using-a-Simple-Repository-_6AFF/repository-pattern.png\nData comes and goes from userland as a map of scalars - e.g. web forms (all strings) or API submissions (JSON encoding of typed values), and view data back out. Data for SQL databases goes out as a map of scalars, and comes back in as a map of scalars or often just strings. In between these transitions is our code that prefers to work with typed objects using SOLID principles. @kenjis  DateTime is a great example because \"employee birthday\" will be a bunch of different things across its lifecycle: form input as '5/27/1983', then validated as Time/DateTime, then back to a string for the database as '1983-05-27', same thing back from the database and made into a Time, then displayed to a view as 'May 27, 1983'.\nIn this case I believe the clarity of the responsibility of these classes is worth more than what we would save by deduplicating code.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1870267396",
+                                    "author": {
+                                        "login": "MGatner"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-27T23:57:11Z",
+                                    "bodyText": "The two interfaces work on separate boundaries, as shown in this figure that MGatner linked.\n\nHowever, at a higher level of abstraction, they can be viewed as a single interface, just casting data.\nSo if you want to make it a single interface, the concrete classes would be implemented separately. For example, you would create two classes, DatetimeCastForEntity and DatetimeCastForDataSource. That way you can handle both processes in one interface.\nHowever, I think it would be confusing to developers to have processes with different boundaries in the same interface.\n\nIn this case I believe the clarity of the responsibility of these classes is worth more than what we would save by deduplicating code.\n\nI agree with this opinion. The reason for having two interfaces is to lower the level of abstraction and make it clearer to developers what they do.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1870699801",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-23T13:09:24Z",
+                                    "bodyText": "Added DataCaster that can use both Cast interfaces.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1906028603",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-29T05:26:50Z",
+                                    "bodyText": "In my opinion, this PR is ready to merge. This PR alone does not change anything in behavior, but the next PR #8243 will allow casting in Model.\nThe cast classes are in Entity and DataCaster, but both are needed because they are used in different purposes (timing) and Entity cast classes are loose, but DataCaster cast classes are strict.\nReview when you have time.",
+                                    "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#issuecomment-1913987617",
+                                    "author": {
+                                        "login": "kenjis"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Did not review this completely, but couple of thoughts:\n\nHow is this different from Entity casts? By looking at the code, these seem to duplicate the code there.\nWould these qualify for generic typing, like T -> U for the fromDatabase method and U -> T for toDatabase method. That way we can have static analysers come into play? What do you think?",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think we should just use the type here instead using get_debug_type? Exporting the values maybe cumbersome for large objects.",
+                                                        "author": {
+                                                            "login": "paulbalandan"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1398622711",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "26dbad2",
+                                                            "authoredDate": "2023-11-18T22:47:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why not type this natively as mixed?",
+                                                        "author": {
+                                                            "login": "paulbalandan"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1398623186",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "26dbad2",
+                                                            "authoredDate": "2023-11-18T22:47:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "These types are a bit lax. It is doubtful that there can really be these many types.",
+                                                        "author": {
+                                                            "login": "kenjis"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1398831384",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "26dbad2",
+                                                            "authoredDate": "2023-11-18T22:47:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Optionally I would add the ability to make the DataConverter aware of the DB driver we use with it. That way, we could have specific cast classes for drivers that need it - such as BooleanCast for Postgre.",
+                                                        "author": {
+                                                            "login": "michalsn"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1399236981",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd9967c",
+                                                            "authoredDate": "2023-11-20T08:36:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done",
+                                                        "author": {
+                                                            "login": "kenjis"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1401582964",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "26dbad2",
+                                                            "authoredDate": "2023-11-18T22:47:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You could create a factory for DataConverter, and set specific cast handers.\nOr just extend DataConverter for a specific DB driver.",
+                                                        "author": {
+                                                            "login": "kenjis"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1401585449",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd9967c",
+                                                            "authoredDate": "2023-11-20T08:36:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "My proposition wasn't about the ability to prepare a custom Cast class, but providing built-in support for data that are handled differently depending on the database we work with. Like, if I work with data from MySQL, the t value shouldn't be treated as true.\nAnyway, I still may be missing the big picture for this class.",
+                                                        "author": {
+                                                            "login": "michalsn"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1401601112",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd9967c",
+                                                            "authoredDate": "2023-11-20T08:36:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think that this DataConverter and the cast handlers can handle most cases for the DBs we have now.\nHowever, if we really need specific cast handlers for Postgres, for example, I would not be opposed to adding it.",
+                                                        "author": {
+                                                            "login": "kenjis"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1401629795",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd9967c",
+                                                            "authoredDate": "2023-11-20T08:36:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Ok, thank you for providing more information on how you see it to work.\nAlthough this will again complicate the model class a bit, I think this is a good direction.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why not call static::class here instead of passing as argument>",
+                                                        "author": {
+                                                            "login": "paulbalandan"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1402960282",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ddd9282",
+                                                            "authoredDate": "2023-11-23T05:30:23Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If $value is scalar, I think it's safe to use var_export",
+                                                        "author": {
+                                                            "login": "paulbalandan"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1402965431",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ddd9282",
+                                                            "authoredDate": "2023-11-23T05:30:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done.",
+                                                        "author": {
+                                                            "login": "kenjis"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1403134619",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ddd9282",
+                                                            "authoredDate": "2023-11-23T05:30:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done.",
+                                                        "author": {
+                                                            "login": "kenjis"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1403134767",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ddd9282",
+                                                            "authoredDate": "2023-11-23T05:30:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "This is big, I will have to come back to it. I also want to think a bit more about the big picture, and @lonnieezell's comment. My hunch is that this is the right direction.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Docblocks are always inherited, these are unnecessary. Also the inline version {} shouldn't be used standalone.",
+                                                        "author": {
+                                                            "login": "MGatner"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1403341791",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bc1956b",
+                                                            "authoredDate": "2023-11-23T11:49:32Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm not opposed to @michalsn 's suggestion but I think the current solution is fine. If a dev asks to cast a field as a bool and it contains a string \"f\" then it might be slightly confusing to get false but it was a mistake either way.",
+                                                        "author": {
+                                                            "login": "MGatner"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1403346815",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd9967c",
+                                                            "authoredDate": "2023-11-20T08:36:15Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I know this is hearkening back to a recent conversation, which I don't think we resolved, but... should this be the equivalent of createFromFormat() instead? I'm a little worried about parse() accepting too broad of input.",
+                                                        "author": {
+                                                            "login": "MGatner"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1403356201",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bc1956b",
+                                                            "authoredDate": "2023-11-23T11:49:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "There is nothing wrong with the way we're handling this right now... the only disadvantage is that casting may be a bit too wide sometimes. I saw this as an opportunity to fix this. I may or may not come back to this idea later, though it's nothing crucial.",
+                                                        "author": {
+                                                            "login": "michalsn"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1403574494",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd9967c",
+                                                            "authoredDate": "2023-11-20T08:36:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Okay, removed.",
+                                                        "author": {
+                                                            "login": "kenjis"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1403789054",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bc1956b",
+                                                            "authoredDate": "2023-11-23T11:49:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Agreed.\nChanged to createFromFormat(): 024c554",
+                                                        "author": {
+                                                            "login": "kenjis"
+                                                        },
+                                                        "url": "https://github.com/codeigniter4/CodeIgniter4/pull/8230#discussion_r1403833234",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bc1956b",
+                                                            "authoredDate": "2023-11-23T11:49:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

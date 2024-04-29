@@ -1,0 +1,47 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 39,
+                        "title": "basic sim search implemented, gene and disease queries only",
+                        "repository": {
+                            "nameWithOwner": "monarch-initiative/oai-monarch-plugin",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-06-23T16:25:01Z",
+                        "mergedAt": "2023-06-23T16:25:19Z",
+                        "url": "https://github.com/monarch-initiative/oai-monarch-plugin/pull/39",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "oneilsh"
+                        },
+                        "editor": null,
+                        "body": "Partially addresses #25 \r\n\r\nThis is using the https://api.monarchinitiative.org/api /sim/search endpoint, which can take either an array of phenotypes, or an array of gene/disease (whose phenotypes are used). If only phenotypes are given `is_feature_set` should be set to true.\r\n\r\nThis version implements both kinds of functionality, but only tells the model about the gene/disease search. In my initial test after requesting some phenotypes for a disease and then searching for similar diseases/genes, it chose to use the few phenotypes it had in hand rather than a disease->disease search. Generally it only pulls a few (5 to 10) phenotypes for an entity so we'll need to think more about implementing phenotype-array sim search, maybe with a different endpoint.\r\n\r\nBut, this implementation still trips the model up sometimes, as the search returns a mix of genes and diseases, see e.g. https://chat.openai.com/share/ed17cd4e-d32a-4162-b400-a01877f026d1",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./data:/work/data
+      - ./results:/work/results
+      - ./tokens.txt:/work/tokens.txt
+    container_name: ChatGptReview
+
+

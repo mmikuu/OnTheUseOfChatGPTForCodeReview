@@ -1,0 +1,328 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 4,
+                        "title": "Add test and doc for drm_framebuffer_check_src_coords()",
+                        "repository": {
+                            "nameWithOwner": "gcarlos64/linux",
+                            "primaryLanguage": {
+                                "name": "C"
+                            }
+                        },
+                        "createdAt": "2023-07-13T02:39:45Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/gcarlos64/linux/pull/4",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "gcarlos64"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "out of curiosity I've asked chat gpt for test cases https://chat.openai.com/share/4830db0c-0be9-4ea5-9c28-68bf59c342f6 not the best.\nYou need to use arbitrary non-zero values, but it's nice to use number close to the boundaries to catch off-by-one errors, so \"source inside framebuffer\" could be just big enough to fit.\nI would also say to keep the arbitrary values consistent across test cases to facilitate the reader to identify what is changing between each case.\nSince this function checks src relative to FB, we can probably get away just modifying src values, that means keeping .width = 800, .height = 600, unless you see a reason to stressing one of them.",
+                                                        "author": {
+                                                            "login": "tales-aparecida"
+                                                        },
+                                                        "url": "https://github.com/gcarlos64/linux/pull/4#discussion_r1263001988",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "36a5aac",
+                                                            "authoredDate": "2023-07-12T02:21:33Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thanks for reviewing! I made a force push to try to address what you pointed out.\nI made the tests be with minimal differences between them and replaced all arbitrary values to the higher one that \"just fit\". So, for example, in the tests where the source will be out of bound by the x coordinate, I leave the y related values untouched between the tests and with big enough values.\nThe only place where fb.{width,height} differs is in the tests that catch out of bound by y coordinates (they are just out of bound by x coordinates tests with swapped width/height and x/y values).",
+                                                        "author": {
+                                                            "login": "gcarlos64"
+                                                        },
+                                                        "url": "https://github.com/gcarlos64/linux/pull/4#discussion_r1263145284",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "36a5aac",
+                                                            "authoredDate": "2023-07-12T02:21:33Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 12,
+                        "title": "Feat/matches ids ulid",
+                        "repository": {
+                            "nameWithOwner": "laravel-json-api/core",
+                            "primaryLanguage": {
+                                "name": "PHP"
+                            }
+                        },
+                        "createdAt": "2023-07-13T15:37:41Z",
+                        "mergedAt": "2023-07-20T17:08:25Z",
+                        "url": "https://github.com/laravel-json-api/core/pull/12",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Ashk2a"
+                        },
+                        "editor": {
+                            "login": "Ashk2a"
+                        },
+                        "body": "# Summary\r\nAdd possibility to match ULID route key.\r\n\r\n## FYI\r\n- [Laravel documentation](https://laravel.com/docs/10.x/routing#parameters-regular-expression-constraints)\r\n- Use same regex than [`whereUlid`](https://github.com/laravel/framework/blob/53b02b3c1d926c095cccca06883a35a5c6729773/src/Illuminate/Routing/CreatesRegularExpressionRouteConstraints.php#L48) method when defining routes.\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-07-13T21:19:16Z",
+                                    "bodyText": "Thanks for this PR - looks like a good thing to add! Can you back out the change to the .gitignore? Ignoring IDE folders I'd expect in a global gitignore, not the project one.\nAlso, can you confirm where you got the regex for the ULID? Just so I can check it before merging and tagging.\n\nI put information in the description. Like I said I didn't found an \"official\" regex for the ULID.\nChatGPT give me that : ^[0-9A-HJKMNP-TV-Z]{26}$\nhttps://chat.openai.com/share/e9555822-4ffb-4845-8e40-0bc6cbbc658d",
+                                    "url": "https://github.com/laravel-json-api/core/pull/12#issuecomment-1634933797",
+                                    "author": {
+                                        "login": "Ashk2a"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-18T19:14:56Z",
+                                    "bodyText": "@Ashk2a thanks for the info about the regex- sorry I missed that in your original message.\nI think we should match what Laravel does for route regexes for ULIDs. Looking at this docs:\nhttps://laravel.com/docs/10.x/routing#parameters-regular-expression-constraints\nThere's a whereUlid() method when defining routes. That is here:\nhttps://github.com/laravel/framework/blob/53b02b3c1d926c095cccca06883a35a5c6729773/src/Illuminate/Routing/CreatesRegularExpressionRouteConstraints.php#L48\nCan you match the regex in your PR to the Laravel one?\nSorry for the back and forth on this - only had time to look at the regex this evening. This is a great addition, so thanks for your time with it - I'm just making sure it's definitely right before merging!",
+                                    "url": "https://github.com/laravel-json-api/core/pull/12#issuecomment-1640844204",
+                                    "author": {
+                                        "login": "lindyhopchris"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-20T16:49:45Z",
+                                    "bodyText": "@Ashk2a thanks for the info about the regex- sorry I missed that in your original message.\nI think we should match what Laravel does for route regexes for ULIDs. Looking at this docs: https://laravel.com/docs/10.x/routing#parameters-regular-expression-constraints\nThere's a whereUlid() method when defining routes. That is here: https://github.com/laravel/framework/blob/53b02b3c1d926c095cccca06883a35a5c6729773/src/Illuminate/Routing/CreatesRegularExpressionRouteConstraints.php#L48\nCan you match the regex in your PR to the Laravel one?\nSorry for the back and forth on this - only had time to look at the regex this evening. This is a great addition, so thanks for your time with it - I'm just making sure it's definitely right before merging!\n\nThanks, very good idea to check Laravel directly!\nChange made!",
+                                    "url": "https://github.com/laravel-json-api/core/pull/12#issuecomment-1644260562",
+                                    "author": {
+                                        "login": "Ashk2a"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Thanks for this PR - looks like a good thing to add! Can you back out the change to the .gitignore? Ignoring IDE folders I'd expect in a global gitignore, not the project one.\nAlso, can you confirm where you got the regex for the ULID? Just so I can check it before merging and tagging.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Please back out this change.",
+                                                        "author": {
+                                                            "login": "lindyhopchris"
+                                                        },
+                                                        "url": "https://github.com/laravel-json-api/core/pull/12#discussion_r1262745706",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e25cfa",
+                                                            "authoredDate": "2023-07-13T15:27:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 185,
+                        "title": "E2E test: torrent upload",
+                        "repository": {
+                            "nameWithOwner": "torrust/torrust-index-gui",
+                            "primaryLanguage": {
+                                "name": "Vue"
+                            }
+                        },
+                        "createdAt": "2023-07-13T17:33:08Z",
+                        "mergedAt": "2023-08-03T10:36:12Z",
+                        "url": "https://github.com/torrust/torrust-index-gui/pull/185",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "josecelano"
+                        },
+                        "editor": {
+                            "login": "josecelano"
+                        },
+                        "body": "E2E test for torrent upload.\r\n\r\n### Strategy\r\n\r\nI want to:\r\n\r\n- Generate a random torrent file on-the-fly\r\n- Select the torrent and submit the form\r\n- Assert that the app redirects to the torrent detail page with the right metadata: title. description, category, ...\r\n\r\n### Current status\r\n\r\nIt works with a fixed torrent file fixture. \r\n\r\nExample of the test passing on CI: https://github.com/torrust/torrust-index-frontend/actions/runs/5546141538/jobs/10126011522?pr=185#step:7:684\r\n\r\nBut the problem is I want to generate a random torrent file like in the [backend](https://github.com/torrust/torrust-index-backend/blob/develop/tests/common/contexts/torrent/file.rs) to be able to run the test many times. If you try to rerun the same test, it will fail because the torrent already exists in the database.\r\n\r\nIn the [backend](https://github.com/torrust/torrust-index-backend/blob/develop/tests/common/contexts/torrent/file.rs), we solved it by using a console command to generate the torrent file. Here it's not possible because with Cypress, we cannot use:\r\n\r\n- Asynchronous functions in custom commands\r\n- Use packages which need to access the filesystem.\r\n\r\nSince it's run in the browser,\r\n\r\n### Screenshot\r\n\r\n![image](https://github.com/torrust/torrust-index-frontend/assets/58816/29d97755-d0be-4c4f-acd8-23de43230c2d)\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-07-13T17:56:17Z",
+                                    "bodyText": "It's only the first iteration. I'm using a fixed torrent file in the fixtures folder. I want to dynamically generate a new torrent file for each test execution so that I can isolate the test execution from previous executions. That was how we did it in the backend. With the current solution, you cannot execute the test twice because you cannot upload the torrent with the same infohash or title twice.\nWe could remove the torrent after executing the tests, but the test could fail for many reasons that do not depend on the subject under the test. For example, the backend API could be temporarily not available. For those cases, if the torrent was already uploaded but not removed, I would like to be able to re-run the test.\nIn the backend, we can run tests with a completely isolated environment but that's impossible here because we are using docker. In the backend, we just launch another child process accessing a different database.\nI will try to find a node package to build the torrent in memory and try to write the new torrent in the fixtures folder as described in the Cypress documentation:\nIf that's not possible, we could try to use an API. You can also get files from APIs:\nhttps://docs.cypress.io/api/commands/selectfile#From-an-API-response\nMaybe we could create a new service with docker for the E2E test env with an API to generate torrent files. We could use the create-torrent package or the console command we are using in the backed: intermodal.\nBut I will try first the previous solution because it's much simpler.",
+                                    "url": "https://github.com/torrust/torrust-index-gui/pull/185#issuecomment-1634666810",
+                                    "author": {
+                                        "login": "josecelano"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-13T19:32:25Z",
+                                    "bodyText": "I'm trying to generate the torrent file on-the-fly with a custom command like this:\nimport createTorrent from 'create-torrent';\n\nCypress.Commands.add(\"generateFixture\", () => {\n  // First, I write the new file\n  cy.writeFile('cypress/fixtures/torrents/sample.txt', \"hello world!\");\n\n  // Then I read the file\n  cy.readFile('cypress/fixtures/torrents/sample.txt', 'utf8').then((content) => {\n\n    const buf = Buffer.from(content);\n    buf.name = 'sample.txt.torrent';\n\n    createTorrent(buf, (err, torrent) => {\n\n      let buffer = Cypress.Buffer.from(torrent);\n\n      if (!err) {\n        cy.writeFile('cypress/fixtures/torrents/sample.txt.torrent', buffer, 'binary');\n    })  \n  })\n});\n\nBut I cannot use callbacks because of a Cypress restriction.\nI've been discussing it with ChatGPT:\nhttps://chat.openai.com/share/99d2ebdc-613c-4a84-8281-bfc2fe82bc14\nAnd there are some alternatives:\nOption 1\nBuild our API service to generate torrent files on-the-fly.\nWe can create a docker image for the service and add it to the docker composer configuration for the E2E testing environment.\nOption 2\nAdd that feature to the application. I would work only for tiny files. But It needs to make sense for the end-user.\nIt would be something like this: https://kimbatt.github.io/torrent-creator/\nPros\n\nWe do not need an extra service\n\nCons:\n\nIn general, it's not useful for most users.\n\nOption 3\nUse an independent env for each test, like in the backend. So there is no need to generate random data. We could always use the pre-built fixtures in the repo.\n\nCons\n\nI think it would be too slow with docker.\nOption 4\nDelete the torrent after running the test.\nCons:\n\nI have the impression that we could end up with a lot of inconsistencies. And test would also be slower because we have to clean the database after running them.\n\nPros:\n\nThe database would always be clean, so no need to clean it from time to time in local dev env.\n\nConclusion\nThe option suggested by ChatGPT seems to be easy to implement, and we do not need to add features to the app only for testing. Maybe it could be useful for other cases.\nLinks\n\nHow to create fixtures with random data using Cypress and faker\n\nWhat do you think @da2ce7?",
+                                    "url": "https://github.com/torrust/torrust-index-gui/pull/185#issuecomment-1634795823",
+                                    "author": {
+                                        "login": "josecelano"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-14T07:18:49Z",
+                                    "bodyText": "Hello, I would like to ask/give an opinion. From what I see, I'm not sure if it would generate much noise to generate that file in the before of the tests directly instead of using custom commands. On the other hand, I'm not sure if I've misunderstood, but is the idea to generate a Buffer or use .selectFile once we have created it? Because in my opinion, re-reading the file seems to be more the responsibility of the browser.\nI'm not exactly sure how complex it can be to generate a torrent, but it seems like a better idea not to use createTorrent, which has a dependency on a plain text file, but instead use a Builder torrentMetadataBuilder (this is an example name) that uses parameters so that we can understand how the content for the <random-name|specified-name>.torrent file is generated following the option 2. Additionally, with the use of the builder, we can retrieve some parameters that we can later use in the expected output, such as relevant metadata.\nExample using the upload test.\n  it(\"should be able to upload a torrent\", () => {\n    const fileName = \"test.torrent\"\n    const filePath = `${randomFilePath}/{fileName}`;\n    const randomContent = torrentMetadataBuilder().addTitle(\"test\").build(); // Invented code\n    cy.writeFile(filePath, randomContent);\n\n    cy.visit(\"/upload\");\n    cy.get(\"input[data-cy=\\\"upload-form-title\\\"]\").type(\"title-mandelbrot_set_01.torrent\");\n    cy.get(\"textarea[data-cy=\\\"upload-form-description\\\"]\").type(\"description\");\n    cy.get(\"select[data-cy=\\\"upload-form-category\\\"]\").select(\"software\");\n    cy.get(\"input[data-cy=\\\"upload-form-torrent-upload\\\"]\").selectFile(\n      {\n        contents: filePath,\n        fileName: fileName,\n        mimeType: \"application/x-bittorrent\"\n      }, { force: true });\n    cy.get(\"button[data-cy=\\\"upload-form-submit\\\"]\").click();\n    \n    cy.url().should(\"include\", \"/torrent/*\"); // I should don't care about the uuid that BE creates for me\n\nFinally, in the after section, the files in cypress/fixtures/torrents/random/ should be cleaned up. I have provided another path in case you don't want to delete the reference file mandelbrot_set_01.torrent and the database (random users included), so as not to disturb the preconditions of other tests. I hope this helps a bit.",
+                                    "url": "https://github.com/torrust/torrust-index-gui/pull/185#issuecomment-1635411109",
+                                    "author": {
+                                        "login": "Wolfremium13"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-14T11:51:35Z",
+                                    "bodyText": "Hi @Wolfremium13 thank you for your feedback!\n\n\n\nHello, I would like to ask/give an opinion. From what I see, I'm not sure if it would generate much noise to generate that file in the before of the tests directly instead of using custom commands.\n\nThe reason I want to use a custom command is because I want to reuse the command in all tests that require upload a torrent. I want to have something like this:\nconst torrent_file_name = random(); // For example: torrent_392429878.torrent\nconst torrent_data_file_contents = \"hello\";\ncy.generateRandomTorrentFromContents(`cypress/fixtures/torrents/torrent_file_name`, torrent_data_file_contents);\n\nIf I tested it manually, the process would be:\n\nCreate a new txt file in a temp dir: random_file392429878.txt\nWrite a random text or the ID into the file so we can even write asserts in the future if we test torrent clients using the same file. The file would contain the text 392429878.\nCreate the torrent file for that content. From random_file392429878.txt we get a new file random_file392429878.torrent, which is the torrent file for the original data file.\nGo to the upload page, fill in the form and upload the file random_file392429878.torrent\n\nThat's how I did it for the API. See here.\n    #[tokio::test]\n    async fn it_should_allow_authenticated_users_to_upload_new_torrents() {\n        let mut env = TestEnv::new();\n        env.start(api::Version::V1).await;\n\n        // ...\n\n        let uploader = new_logged_in_user(&env).await;\n        let client = Client::authenticated(&env.server_socket_addr().unwrap(), &uploader.token);\n\n        let test_torrent = random_torrent();\n        let info_hash = test_torrent.info_hash().clone();\n\n        let form: UploadTorrentMultipartForm = test_torrent.index_info.into();\n\n        let response = client.upload_torrent(form.into()).await;\n\n        let uploaded_torrent_response: UploadedTorrentResponse = serde_json::from_str(&response.body).unwrap();\n\n        assert_eq!(\n            uploaded_torrent_response.data.info_hash.to_lowercase(),\n            info_hash.to_lowercase()\n        );\n        assert!(response.is_json_and_ok());\n    }\nI do not want to generate the test torrent in the before function, I want to do it in the test itself but abstracting away the whole process of creating a new random torrent file (dynamic fixture).\n\nOn the other hand, I'm not sure if I've misunderstood, but is the idea to generate a Buffer or use .selectFile once we have created it? Because in my opinion, re-reading the file seems to be more the responsibility of the browser.\n\nI want to use .selectFile. The reason I was generating a buffer was I cannot write directly to the filesystem using createTorrent, but you can pass a buffer. It's an indirection because with Cypress you cannot access the filesystem. I planned to generate the buffer and then use cy.writeFileto write the buffer content into the fixture file. It does not work anyway because createTorrent uses callbacks which do not work in Cyppress. See Commands Are Asynchronous in Cypress docs\n\nI'm not exactly sure how complex it can be to generate a torrent, but it seems like a better idea not to use createTorrent, which has a dependency on a plain text file, but instead use a Builder torrentMetadataBuilder (this is an example name) that uses parameters so that we can understand how the content for the <random-name|specified-name>.torrent file is generated following the option 2. Additionally, with the use of the builder, we can retrieve some parameters that we can later use in the expected output, such as relevant metadata.\n\nThat would be my preferred solution, but I have not found a package that I can use with Cypress, which requires:\n\nNo async\nTo be executable on the browser\n\nBut since I only want to create very simple torrents, maybe I should explore this solution.\nI'm also considering another solution. In the backend, I'm using a console command to generate torrents: intermodal. CYpress has an exec command to run system command. Maybe I can do the same as I did in the backend. I had a similar problem; I could not find a library to create torrent files on the fly.\n\nExample using the upload test.\n  it(\"should be able to upload a torrent\", () => {\n    const fileName = \"test.torrent\"\n    const filePath = `${randomFilePath}/{fileName}`;\n    const randomContent = torrentMetadataBuilder().addTitle(\"test\").build(); // Invented code\n    cy.writeFile(filePath, randomContent);\n\n    cy.visit(\"/upload\");\n    cy.get(\"input[data-cy=\\\"upload-form-title\\\"]\").type(\"title-mandelbrot_set_01.torrent\");\n    cy.get(\"textarea[data-cy=\\\"upload-form-description\\\"]\").type(\"description\");\n    cy.get(\"select[data-cy=\\\"upload-form-category\\\"]\").select(\"software\");\n    cy.get(\"input[data-cy=\\\"upload-form-torrent-upload\\\"]\").selectFile(\n      {\n        contents: filePath,\n        fileName: fileName,\n        mimeType: \"application/x-bittorrent\"\n      }, { force: true });\n    cy.get(\"button[data-cy=\\\"upload-form-submit\\\"]\").click();\n    \n    cy.url().should(\"include\", \"/torrent/*\"); // I should don't care about the uuid that BE creates for me\n\n\nThat example is precisely what I'm trying to achieve but I want to reuse this code in other tests:\nconst fileName = \"test.torrent\"\nconst filePath = `${randomFilePath}/{fileName}`;\nconst randomContent = torrentMetadataBuilder().addTitle(\"test\").build(); // Invented code\ncy.writeFile(filePath, randomContent);\n\nRegarding using the torrent infohash in the assertion:\ncy.url().should(\"include\", \"/torrent/*\"); \n\nI wanted to check that the torrent is not only uploaded but also parsed correctly.\n\nFinally, in the after section, the files in cypress/fixtures/torrents/random/ should be cleaned up. I have provided another path in case you don't want to delete the reference file mandelbrot_set_01.torrent and the database (random users included), so as not to disturb the preconditions of other tests. I hope this helps a bit.\n\nYes, I should delete the newly generated files, but do you think I should also delete the torrent in the database? I prefer to reset the E2E test env from time to time because I have the impression that tests would be much slower if you have a lot of them.\nAnd finally, another thing to consider is that we do not need to create a temporary file. It seems you can selectFile directly from a buffer.\ncy.get('input[type=file]').selectFile({\n  contents: Cypress.Buffer.from('file contents'),\n  fileName: 'file.txt',\n  mimeType: 'text/plain',\n  lastModified: Date.now(),\n})\n\nThe final solution could be something like:\n  it(\"should be able to upload a torrent\", () => {\n    const contentsFileName = \"`text-${randomId}.txt`;\n    const contentsFilePath = `cypress/torrents/{contentsFileName}`;\n    const randomContent = `${randomId`;\n    cy.writeFile(contentsFilePath, randomContent);\n    cy.exec(`imdl torrent create --input ${contentsFilePath} --ouput ${contentsFilePath}.torrent`)\n\n    cy.visit(\"/upload\");\n    cy.get(\"input[data-cy=\\\"upload-form-title\\\"]\").type(\"title-mandelbrot_set_01.torrent\");\n    cy.get(\"textarea[data-cy=\\\"upload-form-description\\\"]\").type(\"description\");\n    cy.get(\"select[data-cy=\\\"upload-form-category\\\"]\").select(\"software\");\n    cy.get(\"input[data-cy=\\\"upload-form-torrent-upload\\\"]\").selectFile(\n      {\n        contents: `${contentsFilePath}.torrent`,\n        fileName: `${contentsFileName}.torrent`,\n        mimeType: \"application/x-bittorrent\"\n      }, { force: true });\n    cy.get(\"button[data-cy=\\\"upload-form-submit\\\"]\").click();\n    \n    cy.url().should(\"include\", \"/torrent/*\");\n\nBut moving the fixture creation to a custom command. But I would prefer your proposal, a torrent builder. I will try that solution first.",
+                                    "url": "https://github.com/torrust/torrust-index-gui/pull/185#issuecomment-1635751297",
+                                    "author": {
+                                        "login": "josecelano"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-14T16:29:59Z",
+                                    "bodyText": "Thanks for the feedback I appreciated a lot <3. I'll share a few opinions:\n\nYes, I should delete the newly generated files, but do you think I should also delete the torrent in the database?\n\nIn my opinion yes, to keep it the use case enviroment as cleaned as possible (if we could do it). If for example we're getting radom numbers for the name, the probability to get exactly the same number it's low, but could happen and generate an unexpected behaviour on a test that shouldn't fail. Could happen with users created on the same instance of the database in different places.\n\nI wanted to check that the torrent is not only uploaded but also parsed correctly.\n\nSeems like your asstertion it's tied to the behaviour of the implementation of back-end in order to get the number. Maybe I'm wrong but, it could generate problems if for example we change the name or number of the file because it's random.",
+                                    "url": "https://github.com/torrust/torrust-index-gui/pull/185#issuecomment-1636097795",
+                                    "author": {
+                                        "login": "Wolfremium13"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-14T22:30:04Z",
+                                    "bodyText": "Hey @Wolfremium13\n\nThanks for the feedback I appreciated a lot <3. I'll share a few opinions:\n\nYes, I should delete the newly generated files, but do you think I should also delete the torrent in the database?\n\nIn my opinion yes, to keep it the use case enviroment as cleaned as possible (if we could do it). If for example we're getting radom numbers for the name, the probability to get exactly the same number it's low, but could happen and generate an unexpected behaviour on a test that shouldn't fail. Could happen with users created on the same instance of the database in different places.\n\nOK. I'm not worried about the env on the CI because it's a new DB every time you run the tests, and there should not be collisions, however, leaving the DB clean I think it's a good thing and maybe not as slow as I expect. I can do it and remove it later of try to find another solution if tests are really slow.\n\n\nI wanted to check that the torrent is not only uploaded but also parsed correctly.\n\nSeems like your asstertion it's tied to the behaviour of the implementation of back-end in order to get the number. Maybe I'm wrong but, it could generate problems if for example we change the name or number of the file because it's random.\n\nThe number is a domain ID, the torrent infohash which is a hash that does not change, but we are considering adding other protocols in the future (not only BitTorrent) and in that case, we could switch to use our ID, so I totally agree, maybe I only have to check in the details page that the title, description, etcetera are OK, even the infohash but not in the URL unless we consider that URL a permalink and we want to test that it's available or something like that. I mean, we should test it not because we want to be sure the torrent was uploaded correctly as I said, but for other reasons. For now, it's an implementation detail as you said.",
+                                    "url": "https://github.com/torrust/torrust-index-gui/pull/185#issuecomment-1636513128",
+                                    "author": {
+                                        "login": "josecelano"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-17T18:33:32Z",
+                                    "bodyText": "I think that creating a dynamic endpoint in the frontend something like /dev/test-torrent/get, that generates and provides a random torrent file would be the most elegant.\nSince we have the version namespace we can put it in /dev/ instead of /v1/ so it shouldn't pollute things too much.\nEdit: This isn't just like a fixture. Dealing with torrents is a core-property of this application.",
+                                    "url": "https://github.com/torrust/torrust-index-gui/pull/185#issuecomment-1638666235",
+                                    "author": {
+                                        "login": "da2ce7"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-26T10:46:37Z",
+                                    "bodyText": "I think that creating a dynamic endpoint in the frontend something like /dev/test-torrent/get, that generates and provides a random torrent file would be the most elegant.\nSince we have the version namespace we can put it in /dev/ instead of /v1/ so it shouldn't pollute things too much.\nEdit: This isn't just like a fixture. Dealing with torrents is a core-property of this application.\n\nHi @da2ce7 I also think it's the most convenient. I think it's going to be used a lot for testing and maybe in the future it could be reused for a production feature, so I think it is worth the effort to build this new endpoint. And it should not be too difficult if we use a third-party library.",
+                                    "url": "https://github.com/torrust/torrust-index-gui/pull/185#issuecomment-1651535887",
+                                    "author": {
+                                        "login": "josecelano"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-26T17:56:04Z",
+                                    "bodyText": "Hi @Wolfremium13 @da2ce7, I've been thinking again about this problem and exploring the solution with a new dev endpoint and I have some new concerns:\n\nAlthough this new endpoint is not going to be used in production I think we should include it under the version namespace somehow. Test are coupled to a given API version and we could need to change the endpoint in the future. So I would use something like api/v1/dev/test-torrent\nI do not know if I should implement an endpoint to generate a random torrent like api/v1/dev/test-torrent/random or if we could pre-generate an ID for the new resource like api/v1/dev/test-torrent/UUID. Maybe it does not matter.\nIn the current API we are using a console command imdl (intermodal) to generate the random torrents from random text files. If we follow the same approach we need to add that external dependency (console command) also for production. I do not like that option because I think we are changing too much the production code/requirements only for testing.\nDue to the previous point I was thinking if we should create a more generic endpoint where you can POST the data needed in the database to generate the torrent file. After all, we are uploading a torrent file, then we converted it into data that we store in the database, and finally we do the reverse process. This option could be more generic or useful but it makes harder to generate the torrent in the tests arrange phase. We need to calculate the pieces, etcetera, and that's not a trivial process. That was the reason I decided to use the imdl console command.\nFor all those reasons, I decided that maybe the best solution would be to implement an independent solution: A testing API to generate sample torrents. My idea was to create a new repo with a simple web server app (using Axum) where you can call the api/v1/dev/test-torrent/random endpoint. We can generate a docker image for the webserver and It can be used to generate fixtures/random data for testing BitTorrent applications. This way we do not have to change the API production code and it could be reused in other repos that require its kind of sample data. This solution could take some time and I'm not sure if it's a good idea because maybe each repo has its own needs or maybe we need to change it very often while we are writing new E2E tests.\n\nConclusion\n\n\nI think the main problem is that the natural interface to generate torrent files is the file system. You usually create a torrent file from a file or directory. The original file can be big and hard to handle. And if you try to handle the data after processing the original content, that's even worse because you have the signatures.\n\n\nI'm trying to reconsider the whole thing because I suppose there must be a better solution. The reason I was using new fixtures on the fly is I did not want to have collisions if I wanted to run the same tests in the same environment. For example, if I run a test for uploading a torrent, I want to run it again without getting an error because the torrent already exists. But maybe that is not a good practice. Maybe as @Wolfremium13 mentioned, we should clean the database after running each test so you can run the test with the same data again. The only problem with this approach is we have to use a different fixture for each test because they can be executed in parallel. For example, we could have two tests for uploading a torrent with different asserts. At the most, we are going to have one torrent file per test, which is not too much. Another good side effect is when a test fails, you can easily check what was wrong in the database because the infohash would be the same (not the torrent ID).\n\n\nWhat do you think? I would like to consider all the alternatives before implementing the dev endpoint. I think it could be easy to implement but not sure about maintainability.",
+                                    "url": "https://github.com/torrust/torrust-index-gui/pull/185#issuecomment-1652259650",
+                                    "author": {
+                                        "login": "josecelano"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-31T16:25:19Z",
+                                    "bodyText": "We can merge this after merging torrust/torrust-index#237\nThe workflow fails because the new endpoint version to generate random test torrents has not been merged yet into develop in the backend.",
+                                    "url": "https://github.com/torrust/torrust-index-gui/pull/185#issuecomment-1658722790",
+                                    "author": {
+                                        "login": "josecelano"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-01T10:45:10Z",
+                                    "bodyText": "We can merge this after merging torrust/torrust-index-backend#237\nThe workflow fails because the new endpoint version to generate random test torrents has not been merged yet into develop in the backend.\n\nThe workflow is passing because we've already merged the PR on the backend. The test works fine, and it's easy to read. We will probably extract a command to reuse the torrent generation and upload processes in other tests. But we can do it when we start working on adding other tests.\nI will continue working on this PR. I'm deleting the test torrent when the test ends, but I also want to delete the torrent in the database as @Wolfremium13 suggested here.",
+                                    "url": "https://github.com/torrust/torrust-index-gui/pull/185#issuecomment-1660055331",
+                                    "author": {
+                                        "login": "josecelano"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-01T11:36:31Z",
+                                    "bodyText": "In order to delete the temp test torrent when the test ends, I need to get the infohash so that I can run SQL query, but I do not want to get the infohash from the UI because I do not want to couple this cleaning part of the test to the UI. THe only way to get the infohash is from the original uploaded torrent file, but we have a bug on the backend. The infohash of the indexed torrent does not match the infohash of the originally uploaded torrent. I need to fix that issue before continuing.",
+                                    "url": "https://github.com/torrust/torrust-index-gui/pull/185#issuecomment-1660136411",
+                                    "author": {
+                                        "login": "josecelano"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-02T15:06:11Z",
+                                    "bodyText": "In order to delete the temp test torrent when the test ends, I need to get the infohash so that I can run SQL query, but I do not want to get the infohash from the UI because I do not want to couple this cleaning part of the test to the UI. The only way to get the infohash is from the original uploaded torrent file, but we have a bug on the backend. The infohash of the indexed torrent does not match the infohash of the originally uploaded torrent. I need to fix that issue before continuing.\n\nHey @da2ce7, In the end, I'm using a different approach. Instead of parsing the downloaded torrent file, I've added a custom HTTP header to the download response. This solution is faster because we do not need to parse the file.\nIt has a side effect that I do not know if it is good. Since we are not parsing the file, we get the right infohash from the header even though the downloaded torrent has a different infohash. But in this test, we are not testing that the uploaded and downloaded torrents have the same infohash, we are only testing that you can upload a torrent, and after uploading it, you are redirected to the torrent details page.\nBy the way, I have been unable to parse the torrent file with a Cypress task. Whenever I try to add a task that calls an async function, I get an error saying that the CYpress config file is invalid. You have to return a promise, but I can't make it work.\nBut I really do not know why it was not working with the parse-torrent library. In fact, I'm using now an async function and it seems to work:\nThe Cypress config file:\nimport { defineConfig } from \"cypress\";\nimport { grantAdminRole } from \"./cypress/e2e/contexts/user/tasks\";\nimport { deleteTorrent } from \"./cypress/e2e/contexts/torrent/tasks\";\nimport { DatabaseConfig } from \"./cypress/e2e/common/database\";\n\nfunction databaseConfig (config: Cypress.PluginConfigOptions): DatabaseConfig {\n  return {\n    filepath: config.env.db_file_path\n  };\n}\n\nexport default defineConfig({\n  e2e: {\n    baseUrl: \"http://localhost:3000\",\n    setupNodeEvents (on, config) {\n      on(\"task\", {\n        grantAdminRole: ({ username }) => {\n          return grantAdminRole(username, databaseConfig(config));\n        },\n        deleteTorrent: ({ infohash }) => {\n          return deleteTorrent(infohash, databaseConfig(config));\n        }\n      });\n    }\n  },\n  env: {\n    db_file_path: \"./storage/database/torrust_index_backend_e2e_testing.db\"\n  }\n});\nAnd the function of the task:\n// Custom tasks for user context\n\nimport { DatabaseConfig, DatabaseQuery, runDatabaseQuery } from \"../../common/database\";\n\n// Task to grant admin role to a user by username\nexport const deleteTorrent = async (infohash: string, db_config: DatabaseConfig): Promise<boolean> => {\n  try {\n    await runDatabaseQuery(deleteTorrentQuery(infohash), db_config);\n    return true;\n  } catch (err) {\n    return await Promise.reject(err);\n  }\n};\n\n// Database query specifications\n\nfunction deleteTorrentQuery (infohash: string): DatabaseQuery {\n  return {\n    query: \"DELETE FROM torrust_torrents WHERE info_hash = ?\",\n    params: [infohash]\n  };\n}\nAs you can see, deleteTorrent is async, but I was not able to call the parse-torrent function inside a similar task for parsing the downloaded torrent.\nThe good thing is that while I was struggling to find a solution I took a look at the code inside the parse-torrent package, and the lines to extract the infohash from the torrent file are very simple:\nhttps://github.com/webtorrent/parse-torrent/blob/master/index.js#L118-L145\n  if (ArrayBuffer.isView(torrent)) {\n    torrent = bencode.decode(torrent)\n  }\n\n  // sanity check\n  ensure(torrent.info, 'info')\n  ensure(torrent.info['name.utf-8'] || torrent.info.name, 'info.name')\n  ensure(torrent.info['piece length'], 'info[\\'piece length\\']')\n  ensure(torrent.info.pieces, 'info.pieces')\n\n  if (torrent.info.files) {\n    torrent.info.files.forEach(file => {\n      ensure(typeof file.length === 'number', 'info.files[0].length')\n      ensure(file['path.utf-8'] || file.path, 'info.files[0].path')\n    })\n  } else {\n    ensure(typeof torrent.info.length === 'number', 'info.length')\n  }\n\n  const result = {\n    info: torrent.info,\n    infoBuffer: bencode.encode(torrent.info),\n    name: arr2text(torrent.info['name.utf-8'] || torrent.info.name),\n    announce: []\n  }\n\n  result.infoHashBuffer = await hash(result.infoBuffer)\n  result.infoHash = arr2hex(result.infoHashBuffer)\nI also tried to copy/paste that code instead of using the package, but I think there is a problem in this line:\nresult.infoHashBuffer = await hash(result.infoBuffer)\n\nI do not know how to create a Cypress task which calls to a function defined elsewhere which contains an await. It seems using async/await with Cypress is tricky. I guess we will need to do that in the future for other tests, but for now, I prefer the alternative solution (the custom header with the infohash) because it's faster.\nThis PR can be merged after emerging torrust/torrust-index#243 now even if the torrust/torrust-index#242 issue is not solved yet.",
+                                    "url": "https://github.com/torrust/torrust-index-gui/pull/185#issuecomment-1662382844",
+                                    "author": {
+                                        "login": "josecelano"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

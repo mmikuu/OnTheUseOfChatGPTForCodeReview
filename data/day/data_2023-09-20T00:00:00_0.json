@@ -1,0 +1,128 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 5087,
+                        "title": "Use type errors in more places",
+                        "repository": {
+                            "nameWithOwner": "darklang/dark",
+                            "primaryLanguage": {
+                                "name": "F#"
+                            }
+                        },
+                        "createdAt": "2023-09-20T05:57:23Z",
+                        "mergedAt": "2023-09-21T13:50:54Z",
+                        "url": "https://github.com/darklang/dark/pull/5087",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "pbiggar"
+                        },
+                        "editor": {
+                            "login": "pbiggar"
+                        },
+                        "body": "The goal here was to remove Errors.fs, and replace it with the new error handling. I went through each place that used it and replaced it with either:\r\n\r\n- inlining the string value (for user-facing Results)\r\n- using an `Exception.raiseInternal` (if the type checker should have caught it)\r\n- adding `TypeChecker.raiseFnValResultNotExpectedType` for `Interpreter.applyFnVal` calls where the type is wrong (I don't have a good sense of how the error should look here, maybe as we use it, it will become clearer)\r\n\r\nI also extended error-stringifying in some cases as needed, with some minor error message upgrades.\r\n\r\nWhile I was there, I ended up greatly simplifying some builtin functions (List, String, and Dict) which had been made really unpleasant as a result of trying to thread DErrors through them, they're much nicer now.",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "small nitpick, maybe swap dv (actual) and typ (expected) here?",
+                                                        "author": {
+                                                            "login": "StachuDotNet"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5087#discussion_r1331971964",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b6d1d00",
+                                                            "authoredDate": "2023-09-20T16:43:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Actual comes before expected, no?",
+                                                        "author": {
+                                                            "login": "pbiggar"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5087#discussion_r1332092647",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b6d1d00",
+                                                            "authoredDate": "2023-09-20T16:43:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Seems to differ in different worlds. I'm just really used to the .NET and F# world where it's generally expected first. That's also what I've seen in Elm and OCaml, according to ChatGPT. https://chat.openai.com/share/91365a6c-3f59-4d2a-8b51-b710f1921415 for reference",
+                                                        "author": {
+                                                            "login": "StachuDotNet"
+                                                        },
+                                                        "url": "https://github.com/darklang/dark/pull/5087#discussion_r1332099336",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b6d1d00",
+                                                            "authoredDate": "2023-09-20T16:43:57Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

@@ -1,0 +1,1507 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 196,
+                        "title": "feat: position reset with F5, F6, F7",
+                        "repository": {
+                            "nameWithOwner": "tier4/AWSIM",
+                            "primaryLanguage": {
+                                "name": "C#"
+                            }
+                        },
+                        "createdAt": "2023-09-12T11:47:27Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/tier4/AWSIM/pull/196",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "xmfcx"
+                        },
+                        "editor": null,
+                        "body": "When developers use AWSIM, they want to reset the vehicle's position without restarting the entire simulation. Or maybe save a position in runtime and load from that position.\r\n\r\nThis is a very simple addition to enable these features.\r\n\r\nF5: reset to initial position. (from simulation start)\r\nF6: load to saved position. (to F7 saved position)\r\nF7: save the current position.\r\n\r\nThis feature only works when the vehicle is moving (even if it's very slowly.) If you have any ideas to improve, expand from this, feel free to edit my PR.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2024-01-24T13:56:16Z",
+                                    "bodyText": "https://chat.openai.com/share/711191fa-5bfc-4b23-91fe-0b293216f983",
+                                    "url": "https://github.com/tier4/AWSIM/pull/196#issuecomment-1908173019",
+                                    "author": {
+                                        "login": "xmfcx"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 25,
+                        "title": "Inno: Add global tagging for all db metrics",
+                        "repository": {
+                            "nameWithOwner": "alteryx/locust-grasshopper",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-09-12T05:49:39Z",
+                        "mergedAt": "2023-09-26T22:45:22Z",
+                        "url": "https://github.com/alteryx/locust-grasshopper/pull/25",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "jmfiola"
+                        },
+                        "editor": null,
+                        "body": "This MR adds the ability to add tags to all metrics that are reported to the influxDB. In the journey class, just use `self.update_tags(tags={})` and those new key-value pairs will be added to influxDB metrics. ",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "just out of curiosity, why change this? i assume there was some case that wasn't being handled, but I can't think of what it is.",
+                                                        "author": {
+                                                            "login": "alteryx-sezell"
+                                                        },
+                                                        "url": "https://github.com/alteryx/locust-grasshopper/pull/25#discussion_r1330813288",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9d11941",
+                                                            "authoredDate": "2023-09-13T22:08:45Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I like the idea of delegating the exact point construction to the listener, but this seems to be a 'private method'. There isn't a public one for this, i take it? Maybe we should think about submitting a pr for that to the listener code?",
+                                                        "author": {
+                                                            "login": "alteryx-sezell"
+                                                        },
+                                                        "url": "https://github.com/alteryx/locust-grasshopper/pull/25#discussion_r1330902379",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9d11941",
+                                                            "authoredDate": "2023-09-13T22:08:45Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "this should probably be {\"tags\": cls.tags} to follow the pattern above and make it so that you don't change it on one line but not the other",
+                                                        "author": {
+                                                            "login": "alteryx-sezell"
+                                                        },
+                                                        "url": "https://github.com/alteryx/locust-grasshopper/pull/25#discussion_r1330905562",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9d11941",
+                                                            "authoredDate": "2023-09-13T22:08:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": ">>> a = \"GH_GGGGGGGGGGGGGGGA\"\n>>> b = a.lstrip(\"GH_\")\n>>> b\n'A'\n\nI didn't understand why so I asked chatgpt and it has a pretty good explanation:\nhttps://chat.openai.com/share/1eaad094-b93d-4284-90a3-c1425f2d607c",
+                                                        "author": {
+                                                            "login": "jmfiola"
+                                                        },
+                                                        "url": "https://github.com/alteryx/locust-grasshopper/pull/25#discussion_r1331839245",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9d11941",
+                                                            "authoredDate": "2023-09-13T22:08:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "yeah that's a good idea. This should just be public IMO.",
+                                                        "author": {
+                                                            "login": "jmfiola"
+                                                        },
+                                                        "url": "https://github.com/alteryx/locust-grasshopper/pull/25#discussion_r1331844583",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9d11941",
+                                                            "authoredDate": "2023-09-13T22:08:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "changed",
+                                                        "author": {
+                                                            "login": "jmfiola"
+                                                        },
+                                                        "url": "https://github.com/alteryx/locust-grasshopper/pull/25#discussion_r1331862143",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "9d11941",
+                                                            "authoredDate": "2023-09-13T22:08:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 759,
+                        "title": "feat: fix automatic unassign",
+                        "repository": {
+                            "nameWithOwner": "ubiquity/ubiquibot",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-09-12T09:59:19Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/ubiquity/ubiquibot/pull/759",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "wannacfuture"
+                        },
+                        "editor": null,
+                        "body": "Resolves #685\r\n\r\nFixed lastActivityTime function\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-12T09:59:23Z",
+                                    "bodyText": "\u2705 Deploy Preview for ubiquibot-staging ready!\n\n\n\nName\nLink\n\n\n\n\n\ud83d\udd28 Latest commit\nb72d55d\n\n\n\ud83d\udd0d Latest deploy log\nhttps://app.netlify.com/sites/ubiquibot-staging/deploys/651c6805f2a05a0008cb79fc\n\n\n\ud83d\ude0e Deploy Preview\nhttps://deploy-preview-759--ubiquibot-staging.netlify.app\n\n\n\ud83d\udcf1 Preview on mobile\n Toggle QR Code... Use your smartphone camera to open QR code link.\n\n\n\n\nTo edit notification comments on pull requests, go to your Netlify site configuration.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/759#issuecomment-1715400309",
+                                    "author": {
+                                        "login": "netlify"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-12T15:31:43Z",
+                                    "bodyText": "The PR addresses the third requirement by refining the \"last activity time\" logic.\nHowever, the PR does not seem to implement any logic to prevent the bot from undoing user actions. There's no code that checks if an assignee was added by a user and then prevents the bot from unassigning that user. Similarly, there's no code related to labels and their potential removal by the bot.\n\nIn conclusion:\n\nThe PR partially addresses the requirements by refining the logic for \"last activity time.\"\nIt does not fully satisfy the requirements regarding the bot undoing user actions (e.g., unassigning users or removing labels).\n\nTo fully satisfy the requirements, the PR would need additional logic to ensure the bot respects user actions like assigning users or adding labels.\nSource: https://chat.openai.com/share/3fac1c44-7998-4d8a-aee8-603a300aede4",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/759#issuecomment-1715952798",
+                                    "author": {
+                                        "login": "pavlovcik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-12T16:59:16Z",
+                                    "bodyText": "ChatGPT is smarter than I expected \ud83e\udd23\nBut updating lastActivityTime function is enough to prevent bot from unassigning hunter right after manual assignment.\nMr. GPT, lol\n\nOr if I add a specific label, perhaps the bot should be mindful to never remove that same added label.\n\nThis is already implemented, I think. E.g. when I add priority label bot removes original priority label.\n@pavlovcik",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/759#issuecomment-1716106513",
+                                    "author": {
+                                        "login": "wannacfuture"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-13T03:52:59Z",
+                                    "bodyText": "I'm pretty sure its not implemented.\nI remember asking about chaining together handlers and sharing context to ensure that it understands the user action that invoked the bot and does not undo it and you saying that's difficult to do.\nShould be for everything including for now: assigns, and price label",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/759#issuecomment-1716901404",
+                                    "author": {
+                                        "login": "pavlovcik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-13T09:13:45Z",
+                                    "bodyText": "I'm pretty sure its not implemented.\nI remember asking about chaining together handlers and sharing context to ensure that it understands the user action that invoked the bot and does not undo it and you saying that's difficult to do.\nShould be for everything including for now: assigns, and price label\n\nhttps://github.com/ubiquity/card-issuance/issues/14\nOn the above issue, the bot removes the price label right after you have set it.\nBut it didn't remove the label which you have added. It removed the original label.\nFor example, if there was 200 USD label, and you add 300 USD label, the bot will remove 200 label and leave 300.\nIsn't this the right behaviour?\n\nOr if I add a specific label, perhaps the bot should be mindful to never remove that same added label.\n\nNot so sure what should be done exactly for this.\n@pavlovcik",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/759#issuecomment-1717251894",
+                                    "author": {
+                                        "login": "wannacfuture"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-13T09:16:50Z",
+                                    "bodyText": "But it didn't remove the label which you have added. It removed the original label.\n\n\nLooks wrong",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/759#issuecomment-1717257091",
+                                    "author": {
+                                        "login": "pavlovcik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-13T09:39:41Z",
+                                    "bodyText": "haha you battery is running out lol\nI investigated about it.\nThe bot removes all the price labels which isn't appropriate for given priority and time labels even you set a price label in your mind manually.\nin the beginning of the issue the bot added 200 USD for priority 1 time 1 day.\nbut after that, not sure if the rule of pricing is changed(maybe config??) but the bot accepted 200 USD for priority 2 and time 1 day at last.\nSo that's why bot removed your 200USD label after you labeled it, because he thought 200 is not appropriate for priority1 and time 1 day.\nBut I'm not sure why he didn't add right label after removing yours even it is designed to do in the code. We need to investigate the logs.\nSo I suggest this:\n\nmonitoring issues and check appropriate price labels exist on it for given priority & time labels.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/759#issuecomment-1717292856",
+                                    "author": {
+                                        "login": "wannacfuture"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-13T12:49:33Z",
+                                    "bodyText": "It does not fully satisfy the requirements regarding the bot undoing user actions (e.g., unassigning users or removing labels).\n\nI don't get why this is difficult to understand.\nRegardless of the details of what the bot thinks the right thing to do is currently, it should respect the user's wishes like setting the label or setting assigns.\nThis should be generalized to work with any user input/action because we will continue to add capabilities.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/759#issuecomment-1717567223",
+                                    "author": {
+                                        "login": "pavlovcik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-13T13:35:57Z",
+                                    "bodyText": "It does not fully satisfy the requirements regarding the bot undoing user actions (e.g., unassigning users or removing labels).\n\nI don't get why this is difficult to understand.\nRegardless of the details of what the bot thinks the right thing to do is currently, it should respect the user's wishes like setting the label or setting assigns.\nThis should be generalized to work with any user input/action because we will continue to add capabilities.\n\nIt does make sense.\nI pushed commit but is it enough to check there is existing price label? @pavlovcik",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/759#issuecomment-1717650937",
+                                    "author": {
+                                        "login": "wannacfuture"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-14T20:22:07Z",
+                                    "bodyText": "I pushed commit but is it enough to check there is existing price label? @pavlovcik\n\n\n\nThis should be generalized to work with any user input/action because we will continue to add capabilities.\n\n\n#774",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/759#issuecomment-1720091526",
+                                    "author": {
+                                        "login": "pavlovcik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-21T02:05:07Z",
+                                    "bodyText": "we're fine to merge the PR @wannacfuture @pavlovcik? no comments from me",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/759#issuecomment-1728658380",
+                                    "author": {
+                                        "login": "0xcodercrane"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-03T19:18:00Z",
+                                    "bodyText": "it seems the code already got merged from somewhere else?\n\n  \n    \n      ubiquibot/src/handlers/wildcard/unassign.ts\n    \n    \n         Line 104\n      in\n      9d00d7f\n    \n  \n  \n    \n\n        \n          \n           if (lastAssignCommentOfHunter.length > 0) activities.push(new Date(lastAssignCommentOfHunter[0].created_at));",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/759#issuecomment-1745576201",
+                                    "author": {
+                                        "login": "whilefoo"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-03T20:25:58Z",
+                                    "bodyText": "it seems the code already got merged from somewhere else?\n\n  \n    \n      ubiquibot/src/handlers/wildcard/unassign.ts\n    \n    \n         Line 104\n      in\n      9d00d7f\n    \n  \n  \n    \n\n        \n          \n           if (lastAssignCommentOfHunter.length > 0) activities.push(new Date(lastAssignCommentOfHunter[0].created_at)); \n        \n    \n  \n\n\n\nYeah, another hunter pulled this branch.",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/759#issuecomment-1745672799",
+                                    "author": {
+                                        "login": "wannacfuture"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-03T21:23:34Z",
+                                    "bodyText": "@whilefoo Good to see you're back online \ud83d\udc8a \ud83d\udc4d",
+                                    "url": "https://github.com/ubiquity/ubiquibot/pull/759#issuecomment-1745748018",
+                                    "author": {
+                                        "login": "rndquu"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "#685 (comment)\ncommented on the bounty.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 1546,
+                        "title": "\u8907\u6570\u9078\u629e\uff1a\u30ad\u30e3\u30e9\u30af\u30bf\u30fc\u3092\u5909\u66f4\u3067\u304d\u308b\u3088\u3046\u306b",
+                        "repository": {
+                            "nameWithOwner": "VOICEVOX/voicevox",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-09-12T11:59:06Z",
+                        "mergedAt": "2023-09-19T16:25:05Z",
+                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "sevenc-nanashi"
+                        },
+                        "editor": {
+                            "login": "sevenc-nanashi"
+                        },
+                        "body": "## \u5185\u5bb9\r\n\r\n\u30bf\u30a4\u30c8\u30eb\u901a\u308a\u3002\r\n\r\n## \u95a2\u9023 Issue\r\n\r\n- ref: #457\r\n- ref: #1470 \r\n\r\n## \u30b9\u30af\u30ea\u30fc\u30f3\u30b7\u30e7\u30c3\u30c8\u30fb\u52d5\u753b\u306a\u3069\r\n\r\nhttps://github.com/VOICEVOX/voicevox/assets/59691627/928a5e1b-e0ad-4341-97d3-2bca8223c854\r\n\r\n\r\n## \u305d\u306e\u4ed6\r\n\r\n\uff08\u306a\u3057\uff09",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-14T15:52:07Z",
+                                    "bodyText": "\u30ec\u30d3\u30e5\u30fc\u3092\u53cd\u6620\u3057\u307e\u3057\u305f\u3002",
+                                    "url": "https://github.com/VOICEVOX/voicevox/pull/1546#issuecomment-1719717657",
+                                    "author": {
+                                        "login": "sevenc-nanashi"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-17T10:54:38Z",
+                                    "bodyText": "\u30ec\u30d3\u30e5\u30fc\u3092\u53cd\u6620\u3057\u307e\u3057\u305f\u3002",
+                                    "url": "https://github.com/VOICEVOX/voicevox/pull/1546#issuecomment-1722450266",
+                                    "author": {
+                                        "login": "sevenc-nanashi"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-19T08:55:54Z",
+                                    "bodyText": "\u4fee\u6b63\u3057\u307e\u3057\u305f\u3002",
+                                    "url": "https://github.com/VOICEVOX/voicevox/pull/1546#issuecomment-1725095803",
+                                    "author": {
+                                        "login": "sevenc-nanashi"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-19T16:25:03Z",
+                                    "bodyText": "\u554f\u984c\u306a\u3055\u305d\u3046\u306a\u306e\u3067\u30de\u30fc\u30b8\u3057\u307e\u3059\uff01",
+                                    "url": "https://github.com/VOICEVOX/voicevox/pull/1546#issuecomment-1726034426",
+                                    "author": {
+                                        "login": "Hiroshiba"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "\u30a2\u30b5\u30a4\u30f3\u50d5\u3058\u3083\u306a\u304b\u3063\u305f\u3093\u3067\u3059\u3051\u3069\u30b3\u30fc\u30c9\u8aad\u307f\u3084\u3059\u304f\u3066\u3064\u3044\u30ec\u30d3\u30e5\u30fc\u3057\u3066\u3057\u307e\u3044\u307e\u3057\u305f\uff01\n\u3059\u3054\u3044\u5909\u66f4\u3092\u8aad\u307f\u3084\u3059\u304b\u3063\u305f\u3067\u3059\u3002",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u826f\u3044\u63d0\u6848\u304c\u601d\u3044\u3064\u3051\u3066\u306a\u3044\u306e\u3067\u3059\u304c\u3001\u300c\u8907\u6570\u306e\u58f0\u3092\u5909\u66f4\u3059\u308b\u300d\u3068\u3044\u3046\u95a2\u6570\u540d\u306f\u5b9f\u306f\u8a9e\u5f0a\u3092\u751f\u3058\u308b\u53ef\u80fd\u6027\u304c\u3042\u308b\u6c17\u304c\u3057\u307e\u3057\u305f\u3002\n\u3084\u3063\u3066\u308b\u3053\u3068\u306f\u300c\u8907\u6570\u306e\u30a2\u30a4\u30c6\u30e0\u5185\u306e\u58f0\u3092\u5909\u66f4\u3059\u308b\u300d\u3067\u30011\u30a2\u30a4\u30c6\u30e0\u3042\u305f\u308a\u58f0\u304c\u4e00\u3064\u306a\u306e\u3067\u4eca\u306f\u554f\u984c\u304c\u306a\u3044\u3067\u3059\u304c\u3001\u4f8b\u3048\u3070\u540c\u69d8\u306e\u547d\u540d\u898f\u5247\u3067\u300cCHANGE_PARAMETERS\u300d\u306a\u3069\u3068\u3059\u308b\u3068\u8907\u6570\u306e\u30d1\u30e9\u30e1\u30fc\u30bf\u3092\u5909\u66f4\u3059\u308b\u306e\u304b\u3001\u8907\u6570\u306e\u30a2\u30a4\u30c6\u30e0\u306e\u4e00\u3064\u306e\u30d1\u30e9\u30e1\u30fc\u30bf\u3092\u5909\u66f4\u3059\u308b\u306e\u304b\u304c\u5206\u304b\u3089\u306a\u304f\u306a\u3063\u3061\u3083\u3046\u306a\u3068\u3002\u3002\n\u8907\u6570\u30a2\u30a4\u30c6\u30e0\u4e00\u6c17\u306b\u5909\u3048\u308b\u7cfb\u3092\u300cmultiChange\u300d\u306a\u3069\u3068\u547c\u3076\u3053\u3068\u306b\u3057\u3066\u3001COMMAND_MULTI_CHANGE_VOICE\u3068\u304b\uff1f",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1325083175",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1753add",
+                                                            "authoredDate": "2023-09-12T13:02:06Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "utility\u7cfb\u3067\u3057\u3087\u3046\u304b\u3002\n\u3053\u308c\u7cfb\u306e\u30d5\u30a1\u30a4\u30eb\u540d\u3063\u3066\u591a\u5206\u4f55\u3067\u3082\u3044\u3044\u3093\u3067\u3059\u3051\u308c\u3069\u3082\u3001\u3044\u308d\u3093\u306a\u540d\u524d\u306b\u306a\u3063\u3066\u308b\u306e\u3060\u3051\u306f\u907f\u3051\u305f\u65b9\u304c\u3044\u3044\u304b\u3082\u3067\u3059\u3002\n\u65e2\u5b58\u306e\u8abf\u3079\u3066\u307f\u308b\u3068utililty.ts\u304c\u3042\u3063\u305f\u306e\u3067\u3053\u3063\u3061\u306e\u540d\u524d\u306b\u3059\u308b\u306e\u3069\u3046\u3067\u3057\u3087\u3046\u3002",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1325087501",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1753add",
+                                                            "authoredDate": "2023-09-12T13:02:06Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u9078\u629e\u3082\u64cd\u4f5c\u306a\u306e\u3067\u3001\u9078\u629e\u64cd\u4f5c\u306f\u5bfe\u8c61\u5916\u3060\u3068\u3044\u3046\u3053\u3068\u304c\u308f\u304b\u308b\u3088\u3046\u306b\u300c\u5024\u5909\u66f4\u300d\u3068\u304b\u306b\u3059\u308b\u306e\u3069\u3046\u3067\u3057\u3087\u3046\u3002",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1325089777",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1753add",
+                                                            "authoredDate": "2023-09-12T13:02:06Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u3068\u95a2\u6570\u540d\u304c\u5408\u3063\u3066\u306a\u3044\u304b\u3082\u3002\u5168\u3066\uff1f\u9078\u629e\u4e2d\uff1f",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1325090564",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1753add",
+                                                            "authoredDate": "2023-09-12T13:02:06Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3053\u308c2\u56de\u51fa\u3066\u304d\u3066\u308b\u306e\u3067\u3001AudioKey\u3092\u5f15\u6570\u306b\u3057\u305fGETTER\u95a2\u6570isInitializingSpeaker\u306b\u3057\u3066\u3042\u3052\u3066\u3082\u3044\u3044\u304b\u3082\u3002\n\u307e\u3042\u30b7\u30f3\u30d7\u30eb\u306a\u306e\u3067\u305d\u306e\u307e\u307e\u3067\u3082\u3044\u3044\u304b\u3082\u3002",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1325094473",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1753add",
+                                                            "authoredDate": "2023-09-12T13:02:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u5168\u3066\u306eAudioCell\u306e\u9078\u629e\u4e2d\u306e\u30ad\u30e3\u30e9\u3001\u3068\u3044\u3046\u611f\u3058\u3067\u3059\u3002",
+                                                        "author": {
+                                                            "login": "sevenc-nanashi"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1325132263",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1753add",
+                                                            "authoredDate": "2023-09-12T13:02:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3042\u3001\u306a\u308b\u307b\u3069\u3067\u3059\uff01\n\u3082\u3057\u304b\u3057\u305f\u3089\u6700\u9ad8\u306e\u540d\u524d\u304c\u5225\u3067\u3042\u308b\u304b\u3082\u3067\u3059\u304c\u3001\u30ed\u30fc\u30ab\u30eb\u95a2\u6570\u3060\u3057\u5168\u7136\u30aa\u30c3\u30b1\u30fc\u306a\u6c17\u304c\u3057\u307e\u3057\u305f\uff01",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1326091193",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1753add",
+                                                            "authoredDate": "2023-09-12T13:02:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "MULTI_CHANGE_VOICE\u306b\u3057\u307e\u3057\u305f\u3002",
+                                                        "author": {
+                                                            "login": "sevenc-nanashi"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1326169360",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1753add",
+                                                            "authoredDate": "2023-09-12T13:02:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "unit\u306e\u65b9\u306butils\u304c\u3042\u3063\u305f\u306e\u3067utils\u306b\u3057\u307e\u3057\u305f\u3002",
+                                                        "author": {
+                                                            "login": "sevenc-nanashi"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1326169777",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1753add",
+                                                            "authoredDate": "2023-09-12T13:02:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u5024\u5909\u66f4\u306b\u3057\u307e\u3057\u305f\u3002",
+                                                        "author": {
+                                                            "login": "sevenc-nanashi"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1326169910",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1753add",
+                                                            "authoredDate": "2023-09-12T13:02:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u30b7\u30f3\u30d7\u30eb\u306a\u306e\u3067\u305d\u306e\u307e\u307e\u3067\u826f\u3044\u3068\u601d\u3044\u307e\u3059",
+                                                        "author": {
+                                                            "login": "sevenc-nanashi"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1327918829",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1753add",
+                                                            "authoredDate": "2023-09-12T13:02:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "\u307b\u307cLGTM\u304b\u306a\u3068\u3044\u3046\u6c17\u6301\u3061\u3067\u3059\uff01\uff01",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u540d\u79f0\u3067\u3059\u304c\u3001\u3053\u308c\u3060\u3068\u300c\u30aa\u30fc\u30c7\u30a3\u30aa\u30ad\u30fc\u304c\u30b9\u30d4\u30fc\u30ab\u30fc\u3092\u521d\u671f\u5316\u3059\u308b\u300d\u3068\u3044\u3046\u610f\u5473\u306b\u5909\u308f\u308a\u305d\u3046\u3067\u3059\u3002\nChatGPT https://chat.openai.com/share/95d89a9e-7aee-4869-bcde-9e282d1ff425\ninitializingSpeakerAudioKeys\u306e\u304c\u826f\u3055\u305d\u3046\uff1f\n\uff65\uff65\uff65\u3068\u601d\u3063\u305f\u3051\u3069\u3053\u308c\u4ee5\u524d\u304b\u3089\u3053\u3046\u3044\u3046\u547d\u540d\u898f\u5247\u3060\u3063\u305f\u3093\u3067\u3059\u306d \ud83d\ude07\n\u3053\u306e\u6a5f\u4f1a\u306b\u3048\u3044\u3084\u3067\u6b63\u3057\u304f\u3057\u3061\u3083\u3063\u3066\u3044\u305f\u3060\u3051\u308b\u3068\uff65\uff65\uff65\uff01\uff01\n\uff08\u3082\u3061\u308d\u3093\u305d\u306e\u307e\u307e\u3067\u3082\uff09",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1328053201",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b82162b",
+                                                            "authoredDate": "2023-09-14T15:51:17Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u591a\u5206\u3053\u3053\u306f\u8907\u6570\u306b\u3059\u308b\u5fc5\u8981\u306f\u306a\u3044\u306e\u3068\u3001\u5358\u6570\u306b\u3057\u3066\u5229\u7528\u5074\u3067for\u56de\u3059\u3088\u3046\u306b\u3057\u305f\u65b9\u304c\u4f7f\u3044\u3084\u3059\u305d\u3046\u304b\u306a\u3068",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1328053505",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b82162b",
+                                                            "authoredDate": "2023-09-14T15:51:17Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u9806\u756a\u5165\u308c\u66ff\u3048\u306e\u8b0e\u5909\u66f4\u304c\u3042\u308b\u304b\u3082\n\uff08\u30b3\u30f3\u30d5\u30ea\u30af\u30c8\u304c\u8d77\u3053\u308b\u78ba\u7387\u304c\u591a\u5c11\u4e0a\u304c\u308b\u3060\u3051\u306a\u306e\u3067\u307e\u3042\u305d\u306e\u307e\u307e\u3067\u3082\uff01\uff09\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    { dispatch, commit, state },\n          \n          \n            \n                    { state, dispatch, commit },",
+                                                        "author": {
+                                                            "login": "Hiroshiba"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1328053779",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b82162b",
+                                                            "authoredDate": "2023-09-14T15:51:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "audioKeysWithInitializingSpeaker\u3001\u304c\u4e00\u756a\u6b63\u3057\u3044\u6c17\u304c\u3057\u305f\u306e\u3067\u305d\u3046\u3057\u307e\u3059\u3002",
+                                                        "author": {
+                                                            "login": "sevenc-nanashi"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1328062773",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b82162b",
+                                                            "authoredDate": "2023-09-14T15:51:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u5358\u6570\u306b\u3057\u3066\u5229\u7528\u5074\u3067for\u56de\u3059\u3088\u3046\u306b\u3057\u305f\u65b9\u304c\u4f7f\u3044\u3084\u3059\u305d\u3046\u304b\u306a\n\n\u3053\u3046\u3059\u308b\u3068\u30d5\u30ea\u30fc\u30ba\u3059\u308b\u3093\u3067\u3059\u3088\u306d\u3002\u9055\u3044\u307e\u3057\u305f",
+                                                        "author": {
+                                                            "login": "sevenc-nanashi"
+                                                        },
+                                                        "url": "https://github.com/VOICEVOX/voicevox/pull/1546#discussion_r1328063062",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b82162b",
+                                                            "authoredDate": "2023-09-14T15:51:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "\u5b9f\u884c\u3057\u3066\u307f\u305f\u3089\u30a8\u30e9\u30fc\u304cconsole\u51fa\u529b\u3055\u308c\u3066\u3044\u307e\u3057\u305f\u3002\nnpm run typecheck:vue-tsc\u3059\u308b\u3068\u5909\u66f4\u6f0f\u308c\u7b87\u6240\u304c\u308f\u304b\u308b\u304b\u3082\u3067\u3059",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM\uff01\uff01\uff01\uff01\uff01\uff01\uff01\uff01\n\u3044\u3084\u30fc\u30fc\u30fc\u30fc\u30fc\u30fc\u30fc\u5b9f\u969b\u4f7f\u3063\u3066\u307f\u308b\u3068\u3059\u3054\u3044\u611f\u52d5\u3059\u308b\u304f\u3089\u3044\u4fbf\u5229\u3067\u3059\u306d\uff01\uff01\uff01\uff01\uff01\uff01\n\u4ed6\u306e\u6a5f\u80fd\u3082\u305c\u3072\u5b9f\u88c5\u3057\u305f\u307f\uff01\uff01\uff01\uff01\uff01\uff01\uff01",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 9,
+                        "title": "Batu/pipe implementation",
+                        "repository": {
+                            "nameWithOwner": "552020/minishell",
+                            "primaryLanguage": {
+                                "name": "C"
+                            }
+                        },
+                        "createdAt": "2023-09-12T12:53:15Z",
+                        "mergedAt": "2023-09-13T13:54:13Z",
+                        "url": "https://github.com/552020/minishell/pull/9",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "BatuSengezer"
+                        },
+                        "editor": null,
+                        "body": "The execution with and without pipes are working. I just added a check in main function to see if there are pipes or not and create processes accordingly. Redirections are also partially working but I will create another branch for fixing redirections.\r\n\r\nLet me know if you see something wrong. :)",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-13T10:00:57Z",
+                                    "bodyText": "echo 'hello' is working correctly: hello is printed! Which is great!\nBut echo 'hello' | echo 'hello world' is not working: nothing is printed. Same for just ls. echo 'hello world' | grep 'hello' is also not working and echo 'hello' | cat is also not working! :-(\n\n\necho 'hello' | echo 'hello world'\nIn this case, I realized the problem is with lexer because argument is lost during lexing, because when i run above command, following is the result of the parser\n\nParsing\n\n\n\n\n\n\n\n\n\n\n\n\n\n|\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\necho hello\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\necho\nbut it should be\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nParsing\n\n\n\n\n\n\n\n\n\n\n\n\n\n|\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\necho hello\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\necho hello world    // correction\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nls\n\nIt is fixed now the last commit, It was a problem about not checking if the ast_node->args is NULL before joining comand and args in my execute function. Now it is working as expected\n\n\necho 'hello world' | grep 'hello'\nSame problem with the first one, hello after the grep is lost during lexing\n\n\necho 'hello' | cat\n\n\nSame problem with the first one , cat is lost during the lexing",
+                                    "url": "https://github.com/552020/minishell/pull/9#issuecomment-1717326229",
+                                    "author": {
+                                        "login": "BatuSengezer"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "When I run make I get this:\nmake all\n...\ngcc -g -Wall -Wextra -Werror -I./include  -I./libft/include -c src/pipes.c -o obj/pipes.o \nsrc/pipes.c:107:9: error: variable 'path' is used uninitialized whenever 'if' condition is false [-Werror,-Wsometimes-uninitialized]\n    if (node->data)\n        ^~~~~~~~~~\nsrc/pipes.c:111:26: note: uninitialized use occurs here\n    printf(\"path: %s\\n\", path);\n                         ^~~~\nsrc/pipes.c:107:5: note: remove the 'if' if its condition is always true\n    if (node->data)\n    ^~~~~~~~~~~~~~~\nsrc/pipes.c:95:15: note: initialize the variable 'path' to silence this warning\n    char        *path;\n                     ^\n                      = NULL\n1 error generated.\nmake[1]: *** [obj/pipes.o] Error 1\nmake: *** [re] Error 2\n\n\ncfr. also screenshot.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why are these modifications here? @BatuSengezer",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323081075",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm not an hast table super expert but I imagine that it's not enough table[hash(\"PATH\")]->value this thing here to be sure you get the content of the PATH variable in the hash table. I mean our environemnt variable are very few so that probably there will be no collision, i.e. there will be only one element in the linked list which starts from the idx [hast(\"PATH\")] of the table array, but it could be that the linked list starting from there has more than one element and we need to check also that the key of the node is \"PATH\". Isn't it? But I could be completely wrong. @BatuSengezer",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323091246",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What are these numbers?",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323092990",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why is this (14) here?",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323094253",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Like this!",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323099343",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Now I fixed the issue with make.",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323142112",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Also I think it seems there is modification in lexer because main is ahead 7 commits, a rebase should fix it I think. I will let you know when it is done",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323143317",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Noo, you are right, I need to make an iteration to check if they are there, also I need to take all elements from ht (envp basically), I will keep this in mind  at this when I am pulling all the environment variables for execve function (I will create another branch for this as well)",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323147405",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "These are the numbers we splitted all subject topics so I kept the same numbers :)",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323149751",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Same with previous one :)",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323153073",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ok. Then I'll wait that you at least open an issue in linear so that we don't forget it. Waiting for the link of the issue here. I'm the hardest of the reviewers! :-)",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323157998",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "All right! It compiles now!",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323160923",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In the code in that file?",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323162811",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "I added some comments in the code but I have also a general question, cause I was trying to test it. With which command should I test it? What it is supposed to do till to this point?",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why is this include here and not in the header file. Is it a choice?",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323166055",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This comment means we are not using this function? I see that it is called one time in minishell.c but that line is commented out.",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323168588",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I add this comment here, cause it is the main/first function of the pipes structure that takes the envp variable. We already talked about the necessity to use our internal representation of the environment variables, but since we execute command with execve  int execve(const char *path, char *const argv[], char *const envp[]); which takes as third argument a bidimensional array, does it make sense to have our variables stored in an hash table?",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323184093",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I had a talk with our friend about the problem and this is what he had to say about the argument: https://chat.openai.com/share/c0457cfa-84b0-4b28-a9cf-c1b72486f2f4.\nSo it seems we need to convert the hash table to something like the original envp. It suggests to convert it before calling execve and it also wrote some code and suggested some modification. What do you think? @BatuSengezer",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323203796",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "When we exit here, we exit abruptly the program without freeing anything?",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323207181",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This makes you the best teammate to push for improving! :)",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323231594",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeaah, you are right :) It should be in another file!",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323241137",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ahahahahaha \ud83e\udd23",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323243896",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a41098c",
+                                                            "authoredDate": "2023-09-12T12:49:06Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "No, actually I forgot about it, thanks for letting me know!",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323245042",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You can test it with any command and any number of pipes including zero, but redirections are not working correctly in some cases so I would suggest not to test it with redirections but you can as well :)",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323246434",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "yeaah, right now we are not using it but I was keeping it in case we need it somewhere else, I will remove it at the end",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323247252",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think that would be nice and I would prefer that, hash table is making it just a bit harder. But it is up to you, if you don't want to change it, I can work with it as well",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323250455",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeaah, I will write a free function and put it before each exit",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323251156",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What would you prefer? We can't give anyway the hash table directly in execve as an argument.",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323320669",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Then we need maybe to add a comment like // TODO: free memory before exit",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323321419",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "How can we do that? Don't we need to give all the keys to retrieve all of the results from the hash table?",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323512430",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I will do that :)",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1323512774",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "You didn't read the link with the conversation with the friend, right? As I said in the previous comment we need to convert the hast table into a two dimensional array before feeding it into execve. Cause execve expects a char** as third parameter. But I guess I can do it myself.",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1324069642",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "echo 'hello' is working correctly: hello is printed! Which is great!\nBut echo 'hello' | echo 'hello world' is not working: nothing is printed. Same for just ls.\necho 'hello world' | grep 'hello' is also not working and echo 'hello' | cat is also not working! :-(",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yeaah, I haven't. I thought you sent it in case I want to go deeper. What I thought was converting it into an array after retrieving all the information from the hash table but then why do we even need to create the hash table? Does it help us in any way except it is the way shell works?",
+                                                        "author": {
+                                                            "login": "BatuSengezer"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1324196118",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We don't need it. It's just cool to have an hash table. Anyway I already opened an issue in linear about it: we can discuss it there as we already do.",
+                                                        "author": {
+                                                            "login": "552020"
+                                                        },
+                                                        "url": "https://github.com/552020/minishell/pull/9#discussion_r1324521182",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3ce5973",
+                                                            "authoredDate": "2023-09-12T14:29:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjU=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 5
+        }
+    }
+}

@@ -1,0 +1,342 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 650,
+                        "title": "Timeouts",
+                        "repository": {
+                            "nameWithOwner": "jhu-bids/TermHub",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-13T00:29:41Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/jhu-bids/TermHub/pull/650",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "joeflack4"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-14T20:48:03Z",
+                                    "bodyText": "@joeflack4, I tried this locally:\nREQUEST_TIMEOUT_ERROR = 10\n# from https://github.com/tiangolo/fastapi/issues/1752\n# Adding a middleware returning a 504 error if the request processing time is above a certain threshold\n@APP.middleware(\"http\")\nasync def timeout_middleware(request: Request, call_next):\n    try:\n        start_time = time.time()\n        return await asyncio.wait_for(call_next(request), timeout=REQUEST_TIMEOUT_ERROR)\n\n    except asyncio.TimeoutError:\n        process_time = time.time() - start_time\n        return JSONResponse({'detail': 'Request processing time excedeed limit',\n                             'processing_time': process_time},\n                            status_code=HTTP_504_GATEWAY_TIMEOUT)\n\nAnd have a job that's been going on for minutes with no timeout. Did you have some better idea about how to implement it as middleware?",
+                                    "url": "https://github.com/jhu-bids/TermHub/pull/650#issuecomment-1856566111",
+                                    "author": {
+                                        "login": "Sigfried"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-15T01:29:11Z",
+                                    "bodyText": "@Sigfried I don't, off the top of my head. This is new to me. Well, only this:\n\n Did you make sure that the route you were testing was async?",
+                                    "url": "https://github.com/jhu-bids/TermHub/pull/650#issuecomment-1857126174",
+                                    "author": {
+                                        "login": "joeflack4"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Working method: Using Python > gunicorn/uvicorn options\n@Sigfried I tried gunicorn as well, but those options didn't work either.\nI went back to ChatGPT and tried asking the question generally. It came up with this, and it worked the first time!\nLet's just go with our middleware option.\nI have to complete some of my tickets first, so if you want me to do this, it'll have to be some time in January. But I would be happy if you tackled this too.",
+                                                        "author": {
+                                                            "login": "joeflack4"
+                                                        },
+                                                        "url": "https://github.com/jhu-bids/TermHub/pull/650#discussion_r1424714527",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bbf73cf",
+                                                            "authoredDate": "2023-12-13T00:28:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "How to get this to work for all routes (middleware)\nHere's what ChatGPT said: https://chat.openai.com/share/5d1061b3-b114-42fd-a3eb-0b67adad7631",
+                                                        "author": {
+                                                            "login": "joeflack4"
+                                                        },
+                                                        "url": "https://github.com/jhu-bids/TermHub/pull/650#discussion_r1425948747",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "bbf73cf",
+                                                            "authoredDate": "2023-12-13T00:28:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 6,
+                        "title": "\u30a8\u30e9\u30fc\u8868\u793a\u3068\u578b\u4fee\u6b63",
+                        "repository": {
+                            "nameWithOwner": "exchange-wata/next.js14-tailwindcss-udemy-blog",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-12-13T11:49:46Z",
+                        "mergedAt": "2023-12-16T06:31:16Z",
+                        "url": "https://github.com/exchange-wata/next.js14-tailwindcss-udemy-blog/pull/6",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "exchange-wata"
+                        },
+                        "editor": {
+                            "login": "exchange-wata"
+                        },
+                        "body": "## \u6982\u8981\r\n- \u8868\u984c\u901a\u308a\r\n\r\n## \u5b9f\u88c5\u5185\u5bb9\r\n- \u578b\u4fee\u6b63\r\n\r\n## \u5099\u8003\r\n- \u3053\u308c\u2193\u306e\u6700\u5f8c\u3067\u3061\u3087\u3063\u3068\u7d0d\u5f97\u3067\u304d\u305d\u3046\u306a\u6c17\u304c\u3059\u308b\r\n  - https://chat.openai.com/share/761f9bcf-3722-4b33-b7c5-37196253e07a",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM!!!\n\u6b63\u76f4\u3053\u306e\u8fba\u306enullable\u306e\u8a71\u306f\u597d\u307f\u306e\u554f\u984c\u3082\u5927\u304d\u3044\u304b\u3089\u3084\u308a\u3084\u3059\u3044\u3084\u308a\u65b9\u3067\u3044\u3044\u3068\u601d\u3046\uff01",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 41,
+                        "title": "Update YT Summarizer prompt",
+                        "repository": {
+                            "nameWithOwner": "linexjlin/GPTs",
+                            "primaryLanguage": null
+                        },
+                        "createdAt": "2023-12-13T04:18:32Z",
+                        "mergedAt": "2023-12-13T13:23:06Z",
+                        "url": "https://github.com/linexjlin/GPTs/pull/41",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "marciob"
+                        },
+                        "editor": null,
+                        "body": "the current seems to be different, as you can check there: https://chat.openai.com/share/4cd4b78c-ccb2-48f1-a783-d08eb4c6acd5",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 171,
+                        "title": "fix: disable button on submit",
+                        "repository": {
+                            "nameWithOwner": "ory/elements",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-12-13T07:47:34Z",
+                        "mergedAt": "2023-12-13T09:17:58Z",
+                        "url": "https://github.com/ory/elements/pull/171",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "hperl"
+                        },
+                        "editor": null,
+                        "body": "<!--\nDescribe the big picture of your changes here to communicate to the maintainers why we should accept this pull request.\n\nThis text will be included in the changelog. If applicable, include links to documentation or pieces of code.\nIf your change includes breaking changes please add a code block documenting the breaking change:\n\n```\nBREAKING CHANGES: This patch changes the behavior of configuration item `foo` to do bar. To keep the existing\nbehavior please do baz.\n```\n-->\n\n## Related Issue or Design Document\n\n<!--\nIf this pull request\n\n1. is a fix for a known bug, link the issue where the bug was reported in the format of `#1234`;\n2. is a fix for a previously unknown bug, explain the bug and how to reproduce it in this pull request;\n3. implements a new feature, link the issue containing the design document in the format of `#1234`;\n4. improves the documentation, no issue reference is required.\n\nPull requests introducing new features, which do not have a design document linked are more likely to be rejected and take on average 2-8 weeks longer to\nget merged.\n\nYou can discuss changes with maintainers either in the Github Discussions in this repository or\njoin the [Ory Chat](https://www.ory.sh/chat).\n-->\n\n## Checklist\n\n<!--\nPut an `x` in the boxes that apply. You can also fill these out after creating the PR. If you're unsure about any of\nthem, don't hesitate to ask. We're here to help! This is simply a reminder of what we are going to look for before merging your code.\n-->\n\n- [ ] I have read the [contributing guidelines](../blob/master/CONTRIBUTING.md) and signed the CLA.\n- [ ] I have referenced an issue containing the design document if my change introduces a new feature.\n- [ ] I have read the [security policy](../security/policy).\n- [ ] I confirm that this pull request does not address a security vulnerability. \n      If this pull request addresses a security vulnerability, \n      I confirm that I got approval (please contact [security@ory.sh](mailto:security@ory.sh)) from the maintainers to push the changes.\n- [ ] I have added tests that prove my fix is effective or that my feature works.\n- [ ] I have added the necessary documentation within the code base (if appropriate).\n\n## Further comments\n\n<!--\nIf this is a relatively large or complex change, kick off the discussion by explaining why you chose the solution\nyou did and what alternatives you considered, etc...\n-->\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-21T13:17:01Z",
+                                    "bodyText": "This doesn't actually work. The reason is, that the click event fires before the submit event of the enclosing form, and disabling the button in the event stops event propagation.\nThere are a few solutions, but IMO we should just get this right in AX2 before spending any more time on this. The underlying issue is fixed either way, and this was purely cosmetic.",
+                                    "url": "https://github.com/ory/elements/pull/171#issuecomment-1866225524",
+                                    "author": {
+                                        "login": "jonas-jonas"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-21T13:42:18Z",
+                                    "bodyText": "Wouldn't the fix just be to change click to submit?",
+                                    "url": "https://github.com/ory/elements/pull/171#issuecomment-1866268082",
+                                    "author": {
+                                        "login": "alnr"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-21T13:42:55Z",
+                                    "bodyText": "Wouldn't the fix just be to change click to submit?\n\nSubmit fires on the form, not the button itself.",
+                                    "url": "https://github.com/ory/elements/pull/171#issuecomment-1866269461",
+                                    "author": {
+                                        "login": "jonas-jonas"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-21T13:45:54Z",
+                                    "bodyText": "https://chat.openai.com/share/b85618ff-b1c3-4c28-b36f-44d35556216c",
+                                    "url": "https://github.com/ory/elements/pull/171#issuecomment-1866276026",
+                                    "author": {
+                                        "login": "alnr"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-21T13:47:08Z",
+                                    "bodyText": "yea, as I linked there are solutions, just don't want to spend time on getting this right, right now. PRs welcome ;)",
+                                    "url": "https://github.com/ory/elements/pull/171#issuecomment-1866278781",
+                                    "author": {
+                                        "login": "jonas-jonas"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "\ud83d\ude24",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 142,
+                        "title": "Removed `/python-sdk/` as the docs' base URL ",
+                        "repository": {
+                            "nameWithOwner": "groundlight/python-sdk",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-12-13T18:30:50Z",
+                        "mergedAt": "2023-12-13T22:23:25Z",
+                        "url": "https://github.com/groundlight/python-sdk/pull/142",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "blaise-muhirwa"
+                        },
+                        "editor": null,
+                        "body": "This is in part because we now have more than just SDK-related content on `code.groundlight.ai`. In addition, this also allows us to just have the blog under `code.groundlight.ai/blog` instead of `code.groundlight.ai/python-sdk/blog`. ",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-13T19:02:49Z",
+                                    "bodyText": "I think you missed a few references to python-sdk, for example this link will be broken: \n  \n    \n      python-sdk/docs/docs/building-applications/6-async-queries.md\n    \n    \n         Line 10\n      in\n      fc1bc45\n    \n  \n  \n    \n\n        \n          \n           On the **submitting machine**, you will need to install the Groundlight Python SDK. Then you can submit image queries asynchronously using the `ask_async` interface (read the full documentation [here](pathname:///python-sdk/api-reference-docs/#groundlight.client.Groundlight.ask_async)). `ask_async` submits your query and returns as soon as the query is submitted. It does not wait for an answer to be available prior to returning to minimize the time your program spends interacting with Groundlight. As a result, the `ImageQuery` object `ask_async` returns lacks a `result` (the `result` field will be `None`). This is acceptable for this use case as the **submitting machine** is not interested in the result. Instead, the **submitting machine** just needs to communicate the `ImageQuery.id`s to the **retrieving machine** - this might be done via a database, a message queue, or some other mechanism. For this example, we assume you are using a database where you save the `ImageQuery.id` to it via `db.save(image_query.id)`. \n        \n    \n  \n\n\nDo a ctrl-f and make sure you get all of them since we're changing the base url",
+                                    "url": "https://github.com/groundlight/python-sdk/pull/142#issuecomment-1854545500",
+                                    "author": {
+                                        "login": "tyler-romero"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Please manually check the pages and links after you deploy!",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "There might also be links on the public website or groundlight app that point to the old URL. Please look through the zuuul/reef code and change those as well. You can ask blake if you need changes on the public website.\nThe proper solution would be to add redirects from the old paths to the new paths, but we're hosting on github pages, so we'd have to do that client-side for each page (https://chat.openai.com/share/c2b2ef08-7577-41d6-890d-01a8ddab9517), which might be annoying. So, I'm okay if we just change the links on the other websites.",
+                                                        "author": {
+                                                            "login": "mjvogelsong"
+                                                        },
+                                                        "url": "https://github.com/groundlight/python-sdk/pull/142#discussion_r1425917621",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dbd1f60",
+                                                            "authoredDate": "2023-12-13T21:28:24Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjU=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 5
+        }
+    }
+}

@@ -1,0 +1,354 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 122355,
+                        "title": "Kube-proxy/nftables: allow \"numgen inc\"",
+                        "repository": {
+                            "nameWithOwner": "kubernetes/kubernetes",
+                            "primaryLanguage": {
+                                "name": "Go"
+                            }
+                        },
+                        "createdAt": "2023-12-17T10:03:18Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/kubernetes/kubernetes/pull/122355",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "uablrek"
+                        },
+                        "editor": {
+                            "login": "uablrek"
+                        },
+                        "body": "This makes the nftables proxier distribute traffic in the same way as proxy-mode=ipvs with the \"rr\" scheduler\r\n\r\n\r\n#### What type of PR is this?\r\n\r\n/kind feature\r\n/sig network\r\n/area kube-proxy\r\n\r\n#### What this PR does / why we need it:\r\n\r\nExisting users of proxy-mode=ipvs may feel more comfortable if they can keep the round-robin distribution when upgrading to proxy-mode=nftables.\r\n\r\nIt should be noted that the same limitation applied for nftables with \"random inc\" as for ipvs/rr: the individual kube-proxy instances on the nodes are not coordinated, but distribute individually. And different schedulers are not possible, as in \"ipvs\".\r\n\r\n#### Which issue(s) this PR fixes:\r\n\r\nN/A\r\n\r\n#### Special notes for your reviewer:\r\n\r\nFor start this is a PoC.\r\n\r\nA more suitable name than `numgen` should probably be used in the proxier structure. Trying to look into the future, one might expect some new features in nftables, like maglev-hashing\", and make it possible to configure those future things without altering the config API, just use a new value for some distribution parameter.\r\n\r\n#### Does this PR introduce a user-facing change?\r\n\r\n```release-note\r\nAllow users to configure the distribution in proxy-mode=nftables to mimic proxy-mode=ipvs with round-robin\r\n```\r\n\r\n#### Additional documentation e.g., KEPs (Kubernetes Enhancement Proposals), usage docs, etc.:\r\n\r\n\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-17T10:03:20Z",
+                                    "bodyText": "Skipping CI for Draft Pull Request.\nIf you want CI signal for your change, please convert it to an actual PR.\nYou can still manually trigger a test run with /test all",
+                                    "url": "https://github.com/kubernetes/kubernetes/pull/122355#issuecomment-1859101013",
+                                    "author": {
+                                        "login": "k8s-ci-robot"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-17T10:03:26Z",
+                                    "bodyText": "This issue is currently awaiting triage.\nIf a SIG or subproject determines this is a relevant issue, they will accept it by applying the triage/accepted label and provide further guidance.\nThe triage/accepted label can be added by org members by writing /triage accepted in a comment.\n\nInstructions for interacting with me using PR comments are available here.  If you have questions or suggestions related to my behavior, please file an issue against the kubernetes/test-infra repository.",
+                                    "url": "https://github.com/kubernetes/kubernetes/pull/122355#issuecomment-1859101177",
+                                    "author": {
+                                        "login": "k8s-ci-robot"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-17T10:03:49Z",
+                                    "bodyText": "[APPROVALNOTIFIER] This PR is NOT APPROVED\nThis pull-request has been approved by: uablrek\nOnce this PR has been reviewed and has the lgtm label, please assign dcbw for approval. For more information see the Kubernetes Code Review Process.\nThe full list of commands accepted by this bot can be found here.\n\nNeeds approval from an approver in each of these files:\n\npkg/proxy/OWNERS\n\nApprovers can indicate their approval by writing /approve in a comment\nApprovers can cancel approval by writing /approve cancel in a comment",
+                                    "url": "https://github.com/kubernetes/kubernetes/pull/122355#issuecomment-1859101785",
+                                    "author": {
+                                        "login": "k8s-ci-robot"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-17T10:06:23Z",
+                                    "bodyText": "/assign @danwinship\nI just wanted to test this, and see what you think. I can continue working with it if you think it's a good way to go.\n/cc @aroradaman",
+                                    "url": "https://github.com/kubernetes/kubernetes/pull/122355#issuecomment-1859106359",
+                                    "author": {
+                                        "login": "uablrek"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-17T10:13:43Z",
+                                    "bodyText": "/test all",
+                                    "url": "https://github.com/kubernetes/kubernetes/pull/122355#issuecomment-1859117124",
+                                    "author": {
+                                        "login": "uablrek"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-17T10:54:46Z",
+                                    "bodyText": "@uablrek: The following test failed, say /retest to rerun all failed tests or /retest-required to rerun all mandatory failed tests:\n\n\n\nTest name\nCommit\nDetails\nRequired\nRerun command\n\n\n\n\npull-kubernetes-unit\n42b3b86\nlink\ntrue\n/test pull-kubernetes-unit\n\n\n\nFull PR test history. Your PR dashboard. Please help us cut down on flakes by linking to an open issue when you hit one in your PR.\n\nInstructions for interacting with me using PR comments are available here.  If you have questions or suggestions related to my behavior, please file an issue against the kubernetes/test-infra repository. I understand the commands that are listed here.",
+                                    "url": "https://github.com/kubernetes/kubernetes/pull/122355#issuecomment-1859136718",
+                                    "author": {
+                                        "login": "k8s-ci-robot"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-17T13:56:06Z",
+                                    "bodyText": "Unit tests fails. I wait for some \"go-ahead approval\" until I update them.",
+                                    "url": "https://github.com/kubernetes/kubernetes/pull/122355#issuecomment-1859179913",
+                                    "author": {
+                                        "login": "uablrek"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-18T15:06:42Z",
+                                    "bodyText": "/cc @aojea\nMay interest you since you investigated distribution",
+                                    "url": "https://github.com/kubernetes/kubernetes/pull/122355#issuecomment-1860753171",
+                                    "author": {
+                                        "login": "uablrek"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-19T06:07:02Z",
+                                    "bodyText": "Please note, I don't mind closing this PR. I just saw the opportunity when reading the nft docs (again).",
+                                    "url": "https://github.com/kubernetes/kubernetes/pull/122355#issuecomment-1862178700",
+                                    "author": {
+                                        "login": "uablrek"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-19T18:12:24Z",
+                                    "bodyText": "I'm not against the idea of making nftables more configurable than iptables, where it makes sense. I'm not convinced that allowing configuring random vs round-robin really makes sense though, particularly given that it's per-node anyway as you said... Are there actually any situations where people have demonstrated that random vs round-robin actually makes a difference in ipvs kube-proxy?\n(If I was going to fiddle with endpoint distribution, I'd probably try to fix this.)\n\nA more suitable name than numgen should probably be used in the proxier structure.\n\nYes, it should be much more generic than that; if we're going to support alternative distribution mechanisms, we'll probably get beyond what numgen can do pretty quickly.",
+                                    "url": "https://github.com/kubernetes/kubernetes/pull/122355#issuecomment-1863260345",
+                                    "author": {
+                                        "login": "danwinship"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-20T06:48:17Z",
+                                    "bodyText": "I close this PR. I agree that it's not needed, nor requested. But when more people start to use the nftables proxier, there may be a wish for this feature, I have in particular maglev-hashing in mind.\n(bad example removed here. I confused with maglev as ecmp hash)\n/close",
+                                    "url": "https://github.com/kubernetes/kubernetes/pull/122355#issuecomment-1863939373",
+                                    "author": {
+                                        "login": "uablrek"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-20T06:48:23Z",
+                                    "bodyText": "@uablrek: Closed this PR.\n\nIn response to this:\n\nI close this PR. I agree that it's not needed, nor requested. But when more people start to use the nftables proxier, there may be a wish for this feature, I have in particular maglev-hashing in mind.\nMaglev-hashing is not a silver bullet, but it is a super-smart and simple algorithm to cope with hash reconfiguration. An example is if ECMP is used to distribute traffic to loadBalancer address among K8s nodes. Say we have 10 K8s nodes and a simple hash for ecmp. If you add an 11'th K8s node, you will have a rehash of ECMP, and will lose ~90% of all external connections.\nIf kube-proxy on the nodes uses maglev-hashing, the algorithm will hash to the same target as before for most connections. A slice of the connections, ~10%, will go to the newcomer, but ~90% of the connections will survive.\n/close\n\nInstructions for interacting with me using PR comments are available here.  If you have questions or suggestions related to my behavior, please file an issue against the kubernetes/test-infra repository.",
+                                    "url": "https://github.com/kubernetes/kubernetes/pull/122355#issuecomment-1863939445",
+                                    "author": {
+                                        "login": "k8s-ci-robot"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "is the plan to make this a configuration option like in ipvs?\n\t// scheduler is the IPVS scheduler to use\n\tScheduler string `json:\"scheduler\"`",
+                                                        "author": {
+                                                            "login": "aojea"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1430695581",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "this is going to be a bit of bikeshedding, but random seems to be a better default since is the one used by cilium and kube-proxy iptables, that I are used more than ivps https://gist.github.com/aojea/5f82db3ba5f1efd59bb73f4b28614a6a",
+                                                        "author": {
+                                                            "login": "aojea"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1430698073",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I kind of agree. Random is random, but people expect too much of other schedulers, even \"rr\". Like the endless discussion of \"initial distribution\", mentioned for instance in #121591 (comment). Even maglev-hashing doesn't work out-of-the-box in the way people expect.",
+                                                        "author": {
+                                                            "login": "uablrek"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1430938479",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "No plan at the moment. I just read the nft doc's and saw that it can be done. Easily.\nBut I can't say I have any strong opinions about it, except that is may make some current users of ipvs more comfortable with the upgrade as mentioned in the description. But people may select ipvs for other reasons than \"rr\", e.g. get rid of the \"probability chain\" in iptables, that can look horrible for many endpoints, or simply that they know ipvs and it's easier to understand (my case). Or they want another scheduler, which can't be supported by nftables anyway.",
+                                                        "author": {
+                                                            "login": "uablrek"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1430943279",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I made some experiments of my own with K8s load-balancing, but without any http considerations, only plain tcp connects, at: https://github.com/uablrek/xcluster-ovls/tree/main/k8s-load-balancing\nThe hardest part was to create the table with Unix/Linux commands, please see:\nhttps://github.com/uablrek/xcluster-ovls/blob/510cca913b632ae0a8506c45bf69d92bc1e6373e/k8s-load-balancing/k8s-load-balancing.sh#L72",
+                                                        "author": {
+                                                            "login": "uablrek"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1430954376",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "But yes, my thought was a config option.",
+                                                        "author": {
+                                                            "login": "uablrek"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1431253807",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "ChatGPT thinks IPTables proxy uses round-robbin algorithm, directing new requests to next destination in the list of pods.  Maybe that is what people think/expect in general - round-robin rather than random \ud83e\udd14\nhttps://chat.openai.com/share/20271990-883b-476b-b5b0-3c2d2b7efbaf",
+                                                        "author": {
+                                                            "login": "aroradaman"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1431275620",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It should be configurable. For now random, round-robin and hash could be supported, https://wiki.nftables.org/wiki-nftables/index.php/Load_balancing. I think someone out there is already implementing maglev-hashing. But it may be a good idea to keep it simple, and just do random. After all, it has worked fine for the vast majority of K8s users.",
+                                                        "author": {
+                                                            "login": "uablrek"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1431346263",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I advocate for trying to keep the same behavior as in iptables, but @danwinship is leading this feature, let's see what he thinks",
+                                                        "author": {
+                                                            "login": "aojea"
+                                                        },
+                                                        "url": "https://github.com/kubernetes/kubernetes/pull/122355#discussion_r1431510065",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "42b3b86",
+                                                            "authoredDate": "2023-12-17T09:49:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

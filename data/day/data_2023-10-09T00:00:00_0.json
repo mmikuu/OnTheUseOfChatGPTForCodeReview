@@ -1,0 +1,2475 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 52,
+                        "title": "Test transform",
+                        "repository": {
+                            "nameWithOwner": "BenGriffith/cryptocurrency",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-10-09T13:48:02Z",
+                        "mergedAt": "2023-10-09T13:49:26Z",
+                        "url": "https://github.com/BenGriffith/cryptocurrency/pull/52",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "BenGriffith"
+                        },
+                        "editor": null,
+                        "body": "Minor updates to project structure and started writing unit tests for transform module helper methods",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Looks good",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "missingassert?",
+                                                        "author": {
+                                                            "login": "bbelderbos"
+                                                        },
+                                                        "url": "https://github.com/BenGriffith/cryptocurrency/pull/52#discussion_r1351982202",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "18bd247",
+                                                            "authoredDate": "2023-10-09T13:41:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "do we need to \"freeze\" this for testing?",
+                                                        "author": {
+                                                            "login": "bbelderbos"
+                                                        },
+                                                        "url": "https://github.com/BenGriffith/cryptocurrency/pull/52#discussion_r1351984304",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "18bd247",
+                                                            "authoredDate": "2023-10-09T13:41:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "oops. Yes, thank you :)",
+                                                        "author": {
+                                                            "login": "BenGriffith"
+                                                        },
+                                                        "url": "https://github.com/BenGriffith/cryptocurrency/pull/52#discussion_r1352352147",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "18bd247",
+                                                            "authoredDate": "2023-10-09T13:41:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "it's possible but want to say I don't think so simply because the test this fixture is used against uses datetime.today() so if we were to freeze the date here it would be a different date value than what is being used in date_dim_row method on the Transform class.\nto \"freeze\" would I use pip install pytest-freezegun? I've never worked with freezing time via pytest.",
+                                                        "author": {
+                                                            "login": "BenGriffith"
+                                                        },
+                                                        "url": "https://github.com/BenGriffith/cryptocurrency/pull/52#discussion_r1352357012",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "18bd247",
+                                                            "authoredDate": "2023-10-09T13:41:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "ok maybe I need to  look  at the date_dim_row implementation ...\nyep in that case the recommended lib is freezegun, related article: https://pybit.es/articles/guest-freezegun",
+                                                        "author": {
+                                                            "login": "bbelderbos"
+                                                        },
+                                                        "url": "https://github.com/BenGriffith/cryptocurrency/pull/52#discussion_r1352630519",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "18bd247",
+                                                            "authoredDate": "2023-10-09T13:41:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "def date_dim_row(self) -> list:\n        d = datetime.today()\n        row = {\n            \"date_key\" : f\"{d:%Y-%m-%d}\",\n            \"year\": d.year,\n            \"month_key\": d.month,\n            \"day\": d.day,\n            \"day_key\": d.isoweekday(),\n            \"week_number\": d.isocalendar().week,\n            \"week_end\": d.fromisocalendar(d.year, d.isocalendar().week, 7).strftime('%Y-%m-%d'),\n            \"month_end\": (d + relativedelta(day=31)).strftime(\"%Y-%m-%d\"),\n        }\n        return [row]\n\nOk as  it's not to the milisecond it will workusing real date objects then",
+                                                        "author": {
+                                                            "login": "bbelderbos"
+                                                        },
+                                                        "url": "https://github.com/BenGriffith/cryptocurrency/pull/52#discussion_r1352649985",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "18bd247",
+                                                            "authoredDate": "2023-10-09T13:41:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's add it  ...\n\nBy using the @freeze_time decorator, you ensure that the datetime is frozen for the duration of both the fixture and the test, making them consistent and reproducible.\n\nhttps://chat.openai.com/share/f4b64624-21ed-47f1-a708-f82f21a5579c",
+                                                        "author": {
+                                                            "login": "bbelderbos"
+                                                        },
+                                                        "url": "https://github.com/BenGriffith/cryptocurrency/pull/52#discussion_r1352670564",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "18bd247",
+                                                            "authoredDate": "2023-10-09T13:41:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ok, cool. I'll work on adding it.",
+                                                        "author": {
+                                                            "login": "BenGriffith"
+                                                        },
+                                                        "url": "https://github.com/BenGriffith/cryptocurrency/pull/52#discussion_r1354876279",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "18bd247",
+                                                            "authoredDate": "2023-10-09T13:41:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 31,
+                        "title": "[Pkg] feat: add channel observable",
+                        "repository": {
+                            "nameWithOwner": "pokt-network/poktroll",
+                            "primaryLanguage": {
+                                "name": "Go"
+                            }
+                        },
+                        "createdAt": "2023-10-09T09:00:00Z",
+                        "mergedAt": "2023-10-20T08:55:52Z",
+                        "url": "https://github.com/pokt-network/poktroll/pull/31",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "bryanchriswhite"
+                        },
+                        "editor": {
+                            "login": "reviewpad"
+                        },
+                        "body": "## Summary\r\n\r\n<!-- reviewpad:summarize:start -->\n### Summary generated by Reviewpad on 20 Oct 23 08:51 UTC\nThis pull request contains several file diffs:\n\n1. The diff of the file `observer_test.go` includes the addition of two test functions, `TestObserver_Unsubscribe` and `TestObserver_ConcurrentUnsubscribe`. These test the behavior of the `Unsubscribe` method in the `channelObserver` struct.\n\n2. The diff of the file \"observer.go\" includes the addition of a new package named \"channel\", several imports, constants, types, functions, and methods related to an implementation of an observer for channels in the \"observable\" package.\n\n3. The diff for the file `README.md` includes the addition of comprehensive documentation for the package, including architecture diagrams, installation instructions, features, usage examples, configuration options, API reference, best practices, FAQ, contributing guidelines, changelog, and license information.\n\n4. A new file named \"require.go\" has been added to the internal/testerrors package. This file contains a package declaration, an import statement, and the definition of a variable named ErrAsync. This variable is used for handling test assertion failures in separate goroutines.\n\n5. The diff adds a new file named \"drain.go\" to the \"internal/testchannel\" package. The file contains a function named \"DrainChannel\" that attempts to receive from a given channel until it is empty. If the channel is not closed by the time it's empty, the function returns an error. Additionally, a TODO_CONSIDERATION comment is included, suggesting the addition of a timeout parameter to the function.\n\n6. The diff shows the addition of a new file `README.md` in the `docs/pkg/observable` directory. This file provides comprehensive documentation for the `pkg/observable` package, including an overview, functionality descriptions, architecture diagrams, usage examples, and considerations for developers.\n\n7. The diff introduces a new file called \"errors.go\" in the \"pkg/observable\" directory, which defines a package called \"observable\" with two global variables and imports another package called \"errorsmod\" from the \"cosmossdk.io/errors\" module.\n\n8. A new file called `observable.go` has been added to the `pkg/observable/channel` directory. This file implements the `observable.Observable` interface and provides an implementation for creating and managing observables using channels. It includes functions for creating observables, subscribing and unsubscribing observers, and notifying observers when values are received.\n\n9. The diff in go.mod includes changes related to dependencies, such as adding a new dependency and removing an indirect dependency.\n\n10. The diff introduces a new file called \"interface.go\" in the \"pkg/observable\" package, which defines two generic interfaces, `Observable[V]` and `Observer[V]`, for implementing a notifications package.\n\n11. A new file named `observation_test.go` has been added in the `pkg/observable/channel` package. This file contains helper functions and data structures related to observations in the context of channels.\n\nThis pull request includes various additions and changes to different files and packages, including tests, documentation, implementation of observers, error handling, and dependency management.\n<!-- reviewpad:summarize:end -->\r\n\r\n(NOTE: following [the standard go project layout guidelines](https://github.com/golang-standards/project-layout))\r\n\r\n## Issue\r\n\r\nRelated to:\r\n- #13 \r\n- #65 \r\n- #42 \r\n\r\n`Observable` is a dependency of the `ServicerClient`, which is a dependency of the `Miner`.\r\n\r\n## Type of change\r\n\r\nSelect one or more:\r\n\r\n- [x] New feature, functionality or library\r\n- [ ] Bug fix\r\n- [ ] Code health or cleanup\r\n- [ ] Documentation\r\n- [ ] Other (specify)\r\n\r\n## Testing\r\n\r\n- [x] **Run all unit tests**: `make go_test`\r\n- [x] **Verify Localnet manually**: See the instructions [here](TODO: add link to instructions)\r\n\r\n## Sanity Checklist\r\n\r\n- [x] I have tested my changes using the available tooling\r\n- [x] I have performed a self-review of my own code\r\n- [x] I have commented my code, updated documentation and left TODOs throughout the codebase\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-10-17T14:26:48Z",
+                                    "bodyText": "Going to re-review once self-comments are addressed (just marking for now).\n\n\ud83d\udc4d sounds good. \ud83d\ude4f There will be a few more changes that are coming from the debugging / refactoring I was doing when working on the query client after all. \ud83d\ude05 A preview of that is currently available in the last commit of #64 (97432bb).",
+                                    "url": "https://github.com/pokt-network/poktroll/pull/31#issuecomment-1766532938",
+                                    "author": {
+                                        "login": "bryanchriswhite"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Just noticed that tat this point we are closing subscribers channel but the derived subscriptions should also close properly. They should set their .closed flag to false.\nIt would need storing the subscriptions instead of the channel and call sub.Unsubscribe for each of them. WDYT?",
+                                                        "author": {
+                                                            "login": "red-0ne"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1351776621",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "NOTE:\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            \n          \n          \n            \n            // NOTE: We explicitly decided to write a small and custom notifications package\n          \n          \n            \n            // to keep logic simple and minimal. If the needs & requirements of this library ever\n          \n          \n            \n            // grow, other packages (e.g. https://github.com/nats-io/nats.go) can be considered.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1351004826",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \n          \n          \n            \n            \n          \n          \n            \n            var _ observable.Observable[any] = &Observable[any]{}",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1351005135",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What are your thoughts on implementing a function like this:\nfunc (o *Observable[v]) isClosed() bool {\n\t_, ok := <-o.ch\n\treturn !ok\n}\nI think reducing the number of \"sources of truth\" can help simplify the architecture and potential errors.\nExposing it via the interface is optional.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353092189",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \tmu          sync.RWMutex\n          \n          \n            \n            \tmu          sync.RWMutex // mutex to avoid parallel updates of the `Observable[v]` instance state",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353093294",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "NIT: Rename ch to notifier or publisher given that we have a channel of subscribers?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353096516",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thoughts on making the notifier an option that we pass using the WithNotifier option?\nfunc WithNotifier[V any](notifier chan V) Option[V] {\n\treturn func(o *Observable[V]) {\n\t\to.notifier = notifier\n\t}\n}\n\nfunc NewObservable[V any](opts ...Option[V]) *Observable[V] {\nobs := &Observable[V]{\n\t\t// default values here\n\t}\n\n\tfor _, opt := range opts {\n\t\topt(obs)\n\t}\n\n\treturn obs\n\n\n}",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353098735",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \tnotifee := &Observable[V]{sync.RWMutex{}, notifier, []chan V{}, false}\n          \n          \n            \n            \n          \n          \n            \n            \t// Initialize an observer (i.e. notifee) that publishes message from 1 notifier to N subscribers\n          \n          \n            \n            \tnotifee := &Observable[V]{sync.RWMutex{}, notifier, []chan V{}, false}",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353100926",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Move 1 into a local constant and add a comment explaining the reasoning behind its value.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353101734",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "optional nit: s/removeFromObservable/removeSubscriber",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353102580",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Does the struck need to be exported? If not, lowercase.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353103500",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Does the struck need to be exported? If not, lowercase.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353103751",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's start using the go prefix for functions that are intended to be run as a goroutine.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353127731",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thoughts on panicking if it is nil or at least logging it?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353134824",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "s/listen/goListen\nSee the comment below",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353139244",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "OPTIONAL NIT: Thoughts on renaming notifier to publisher given that we're using the subsctiber terminology?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353141098",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "NIT: I think we can lock & unlock arpimd the forloop and keep this atomic.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353185481",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "See my earlier comment around making things simpler by not having this variable.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353185884",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This should be done outside the forloop.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353186289",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Unlock\nEasier to just do a defer unclok where you do the lock above",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353186547",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \tgo unsubscribeOnDone[V](ctx, subscription)\n          \n          \n            \n            \t// Asynchronously wait for the context to close to unsubscribe\n          \n          \n            \n            \tgo unsubscribeOnDone[V](ctx, subscription)",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353190664",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \tnonEmptyBufferedNotifier := make(chan int, 1)\n          \n          \n            \n            \tnotifierEventBufferSize := 1\n          \n          \n            \n            \tnonEmptyBufferedNotifier := make(chan int, notifierEventBufferSize)",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353191002",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Really cool approach!",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353220832",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "OPTIONAL: consider passing in a subscription struct instead of the underlying channel.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353221675",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            func TestNewNotifiableObservable(t *testing.T) {\n          \n          \n            \n            func TestObservable_NotifySubscribers(t *testing.T) {",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353223491",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            func TestSubscription_Unsubscribe(t *testing.T) {\n          \n          \n            \n            func TestObservable_UnsubscribeSubscribers(t *testing.T) {",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353224511",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "NIT: You're inline the struct type and initialization here but separating the two above. I think we should pick one (either) and be consistent.\nMy personal preference is to separate the two but don't feel strongly either way.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1353225919",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@Olshansk could you elaborate on how you see nats factoring in?",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1354481109",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If ctx is nil then we don't have any context based cancellation. Which means that cancellation could only be done manually by the caller. ie. If we don't pass ctx the subscription is still valid and the caller wants to handle unsubscribtions by himself",
+                                                        "author": {
+                                                            "login": "red-0ne"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1354481214",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What are your thoughts on implementing a function like this:\nfunc (o *Observable[v]) isClosed() bool {\n\t_, ok := <-o.ch\n\treturn !ok\n}\n\nI think as you've written it, it would deadlock if the channel never receives after #isClosed() is called.\nI \ud83d\udcaf agree & had the same sentiment! We considered something similar to this which accounted for that case (i.e. the channel is still open and blocking); however, at the time we somehow missed the fact that ok would be false when the channel is closed \ud83d\ude05. Tl;dr, I think it should look like this:\nfunc (o *Observable[v]) isClosed() bool {\n  select {\n    case _, ok := <-o.ch:\n      return !ok\n    default:\n      return false\n}\n(CC: @red-0ne)",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1354577155",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We considered/discussed this and decided not to since the functions in question are only being used internally by this package, i.e. not exported. I don't have a strong opinion but wanted  to add that context. Do you think we should add the prefix anyways?",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1354582941",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Goal was to provide an example. Nats was just the first one that came to mind.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1355246198",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Cool. So do you think we should go with the isClosed function approach?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1355249432",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, I think we should.\ngoFoo for internal functions and GoFoo for external ones.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1355251423",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's add a comment about this in the code.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1355252591",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I tried really hard but was not able to make this work. The issue I was unable to resolve was the fact that isClosed() would consume a value from the channel in the case where it's not closed. After some refactoring though I think I've minimized the amount of state and references  thereto.",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1356866632",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I need to test it, but this seems to consume a message if the channel is not closed, maybe preventing the regular consumer from getting the message.\nI may be lacking go channels knowledge here though.\nGiven the above, if we still want to have a stateless one, we could re-emit the value to the channel\nfunc (o *Observable[v]) isClosed() bool {\n  select {\n    case v, ok := <-o.ch:\n      if ok {\n        o.ch <- v\n        return false\n      } else {\n        return true\n      }\n    default:\n      return false\n}",
+                                                        "author": {
+                                                            "login": "red-0ne"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1356868909",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It seems that select as it is a non blocking receive would do the trick. If the channel is closed it will always return. Which makes me think that this would suffice\nfunc (o *Observable[v]) isClosed() bool {\n    select {\n    case <-o.ch:\n        return true\n    default:\n        return false\n    }\n}",
+                                                        "author": {
+                                                            "login": "red-0ne"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1356879562",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think this is worth pursuing",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1356882304",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Agreed. Let's drop this and leave as is.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1357565727",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I gave it some thought and gave renaming Subscription to Observer a try. I also had this conversation w/ chatGPT and am now considering doing the following as well:\n\nrename notifier to producer\nrename the notifier package to channel\nrename notifiableObservable to channelObservable\nrename any references called notifee to observable (or something similar)",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1358486109",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Just now noticing that this doesn't need to be a factory, it can just be the function that it currently returns.",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1360425075",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c035b5c",
+                                                            "authoredDate": "2023-10-13T23:21:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This can be moved into NewObservable(). Since channelObservable has a reference to its observers, we can create a single go routine in a higher scope and iterate over the observers to unsubscribe them all at once.",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1360428888",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c035b5c",
+                                                            "authoredDate": "2023-10-13T23:21:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "(see #31 (comment))",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1360430428",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c035b5c",
+                                                            "authoredDate": "2023-10-13T23:21:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ud83d\ude05 still need to remove these print statements",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1360485670",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c035b5c",
+                                                            "authoredDate": "2023-10-13T23:21:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "DISMISSED",
+                                        "bodyText": "Left some comments. LGTM \ud83d\udc4d",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Should it be\n// initialize an observable that ...",
+                                                        "author": {
+                                                            "login": "red-0ne"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1360428130",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c035b5c",
+                                                            "authoredDate": "2023-10-13T23:21:42Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Any reason why unlocking is wrapped in a function?",
+                                                        "author": {
+                                                            "login": "red-0ne"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1360441929",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c035b5c",
+                                                            "authoredDate": "2023-10-13T23:21:42Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Did we abandon the stateless isClosed? I feel like having its stateful is fine in the context as it's very limited in scope.",
+                                                        "author": {
+                                                            "login": "red-0ne"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1360446684",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c035b5c",
+                                                            "authoredDate": "2023-10-13T23:21:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Good catch, I was debugging",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1360760573",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c035b5c",
+                                                            "authoredDate": "2023-10-13T23:21:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Correct",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1360762143",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c035b5c",
+                                                            "authoredDate": "2023-10-13T23:21:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Are you still contemplating these? I'd personally be in support of not having the notifier/notifiee naming convention as it's too generic IMO but don't want to block things too much.\nAlso, read through your thread, for future reference, consider just giving it the code rather than explaining the types & names you have:  https://chat.openai.com/share/d901a206-f152-4230-9c85-59ec08cde8fb",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1360886689",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8ac9ae1",
+                                                            "authoredDate": "2023-10-09T08:38:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Going to re-review once self-comments are addressed (just marking for now).",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I decided against this after all because a consequence of doing so would be either coupling all observers to the same context, which seems wrong, or  having an optional context in both  the constructor function and  the #Subscribe() method, which seems unnecessarily complex IMHO.",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1363400137",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c035b5c",
+                                                            "authoredDate": "2023-10-13T23:21:42Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Few things:\n\n\nGreat work! This is really difficult work but it's really clear and easy to follow. \ud83d\udd25\n\n\nThe current state of things (other than comments almost non of which are blocking) is g2g so we can hopefully merge it in tomorrow. \u2705\n\n\nWe need to focus on functionality before tending to the TODOs here, but I am worried that it might come back to bite us, so please make sure to prioritize this afterwards. \u26a0\ufe0f",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            type Observable[V any] interface {\n          \n          \n            \n            // It is analogous to a publisher in a \"Fan-Out\" system design.\n          \n          \n            \n            type Observable[V any] interface {",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364472397",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            // channel and allows unsubscribing from an observable.\n          \n          \n            \n            // channel and allows unsubscribing from an Observable.\n          \n          \n            \n            // It is analogous to a subscriber in a \"Fan-Out\" system design.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364472604",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \t// DISCUSS: what should this be? should it be configurable? It seems to be most\n          \n          \n            \n            \t// TODO_DISCUSS: what should this be? should it be configurable? It seems to be most",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364473422",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's leave it as is for now and deal with it when we get there.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364474866",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We can leave this comment as is, but in general, this is called a \"subscriber\" in a \"fan-out\" service.\nIt's how Twitter was designed when I worked there.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364476507",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why do you call it closed instead of isClosed?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364477389",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is there any reason for this extra layer of abstraction?\nI figured the code form the function below can be included inline here.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364478940",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "NIT: Consider adding a log or printline in case we accidentally try unsubscribing closed channels too many times.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364480006",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            // notify is used called by observable to send on the observer channel. Can't\n          \n          \n            \n            // use channelObserver#Ch because it's receive-only. It will block if the channel\n          \n          \n            \n            // is full but will release the read-lock for half of the sendRetryInterval. The\n          \n          \n            \n            // other half holds is spent holding the read-lock and waiting for the (full)\n          \n          \n            \n            // channel to be ready to receive.\n          \n          \n            \n            // notify is called by observable to send a msg on the observer's channel.\n          \n          \n            \n            // We can't use channelObserver#Ch because it's intended to be a\n          \n          \n            \n            // receive-only channel. The channel will block if it is full (determined by the buffer\n          \n          \n            \n            // size)\n          \n          \n            \n            // if the channel's buffer is full, we will retry after sendRetryInterval/s.\n          \n          \n            \n            // The other half is spent holding the read-lock and waiting for the (full) channel\n          \n          \n            \n            // to be ready to receive.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364484538",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \tdefer obsvr.observerMu.RUnlock()\n          \n          \n            \n            \tdefer obsvr.observerMu.RUnlock() // defer releasing a read lock",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364486013",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Should we not do this check first?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364486883",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \t\t\treturn\n          \n          \n            \n            \t\t\t// if observerCh has space in its buffer, the value is written to it\n          \n          \n            \n            \t\t\treturn",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364498208",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \n          \n          \n            \n            \n          \n          \n            \n            // TODO(@bryanchriswhite): Add a README for the observable.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364499746",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \t// which are subsequently re-sent to observers.\n          \n          \n            \n            \t// which are subsequently fanned out to observers.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364501455",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \t// receives a value.\n          \n          \n            \n            \t// receives a new value.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364501922",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \t// if the caller does not provide a producer, create a new one and return it\n          \n          \n            \n            \t// if the caller does not provide a producer (via opts), create a new one",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364503773",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why are we not setting a buffer size here? Seems like it would default to a buffer size of 0, which could be problematic.\nI think we should create a local constant to some number > 1 (e.g. 10 or 100) and use that here",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364505251",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Naming NIT: Why are you choosing Producer over Publisher?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364506604",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \t// must lock observersMu so that we can safely append to the observers list\n          \n          \n            \n            \t// must (write) lock observersMu so that we can safely append to the observers list",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364508293",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            // CONSIDERATION: decide whether this should close the producer channel; perhaps\n          \n          \n            \n            // TODO_CONSIDERATION: decide whether this should close the producer channel; perhaps",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364509763",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why do we need to do this? Might need to update the comment since it's non-obvious. #PUC\nI'll start using #PUC to represent Please Update Comment. Will try it out in this PR and we can see how it feels.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364511102",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            // goProduce to the producer and notify observers when values are received. This\n          \n          \n            \n            // function is blocking and should be run in a goroutine.\n          \n          \n            \n            // goProduce to the producer and notify observers when values are received.\n          \n          \n            \n            // This function is blocking and should be run in a goroutine.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364512987",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "#PUC on the need for this loop",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364514773",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Should this not be a select statement that blocks?I feel like we'll lose the notification data if we can't get the read lock.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364515420",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \t\t\t// CONSIDERATION: perhaps continue trying to avoid making this\n          \n          \n            \n            \t\t\t// TODO_CONSIDERATION: perhaps continue trying to avoid making this",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364516259",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't fully understand the intention here.\nWhat's wrong with using goroutines as a buffer?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364516697",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thoughts on panicking if the list of observers is non-empty?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364521938",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            // goUnsubscribeOnDone unsubscribes from the subscription when the context is.\n          \n          \n            \n            // goUnsubscribeOnDone unsubscribes from the subscription when the context is done.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364522611",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            // It is blocking and intended to be called in a goroutine.\n          \n          \n            \n            // It is a blocking function and intended to be called in a goroutine.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364522783",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \t// must lock to iterato over and modify observers list\n          \n          \n            \n            \t// must (write) lock to iterate over and modify the observers list",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364523077",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What do you mean by path here?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364524721",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \t\t\t// TECHDEBT: add some logic to drain the buffer at some appropriate time\n          \n          \n            \n            \t\t\t// TODO_TECHDEBT: add some logic to periodically drain the buffer at some appropriate time\n          \n      \n    \n    \n  \n\nAre we sure we want to do this? It would mean this is an \"at most once fan-out service\"",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364525288",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Given the behaviour below, I don't see an issue (only upside) to making this larger (e.g. 10 or 100). Why limit it to one?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364526724",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \t\t\t// CONSIDERATION: repurpose this retry loop into a default path which\n          \n          \n            \n            \t\t\t// TODO_CONSIDERATION: repurpose this retry loop into a default path which",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364527019",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            // CONSIDERATION: this function could easily take a timeout parameter and add\n          \n          \n            \n            // TODO_CONSIDERATION: this function could easily take a timeout parameter and add",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364528166",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \t\t// using a buffered  channel to keep the test synchronous\n          \n          \n            \n            \t\t// using a buffered channel to keep the test synchronous",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364528717",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \t\t// using a buffered  channel to keep the test synchronous\n          \n          \n            \n            \t\t// using a buffered channel to keep the test synchronous",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364529321",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Remove?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364530086",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It's not really clear to me how this idx value is used. Could you elaborate? #PUC",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364531191",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Add a manual comment that this is a helper file for observations\nYou can copy-pasta this whole file into chatgpt and get free inline comments ;)",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364542352",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \t// NB: see INCOMPLETE comment below\n          \n          \n            \n            \t// NB: see TODO_INCOMPLETE comment below",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364558028",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can you add more details (screenshot is fine) on what the error is?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364559841",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "#PUC on what this annonymous function does",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364560594",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ditto",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364560741",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            \t\t\t// ensure all obsvr channels are notified\n          \n          \n            \n            \t\t\t// ensure all obsvr channels are notified by starting a lot of asynchronous listeners error/success listeners",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364561546",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            // TECHDEBT/INCOMPLETE: add coverage for active observers closing when producer closes.\n          \n          \n            \n            // TODO_TECHDEBT/TODO_INCOMPLETE: add coverage for active observers closing when the producer closes.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364562087",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why do we delay before and after rather than just the full period before? #PUC",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364562591",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "NIT: Opportunity to get chatgpt to provide some comments.",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364562985",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Where is this function defined?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364564653",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "OPTIONAL NIT\ninputCopy := input\nproduce(&inputCopy)",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364566283",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Should we add a check that the observable is closed?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364566644",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            func TestChannelObservable_ConcurrentSubUnSub(t *testing.T) {\n          \n          \n            \n            // TODO_INCOMPLETE/TODO_TECHDEBT: Implement `TestChannelObservable_ConcurrentSubUnSub`\n          \n          \n            \n            func TestChannelObservable_ConcurrentSubUnSub(t *testing.T) {",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1364567443",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "When the observer unsubscribes, the observable it's subscribed to needs to update it's observers list to remove  the unsubscribing observer. The function below encapsulate that logic using a closure from a scope where that list (and its mutex) are convenient to access. I think the only alternative would be to give each observer an explicit reference to the variables in the closure scope but that seems even more indirect and less readable, in my opinion.",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365021198",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "TL;DR it is and we shouldn't.\nThis continue belongs to a for inside the range over producer (which you commented on above). This inner loop only breaks in the branch where we were able to acquire the lock. Hopefully it becomes more obvious after adding some comments. \ud83d\ude05",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365124586",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Sneak peek \ud83d\udc40:",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365171033",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We can't, obsvr.closed is one of the  things protected by obsvr.observerMu, hence the TryRLock() call immediately prior. This is  the earliest time at which we can safely read it.",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365181446",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It looks like it's about time to replace another keyswitch. \ud83d\ude05",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365182618",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "( see diagram in #31 (comment))",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365185016",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "No reason, thanks for the reminder! \ud83d\ude4c",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365210646",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "No reason, I \ud83d\udcaf agree. I'll try to add some benchmarks to make some kind of informed decision.",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365213437",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "TL;DR, removing this comment\nIt should say case.\nThinking about this again, in the context of the discussion in #31 (comment), I think that this would be redundant, less idiomatic, and worse for maintenance and debugging than just using the bult-in buffer of the channel. \ud83d\ude05\nIn addition, perhaps it would be prudent to add a logger call in the case of a retry (sendRetryTicker.C receives). I think that would make the logger output indicative of  a buffer hitting capacity.",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365225412",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think what I was attempting to articulate here (poorly \ud83d\ude05) was a backpressure strategy which would \"drain the channel\" in the sense that it could receive a value from the publisher and throw it away,  this  would:\n\nonly happen after the channel's buffer  is completely full.\nresult in the last n notifications being available for consumption upon resuming.\nnot interfere with the channel consumer resuming, i.e.: consumer can catch up as fast as it wants and/or even drain the channel completely.\n\nThere are other strategies of course,  this is just the one that I thought of at the time that seemed like it could be a reasonable choice for a fail-safe mode.",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365240806",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Are we sure we want to do this? It would mean this is an \"at most once fan-out service\"\n\nI'm not sure I followed what you mean by \"at most once\". Are you referring to the number of subscribers which can receive a given value (A), the number of times any subscriber can receive a given value (B), or something else?\nA) Draining here would only affect this observer's (a single, slow, subscriber's) view of the stream of values.\nB) Subscribers are already only able to read a given value once as once it's received from the channel (regardless of that channel's buffer size).",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365249143",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365252591",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "TL;DR, no such thing but raises a good naming issue. \ud83d\ude4c\nCurrently Observable doesn't have a \"closed\" state. Calling #Close() actually unsubscribes all observers; perhaps it should be renamed to #UnsubscribeAll().\nTo answer the spirit of your question. There is no public API to test whether the observable has any observers currently subscribed. I think we can (if we're not already) get coverage of that elsewhere, likely in  a smaller unit test.",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365257561",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365260559",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365382853",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365772127",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I suppose I wasn't thinking clearly enough to have imagined a work group type of scenario. That could totally work; although, now I want to write benchmarks to see the diff. \ud83d\ude05 At the time I was only  imagining the simplest thing you could do which would be to just run this same code in a new go routine every time. \ud83d\ude2c",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365782424",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365900611",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can you say more? I'm not quite picking up what you're putting down. \ud83e\udd14",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365937717",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I've renamed and moved it to be closer.",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1365965132",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "@bryanchriswhite I reviewed all your inline comments and resolved them.\nThanks for clarifying everything with better names & comments. I really think its approachable by anyone now.\nA couple small NITs but otherwise LFG!",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Moving previous convo here: #31 (comment)\nThoughts on doing a if (len(obsvbl.observers) == 0) pain(\"Should have no observers after unsubscribing\")",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1366148418",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ce3b055",
+                                                            "authoredDate": "2023-10-19T20:01:52Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can you insert links to the github images from #31 (comment)",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1366149351",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ce3b055",
+                                                            "authoredDate": "2023-10-19T20:01:52Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            // TECHDEBT/INCOMPLETE: add coverage for active observers closing when publishCh closes.\n          \n          \n            \n            // TODO_TECHDEBT/TODO_INCOMPLETE: add coverage for active observers closing when publishCh closes.\n          \n      \n    \n    \n  \n\nTrying to move to a world where we prefix everything with TODO",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1366151453",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ce3b055",
+                                                            "authoredDate": "2023-10-19T20:01:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Created #81 and added TODO_INCOMPLETE(#81) in the comment here.",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1366648357",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c288595",
+                                                            "authoredDate": "2023-10-18T10:36:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Created #81 and added TODO_INCOMPLETE(#81).",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1366651003",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ce3b055",
+                                                            "authoredDate": "2023-10-19T20:01:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "TL;DR, I worry such a change would be more likely to cause some perverse result than to expose any bugs.\nI don't think we want to do this. The observers list is explicitly being set to an empty slice at the end of unsubscribeAll(). If we wanted to check that the obervers slice is empty here, we would have to acquire a lock on the mutex. This raises some concerns for me with regards to false positives on the timing; although, this change doesn't seem to break tests. Regardless, this could be refactored by moving such a check directly into unsubscribeAll(). But then you end up with something that looks like this:\n// unsubscribeAll unsubscribes and removes all observers from the observable.\nfunc (obsvbl *channelObservable[V]) unsubscribeAll() {\n\t...\n\n\t// Reset observers to an empty list. This purges any observers which might have\n\t// subscribed while the observable was closing.\n\tobsvbl.observersMu.Lock()\n\tobsvbl.observers = []*channelObserver[V]{}\n\tif (obsvbl.observers) > 0 {\n\t\tpanic(\"impossible\")\n\t}\n\tobsvbl.observersMu.Unlock()\n}",
+                                                        "author": {
+                                                            "login": "bryanchriswhite"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/31#discussion_r1366667259",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ce3b055",
+                                                            "authoredDate": "2023-10-19T20:01:52Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjI=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 2
+        }
+    }
+}

@@ -1,0 +1,828 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 191,
+                        "title": "build: bump core",
+                        "repository": {
+                            "nameWithOwner": "sablier-labs/v2-periphery",
+                            "primaryLanguage": {
+                                "name": "Solidity"
+                            }
+                        },
+                        "createdAt": "2023-09-28T10:14:50Z",
+                        "mergedAt": "2023-09-28T18:37:28Z",
+                        "url": "https://github.com/sablier-labs/v2-periphery/pull/191",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "andreivladbrg"
+                        },
+                        "editor": null,
+                        "body": "Update the `v2-core` branch to main and add the `transferable` parameter from this [PR](https://github.com/sablier-labs/v2-core/pull/668).\r\n\r\nNotes:\r\n1. I have not changed yet the `package.json` file for the new `v2-core` version because it's not released on npm. Installing it as a github package would not work due to [prepack](https://github.com/sablier-labs/v2-core/blob/e626e6f9f9c460a8b42b3501de71debb684965b3/package.json#L60) from core. It would fail as seen [here](https://app.warp.dev/block/dfG3EBwso2os6NbedCqQuh).\r\n2. At the moment we are deploying the core contracts in the fork tests because using the old version of them would not work due to the new boolean added.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-28T18:39:38Z",
+                                    "bodyText": "great job, @andreivladbrg!!",
+                                    "url": "https://github.com/sablier-labs/v2-periphery/pull/191#issuecomment-1739829474",
+                                    "author": {
+                                        "login": "PaulRBerg"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "looks good except for that gas optimization",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We need to define this before merkleRoot to save gas by tight packing.",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-periphery/pull/191#discussion_r1340520613",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "069b80c",
+                                                            "authoredDate": "2023-09-28T12:23:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Update: it is not true that storage variables are tightly packed like struct fields.\n\nhttps://chat.openai.com/share/67619484-f686-4d11-8cac-cb9e8d4ca1ce\nhttps://ethereum.stackexchange.com/q/155029/24693",
+                                                        "author": {
+                                                            "login": "PaulRBerg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-periphery/pull/191#discussion_r1340538359",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "069b80c",
+                                                            "authoredDate": "2023-09-28T12:23:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "lgtm",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "ChatGPT seems to have given an incorrect response here. Storage variables are also tightly packed.\nIt's true that because of dealing with reduced-size variables in the same slot, changing the value of y will consume more gas (~100 in comparison) in the case of contract B, but it will also save gas (~16,000 in comparison) when setting it the first time. It depends on the use case and how many times each variable is read or written.\nHowever, in the above code, it does not matter because immutable variables are part of the creation code and not of the contract storage.\n\nhttps://docs.soliditylang.org/en/latest/internals/layout_in_storage.html\nhttps://docs.soliditylang.org/en/latest/contracts.html#immutable",
+                                                        "author": {
+                                                            "login": "smol-ninja"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-periphery/pull/191#discussion_r1418867427",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "069b80c",
+                                                            "authoredDate": "2023-09-28T12:23:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "However, in the above code, it does not matter because immutable variables are part of the creation code and not of the contract storage.\n\nyes, this is correct, that's what i've told him privately",
+                                                        "author": {
+                                                            "login": "andreivladbrg"
+                                                        },
+                                                        "url": "https://github.com/sablier-labs/v2-periphery/pull/191#discussion_r1418874467",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "069b80c",
+                                                            "authoredDate": "2023-09-28T12:23:49Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 30,
+                        "title": " Contributer profile page 1",
+                        "repository": {
+                            "nameWithOwner": "alifur-rahman/lc-html",
+                            "primaryLanguage": {
+                                "name": "HTML"
+                            }
+                        },
+                        "createdAt": "2023-09-28T16:42:50Z",
+                        "mergedAt": "2023-09-28T16:43:02Z",
+                        "url": "https://github.com/alifur-rahman/lc-html/pull/30",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "alifur-rahman"
+                        },
+                        "editor": null,
+                        "body": "Overview\r\n\r\nThis pull request adds a complete contributor profile page HTML design with a right-side bar for additional details and a post view for GitHub editors.\r\nChanges Made\r\n\r\n    Contributor Profile Page Design: The contributor profile page HTML has been created with a clean and user-friendly layout. It includes essential information about the contributor, such as their name, profile picture, bio, location, and links to social media profiles.\r\n\r\n    Right-Side Bar: A right-side bar has been added to the profile page to provide additional information about the contributor. This includes details such as the number of repositories, followers, following, and contributions. The bar also displays the contributor's activity graph for a quick overview of their GitHub activity.\r\n\r\n    Post View: For GitHub editors, a post view has been incorporated to allow contributors to make posts or updates. This feature enables contributors to share their thoughts, updates, or announcements directly from their profile.\r\n\r\nScreenshots\r\n\r\nBelow are screenshots showcasing the changes made:\r\n\r\n    [Contributor Profile Page](https://chat.openai.com/c/screenshot_profile_page.png)\r\n    [Right-Side Bar](https://chat.openai.com/c/screenshot_right_sidebar.png)\r\n    [Post View](https://chat.openai.com/c/screenshot_post_view.png)\r\n\r\nHow to Test\r\n\r\n    Clone this branch to your local environment.\r\n    Open the index.html file in your web browser.\r\n    Verify that the contributor profile page loads correctly with the right-side bar and post view.\r\n    Check that all information is displayed accurately.\r\n\r\nDependencies\r\n\r\nThis pull request does not introduce any new dependencies.\r\nRelated Issues\r\n\r\nCloses #[Issue Number] (if applicable)\r\nChecklist\r\n\r\n HTML design for contributor profile page.\r\n Right-side bar for additional details.\r\n Post view for GitHub editors.\r\n Screenshots provided.\r\n Code has been tested locally.\r\n\r\n     No new dependencies added.\r\n\r\nPlease review and merge this pull request. Your feedback and suggestions are welcome.\r\n\r\nThank you!",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 20,
+                        "title": "npm and webpack initialized",
+                        "repository": {
+                            "nameWithOwner": "linhapeter/1th_js_task_vention",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-09-28T14:12:13Z",
+                        "mergedAt": "2023-10-02T09:18:45Z",
+                        "url": "https://github.com/linhapeter/1th_js_task_vention/pull/20",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "linhapeter"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Please check node and npm versions. I see that you have lockfileVersion: 1. Please update node version, if you need your current version- please use nvm.\nAdd dist to the .gitignore (remove from git rm dist -rf)\nCheck dependencies. It requires me to install @babel/preset-env nad also I had an error because of missing mode parameter in the webpack config\nMove dependencies to the devDependencies. Check the prompt with explanation -> https://chat.openai.com/share/b3190186-fc7b-4bbd-a5b0-dfc65f441d58",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 5602,
+                        "title": "Changes no row text for containers, images and port forwarding",
+                        "repository": {
+                            "nameWithOwner": "rancher-sandbox/rancher-desktop",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-09-28T00:59:14Z",
+                        "mergedAt": "2023-10-03T20:42:45Z",
+                        "url": "https://github.com/rancher-sandbox/rancher-desktop/pull/5602",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "filipemeneses"
+                        },
+                        "editor": null,
+                        "body": "Closes #5586 ",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-10-03T20:42:54Z",
+                                    "bodyText": "I'm going to merge this now; translations can always be improved later in a separate PR.",
+                                    "url": "https://github.com/rancher-sandbox/rancher-desktop/pull/5602#issuecomment-1745695050",
+                                    "author": {
+                                        "login": "jandubois"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This sounds a bit weird to me. \"Port forwardings\" would at least be plural, but still doesn't sound right. How about \"port forwarding entries\"?\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                noRows: There are no port forwarding to show\n          \n          \n            \n                noRows: There are no port forwarding entries to show",
+                                                        "author": {
+                                                            "login": "jandubois"
+                                                        },
+                                                        "url": "https://github.com/rancher-sandbox/rancher-desktop/pull/5602#discussion_r1339462139",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "43cb2c0",
+                                                            "authoredDate": "2023-09-28T01:27:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yea, check spelling pipe flagged this, agree with the suggestion",
+                                                        "author": {
+                                                            "login": "filipemeneses"
+                                                        },
+                                                        "url": "https://github.com/rancher-sandbox/rancher-desktop/pull/5602#discussion_r1339997943",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "43cb2c0",
+                                                            "authoredDate": "2023-09-28T01:27:04Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "(\u955c\u50cf appears to be the correct translation, according to kube docs.)",
+                                                        "author": {
+                                                            "login": "mook-as"
+                                                        },
+                                                        "url": "https://github.com/rancher-sandbox/rancher-desktop/pull/5602#discussion_r1340406226",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "289328f",
+                                                            "authoredDate": "2023-09-28T11:45:18Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Are these auto-translated? I just find it odd that you're using \u53ef (can, may) for the no port forwardings case, which seems a better fit here than \u8981 (wanted, desired).",
+                                                        "author": {
+                                                            "login": "mook-as"
+                                                        },
+                                                        "url": "https://github.com/rancher-sandbox/rancher-desktop/pull/5602#discussion_r1340408649",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "289328f",
+                                                            "authoredDate": "2023-09-28T11:45:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@vickyhella Can you please double-check the translations! Thanks you!",
+                                                        "author": {
+                                                            "login": "jandubois"
+                                                        },
+                                                        "url": "https://github.com/rancher-sandbox/rancher-desktop/pull/5602#discussion_r1340412880",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "289328f",
+                                                            "authoredDate": "2023-09-28T11:45:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Thank you for your contribution! It works fine for me.\nI'm just asking our SUSE docs person responsible for the Chinese translations to double-check the strings before I merge it.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, they're auto-translated https://chat.openai.com/share/f615ed08-26c7-4b12-ad7f-c356e0af773b",
+                                                        "author": {
+                                                            "login": "filipemeneses"
+                                                        },
+                                                        "url": "https://github.com/rancher-sandbox/rancher-desktop/pull/5602#discussion_r1340715657",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "289328f",
+                                                            "authoredDate": "2023-09-28T11:45:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 93,
+                        "title": "Added multi-variant support",
+                        "repository": {
+                            "nameWithOwner": "mongo-express/mongo-express-docker",
+                            "primaryLanguage": {
+                                "name": "Shell"
+                            }
+                        },
+                        "createdAt": "2023-09-28T18:09:08Z",
+                        "mergedAt": "2023-10-02T16:39:22Z",
+                        "url": "https://github.com/mongo-express/mongo-express-docker/pull/93",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "LaurentGoderre"
+                        },
+                        "editor": {
+                            "login": "LaurentGoderre"
+                        },
+                        "body": "TODO\r\n\r\n* [x] Update the stackbrew script\r\n* [x] Reimplement version update script for multi-variant ",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-28T20:48:13Z",
+                                    "bodyText": "Result of the new bashbrew script\nMaintainers: Nick Cox <nickcox1008@gmail.com> (@knickers)\nGitRepo: https://github.com/mongo-express/mongo-express-docker.git\nGitCommit: f0d9157c39653e52f5434455592f23ac0e9c0c8c\nTags: 1.0.0, 1.0, 1, latest, 1.0.0-18, 1.0-18, 1-18, 18, 1.0.0-18-alpine3.17, 1.0-18-alpine3.17, 1-18-alpine3.17, \nArchitectures: amd64, arm64v8\nGitCommit: c3cebea3955f4815c01c2a6fd2a966a4296f9760\nDirectory: 1.0/18-alpine3.17\nTags: 1.0.0-18-alpine3.18, 1.0-18-alpine3.18, 1-18-alpine3.18, \nArchitectures: amd64, arm64v8\nGitCommit: c3cebea3955f4815c01c2a6fd2a966a4296f9760\nDirectory: 1.0/18-alpine3.18\nTags: 1.0.0-20, 1.0-20, 1-20, 20, 1.0.0-20-alpine3.17, 1.0-20-alpine3.17, 1-20-alpine3.17, \nArchitectures: amd64, arm64v8\nGitCommit: c3cebea3955f4815c01c2a6fd2a966a4296f9760\nDirectory: 1.0/20-alpine3.17\nTags: 1.0.0-20-alpine3.18, 1.0-20-alpine3.18, 1-20-alpine3.18, \nArchitectures: amd64, arm64v8\nGitCommit: c3cebea3955f4815c01c2a6fd2a966a4296f9760\nDirectory: 1.0/20-alpine3.18",
+                                    "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#issuecomment-1739982759",
+                                    "author": {
+                                        "login": "LaurentGoderre"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-29T15:44:44Z",
+                                    "bodyText": "@BlackthornYugen let me know if you want me to demo the new scripts",
+                                    "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#issuecomment-1741099988",
+                                    "author": {
+                                        "login": "LaurentGoderre"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-29T18:12:38Z",
+                                    "bodyText": "That'd be great! Would you be free for a call on discord or something this weekend?",
+                                    "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#issuecomment-1741304068",
+                                    "author": {
+                                        "login": "BlackthornYugen"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-29T18:15:23Z",
+                                    "bodyText": "@BlackthornYugen what is your availability? Im usually free after the kjds are in bed (I noticed we are in the samer timezone)",
+                                    "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#issuecomment-1741307180",
+                                    "author": {
+                                        "login": "LaurentGoderre"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-29T18:18:43Z",
+                                    "bodyText": "@BlackthornYugen what is your availability? Im usually free after the kjds are in bed (I noticed we are in the samer timezone)\n\nI should have some time Saturday morning or maybe Sunday evening. I might be able to do something later this evening if that works.",
+                                    "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#issuecomment-1741310740",
+                                    "author": {
+                                        "login": "BlackthornYugen"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-29T18:19:30Z",
+                                    "bodyText": "I can tonight after 10 if it's not too late. It wouldn't be very long",
+                                    "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#issuecomment-1741311555",
+                                    "author": {
+                                        "login": "LaurentGoderre"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-29T18:35:04Z",
+                                    "bodyText": "I can tonight after 10 if it's not too late. It wouldn't be very long\n\nThat should work. \ud83d\ude42",
+                                    "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#issuecomment-1741328166",
+                                    "author": {
+                                        "login": "BlackthornYugen"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-30T02:04:14Z",
+                                    "bodyText": "@LaurentGoderre thanks for the demo. Looks great! As discussed you said you would be able to make one more change on Monday and then we can merge. \ud83d\ude04",
+                                    "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#issuecomment-1741629360",
+                                    "author": {
+                                        "login": "BlackthornYugen"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-30T02:29:06Z",
+                                    "bodyText": "Yes, I have to figure out why the variant list is duplicated in some versions",
+                                    "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#issuecomment-1741634400",
+                                    "author": {
+                                        "login": "LaurentGoderre"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-02T13:57:01Z",
+                                    "bodyText": "@BlackthornYugen this is ready for final review.",
+                                    "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#issuecomment-1743067138",
+                                    "author": {
+                                        "login": "LaurentGoderre"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-02T15:42:55Z",
+                                    "bodyText": "Is it ok we add it to a CONTRIBUTING.md instead of readme like here https://github.com/nodejs/docker-node/blob/main/CONTRIBUTING.md.",
+                                    "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#issuecomment-1743259981",
+                                    "author": {
+                                        "login": "LaurentGoderre"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-02T16:09:15Z",
+                                    "bodyText": "Is it ok we add it to a CONTRIBUTING.md instead of readme like here https://github.com/nodejs/docker-node/blob/main/CONTRIBUTING.md.\n\nThat'd be great! Just wanted to make sure it was documented somewhere.",
+                                    "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#issuecomment-1743305091",
+                                    "author": {
+                                        "login": "BlackthornYugen"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-02T16:33:26Z",
+                                    "bodyText": "@BlackthornYugen https://github.com/mongo-express/mongo-express-docker/pull/93/files?short_path=eca12c0#diff-eca12c0a30e25b4b46522ebf89465a03ba72a03f540796c979137931d8f92055",
+                                    "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#issuecomment-1743345018",
+                                    "author": {
+                                        "login": "LaurentGoderre"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Neat, I haven't seen something like this before. I had chatgpt help me out a bit to understand this too:\nhttps://chat.openai.com/share/eca50d54-a1f4-4771-94fe-a8c3063f7676",
+                                                        "author": {
+                                                            "login": "BlackthornYugen"
+                                                        },
+                                                        "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#discussion_r1341693430",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b738207",
+                                                            "authoredDate": "2023-09-29T15:41:26Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Should we include this warning in the docker-entrypoint.sh files too?",
+                                                        "author": {
+                                                            "login": "BlackthornYugen"
+                                                        },
+                                                        "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#discussion_r1341695385",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b738207",
+                                                            "authoredDate": "2023-09-29T15:41:26Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I haven't seen the banner on the entrypoint on the other images i've seen but it's not a bad idea",
+                                                        "author": {
+                                                            "login": "LaurentGoderre"
+                                                        },
+                                                        "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#discussion_r1341726847",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b738207",
+                                                            "authoredDate": "2023-09-29T15:41:26Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe we could give a warning like this?\nsed -i \"1s|^|This file is auto-generated. Do not edit directly!\\n|\" \"$dir/docker-entrypoint.sh\"",
+                                                        "author": {
+                                                            "login": "BlackthornYugen"
+                                                        },
+                                                        "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#discussion_r1341737016",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b738207",
+                                                            "authoredDate": "2023-09-29T15:41:26Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Looks good, would you be able to add a short blurb to the README.md to say when to run each script?",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This COPY should be after the RUN (better build caching) and docker-entrypoint.sh should be chmod +x in git rather than adjusted in the Dockerfile (otherwise it is duplicated in the image).",
+                                                        "author": {
+                                                            "login": "yosifkit"
+                                                        },
+                                                        "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#discussion_r1342899510",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "83cc647",
+                                                            "authoredDate": "2023-09-29T15:41:26Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "That's a good point but it was a problem that existed before this change. We should limit the scope of the change to supporting multiple variants. @LaurentGoderre your call if you want to include this optimization or not.\nI usually prefer that MRs be as small and focused as possible.",
+                                                        "author": {
+                                                            "login": "BlackthornYugen"
+                                                        },
+                                                        "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#discussion_r1342904357",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "83cc647",
+                                                            "authoredDate": "2023-09-29T15:41:26Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Created #94",
+                                                        "author": {
+                                                            "login": "BlackthornYugen"
+                                                        },
+                                                        "url": "https://github.com/mongo-express/mongo-express-docker/pull/93#discussion_r1342920716",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "83cc647",
+                                                            "authoredDate": "2023-09-29T15:41:26Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Looks good. Thanks @LaurentGoderre!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 1,
+                        "title": "switch to pypi version of MolecularNodes",
+                        "repository": {
+                            "nameWithOwner": "kolibril13/ipyMolecularNodes",
+                            "primaryLanguage": {
+                                "name": "Jupyter Notebook"
+                            }
+                        },
+                        "createdAt": "2023-09-28T06:54:15Z",
+                        "mergedAt": "2023-09-28T08:31:04Z",
+                        "url": "https://github.com/kolibril13/ipyMolecularNodes/pull/1",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "BradyAJohnston"
+                        },
+                        "editor": null,
+                        "body": "I put Molecular Nodes up on pypi, so it can be installed from there and no longer requires \nthe internal packaging. The example `.ipynb` now works with the the installed version.\n\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-28T08:30:08Z",
+                                    "bodyText": "hi @BradyAJohnston , thanks for this pr!\nGreat to hear that molecular nodes is on pypi now!\nThis will make maintaining this package much more simple.\nAnd actually, the previous implementation with that package folder was in the project did not working because of this line\nhttps://github.com/BradyAJohnston/MolecularNodes/blob/dev-headless/MolecularNodes/auto_load.py#L57\nI got this error, which is fixed now :)\nfrom ipyblender_experimental import BlenderWidget\n---------------------------------------------------------------------------\nModuleNotFoundError                       Traceback (most recent call last)\n[/Users/jan-hendrik/projects/ipyMolecularNodes/debugging_import.ipynb](https://file+.vscode-resource.vscode-cdn.net/Users/jan-hendrik/projects/ipyMolecularNodes/debugging_import.ipynb) Cell 1 line 1\n----> [1](vscode-notebook-cell:/Users/jan-hendrik/projects/ipyMolecularNodes/debugging_import.ipynb#W0sZmlsZQ%3D%3D?line=0) from ipyblender_experimental import BlenderWidget\n\nFile [~/projects/ipyMolecularNodes/src/ipyblender_experimental/__init__.py:3](https://file+.vscode-resource.vscode-cdn.net/Users/jan-hendrik/projects/ipyMolecularNodes/~/projects/ipyMolecularNodes/src/ipyblender_experimental/__init__.py:3)\n      1 import importlib.metadata\n      2 import pathlib\n----> 3 from .render_to_image import render_to_image\n      4 from .render_to_gltf_model import render_to_gltf_model , render_to_gltf_structure\n      5 import anywidget\n\nFile [~/projects/ipyMolecularNodes/src/ipyblender_experimental/render_to_image.py:5](https://file+.vscode-resource.vscode-cdn.net/Users/jan-hendrik/projects/ipyMolecularNodes/~/projects/ipyMolecularNodes/src/ipyblender_experimental/render_to_image.py:5)\n      2 import base64\n      3 from pathlib import Path\n----> 5 from . import MolecularNodes as mn\n      8 def apply_mods(obj):\n      9     \"\"\"\n     10     Applies the modifiers on the modifier stack\n     11 \n   (...)\n     14     vertices of the object.\n     15     \"\"\"\n\nFile [~/projects/ipyMolecularNodes/src/ipyblender_experimental/MolecularNodes/__init__.py:33](https://file+.vscode-resource.vscode-cdn.net/Users/jan-hendrik/projects/ipyMolecularNodes/~/projects/ipyMolecularNodes/src/ipyblender_experimental/MolecularNodes/__init__.py:33)\n     30 import bpy\n     31 from . import utils\n---> 33 auto_load.init()\n     35 def register():\n     36     auto_load.register()\n\nFile [~/projects/ipyMolecularNodes/src/ipyblender_experimental/MolecularNodes/auto_load.py:25](https://file+.vscode-resource.vscode-cdn.net/Users/jan-hendrik/projects/ipyMolecularNodes/~/projects/ipyMolecularNodes/src/ipyblender_experimental/MolecularNodes/auto_load.py:25), in init()\n     22 global modules\n     23 global ordered_classes\n---> 25 modules = get_all_submodules(Path(__file__).parent)\n     26 ordered_classes = get_ordered_classes_to_register(modules)\n\nFile [~/projects/ipyMolecularNodes/src/ipyblender_experimental/MolecularNodes/auto_load.py:53](https://file+.vscode-resource.vscode-cdn.net/Users/jan-hendrik/projects/ipyMolecularNodes/~/projects/ipyMolecularNodes/src/ipyblender_experimental/MolecularNodes/auto_load.py:53), in get_all_submodules(directory)\n     52 def get_all_submodules(directory):\n---> 53     return list(iter_submodules(directory, directory.name))\n\nFile [~/projects/ipyMolecularNodes/src/ipyblender_experimental/MolecularNodes/auto_load.py:57](https://file+.vscode-resource.vscode-cdn.net/Users/jan-hendrik/projects/ipyMolecularNodes/~/projects/ipyMolecularNodes/src/ipyblender_experimental/MolecularNodes/auto_load.py:57), in iter_submodules(path, package_name)\n     55 def iter_submodules(path, package_name):\n     56     for name in sorted(iter_submodule_names(path)):\n---> 57         yield importlib.import_module(\".\" + name, package_name)\n\nFile [/opt/homebrew/Cellar/python](https://file+.vscode-resource.vscode-cdn.net/opt/homebrew/Cellar/python)@3.10/3.10.13/Frameworks/Python.framework/Versions/3.10/lib/python3.10/importlib/__init__.py:126, in import_module(name, package)\n    124             break\n    125         level += 1\n--> 126 return _bootstrap._gcd_import(name[level:], package, level)\n\nModuleNotFoundError: No module named 'MolecularNodes'",
+                                    "url": "https://github.com/kolibril13/ipyMolecularNodes/pull/1#issuecomment-1738706976",
+                                    "author": {
+                                        "login": "kolibril13"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-28T08:38:52Z",
+                                    "bodyText": "For the new version, I had to change import MolecularNodes as mn to import molecularnodes as mn and now it works like a charm!! :)",
+                                    "url": "https://github.com/kolibril13/ipyMolecularNodes/pull/1#issuecomment-1738719117",
+                                    "author": {
+                                        "login": "kolibril13"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-28T08:39:43Z",
+                                    "bodyText": "yeah I don't know why it goes lowercase, any ideas?",
+                                    "url": "https://github.com/kolibril13/ipyMolecularNodes/pull/1#issuecomment-1738720313",
+                                    "author": {
+                                        "login": "BradyAJohnston"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-28T08:43:43Z",
+                                    "bodyText": "I found\n\nAll comparisons of distribution names MUST be case insensitive, and MUST consider hyphens and underscores to be equivalent.\n\nhere: https://peps.python.org/pep-0426/#name",
+                                    "url": "https://github.com/kolibril13/ipyMolecularNodes/pull/1#issuecomment-1738725955",
+                                    "author": {
+                                        "login": "kolibril13"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-28T08:46:38Z",
+                                    "bodyText": "It uses capital letters on PyPi (https://pypi.org/project/MolecularNodes/) but it just turns into lowercase when installed?",
+                                    "url": "https://github.com/kolibril13/ipyMolecularNodes/pull/1#issuecomment-1738730230",
+                                    "author": {
+                                        "login": "BradyAJohnston"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-28T08:49:07Z",
+                                    "bodyText": "good question! ChatGPT saies:\n\nWhen specifying dependencies in setup.py or pyproject.toml, the package names are case-insensitive, but the version specifiers are case-sensitive.\n\nhttps://chat.openai.com/share/464b23d9-515b-4d77-8e27-c82d08c67cce\nI don't know why it shows up with the capital letters on pypi.",
+                                    "url": "https://github.com/kolibril13/ipyMolecularNodes/pull/1#issuecomment-1738733725",
+                                    "author": {
+                                        "login": "kolibril13"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-28T09:05:51Z",
+                                    "bodyText": "I found lots of discussion on the poetry repo (python-poetry/poetry#1538).\nIt seems to be somewhat unresolved. It is still unclear to me why on pypi it is listed with capitals, but installs as lowercase.",
+                                    "url": "https://github.com/kolibril13/ipyMolecularNodes/pull/1#issuecomment-1738758239",
+                                    "author": {
+                                        "login": "BradyAJohnston"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjY=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 6
+        }
+    }
+}

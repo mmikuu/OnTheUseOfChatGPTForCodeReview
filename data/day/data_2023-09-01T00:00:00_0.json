@@ -1,0 +1,968 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 489,
+                        "title": "refactor(openadapt.config): refactoring",
+                        "repository": {
+                            "nameWithOwner": "OpenAdaptAI/OpenAdapt",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-09-01T05:52:29Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/489",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "KrishPatel13"
+                        },
+                        "editor": {
+                            "login": "KrishPatel13"
+                        },
+                        "body": "<!-- Thank you for submitting a pull request! To ensure a prompt review of your changes, please provide the following information. -->\r\nRefactor config, MOtivation: Issue #485 \r\n**What kind of change does this PR introduce?**\r\n\r\n<!-- E.g. a bugfix, feature, refactoring, etc\u2026 -->\r\n\r\n**Summary**\r\n\r\n<!-- Explain the **motivation** for making this change. What existing problem does the pull request solve? Try to link to an open issue. -->\r\n\r\n**Checklist**\r\n* [x] My code follows the style guidelines of OpenAdapt\r\n* [x] I have performed a self-review of my code\r\n* [x] If applicable, I have added tests to prove my fix is functional/effective\r\n* [x] I have linted my code locally prior to submission\r\n* [x] I have commented my code, particularly in hard-to-understand areas\r\n* [x] I have made corresponding changes to the documentation (e.g. README.md, requirements.txt)\r\n* [x] New and existing unit tests pass locally with my changes\r\n\r\n**How can your code be run and tested?**\r\n\r\n<!-- See the README.md for examples. Include test output. -->\r\n\r\n\r\n**Other information**\r\n<!-- Delete this subheading if no additional context is needed. -->\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-01T06:03:06Z",
+                                    "bodyText": "Next up: fix https://github.com/OpenAdaptAI/OpenAdapt/actions/runs/6045965552/job/16406784298#step:4:543",
+                                    "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/489#issuecomment-1702212268",
+                                    "author": {
+                                        "login": "KrishPatel13"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-10T19:47:59Z",
+                                    "bodyText": "Thank you @KrishPatel13 !\nIt's a bit verbose. Why not use getenv_fallback?\nI asked ChatGPT for input here: https://chat.openai.com/share/7ddeca53-1174-4686-b82d-0ad305d2d1d3 :\n\nFor managing configuration in a Python project more elegantly, while avoiding repetitive code, you can use libraries like pydantic, environs, or python-decouple. Each of these offers unique features and simplifies the process of handling environment variables and configuration settings. Here's a brief overview of each approach:\n1. Pydantic\nPydantic is known for its data validation using Python type annotations. It can be especially useful for loading and validating configurations.\n\nDefine a configuration model using Pydantic classes.\nSet default values and types directly in the class definition.\nLoad and validate environment variables automatically.\n\nExample:\nfrom pydantic import BaseModel, Field\nfrom typing import Optional\n\nclass Config(BaseModel):\n    cache_dir_path: str = Field(default=\".cache\")\n    cache_enabled: bool = Field(default=True)\n    cache_verbosity: int = Field(default=0)\n    db_echo: bool = Field(default=False)\n    db_fname: str = Field(default=\"openadapt.db\")\n\nconfig = Config(_env_file='.env')\n2. Environs\nEnvirons is a library that wraps around marshmallow to provide simple environment variable parsing.\n\nDefine schema for your environment variables.\nUse methods to cast variables to the correct type.\nCan handle complex data types and validation.\n\nExample:\nfrom environs import Env\n\nenv = Env()\nenv.read_env()  # read .env file, if it exists\n\n# Define variables with type casting\ncache_dir_path = env.str(\"CACHE_DIR_PATH\", \".cache\")\ncache_enabled = env.bool(\"CACHE_ENABLED\", True)\ncache_verbosity = env.int(\"CACHE_VERBOSITY\", 0)\ndb_echo = env.bool(\"DB_ECHO\", False)\ndb_fname = env.str(\"DB_FNAME\", \"openadapt.db\")\n3. Python-Decouple\nPython-Decouple is focused on separating settings from code, which is useful for 12-factor applications.\n\nSimple API for accessing environment variables.\nSupports type casting and default values.\nClean and straightforward for basic needs.\n\nExample:\nfrom decouple import config\n\nCACHE_DIR_PATH = config('CACHE_DIR_PATH', default='.cache')\nCACHE_ENABLED = config('CACHE_ENABLED', cast=bool, default=True)\nCACHE_VERBOSITY = config('CACHE_VERBOSITY', cast=int, default=0)\nDB_ECHO = config('DB_ECHO', cast=bool, default=False)\nDB_FNAME = config('DB_FNAME', default='openadapt.db')\nChoosing the Right Tool\n\nPydantic: Best for complex configurations with a need for strict type validation.\nEnvirons: Useful for more complex data types and custom validation logic.\nPython-Decouple: Ideal for simpler use cases where the primary goal is to separate configuration from code.\n\nEach of these libraries reduces the repetitive nature of environment variable management and adds the benefit of type checking and validation, making your configuration management both more elegant and robust.\n\nSince we are already using Pydantic in https://github.com/OpenAdaptAI/OpenAdapt/blob/main/openadapt/privacy/base.py#L6 I think it makes sense to re-use it here. What do you think?",
+                                    "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/489#issuecomment-1806343167",
+                                    "author": {
+                                        "login": "abrichr"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-12T13:27:23Z",
+                                    "bodyText": "Closing this in favor of a future PR which uses Pydantic.",
+                                    "url": "https://github.com/OpenAdaptAI/OpenAdapt/pull/489#issuecomment-1807128715",
+                                    "author": {
+                                        "login": "abrichr"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 51,
+                        "title": "feat: 404 page in place",
+                        "repository": {
+                            "nameWithOwner": "scania-digital-design-system/tegel-angular-demo",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-09-01T09:38:20Z",
+                        "mergedAt": "2023-09-06T12:19:20Z",
+                        "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "timrombergjakobsson"
+                        },
+                        "editor": {
+                            "login": "timrombergjakobsson"
+                        },
+                        "body": "Fixes: [CDEP-2255](https://tegel.atlassian.net/jira/software/projects/CDEP/boards/1?assignee=63ff6d6c314f5088138187f0&selectedIssue=CDEP-2255)\r\n\r\n**How to test:**\r\nGo to a page that does not exist, easiest by mispelling a url, for example: https://deploy-preview-51--tegel-angular-demo.netlify.app/steppers\r\n\r\nDesign for it:\r\nhttps://www.figma.com/file/0qInyxtj8DZ6thDesNat5M/Empty-screens-exploration?type=design&node-id=81-83069&mode=design&t=CfZIYa7YXq8H6fR7-4\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-01T09:38:40Z",
+                                    "bodyText": "\u2705 Deploy Preview for tegel-angular-demo ready!\n\n\n\nName\nLink\n\n\n\n\n\ud83d\udd28 Latest commit\nc6b3fcf\n\n\n\ud83d\udd0d Latest deploy log\nhttps://app.netlify.com/sites/tegel-angular-demo/deploys/64f86cb0cae21500087f83c8\n\n\n\ud83d\ude0e Deploy Preview\nhttps://deploy-preview-51--tegel-angular-demo.netlify.app/\n\n\n\ud83d\udcf1 Preview on mobile\n Toggle QR Code... Use your smartphone camera to open QR code link.\n\n\n\n\nTo edit notification comments on pull requests, go to your Netlify site configuration.",
+                                    "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#issuecomment-1702466270",
+                                    "author": {
+                                        "login": "netlify"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-01T13:11:57Z",
+                                    "bodyText": "Maybe we should hide the mode switchers also?",
+                                    "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#issuecomment-1702728481",
+                                    "author": {
+                                        "login": "timrombergjakobsson"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-04T14:14:33Z",
+                                    "bodyText": "Maybe we should hide the mode switchers also? \n\nIs there a design for dark mode and/or secondary mode? If not then yes, maybe it's a good idea to hide them as well",
+                                    "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#issuecomment-1705344889",
+                                    "author": {
+                                        "login": "nathalielindqvist"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-05T05:43:40Z",
+                                    "bodyText": "Maybe we should hide the mode switchers also? \n\nIs there a design for dark mode and/or secondary mode? If not then yes, maybe it's a good idea to hide them as well\n\nGood point, and there is not. So let's hide them.",
+                                    "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#issuecomment-1705977422",
+                                    "author": {
+                                        "login": "timrombergjakobsson"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-05T09:30:39Z",
+                                    "bodyText": "Getting some unexpected overflow. Suspecting it might have to do with the 100vh being set on the error page. Would be better if it only takes 100% and with a flex-grow: 1.\nExpected behaviour: The error page content should take as much space at it can, without creating an overflow.\n\n\nThat is doable, however will yield basically this look:",
+                                    "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#issuecomment-1706269778",
+                                    "author": {
+                                        "login": "timrombergjakobsson"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-05T09:50:06Z",
+                                    "bodyText": "Getting some unexpected overflow. Suspecting it might have to do with the 100vh being set on the error page. Would be better if it only takes 100% and with a flex-grow: 1.\nExpected behaviour: The error page content should take as much space at it can, without creating an overflow.\n\n\nThat is doable, however will yield basically this look:\n\n\nHeight and display would have to be adjusted on the app-error-page element, as well as a few parent elements of it to achieve the desired height.\n\nVH might be good enough for now considering there are a lot of other implementations that could be better as well.\nUnless we want to demonstrate a proper way of doing things - Is that a purpose of this repo?",
+                                    "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#issuecomment-1706300045",
+                                    "author": {
+                                        "login": "alexandereneroth"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-05T09:59:01Z",
+                                    "bodyText": "Another possible improvement would be to not redirect to 404, and just show the 404 page if the route does not exist.\nLike that: https://angular.io/guide/router-tutorial#adding-a-404-page\nThis is how they suggest it in the angular docs above - and is not a more complicated way of doing things. I feel like its better UX to stay on the route to show that it doesn't exist.",
+                                    "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#issuecomment-1706313560",
+                                    "author": {
+                                        "login": "alexandereneroth"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-05T10:08:26Z",
+                                    "bodyText": "Getting some unexpected overflow. Suspecting it might have to do with the 100vh being set on the error page. Would be better if it only takes 100% and with a flex-grow: 1.\nExpected behaviour: The error page content should take as much space at it can, without creating an overflow.\n\n\nThat is doable, however will yield basically this look:\n\n\nHeight and display would have to be adjusted on the app-error-page element, as well as a few parent elements of it to achieve the desired height. \nVH might be good enough for now considering there are a lot of other implementations that could be better as well.\nUnless we want to demonstrate a proper way of doing things - Is that a purpose of this repo?\n\nYes maybe a cath\n\nAnother possible improvement would be to not redirect to 404, and just show the 404 page if the route does not exist.\nLike that: https://angular.io/guide/router-tutorial#adding-a-404-page\nThis is how they suggest it in the angular docs above - and is not a more complicated way of doing things. I feel like its better UX to stay on the route to show that it doesn't exist.\n\nYes, maybe a cathch all route is preferrable? I kinda did that with the React demo example.",
+                                    "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#issuecomment-1706328192",
+                                    "author": {
+                                        "login": "timrombergjakobsson"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-05T12:37:41Z",
+                                    "bodyText": "Is it alright if I add a commit to fix the flex-grow issue @timrombergjakobsson ?",
+                                    "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#issuecomment-1706541927",
+                                    "author": {
+                                        "login": "mJarsater"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-05T12:45:16Z",
+                                    "bodyText": "Is it alright if I add a commit to fix the flex-grow issue @timrombergjakobsson ?\n\nYeah totally, I was redoing the route structure. So by all means go ahead!",
+                                    "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#issuecomment-1706553638",
+                                    "author": {
+                                        "login": "timrombergjakobsson"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-05T13:19:48Z",
+                                    "bodyText": "@alexandereneroth @mJarsater, started with the other route example you linked too. That works altohugh requires some changes to like hiding the breadcrumbs and mode switchers. I guess one way could be to create a wrapping layout for the routes instead. What do you think? Or is this a feasible version of how to implement it?",
+                                    "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#issuecomment-1706609482",
+                                    "author": {
+                                        "login": "timrombergjakobsson"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-05T14:00:52Z",
+                                    "bodyText": "If it's a fairly quick fix I think we should do it.\n\n\n@alexandereneroth @mJarsater, started with the other route example you linked too. That works altohugh requires some changes to like hiding the breadcrumbs and mode switchers. I guess one way could be to create a wrapping layout for the routes instead. What do you think? Or is this a feasible version of how to implement it?\n\nIf it's a fairly quick fix I think we should do it.",
+                                    "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#issuecomment-1706683038",
+                                    "author": {
+                                        "login": "mJarsater"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-05T15:12:07Z",
+                                    "bodyText": "@alexandereneroth @mJarsater, started with the other route example you linked too. That works altohugh requires some changes to like hiding the breadcrumbs and mode switchers. I guess one way could be to create a wrapping layout for the routes instead. What do you think? Or is this a feasible version of how to implement it?\n\nI think you could do something like this https://chat.openai.com/share/37020492-3642-47f1-958b-563b37d7ece2",
+                                    "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#issuecomment-1706810955",
+                                    "author": {
+                                        "login": "alexandereneroth"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-05T15:24:34Z",
+                                    "bodyText": "@alexandereneroth @mJarsater, started with the other route example you linked too. That works altohugh requires some changes to like hiding the breadcrumbs and mode switchers. I guess one way could be to create a wrapping layout for the routes instead. What do you think? Or is this a feasible version of how to implement it?\n\nI think you could do something like this https://chat.openai.com/share/37020492-3642-47f1-958b-563b37d7ece2\n\nhahah actually something similar what I was looking at :)",
+                                    "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#issuecomment-1706833459",
+                                    "author": {
+                                        "login": "timrombergjakobsson"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I can't see that this ActivatedRoute is used anywhere?",
+                                                        "author": {
+                                                            "login": "mJarsater"
+                                                        },
+                                                        "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#discussion_r1312984138",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6406573",
+                                                            "authoredDate": "2023-09-01T09:17:48Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Your right, I changed that and forgot to remove it. Good catch!",
+                                                        "author": {
+                                                            "login": "timrombergjakobsson"
+                                                        },
+                                                        "url": "https://github.com/scania-digital-design-system/tegel-angular-demo/pull/51#discussion_r1313005745",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6406573",
+                                                            "authoredDate": "2023-09-01T09:17:48Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "DISMISSED",
+                                        "bodyText": "Getting some unexpected overflow. Suspecting it might have to do with the 100vh being set on the error page. Would be better if it only takes 100% and with a flex-grow: 1.\nExpected behaviour: The error page content should take as much space at it can, without creating an overflow.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Looks like we have duplicates on the mobile Side Menu, might be due to rebase?",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 344,
+                        "title": "Added support for Swarm Mode",
+                        "repository": {
+                            "nameWithOwner": "premAI-io/prem-app",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-09-01T13:28:23Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/premAI-io/prem-app/pull/344",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "filopedraz"
+                        },
+                        "editor": null,
+                        "body": "### Description\r\n\r\nAdded support for Swarm Mode which starts the necessary processes in order to be part of the Petals Swarm. The User can `Enable` the mode from Settings. Tauri will spawn a thread that installs the dependencies and runs the python process.\r\n\r\nThe PR contains all the building blocks in order to implement the complete POC functionality.\r\n\r\n### Limitations\r\n\r\n- UI/UX must be drastically improved. No CSS changes have been made.\r\n- It currently works only if the User has Python installed on its machine.\r\n\r\n@tiero @casperdcl @sekulicd @Janaka-Steph please have a look.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-01T13:28:52Z",
+                                    "bodyText": "PR Summary\n\n\nIntroduction of a checking mechanism for Python\nA new functionality is added to verify that Python is correctly installed on the machine.\n\n\nEnhanced support for Swarm Mode\nNew functions have been introduced to allow for better handling of Docker's Swarm Mode. Specifically, these functions enable us to check the running status of Swarm Mode, start it, and stop it when needed.\n\n\nAddition of SwarmMode Component\nA new component named SwarmMode is created to incorporate Docker's Swarm Mode features into our application UI. This component is added as part of our Settings module, empowering users with more operational flexibility.\n\n\nUtilities for Swarm Mode\nAdditional utility functions for handling Docker Swarm Mode are implemented. These help us to verify the operational status of Swarm Mode, stop it, or start it based on user input or application requirements.",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1702751196",
+                                    "author": {
+                                        "login": "what-the-diff"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-04T20:08:06Z",
+                                    "bodyText": "@casperdcl @sekulicd @Janaka-Steph @tiero instead of passing \"--public_name\", \"prem-app\" we should pass the User username/identifier (like a nostr pubkey) :)",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1705667044",
+                                    "author": {
+                                        "login": "filopedraz"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-04T20:24:49Z",
+                                    "bodyText": "could just use current username",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1705676651",
+                                    "author": {
+                                        "login": "casperdcl"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-05T06:12:02Z",
+                                    "bodyText": "Good point. I ll apply the changes you suggested above.",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1706001839",
+                                    "author": {
+                                        "login": "filopedraz"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-20T11:54:05Z",
+                                    "bodyText": "I ll address the remaining points in this PR soon. I want first the new services to be working and then I ll move on with this. :)",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1727576229",
+                                    "author": {
+                                        "login": "filopedraz"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-23T13:48:35Z",
+                                    "bodyText": "Missing\n\n Give the User the possibility to decide which model to contribute to.\n Check if the User can run Swarm mode (only available for Mac users), otherwise don't enable the functionality.\n Give the User the possibility to decide how many blocks to contribute giving some tooltips in terms of how much memory is required per block.",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1732322797",
+                                    "author": {
+                                        "login": "filopedraz"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-12T12:07:10Z",
+                                    "bodyText": "Give the User the possibility to decide which model to contribute to.\n Check if the User can run Swarm mode (only available for Mac users), otherwise don't enable the functionality.\n  Give the User the possibility to decide how many blocks to contribute giving some tooltips in terms of how much memory is required per block.\n\n@casperdcl can you check it? @Janaka-Steph can you enhance the style of swarm settings?",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1759478257",
+                                    "author": {
+                                        "login": "nsosio"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-12T20:29:30Z",
+                                    "bodyText": "Great job @nsosio, looks good to me. @Janaka-Steph it requires some UI love.\n@nsosio I suggest that we also handle the missing pieces:\n\n Give the user the possibility to pass a name (default: prem-app).\n Python installation as suggested by @casperdcl here.",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1760323457",
+                                    "author": {
+                                        "login": "filopedraz"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-12T20:39:28Z",
+                                    "bodyText": "Yes I'm going to handle also those remaining points\ud83d\ude42 do we want to let the user decide the name or use the whoami output?",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1760334549",
+                                    "author": {
+                                        "login": "nsosio"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-12T21:18:12Z",
+                                    "bodyText": "I think whoami simplest for now. Let someone open a feature request/PR for customisation later :D",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1760378929",
+                                    "author": {
+                                        "login": "casperdcl"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-13T06:15:18Z",
+                                    "bodyText": "I was proposing to let the user decide and have a default fallback with prem-app. In this way, in the monitor, the Prem App name will appear.",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1760958911",
+                                    "author": {
+                                        "login": "filopedraz"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-14T01:29:49Z",
+                                    "bodyText": "$(whoami)@premAI.io",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1762464126",
+                                    "author": {
+                                        "login": "tiero"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-14T09:56:54Z",
+                                    "bodyText": "If they click on $(whoami)@premAI.io, it will open the mail client? or not? And that email will actually not exists.",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1762782497",
+                                    "author": {
+                                        "login": "filopedraz"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-14T11:09:59Z",
+                                    "bodyText": "Or just whoami@premAI :) not meant to be an email just classic username@host namespacing",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1762820997",
+                                    "author": {
+                                        "login": "tiero"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-16T06:13:10Z",
+                                    "bodyText": "Ok, good for me CC @nsosio",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1763794157",
+                                    "author": {
+                                        "login": "filopedraz"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-16T16:29:09Z",
+                                    "bodyText": "I tried cargo tauri dev on Mac M1 and I got this error\ncargo tauri dev\n     Running BeforeDevCommand (`npm run dev`)\n\n> prem-app@0.0.30 dev\n> vite\n\n\n  VITE v4.4.7  ready in 437 ms\n\n  \u279c  Local:   http://localhost:1420/\n  \u279c  Network: use --host to expose\n        Info Watching /Users/tiero/projects/prem/prem-app/src-tauri for changes...\n   Compiling prem-app v0.0.30 (/Users/tiero/projects/prem/prem-app/src-tauri)\nerror: failed to run custom build command for `prem-app v0.0.30 (/Users/tiero/projects/prem/prem-app/src-tauri)`\n\nCaused by:\n  process didn't exit successfully: `/Users/tiero/projects/prem/prem-app/src-tauri/target/debug/build/prem-app-6084577c84f4c996/build-script-build` (exit status: 1)\n  --- stdout\n  cargo:rerun-if-env-changed=TAURI_CONFIG\n  cargo:rerun-if-changed=tauri.conf.json\n  cargo:rustc-cfg=desktop\n  cargo:rustc-cfg=dev\n  path matching bin/python/petals-aarch64-apple-darwin not found.\n\ud83d\ude80 A new version of Tauri CLI is available! [1.4.0]",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1764851700",
+                                    "author": {
+                                        "login": "tiero"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-16T16:30:31Z",
+                                    "bodyText": "I fixed with npm run prebuild that I noticed has been added in this branch. Please add it to the README too\nNope the error still persist after building",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1764854106",
+                                    "author": {
+                                        "login": "tiero"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-16T16:30:56Z",
+                                    "bodyText": "@filopedraz, @tiero should we update it as user_name@premAI or keep it as user_name? Where user name is what specified by the user (with default prem-app)",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1764854762",
+                                    "author": {
+                                        "login": "nsosio"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-16T16:46:34Z",
+                                    "bodyText": "@filopedraz, @tiero should we update it as user_name@premAI or keep it as user_name? Where user name is what specified by the user (with default prem-app)\n\nWe should start with a default name taken from user-space ie. $whoami@premAI, and not sure how much worth is to allow user to change it \ud83e\udd14",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1764878774",
+                                    "author": {
+                                        "login": "tiero"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-16T17:11:19Z",
+                                    "bodyText": "@tiero it will be a public name. User should be able to provide what they want.",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1764918267",
+                                    "author": {
+                                        "login": "filopedraz"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-16T17:20:17Z",
+                                    "bodyText": "I did little tweaks to UI and compiled also aarch64 version to test for Apple SIlicon, please @nsosio pull before commiting more work",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1764932294",
+                                    "author": {
+                                        "login": "tiero"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-16T17:20:58Z",
+                                    "bodyText": "@tiero it will be a public name. User should be able to provide what they want.\n\nOk I will reintroduce the Input, but once they start the swarm",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1764933349",
+                                    "author": {
+                                        "login": "tiero"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-16T17:29:37Z",
+                                    "bodyText": "Starting the Swarm on any model crashes once click on Start\nhttps://www.loom.com/share/43213eaf03b14a8a840488cf91150a1b",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1764946232",
+                                    "author": {
+                                        "login": "tiero"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-17T15:37:32Z",
+                                    "bodyText": "enabled swarm-mode only for aarch64\npetals sidecar only for aarch64\nadded get_username Tauri command retrieving whoami\nmoved script for petals binary to scripts\n\nCC @filopedraz @casperdcl @tiero",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1766675183",
+                                    "author": {
+                                        "login": "nsosio"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-17T18:45:00Z",
+                                    "bodyText": "@nsosio LGTM. @tiero can you update the UI accordingly?",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1766970780",
+                                    "author": {
+                                        "login": "filopedraz"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-18T12:41:30Z",
+                                    "bodyText": "Currently does not work on my Mac M1, investigating. @filopedraz If you have time to test on your device let me know if you experience the same.",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1768370300",
+                                    "author": {
+                                        "login": "tiero"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-18T14:05:30Z",
+                                    "bodyText": "Just tested, to me works.",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1768537162",
+                                    "author": {
+                                        "login": "filopedraz"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-18T14:58:53Z",
+                                    "bodyText": "working on this in a separate repo (https://github.com/premAI-io/test-app/actions)...\nany idea why tauri build fails with \"path matching bin/python/petals-aarch64-apple-darwin not found\" despite src-tauri/bin/python/petals-aarch64-apple-darwin existing?",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1768651070",
+                                    "author": {
+                                        "login": "casperdcl"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-19T07:56:18Z",
+                                    "bodyText": "It would be nice to move the Petals rust code into its own file rather than in main.rs",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1770264546",
+                                    "author": {
+                                        "login": "Janaka-Steph"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-19T09:53:01Z",
+                                    "bodyText": "follow-up: apparently tauri build --target universal-apple-darwin wants ALL THREE of:\n\npetals-aarch64-apple-darwin\npetals-x86_64-apple-darwin\npetals-universal-apple-darwin\n\nJust one or two of the above isn't enough.",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1770466685",
+                                    "author": {
+                                        "login": "casperdcl"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-19T12:31:22Z",
+                                    "bodyText": "CI-built *.dmg + binaries if anyone wants to test things :)",
+                                    "url": "https://github.com/premAI-io/prem-app/pull/344#issuecomment-1770880913",
+                                    "author": {
+                                        "login": "casperdcl"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "can't we allow anything on $PATH instead? (Same for all /usr/bin hardcoded below)",
+                                                        "author": {
+                                                            "login": "casperdcl"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1313365589",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e17313",
+                                                            "authoredDate": "2023-09-01T13:23:55Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Potentially fallback to pip install --user before giving up?",
+                                                        "author": {
+                                                            "login": "casperdcl"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1313770505",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e17313",
+                                                            "authoredDate": "2023-09-01T13:23:55Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Won't this potentially pick up unrelated multiprocessing tasks?",
+                                                        "author": {
+                                                            "login": "casperdcl"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1313771023",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e17313",
+                                                            "authoredDate": "2023-09-01T13:23:55Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "kill -n 15 or kill -n 9?",
+                                                        "author": {
+                                                            "login": "casperdcl"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1313771123",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e17313",
+                                                            "authoredDate": "2023-09-01T13:23:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It will not work with Tauri. We had that issue in the past.",
+                                                        "author": {
+                                                            "login": "filopedraz"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1315035871",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e17313",
+                                                            "authoredDate": "2023-09-01T13:23:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ideally, we should install python, conda, create a conda env, and then install, but I want your opinion on that on how to make this installation super smooth.",
+                                                        "author": {
+                                                            "login": "filopedraz"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1315738039",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e17313",
+                                                            "authoredDate": "2023-09-01T13:23:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yep, there is that risk, but I don't know how to get that otherwise. Not critical for a POC / Demo.\n85485 ttys038    0:00.03 /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Resources/Python.app/Contents/MacOS/Python -c from multiprocessing.resource_tracker import main;main(12)",
+                                                        "author": {
+                                                            "login": "filopedraz"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1315742094",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e17313",
+                                                            "authoredDate": "2023-09-01T13:23:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I checked this and by default kill uses -n 15 which seems to work nicely in this context. While trying with kill -n 9 processes are not properly killed.",
+                                                        "author": {
+                                                            "login": "filopedraz"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1315747535",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e17313",
+                                                            "authoredDate": "2023-09-01T13:23:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'd suggest:\n\ntry to find mamba on $PATH\ntry to find conda on $PATH\ntry to find python3 on $PATH\ninstall https://github.com/conda-forge/miniforge#mambaforge\n\nfor (1), (2) and (4): create/activate an env called prem before installing\nWhat' the Tauri problem with $PATH?",
+                                                        "author": {
+                                                            "login": "casperdcl"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1318823545",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8e17313",
+                                                            "authoredDate": "2023-09-01T13:23:55Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "lgtm  but maybe open follow-up issues for:\n\n--public_name=$(whoami)\nfinding Python",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "lgtm; though I don't haz a mac to check it properly",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This will not work on all architectures, please build one for each architecture\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            pyinstaller --onefile $PYTHON_SCRIPT_PATH --distpath $DIST_PATH --clean -n petals-x86_64-apple-darwin\n          \n          \n            \n            pyinstaller --onefile $PYTHON_SCRIPT_PATH --distpath $DIST_PATH --clean -n petals-x86_64-apple-darwin\n          \n          \n            \n            pyinstaller --onefile $PYTHON_SCRIPT_PATH --distpath $DIST_PATH --clean -n petals-aarch64-apple-darwin",
+                                                        "author": {
+                                                            "login": "tiero"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1360942079",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0b3f945",
+                                                            "authoredDate": "2023-10-13T16:29:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think this will not be enough. If is not possible to make an universal binary with single name, we must package both in the App",
+                                                        "author": {
+                                                            "login": "tiero"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1360944447",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0b3f945",
+                                                            "authoredDate": "2023-10-13T16:29:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "why not moving it inside ./scripts folder ?",
+                                                        "author": {
+                                                            "login": "tiero"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1360946679",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0b3f945",
+                                                            "authoredDate": "2023-10-13T16:29:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "dont trust, verify (its the AI) https://chat.openai.com/share/2a996ae8-abe3-4b50-a13a-3a6c8c41afbd",
+                                                        "author": {
+                                                            "login": "tiero"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1360950952",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0b3f945",
+                                                            "authoredDate": "2023-10-13T16:29:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If we manage to make an universal binary, we should them call it petals-universal-apple-darwin otherwsie when you will be up to compile\n       Error failed to bundle project: Failed to copy external binaries: Failed to copy external binaries: path matching bin/python/petals-universal-apple-darwin not found.: path matching bin/python/petals-universal-apple-darwin not found.",
+                                                        "author": {
+                                                            "login": "tiero"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1360955777",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0b3f945",
+                                                            "authoredDate": "2023-10-13T16:29:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "if not possible to have universal binary, we must also change how we build the desktop app and file naming (splitting Apple SIlicon and Apple Intel) on website, documentations etc..",
+                                                        "author": {
+                                                            "login": "tiero"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1360960507",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0b3f945",
+                                                            "authoredDate": "2023-10-13T16:29:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "universal bin may or may not be possible1:\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            pyinstaller --onefile $PYTHON_SCRIPT_PATH --distpath $DIST_PATH --clean -n petals-x86_64-apple-darwin\n          \n          \n            \n            pyinstaller --onefile $PYTHON_SCRIPT_PATH --distpath $DIST_PATH --clean --target-arch universal2 -n petals-universal-apple-darwin\n          \n      \n    \n    \n  \n\nplus tauri build --target universal-apple-darwin23\nNote, however, that this increases your bundle size significantly4\nFootnotes\n\n\nhttps://pyinstaller.org/en/stable/feature-notes.html#macos-multi-arch-support \u21a9\n\n\nhttps://tauri.app/v1/api/cli/#build \u21a9\n\n\nhttps://github.com/premAI-io/prem-app/blob/a7df7ed5c915dd0fcd79525cb78314a3e7b19faf/.github/workflows/on-tag.yaml#L97 \u21a9\n\n\nhttps://tauri.app/v1/guides/building/macos/#binary-targets \u21a9",
+                                                        "author": {
+                                                            "login": "casperdcl"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1361151374",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0b3f945",
+                                                            "authoredDate": "2023-10-13T16:29:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Done :)",
+                                                        "author": {
+                                                            "login": "nsosio"
+                                                        },
+                                                        "url": "https://github.com/premAI-io/prem-app/pull/344#discussion_r1362341624",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0b3f945",
+                                                            "authoredDate": "2023-10-13T16:29:14Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

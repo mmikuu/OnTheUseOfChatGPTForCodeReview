@@ -1,0 +1,375 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 563,
+                        "title": "WIP - Improve docker images for faster build and deploy",
+                        "repository": {
+                            "nameWithOwner": "shakacode/react-webpack-rails-tutorial",
+                            "primaryLanguage": {
+                                "name": "Ruby"
+                            }
+                        },
+                        "createdAt": "2023-10-29T17:24:49Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "ahangarha"
+                        },
+                        "editor": {
+                            "login": "ahangarha"
+                        },
+                        "body": "Creating a base Dockerfile for this project so that it can be used in `.controlplane/Dockerfile` to speed up the build time.\r\n\r\n- This file is based on Rails 7.1 Dockerfile.\r\n- The Docker base image should be built from `Dockerfile_base` and pushed to the Docker hub.\r\n- For deploying on Control Plane, we should use `.controlplane/Dockerfile_from_base`. For this, we need to uncomment the line for the custom Dockerfile path in `.controlplane/controlplane.yml` file.\r\n\r\nThese new Dockerfiles are made originally with the idea of having a way to make a faster build/deploy process on cpln. We still need the existing Dockerfiles to have more control and flexibility when experimenting with deployment. \r\n\r\n## Result:\r\n![Screenshot from 2023-12-09 19-36-43-e](https://github.com/shakacode/react-webpack-rails-tutorial/assets/11241315/adf8c7c7-3e7f-422a-ac77-15224020386d)\r\n\r\n<!-- Reviewable:start -->\r\n- - -\r\nThis change is\u2002[<img src=\"https://reviewable.io/review_button.svg\" height=\"34\" align=\"absmiddle\" alt=\"Reviewable\"/>](https://reviewable.io/reviews/shakacode/react-webpack-rails-tutorial/563)\r\n<!-- Reviewable:end -->\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-11-15T15:12:16Z",
+                                    "bodyText": "@justin808\nMy thought was this:\n\nWe make a dockerfile at the project's root, which is the base for building the image for this project. We push this image to the docker hub.\nWe use the dockerfile in .controlplane to use this image from docker hub and prepare the image for deployment on Control Plane.",
+                                    "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#issuecomment-1812719580",
+                                    "author": {
+                                        "login": "ahangarha"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-12T23:00:25Z",
+                                    "bodyText": "@ahangarha and @Judahmeek how much testing did you do of this?",
+                                    "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#issuecomment-1852946239",
+                                    "author": {
+                                        "login": "justin808"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-13T11:20:31Z",
+                                    "bodyText": "@justin808\n\nhow much testing did you do of this?\n\nI have tested multiple times. The last time, I made sure no image was left on my system and built from scratch (both the base image on the docker hub, and the image to be deployed on cpln)\nHave you noticed any issues?",
+                                    "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#issuecomment-1853732397",
+                                    "author": {
+                                        "login": "ahangarha"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-28T06:06:59Z",
+                                    "bodyText": "Reopen new PR if any of this is still useful.",
+                                    "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#issuecomment-1870855250",
+                                    "author": {
+                                        "login": "justin808"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Why are we adding the root docker file?\nHow does it relate to the .controlplane/Dockerfile?\n@rafaelgomesxyz @ahangarha @Judahmeek",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@dzirtusss should this be recommended?\nSee https://chat.openai.com/share/f7e6d78b-ab5c-4e2f-808c-12c717053613",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1378219428",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4c83670",
+                                                            "authoredDate": "2023-10-29T17:12:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@ahangarha why is this duplicated in the bin script in this PR?",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1402861083",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4c83670",
+                                                            "authoredDate": "2023-10-29T17:12:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why is postgresql-client installed? I tried to find references to psql and couldn't find it.",
+                                                        "author": {
+                                                            "login": "borela"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1420388424",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd8580e",
+                                                            "authoredDate": "2023-11-16T14:32:33Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is it worth it having a separate build step image vs a single one where you delete the unneeded stuff afterward? You already did some cleaning on line 37.",
+                                                        "author": {
+                                                            "login": "borela"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1420392929",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd8580e",
+                                                            "authoredDate": "2023-11-16T14:32:33Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It comes from Rails new Dockerfile.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1421432854",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd8580e",
+                                                            "authoredDate": "2023-11-16T14:32:33Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I just followed the Dockerfile proposed by Rails.\nIt might still be faulty, but it follows the same structure.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1421434783",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "cd8580e",
+                                                            "authoredDate": "2023-11-16T14:32:33Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The bin/docker-entrypoint file comes from new Rails setup.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1421435873",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4c83670",
+                                                            "authoredDate": "2023-10-29T17:12:29Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "WTFs:\n\npersonal name.\nneed comments on why file exists and how to use",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1428463885",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6400c7a",
+                                                            "authoredDate": "2023-12-10T14:22:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The reason behind this was that before pushing this base image to the official docker hub of the company, I could demonstrate deployment. I needed a review on the implementation of this Docker base image. Now I got it and now I can move forward.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1428491983",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6400c7a",
+                                                            "authoredDate": "2023-12-10T14:22:18Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "why the -e flag?",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1435974468",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "72712d4",
+                                                            "authoredDate": "2023-12-15T22:04:53Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is going to confuse people.",
+                                                        "author": {
+                                                            "login": "justin808"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1435974877",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "72712d4",
+                                                            "authoredDate": "2023-12-15T22:04:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I understand.\nPerhaps we can move these files into .shakacode folder which will be the place for keeping files only related to our development tasks.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1436027937",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "72712d4",
+                                                            "authoredDate": "2023-12-15T22:04:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I applied it based on the new Rails 7.1 Dockerfile. It is needed for the next changes to run; the == operation in the condition.\nIt is to make the whole Dockerfiles have similar content, making it easier to debug issues in the future.\nUpdate:\nActually, bash is required for the == operator.\nThe -e option is used to exit running the script immediately after a command returns with a non-zero status.",
+                                                        "author": {
+                                                            "login": "ahangarha"
+                                                        },
+                                                        "url": "https://github.com/shakacode/react-webpack-rails-tutorial/pull/563#discussion_r1436029551",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "72712d4",
+                                                            "authoredDate": "2023-12-15T22:04:53Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

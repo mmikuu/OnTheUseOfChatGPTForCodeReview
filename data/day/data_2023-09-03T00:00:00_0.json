@@ -1,0 +1,133 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 8902,
+                        "title": "Make the NIX_PATH environment variable take precedence over config files",
+                        "repository": {
+                            "nameWithOwner": "NixOS/nix",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2023-09-03T04:47:58Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/NixOS/nix/pull/8902",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "colonelpanic8"
+                        },
+                        "editor": {
+                            "login": "colonelpanic8"
+                        },
+                        "body": "Fixes #8890 #8784\r\n\r\n# Motivation\r\n\r\nAlmost every program that I can think of takes configuration parameters in this order of precedence:\r\n\r\n1. Command line arguments\r\n2. Environment variables\r\n3. Configuration files\r\n\r\nThis ordering is based roughly on how dynamic/persistent each of these types of values are, which gives the user a lot of flexibility to override things in the way they see fit. It also feels like the most obvious and intuitive order. Chat GPT agrees with me that this is the standard and most intuitive way to do things:\r\n\r\nhttps://chat.openai.com/share/68fb24c9-2b91-47bd-9fab-baa956702cca\r\n\r\nThere is some discussion here that seems to imply that maybe this is a deliberate behavior:\r\n\r\nhttps://github.com/NixOS/nixpkgs/pull/242098#discussion_r1269891427\r\n\r\nbut this position doesn't make a ton of sense to me, given that, as I pointed out here:\r\n\r\nhttps://github.com/NixOS/nixpkgs/pull/242098#discussion_r1314086627\r\n\r\nusers must opt in to impure behavior with the --impure flag for flake aware commands.\r\n\r\n\r\n\r\nThere is one open question in my mind, which is whether or not a NIX_PATH setting should actually clobber any settings from configuration files, or if the configuration file values should also be used.\r\n\r\nAs the code is currently written, the values in the configuration files will still take effect.\r\n\r\nThis is actually arguably inconsistent with what is written here:\r\n\r\nhttps://github.com/NixOS/nix/blob/197afd08a1075d0bd34ba76d5b5f40b4b36966a2/doc/manual/src/command-ref/env-common.md#L22\r\n\r\nThe thing is, the current behavior is ALSO inconsistent with what is written there. If you set NIX_PATH=\"\" but have values in your nix.conf files, those paths will still be searched (as things stand atm).\r\n\r\n# Checklist for maintainers\r\n\r\n<!-- Contributors: please leave this as is -->\r\n\r\nMaintainers: tick if completed or explain if not relevant\r\n\r\n - [ ] agreed on idea\r\n - [ ] agreed on implementation strategy\r\n - [ ] tests, as appropriate\r\n   - functional tests - `tests/**.sh`\r\n   - unit tests - `src/*/tests`\r\n   - integration tests - `tests/nixos/*`\r\n - [ ] documentation in the manual\r\n - [ ] documentation in the internal API docs\r\n - [ ] code and comments are self-explanatory\r\n - [ ] commit message explains why the change was made\r\n - [ ] new feature or incompatible change: updated release notes\r\n\r\n# Priorities\r\n\r\nAdd :+1: to [pull requests you find important](https://github.com/NixOS/nix/pulls?q=is%3Aopen+sort%3Areactions-%2B1-desc).\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-12T23:58:33Z",
+                                    "bodyText": "@roberth Is there any chance this could be looked at/merged soon.\nDo you have any thoughts about:\n\nThere is one open question in my mind, which is whether or not a NIX_PATH setting should actually clobber any settings from configuration files, or if the configuration file values should also be used.",
+                                    "url": "https://github.com/NixOS/nix/pull/8902#issuecomment-1716736379",
+                                    "author": {
+                                        "login": "colonelpanic8"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-13T10:21:58Z",
+                                    "bodyText": "Is there any chance this could be looked at/merged soon.\n\nThe team will triage this on Friday, and I hope we can decide soon.\n\nwhether or not a NIX_PATH setting should actually clobber any settings from configuration files\n\nIn a project that uses shell.nix to purify the environment, I'd expect the nix-path from config files to be ignored completely.",
+                                    "url": "https://github.com/NixOS/nix/pull/8902#issuecomment-1717356909",
+                                    "author": {
+                                        "login": "roberth"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-18T19:36:05Z",
+                                    "bodyText": "This pull request has been mentioned on NixOS Discourse. There might be relevant details there:\nhttps://discourse.nixos.org/t/2023-09-15-nix-team-meeting-minutes-86/33171/1",
+                                    "url": "https://github.com/NixOS/nix/pull/8902#issuecomment-1724253044",
+                                    "author": {
+                                        "login": "nixos-discourse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-18T19:42:08Z",
+                                    "bodyText": "Discussed in Nix team meeting:\nThe interaction between NIX_PATH and restrict-eval is a bit of a mess. @thufschmitt and me plan to sit down and figure out how to deal with the problem.\nComplete discussion\n\n\n@edolstra: Attempted to fix earlier, had to revert\n\n\n@roberth: What about #7871\n\n\n@edolstra: Problem: Makes NIX_PATH take precedence over --nix-path, which isn't great\n\nThe current infra doesn't really allow having config files -> env var -> cli flag\n@fricklerhandwerk: had #7689 in the past, which touched the the application order for NIX_PATH, but got reverted because it did not behave as expected\n\n\n\nCould we treat it exactly as if we had NIX_CONFIG = nix-path = blah?\n\nBut doesn't play well with restricted-eval which doesn't handl NIX_CONFIG but only NIX_PATH\n\n\n\n@infinisil: Ask the contributor to satisfy the requirements instead of figuring it out for them?\n\n\n@roberth: requirements not 100% clear but can be adapted\n\n@edolstra: #7871 has test cases, could be reused\n\n\n\n@fricklerhandwerk: possible solutions\n\nCheap: only document that extra-nix-path is treated as a config level thing\nMore involved: Add environment variables to the settings system\n\n\n\n@infinisil: A separate function for getting the nix path for when restrict eval is enabled?\n\n@fricklerhandwerk: That would require direct access to the config file in the settings system?\n@roberth: Setting<pair<vector,vector>>\n@regnat: complexity might leak everywhere\n\n@roberth: Having two structures makes sense: the intermediate state and the effective config\n@fricklerhandwerk: Or expose the unmerged env and config\n\n\n\n\n\nWe had discussed earlier that we could drop restrict-eval and let Hydra use it through C++\n\n\n@regnat: Warn when both restrict and NIX_PATH not empty\n\n@fricklerhandwerk: or stop with error, wouldn't break assumptions\n@edolstra: another possibility is not to touch the existing CLI and say it's legacy behavior\n@fricklerhandwerk: not supporting the combination is more explicit, as we currently ignore NIX_PATH silently\n\n\n\n@regnat: too much detail for the meeting\n\n\nAssigned to @fricklerhandwerk and @regnat to figure out.",
+                                    "url": "https://github.com/NixOS/nix/pull/8902#issuecomment-1724260762",
+                                    "author": {
+                                        "login": "fricklerhandwerk"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-19T09:56:18Z",
+                                    "bodyText": "This pull request has been mentioned on NixOS Discourse. There might be relevant details there:\nhttps://discourse.nixos.org/t/2023-09-18-nix-team-meeting-minutes-87/33194/1",
+                                    "url": "https://github.com/NixOS/nix/pull/8902#issuecomment-1725190047",
+                                    "author": {
+                                        "login": "nixos-discourse"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-19T17:51:36Z",
+                                    "bodyText": "@fricklerhandwerk glad to hear that someone is actively thinking about it.\nCan't quite say I understand what is wrong with the approach in the PR, but sounds like it might have something to do with restrict-eval?",
+                                    "url": "https://github.com/NixOS/nix/pull/8902#issuecomment-1726224768",
+                                    "author": {
+                                        "login": "colonelpanic8"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-25T02:16:17Z",
+                                    "bodyText": "@colonelpanic8 the comment with the mess was not referring to your work but the general situation. In #9066 we outlined what Nix should do. Someone still has to spend time on actually writing out those test cases and then making them pass. Would you be willing to work on some of that?\nAfter looking at the various attempts at solving the problem for so long, I'd really not want to merge anything that doesn't test it through.",
+                                    "url": "https://github.com/NixOS/nix/pull/8902#issuecomment-1778378736",
+                                    "author": {
+                                        "login": "fricklerhandwerk"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-25T02:22:48Z",
+                                    "bodyText": "@fricklerhandwerk I'm not quite sure I understand how what I did doesn't do the right thing according to the comments here. I did add a small amount of testing but also happy to do more.",
+                                    "url": "https://github.com/NixOS/nix/pull/8902#issuecomment-1778389030",
+                                    "author": {
+                                        "login": "colonelpanic8"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-25T02:28:57Z",
+                                    "bodyText": "Arrgh the worst typo, I'm so sorry. It was not referring to your work.",
+                                    "url": "https://github.com/NixOS/nix/pull/8902#issuecomment-1778399061",
+                                    "author": {
+                                        "login": "fricklerhandwerk"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-18T09:54:35Z",
+                                    "bodyText": "This pull request has been mentioned on NixOS Discourse. There might be relevant details there:\nhttps://discourse.nixos.org/t/nix-path-is-not-recognized/38404/6",
+                                    "url": "https://github.com/NixOS/nix/pull/8902#issuecomment-1898149805",
+                                    "author": {
+                                        "login": "nixos-discourse"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

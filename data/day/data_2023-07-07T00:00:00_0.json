@@ -1,0 +1,978 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 2,
+                        "title": "Allow usage of more models",
+                        "repository": {
+                            "nameWithOwner": "aemartinez/gpt-latex-translator",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-07-07T20:45:04Z",
+                        "mergedAt": "2023-07-12T13:24:51Z",
+                        "url": "https://github.com/aemartinez/gpt-latex-translator/pull/2",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "FlyingPumba"
+                        },
+                        "editor": null,
+                        "body": "Also, `max_input_tokens` is inferred from the max tokens for the selected model.",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I guess this comes from the old 1300 max_input_tokes for the 4096 of the gpt-3.5-turbo model, right?",
+                                                        "author": {
+                                                            "login": "aemartinez"
+                                                        },
+                                                        "url": "https://github.com/aemartinez/gpt-latex-translator/pull/2#discussion_r1257348215",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7dd2fbb",
+                                                            "authoredDate": "2023-07-07T20:42:40Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Have you actually tried a translation using this new context and prompt? I worry that given that the prompt says \"LaTex code\" instead of \"LaTex text\" the model would also try to translate the LaTex commands. Any thoughts?\nPrompt engineering! wooo!",
+                                                        "author": {
+                                                            "login": "aemartinez"
+                                                        },
+                                                        "url": "https://github.com/aemartinez/gpt-latex-translator/pull/2#discussion_r1257350344",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7dd2fbb",
+                                                            "authoredDate": "2023-07-07T20:42:40Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, I thought that the number 1300 was working very well for the 4096 limitation in the  gpt-3.5-turbo model, so I extrapolated similar numbers for the other models. For example, the gpt-3.5-turbo-16k has a max tokens limitation of 16384, so the max input tokens would be 5079.",
+                                                        "author": {
+                                                            "login": "FlyingPumba"
+                                                        },
+                                                        "url": "https://github.com/aemartinez/gpt-latex-translator/pull/2#discussion_r1257366611",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7dd2fbb",
+                                                            "authoredDate": "2023-07-07T20:42:40Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think we may have that problem in both versions:\n\nhttps://chat.openai.com/share/88280b36-4942-4d5f-88de-d74fb058054b\nhttps://chat.openai.com/share/ae752a56-932a-4d10-a2ee-e01b37252dc0\n\nIn any case, I'll rollback that change, since I liked it better with \"text\" instead of \"code\".",
+                                                        "author": {
+                                                            "login": "FlyingPumba"
+                                                        },
+                                                        "url": "https://github.com/aemartinez/gpt-latex-translator/pull/2#discussion_r1257370063",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7dd2fbb",
+                                                            "authoredDate": "2023-07-07T20:42:40Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Looks good now",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 1571,
+                        "title": "WorkGiver changes",
+                        "repository": {
+                            "nameWithOwner": "Ludeon/RimWorld-ru",
+                            "primaryLanguage": {
+                                "name": "C#"
+                            }
+                        },
+                        "createdAt": "2023-07-07T09:21:43Z",
+                        "mergedAt": "2023-07-22T16:25:00Z",
+                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Reiquard"
+                        },
+                        "editor": {
+                            "login": "Reiquard"
+                        },
+                        "body": "\u0420\u0430\u0431\u043e\u0442\u0443 \u0437\u0430 \u0432\u0435\u0440\u0441\u0442\u0430\u043a\u0430\u043c\u0438 \u0438 \u043d\u0435\u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u0434\u0440\u0443\u0433\u0438\u0435 \u0441\u043b\u0443\u0447\u0430\u0438 \u043e\u0441\u0442\u0430\u0432\u0438\u043b \u0432 \u043d\u0435\u0441\u043e\u0432\u0435\u0440\u0448\u0435\u043d\u043d\u043e\u043c \u0432\u0438\u0434\u0435.\r\n\r\n#1188\r\n#810",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0427\u0430\u0441\u0442\u0438\u0447\u043d\u0430\u044f \u0443\u043d\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044f: \u043e\u0441\u0442\u0430\u0432\u0438\u043b \u0434\u043e\u0441\u0442\u0430\u0432\u043b\u044f\u0442\u044c (workType Construction)\n\u0434\u043b\u044f \u043e\u0442\u043b\u0438\u0447\u0438\u044f \u043e\u0442 \u043f\u0435\u0440\u0435\u043d\u043e\u0441\u0438\u0442\u044c (workType Hauling), \u043f\u043e\u0441\u043a\u043e\u043b\u044c\u043a\u0443 \u0434\u043e\u0441\u0442\u0430\u0432\u043b\u044f\u0442\u044c \u043a \u043c\u0430\u0442\u0435\u0440\u0438\u0430\u043b\u044b \u043c\u043e\u0433\u0443\u0442 \u0434\u043e\u0436\u0435 \u043f\u043e\u0441\u0435\u043b\u0435\u043d\u0446\u044b \u0441 \u043e\u0442\u043a\u043b\u044e\u0447\u0451\u043d\u043d\u044b\u043c \u0432\u0438\u0434\u043e\u043c \u0440\u0430\u0431\u043e\u0442\u044b \u043d\u043e\u0441\u0438\u043b\u044c\u0449\u0438\u043a.\n\n  \n    \n      RimWorld-ru/Core/DefInjected/WorkGiverDef/WorkGivers.xml\n    \n    \n        Lines 102 to 103\n      in\n      f8b4260\n    \n  \n  \n    \n\n        \n          \n           <!-- EN: deliver resources to blueprints --> \n        \n\n        \n          \n           <DeliverResourcesToBlueprints.label>\u043f\u0435\u0440\u0435\u043d\u043e\u0441\u0438\u0442\u044c \u043c\u0430\u0442\u0435\u0440\u0438\u0430\u043b\u044b \u043a \u043f\u0440\u043e\u0435\u043a\u0442\u0430\u043c</DeliverResourcesToBlueprints.label>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255544015",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0421\u043c. #1571 (comment)\n\n  \n    \n      RimWorld-ru/Core/DefInjected/WorkGiverDef/WorkGivers.xml\n    \n    \n        Lines 109 to 110\n      in\n      f8b4260\n    \n  \n  \n    \n\n        \n          \n           <!-- EN: deliver resources to frames --> \n        \n\n        \n          \n           <DeliverResourcesToFrames.label>\u043f\u0435\u0440\u0435\u043d\u043e\u0441\u0438\u0442\u044c \u043c\u0430\u0442\u0435\u0440\u0438\u0430\u043b\u044b \u043a \u0441\u0442\u0440\u043e\u044f\u0449\u0438\u043c\u0441\u044f \u043e\u0431\u044a\u0435\u043a\u0442\u0430\u043c</DeliverResourcesToFrames.label>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255545943",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u041d\u0435\u0441\u043c\u043e\u0442\u0440\u044f \u043d\u0430 \u0442\u043e \u0447\u0442\u043e \u044d\u0442\u0430 \u0441\u0442\u0440\u043e\u043a\u0430 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0435\u0442\u0441\u044f \u0432 \u0442\u043e \u0432\u0440\u0435\u043c\u044f, \u043f\u043e\u043a\u0430 \u0441\u043e\u043e\u0440\u0443\u0436\u0435\u043d\u0438\u0435 \u043d\u0430\u0445\u043e\u0434\u0438\u0442\u0441\u044f \u0435\u0449\u0451 \u0442\u043e\u043b\u044c\u043a\u043e \u0432 \u0441\u0442\u0430\u0434\u0438\u0438 \u043f\u0440\u043e\u0435\u043a\u0442\u0430 \u0438 \u043a \u0441\u0442\u0440\u043e\u0439\u043f\u043b\u043e\u0449\u0430\u0434\u043a\u0435 \u0442\u0440\u0435\u0431\u0443\u0435\u0442\u0441\u044f \u0434\u043e\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u043c\u0430\u0442\u0435\u0440\u0438\u0430\u043b\u044b, \u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u044c \u2014 \u0430 \u0438\u043c\u0435\u043d\u043d\u043e \u0434\u043b\u044f \u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u0435\u0439 \u044d\u0442\u0430 \u0441\u0442\u0440\u043e\u043a\u0430 \u0438 \u0430\u043a\u0442\u0438\u0432\u0438\u0440\u0443\u0435\u0442\u0441\u044f \u2014 \u043f\u043e\u0441\u043b\u0435 \u0434\u043e\u0441\u0442\u0430\u0432\u043a\u0438 \u043c\u0430\u0442\u0435\u0440\u0438\u0430\u043b\u043e\u0432 \u0441\u0440\u0430\u0437\u0443 \u043f\u0440\u0438\u0441\u0442\u0443\u043f\u0430\u0435\u0442 \u043a \u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u044c\u0441\u0442\u0432\u0443 (\u0435\u0441\u043b\u0438 \u0442\u043e\u043b\u044c\u043a\u043e \u0443 \u043d\u0435\u0433\u043e \u043d\u0435\u0442 \u0431\u043e\u043b\u0435\u0435 \u0432\u0430\u0436\u043d\u044b\u0445 \u0437\u0430\u0434\u0430\u0447).\n\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <ConstructDeliverResourcesToBlueprints.gerund>\u043f\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u044c</ConstructDeliverResourcesToBlueprints.gerund>\n          \n          \n            \n              <ConstructDeliverResourcesToBlueprints.gerund>\u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0438\u0442\u044c \u043c\u0430\u0442\u0435\u0440\u0438\u0430\u043b\u0430\u043c\u0438</ConstructDeliverResourcesToBlueprints.gerund>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255557466",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0421\u043c. #1571 (comment) (\u0440\u0430\u0437\u043b\u0438\u0447\u0438\u0435 \u0442\u043e\u043b\u044c\u043a\u043e \u0432 \u0441\u0442\u0430\u0434\u0438\u0438 \u0433\u043e\u0442\u043e\u0432\u043d\u043e\u0441\u0442\u0438 \u043f\u0440\u043e\u0435\u043a\u0442 -> \u0441\u043e\u043e\u0440\u0443\u0436\u0435\u043d\u0438\u0435, \u0442\u0440\u0435\u0431\u0443\u044e\u0449\u0435\u0435 \u0434\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0445 \u043c\u0430\u0442\u0435\u0440\u0438\u0430\u043b\u043e\u0432).\n\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <ConstructDeliverResourcesToFrames.gerund>\u043f\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u044c</ConstructDeliverResourcesToFrames.gerund>\n          \n          \n            \n              <ConstructDeliverResourcesToFrames.gerund>\u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0438\u0442\u044c \u043c\u0430\u0442\u0435\u0440\u0438\u0430\u043b\u0430\u043c\u0438</ConstructDeliverResourcesToFrames.gerund>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255561409",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <ConstructDeliverResourcesToBlueprints.verb>\u043f\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u044c</ConstructDeliverResourcesToBlueprints.verb>\n          \n          \n            \n              <ConstructDeliverResourcesToBlueprints.verb>\u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0438\u0442\u044c \u043c\u0430\u0442\u0435\u0440\u0438\u0430\u043b\u0430\u043c\u0438</ConstructDeliverResourcesToBlueprints.verb>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255564845",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <ConstructDeliverResourcesToFrames.verb>\u043f\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u044c</ConstructDeliverResourcesToFrames.verb>\n          \n          \n            \n              <ConstructDeliverResourcesToFrames.verb>\u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0438\u0442\u044c \u043c\u0430\u0442\u0435\u0440\u0438\u0430\u043b\u0430\u043c\u0438</ConstructDeliverResourcesToFrames.verb>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255566179",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <ConstructFinishFrames.label>\u0437\u0430\u0432\u0435\u0440\u0448\u0430\u0442\u044c \u043f\u043e\u0441\u0442\u0440\u043e\u0439\u043a\u0438</ConstructFinishFrames.label>\n          \n          \n            \n              <ConstructFinishFrames.label>\u0437\u0430\u0432\u0435\u0440\u0448\u0430\u0442\u044c \u0441\u0442\u0440\u043e\u0438\u0442\u0435\u043b\u044c\u0441\u0442\u0432\u043e \u043e\u0431\u044a\u0435\u043a\u0442\u043e\u0432</ConstructFinishFrames.label>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255567080",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u041f\u043e\u043b \u2014 \u043d\u0438\u0436\u043d\u0435\u0435 \u043f\u043e\u043a\u0440\u044b\u0442\u0438\u0435, \u043d\u0430\u0441\u0442\u0438\u043b \u0432 \u0437\u0434\u0430\u043d\u0438\u0438, \u043f\u043e\u043c\u0435\u0449\u0435\u043d\u0438\u0438.\n\u041f\u043e\u0441\u043a\u043e\u043b\u044c\u043a\u0443 \u0437\u0430 \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0435 \u0433\u043e\u0434\u044b \u0432 \u0438\u0433\u0440\u0435 \u043f\u043e\u044f\u0432\u0438\u043b\u0438\u0441\u044c \u0434\u043e\u0440\u043e\u0433\u0438 \u0438 \u043f\u0440\u043e\u0447\u0438\u0435 \u043f\u043e\u043a\u0440\u044b\u0442\u0438\u044f, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u043f\u043e\u043b\u0430\u043c\u0438 \u043d\u0430\u0437\u0432\u0430\u0442\u044c \u0441\u043b\u043e\u0436\u043d\u043e, \u043f\u0440\u0438\u043c\u0435\u043d\u0438\u043b \u043e\u0431\u043e\u0431\u0449\u0430\u044e\u0449\u0435\u0435 \u043f\u043e\u043d\u044f\u0442\u0438\u0435, \u043a\u043e\u0442\u043e\u0440\u044b\u043c \u043d\u0430\u0437\u0432\u0430\u043d\u0430 \u043a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u044f \u0432 \u043c\u0435\u043d\u044e \u043f\u0440\u043e\u0435\u043a\u0442\u044b.\n\n  \n    \n      RimWorld-ru/Core/DefInjected/DesignationCategoryDef/DesignationCategories.xml\n    \n    \n        Lines 4 to 5\n      in\n      f8b4260\n    \n  \n  \n    \n\n        \n          \n           <!-- EN: floors --> \n        \n\n        \n          \n           <Floors.label>\u043f\u043e\u043a\u0440\u044b\u0442\u0438\u0435</Floors.label>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255577934",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u041d\u0430/\u0432 \u043f\u0438\u0432\u043e\u0432\u0430\u0440\u043d\u0435 \u0432\u0430\u0440\u0438\u0442\u0441\u044f \u0441\u0443\u0441\u043b\u043e, \u043a\u043e\u0442\u043e\u0440\u043e\u0435 \u043f\u043e\u0437\u0436\u0435 \u043f\u043e\u043c\u0435\u0449\u0430\u0435\u0442\u0441\u044f \u0432 \u0431\u043e\u0447\u043a\u0438 \u0434\u043b\u044f \u0431\u0440\u043e\u0436\u0435\u043d\u0438\u044f.\n\n  \n    \n      RimWorld-ru/Core/DefInjected/RecipeDef/Alcohol_Beer.xml\n    \n    \n        Lines 4 to 9\n      in\n      f8b4260\n    \n  \n  \n    \n\n        \n          \n           <!-- EN: make wort --> \n        \n\n        \n          \n           <Make_Wort.label>\u0441\u0432\u0430\u0440\u0438\u0442\u044c \u0441\u0443\u0441\u043b\u043e</Make_Wort.label> \n        \n\n        \n          \n           <!-- EN: Make wort from hops. --> \n        \n\n        \n          \n           <Make_Wort.description>\u0421\u0432\u0430\u0440\u0438\u0442\u044c \u0441\u0443\u0441\u043b\u043e \u0438\u0437 \u0445\u043c\u0435\u043b\u044f.</Make_Wort.description> \n        \n\n        \n          \n           <!-- EN: Making wort. --> \n        \n\n        \n          \n           <Make_Wort.jobString>\u0412\u0430\u0440\u0438\u0442 \u0441\u0443\u0441\u043b\u043e</Make_Wort.jobString>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255585093",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u041f\u043e\u0441\u043a\u043e\u043b\u044c\u043a\u0443 \u043d\u0430 \u0440\u0430\u0437\u0434\u0435\u043b\u043e\u0447\u043d\u043e\u043c \u0441\u0442\u043e\u043b\u0435 \u0441 \u0434\u0430\u0432\u043d\u0438\u0445 \u043f\u043e\u0440 \u043d\u0435 \u0442\u043e\u043b\u044c\u043a\u043e \u0440\u0430\u0437\u0434\u0435\u043b\u044b\u0432\u0430\u044e\u0442\u0441\u044f \u0442\u0443\u0448\u0438 \u0438 \u0442\u0435\u043b\u0430, \u043d\u043e \u0442\u0430\u043a\u0436\u0435 \u0434\u0435\u043b\u0430\u0435\u0442\u0441\u044f \u0438 \u043a\u043e\u043c\u0431\u0438\u043a\u043e\u0440\u043c, \u0441\u0447\u0438\u0442\u0430\u044e \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u044b\u043c \u0437\u0430\u043c\u0435\u043d\u0438\u0442\u044c \u0441\u043b\u043e\u0432\u043e \u0440\u0430\u0437\u0434\u0435\u043b\u044b\u0432\u0430\u0442\u044c \u043d\u0430 \u043f\u0435\u0440\u0435\u0440\u0430\u0431\u0430\u0442\u044b\u0432\u0430\u0442\u044c.\n\u041c\u044f\u0441\u043e\u043a\u043e\u043c\u0431\u0438\u043d\u0430\u0442 \u2014 \u043a\u043e\u043c\u0431\u0438\u043d\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u043e\u0435 \u043f\u0440\u043e\u043c\u044b\u0448\u043b\u0435\u043d\u043d\u043e\u0435 \u043f\u0440\u0435\u0434\u043f\u0440\u0438\u044f\u0442\u0438\u0435 \u043f\u043e \u043f\u0435\u0440\u0435\u0440\u0430\u0431\u043e\u0442\u043a\u0435 \u0441\u043a\u043e\u0442\u0430, \u043a\u0440\u043e\u043b\u0438\u043a\u043e\u0432 \u0438 \u043f\u0442\u0438\u0446\u044b \u0434\u043b\u044f \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u0430 \u043c\u044f\u0441\u0430, \u043f\u0438\u0449\u0435\u0432\u044b\u0445, \u043a\u043e\u0440\u043c\u043e\u0432\u044b\u0445 (\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440, \u043c\u044f\u0441\u043e-\u043a\u043e\u0441\u0442\u043d\u0430\u044f \u043c\u0443\u043a\u0430) \u0438\u0437\u0434\u0435\u043b\u0438\u0439, \u043c\u0435\u0434\u0438\u0446\u0438\u043d\u0441\u043a\u0438\u0445 \u043f\u0440\u0435\u043f\u0430\u0440\u0430\u0442\u043e\u0432 (\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440, \u0433\u0435\u043c\u0430\u0442\u043e\u0433\u0435\u043d) \u0438 \u0442. \u0434.\n\u041f\u0435\u0440\u0435\u0440\u0430\u0431\u0430\u0442\u044b\u0432\u0430\u0442\u044c \u2014 \u043f\u0440\u0435\u0432\u0440\u0430\u0449\u0430\u0442\u044c \u0432\u043e \u0447\u0442\u043e-\u043b\u0438\u0431\u043e \u0432 \u043f\u0440\u043e\u0446\u0435\u0441\u0441\u0435 \u0440\u0430\u0431\u043e\u0442\u044b, \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0438 \u25c6 \u041f\u0435\u0440\u0435\u0440\u0430\u0431\u0430\u0442\u044b\u0432\u0430\u0442\u044c \u0437\u0435\u0440\u043d\u043e \u0432 \u043c\u0443\u043a\u0443.\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <DoBillsButcherFlesh.gerund>\u0440\u0430\u0437\u0434\u0435\u043b\u044b\u0432\u0430\u0442\u044c, \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u044f</DoBillsButcherFlesh.gerund>\n          \n          \n            \n              <DoBillsButcherFlesh.gerund>\u043f\u0435\u0440\u0435\u0440\u0430\u0431\u0430\u0442\u044b\u0432\u0430\u0442\u044c, \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u044f</DoBillsButcherFlesh.gerund>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255599872",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0421\u043c. #1571 (comment)\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <DoBillsButcherFlesh.verb>\u0440\u0430\u0437\u0434\u0435\u043b\u044b\u0432\u0430\u0442\u044c</DoBillsButcherFlesh.verb>\n          \n          \n            \n              <DoBillsButcherFlesh.verb>\u043f\u0435\u0440\u0435\u0440\u0430\u0431\u0430\u0442\u044b\u0432\u0430\u0442\u044c</DoBillsButcherFlesh.verb>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255601507",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <DoBillsMedicalAnimalOperation.label>\u043f\u0440\u043e\u0432\u043e\u0434\u0438\u0442\u044c \u043c\u0435\u0434\u043f\u0440\u043e\u0446\u0435\u0434\u0443\u0440\u044b \u0436\u0438\u0432\u043e\u0442\u043d\u044b\u043c</DoBillsMedicalAnimalOperation.label>\n          \n          \n            \n              <DoBillsMedicalAnimalOperation.label>\u043f\u0440\u043e\u0432\u043e\u0434\u0438\u0442\u044c \u043c\u0435\u0434\u0438\u0446\u0438\u043d\u0441\u043a\u0438\u0435 \u043f\u0440\u043e\u0446\u0435\u0434\u0443\u0440\u044b \u0436\u0438\u0432\u043e\u0442\u043d\u044b\u043c</DoBillsMedicalAnimalOperation.label>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255606053",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <DoBillsMedicalHumanOperation.label>\u043f\u0440\u043e\u0432\u043e\u0434\u0438\u0442\u044c \u043c\u0435\u0434\u043f\u0440\u043e\u0446\u0435\u0434\u0443\u0440\u044b \u043b\u044e\u0434\u044f\u043c</DoBillsMedicalHumanOperation.label>\n          \n          \n            \n              <DoBillsMedicalHumanOperation.label>\u043f\u0440\u043e\u0432\u043e\u0434\u0438\u0442\u044c \u043c\u0435\u0434\u0438\u0446\u0438\u043d\u0441\u043a\u0438\u0435 \u043f\u0440\u043e\u0446\u0435\u0434\u0443\u0440\u044b \u043b\u044e\u0434\u044f\u043c</DoBillsMedicalHumanOperation.label>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255606654",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <DoBillsRefinery.gerund>\u0440\u0430\u0431\u043e\u0442\u0430\u0442\u044c, \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u044f</DoBillsRefinery.gerund>\n          \n          \n            \n              <DoBillsRefinery.gerund>\u043f\u0435\u0440\u0435\u0433\u043e\u043d\u044f\u0442\u044c, \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u044f</DoBillsRefinery.gerund>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255608603",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <DoBillsRefinery.verb>\u0440\u0430\u0431\u043e\u0442\u0430\u0442\u044c</DoBillsRefinery.verb>\n          \n          \n            \n              <DoBillsRefinery.verb>\u043f\u0435\u0440\u0435\u0433\u043e\u043d\u044f\u0442\u044c</DoBillsRefinery.verb>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255609135",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u041e\u0431\u0440\u0430\u0442\u0438\u0442\u0435 \u0432\u043d\u0438\u043c\u0430\u043d\u0438\u0435, \u0447\u0442\u043e \u0440\u0435\u043c\u043e\u043d\u0442 \u043d\u0435\u0438\u0441\u043f\u0440\u0430\u0432\u043d\u043e\u0441\u0442\u0438\u00a0\u2014 \u043d\u0435 \u0442\u043e \u0436\u0435 \u0441\u0430\u043c\u043e\u0435, \u0447\u0442\u043e \u0443\u0441\u0442\u0440\u0430\u043d\u0435\u043d\u0438\u0435 \u043f\u043e\u0432\u0440\u0435\u0436\u0434\u0435\u043d\u0438\u0439.\n\n  \n    \n      RimWorld-ru/Core/DefInjected/StatDef/Stats_Pawns_WorkGeneral.xml\n    \n    \n         Line 42\n      in\n      f8b4260\n    \n  \n  \n    \n\n        \n          \n           <FixBrokenDownBuildingSuccessChance.description>\u0412\u0435\u0440\u043e\u044f\u0442\u043d\u043e\u0441\u0442\u044c, \u0441 \u043a\u043e\u0442\u043e\u0440\u043e\u0439 \u043f\u0435\u0440\u0441\u043e\u043d\u0430\u0436 \u0441\u043c\u043e\u0436\u0435\u0442 \u043f\u043e\u0447\u0438\u043d\u0438\u0442\u044c \u0441\u043b\u043e\u043c\u0430\u043d\u043d\u044b\u0439 \u043c\u0435\u0445\u0430\u043d\u0438\u0437\u043c \u0438\u043b\u0438 \u043f\u0440\u0438\u0431\u043e\u0440, \u0438\u043c\u0435\u044f \u0432 \u0440\u0443\u043a\u0430\u0445 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442.\\n\\n\u041d\u0435\u0443\u0434\u0430\u0447\u0430 \u043f\u0440\u0438\u0432\u0435\u0434\u0451\u0442 \u043a \u043f\u043e\u0442\u0435\u0440\u0435 \u0432\u0440\u0435\u043c\u0435\u043d\u0438 \u0438 \u0447\u0430\u0441\u0442\u0438 \u0440\u0435\u0441\u0443\u0440\u0441\u043e\u0432.\\n\u041e\u0431\u0440\u0430\u0442\u0438\u0442\u0435 \u0432\u043d\u0438\u043c\u0430\u043d\u0438\u0435, \u0447\u0442\u043e \u0440\u0435\u043c\u043e\u043d\u0442 \u043d\u0435\u0438\u0441\u043f\u0440\u0430\u0432\u043d\u043e\u0441\u0442\u0438\u00a0\u2014 \u043d\u0435 \u0442\u043e \u0436\u0435 \u0441\u0430\u043c\u043e\u0435, \u0447\u0442\u043e \u0443\u0441\u0442\u0440\u0430\u043d\u0435\u043d\u0438\u0435 \u043f\u043e\u0432\u0440\u0435\u0436\u0434\u0435\u043d\u0438\u0439.</FixBrokenDownBuildingSuccessChance.description>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255614469",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0414\u043b\u044f \u0441\u043e\u0433\u043b\u0430\u0441\u043e\u0432\u0430\u043d\u043d\u043e\u0441\u0442\u0438 \u043f\u043e \u043f\u0430\u0434\u0435\u0436\u0430\u043c.\n\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <FixBrokenDownBuilding.gerund>\u0443\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c \u0438\u0441\u043f\u0440\u0430\u0432\u043d\u044b\u0435 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u0432</FixBrokenDownBuilding.gerund>\n          \n          \n            \n              <FixBrokenDownBuilding.gerund>\u0437\u0430\u043c\u0435\u043d\u0438\u0432 \u043d\u0435\u0438\u0441\u043f\u0440\u0430\u0432\u043d\u044b\u0435 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b, \u043f\u043e\u0447\u0438\u043d\u0438\u0442\u044c</FixBrokenDownBuilding.gerund>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255615872",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0414\u043b\u044f \u0441\u043e\u0433\u043b\u0430\u0441\u043e\u0432\u0430\u043d\u043d\u043e\u0441\u0442\u0438 \u043f\u043e \u043f\u0430\u0434\u0435\u0436\u0430\u043c.\n\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <FixBrokenDownBuilding.verb>\u0443\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c \u0438\u0441\u043f\u0440\u0430\u0432\u043d\u044b\u0435 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b \u0432</FixBrokenDownBuilding.verb>\n          \n          \n            \n              <FixBrokenDownBuilding.verb>\u0437\u0430\u043c\u0435\u043d\u0438\u0432 \u043d\u0435\u0438\u0441\u043f\u0440\u0430\u0432\u043d\u044b\u0435 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b, \u043f\u043e\u0447\u0438\u043d\u0438\u0442\u044c</FixBrokenDownBuilding.verb>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255616007",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0420\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u0430\u0442\u044c \u2014 \u0433\u043e\u0440\u043d. \u0432\u044b\u0431\u0440\u0430\u0442\u044c \u0431\u0435\u0437 \u043e\u0441\u0442\u0430\u0442\u043a\u0430 (\u043f\u043e\u043b\u0435\u0437\u043d\u044b\u0435 \u0438\u0441\u043a\u043e\u043f\u0430\u0435\u043c\u044b\u0435).",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255622592",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0412 \u0438\u0437\u043d\u0430\u0447\u0430\u043b\u044c\u043d\u043e\u043c \u0432\u0430\u0440\u0438\u0430\u043d\u0442\u0435 \u0432\u043e\u0437\u043c\u043e\u0436\u0435\u043d \u0441\u043b\u0443\u0447\u0430\u0439: \u0414\u043e\u0431\u044b\u0432\u0430\u0442\u044c \u0437\u0430\u043b\u0435\u0436\u0438 \u0441\u0442\u0430\u043b\u0438, \u0445\u043e\u0442\u044f \u0434\u043e\u0431\u044b\u0432\u0430\u0435\u043c \u043c\u044b \u043d\u0435 \u0437\u0430\u043b\u0435\u0436\u0438, \u0430 \u0441\u0442\u0430\u043b\u044c \u0438\u0437 \u0437\u0430\u043b\u0435\u0436\u0435\u0439.",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255623543",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0427\u0430\u0441\u0442\u044c \u0441\u043e\u0441\u0442\u0430\u0432\u043d\u043e\u0433\u043e \u043f\u0440\u0435\u0434\u043b\u043e\u0436\u0435\u043d\u0438\u044f, \u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440, \u041f\u043e\u0442\u0443\u0448\u0438\u0442\u044c \u043e\u0433\u043e\u043d\u044c: \u041a\u043e\u0442 1\n\u0417\u0430\u0447\u0430\u0441\u0442\u0443\u044e \u043f\u043e\u0434\u0441\u0442\u0430\u0432\u043b\u044f\u044e\u0442\u0441\u044f \u043d\u0435\u0441\u043a\u043b\u043e\u043d\u044f\u0435\u043c\u044b\u0435 \u043d\u0430\u0437\u0432\u0430\u043d\u0438\u044f, \u0442\u0430\u043a\u0438\u0435 \u043a\u0430\u043a \u043a\u043e\u0442 1, \u0446\u044b\u043f\u043b\u0451\u043d\u043e\u043a 27.\n\u0423\u043d\u0438\u0444\u0438\u0446\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0441 \u043f\u0440\u0438\u043a\u0430\u0437\u043e\u043c \u043e\u0431\u0449\u0435\u0433\u043e \u0432\u0438\u0434\u0430 (\u041f\u041a\u041c \u043f\u043e \u0433\u043e\u0440\u044f\u0449\u0435\u0439 \u0442\u0440\u0430\u0432\u0435, \u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440): \u041f\u043e\u0442\u0443\u0448\u0438\u0442\u044c \u043e\u0433\u043e\u043d\u044c\n\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <FireOn>\u043e\u0433\u043e\u043d\u044c: {1_label}</FireOn> <!-- \u0427\u0430\u0441\u0442\u044c \u0441\u043e\u0441\u0442\u0430\u0432\u043d\u043e\u0433\u043e \u043f\u0440\u0435\u0434\u043b\u043e\u0436\u0435\u043d\u0438\u044f, \u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440, \"\u041f\u043e\u0442\u0443\u0448\u0438\u0442\u044c \u043e\u0433\u043e\u043d\u044c: \u041a\u043e\u0442 1\" -->\n          \n          \n            \n              <FireOn>\u043e\u0433\u043e\u043d\u044c \u043d\u0430 {lookup: {1_label}; Case; 5}</FireOn>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255632294",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0412 \u043a\u043e\u043d\u0435\u0446 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u043e\u043a\u0438 \u043f\u043e\u0434\u0441\u0442\u0430\u0432\u043b\u044f\u0435\u0442\u0441\u044f \u0434\u0440\u0435\u0432\u043e \u0413\u0430\u0443\u0440\u0430\u043d\u043b\u0435\u043d \u0432 \u0432\u0438\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u043c \u043f\u0430\u0434\u0435\u0436\u0435, \u0447\u0442\u043e \u0434\u043b\u044f \u0441\u0440.\u0440. \u0441\u043e\u0432\u043f\u0430\u0434\u0430\u0435\u0442 \u0441 \u0438\u043c\u0435\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u043c.\n\n\u0410\u043b\u044c\u0442\u0435\u0440\u043d\u0430\u0442\u0438\u0432\u0430\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <ChangeTreeMode.gerund>\u0441\u043c\u0435\u043d\u0438\u0442\u044c \u043a\u0430\u0441\u0442\u0443 \u0434\u0440\u0438\u0430\u0434, \u043a\u043e\u0442\u043e\u0440\u044b\u0445 \u043f\u043e\u0440\u043e\u0436\u0434\u0430\u0435\u0442</ChangeTreeMode.gerund>\n          \n          \n            \n              <ChangeTreeMode.gerund>\u0441\u043c\u0435\u043d\u0438\u0442\u044c \u043a\u0430\u0441\u0442\u0443 \u0434\u0440\u0438\u0430\u0434 \u0434\u043b\u044f:</ChangeTreeMode.gerund>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255636880",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0421\u043c. #1571 (comment)",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1255637515",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u041f\u043e\u0447\u0435\u043c\u0443 \u0443\u0434\u0430\u043b\u0435\u043d\u043e \"\u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u044f\"? \u0418 \u043a\u0430\u043a \u044d\u0442\u043e \u0431\u0443\u0434\u0435\u0442 \u0432\u044b\u0433\u043b\u044f\u0434\u0435\u0442\u044c \u0432 \u0438\u0433\u0440\u0435?",
+                                                        "author": {
+                                                            "login": "Elevator89"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1257316443",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n              <DoctorRescue.label>\u0441\u043f\u0430\u0441\u0430\u0442\u044c \u0441\u0440\u0430\u0436\u0451\u043d\u043d\u044b\u0445 \u0441\u043e\u044e\u0437\u043d\u0438\u043a\u043e\u0432</DoctorRescue.label>\n          \n          \n            \n              <DoctorRescue.label>\u0441\u043f\u0430\u0441\u0430\u0442\u044c \u043e\u0431\u0435\u0437\u0434\u0432\u0438\u0436\u0435\u043d\u043d\u044b\u0445 \u0441\u043e\u044e\u0437\u043d\u0438\u043a\u043e\u0432</DoctorRescue.label>",
+                                                        "author": {
+                                                            "login": "Elevator89"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1257316623",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u042f \u0441\u043e\u0431\u0438\u0440\u0430\u044e\u0441\u044c \u043f\u0435\u0440\u0435\u0434\u0435\u043b\u0430\u0442\u044c lookup \u0442\u0430\u043a, \u0447\u0442\u043e\u0431\u044b \u043e\u043d \u043f\u043e\u0441\u0442\u0435\u043f\u0435\u043d\u043d\u043e \u043e\u0431\u0440\u0435\u0437\u0430\u043b \u0438\u0441\u043a\u043e\u043c\u044b\u0435 \u0444\u0440\u0430\u0437\u044b \u0441 \u0445\u0432\u043e\u0441\u0442\u0430. \u041d\u0430\u043f\u0440\u0438\u043c\u0435\u0440, \u0447\u0442\u043e\u0431\u044b \u0432\u043c\u0435\u0441\u0442\u043e \u0444\u0440\u0430\u0437\u044b \"\u043d\u043e\u0436 \u0438\u0437 \u0441\u0442\u0430\u043b\u0438 (\u043d\u043e\u0440\u043c\u0430\u043b\u044c\u043d\u043e)\" lookup \u0432 \u043a\u043e\u043d\u0435\u0447\u043d\u043e\u043c \u0438\u0442\u043e\u0433\u0435 \u043d\u0430\u0448\u0451\u043b \u043f\u0440\u043e\u0441\u0442\u043e \"\u043d\u043e\u0436\"\n\u0418 \u0432 \u0442\u0432\u043e\u0451\u043c \u043f\u0440\u0438\u043c\u0435\u0440\u0435 \u044d\u0442\u0430 \u0444\u0438\u0447\u0430 \u0442\u043e\u0436\u0435 \u0431\u0443\u0434\u0435\u0442 \u0440\u0430\u0431\u043e\u0442\u0430\u0442\u044c, \u043a\u043e\u0433\u0434\u0430 \u0440\u0430\u0437\u0440\u0430\u0431\u044b \u0432\u0441\u0442\u0440\u043e\u044f\u0442 \u043d\u043e\u0432\u0443\u044e \u0444\u0443\u043d\u043a\u0446\u0438\u044e",
+                                                        "author": {
+                                                            "login": "Elevator89"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1257317454",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u041f\u0435\u0440\u0432\u044b\u0439 \u0432\u0430\u0440\u0438\u0430\u043d\u0442 \u043b\u0443\u0447\u0448\u0435, \u043d\u043e \u043d\u0430\u0434\u043e \u0431\u044b \u043d\u0430\u043f\u0438\u0441\u0430\u0442\u044c \u043a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <ChangeTreeMode.gerund>\u0441\u043c\u0435\u043d\u0438\u0442\u044c \u043a\u0430\u0441\u0442\u0443 \u0434\u0440\u0438\u0430\u0434, \u043a\u043e\u0442\u043e\u0440\u044b\u0445 \u043f\u043e\u0440\u043e\u0436\u0434\u0430\u0435\u0442</ChangeTreeMode.gerund>\n          \n          \n            \n              <ChangeTreeMode.gerund>\u0441\u043c\u0435\u043d\u0438\u0442\u044c \u043a\u0430\u0441\u0442\u0443 \u0434\u0440\u0438\u0430\u0434, \u043a\u043e\u0442\u043e\u0440\u044b\u0445 \u043f\u043e\u0440\u043e\u0436\u0434\u0430\u0435\u0442</ChangeTreeMode.gerund> <!-- \u0412 \u043a\u043e\u043d\u0435\u0446 \u043f\u043e\u0434\u0441\u0442\u0430\u0432\u043b\u044f\u0435\u0442\u0441\u044f \u0434\u0440\u0435\u0432\u043e \u0413\u0430\u0443\u0440\u0430\u043d\u043b\u0435\u043d \u0432 \u0432\u0438\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u043c \u043f\u0430\u0434\u0435\u0436\u0435, \u0447\u0442\u043e \u0434\u043b\u044f \u0441\u0440.\u0440. \u0441\u043e\u0432\u043f\u0430\u0434\u0430\u0435\u0442 \u0441 \u0438\u043c\u0435\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u043c -->",
+                                                        "author": {
+                                                            "login": "Elevator89"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1257318272",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0415\u0441\u043b\u0438 \u043f\u0435\u0440\u0441\u043e\u043d\u0430\u0436 \u0432\u0441\u0451 \u0440\u0430\u0432\u043d\u043e \u0431\u0443\u0434\u0435\u0442 \u0441\u0442\u0440\u043e\u0438\u0442\u044c, \u0442\u043e \u0434\u043b\u044f \u0438\u0433\u0440\u043e\u043a\u043e\u0432 \u0431\u0443\u0434\u0435\u0442 \u0432\u0441\u0451 \u0436\u0435 \u043f\u043e\u043d\u044f\u0442\u043d\u0435\u0435 \u0432\u0430\u0440\u0438\u0430\u043d\u0442 \"\u043f\u043e\u0441\u0442\u0440\u043e\u0438\u0442\u044c\".",
+                                                        "author": {
+                                                            "login": "Elevator89"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1257319941",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0417\u0430\u043c\u0435\u043d\u0430 \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u0430: \u043c\u0435\u043d\u044f \u0442\u043e\u0436\u0435 \u043f\u043e\u0441\u0442\u043e\u044f\u043d\u043d\u043e \u043d\u0430\u043f\u0440\u044f\u0433\u0430\u0435\u0442, \u0447\u0442\u043e \u043a\u043e\u043c\u0431\u0438\u043a\u043e\u0440\u043c \u043d\u0430\u0434\u043e \u0440\u0430\u0437\u0434\u0435\u043b\u044b\u0432\u0430\u0442\u044c, \u0430 \u043d\u0435 \u0433\u043e\u0442\u043e\u0432\u0438\u0442\u044c, \u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440\n\u041d\u043e \u043c\u0435\u043d\u044f \u043e\u0441\u0442\u0430\u043d\u0430\u0432\u043b\u0438\u0432\u0430\u0435\u0442, \u0447\u0442\u043e \u0441\u0442\u043e\u043b \u0432\u0441\u0451-\u0442\u0430\u043a\u0438 \u0440\u0430\u0437\u0434\u0435\u043b\u043e\u0447\u043d\u044b\u0439, \u0430 \u043d\u0435 \"\u043f\u0435\u0440\u0435\u0440\u0430\u0431\u043e\u0442\u043e\u0447\u043d\u044b\u0439\"\n\u0421\u043f\u043e\u0440\u043d\u044b\u0439 \u0432\u043e\u043f\u0440\u043e\u0441, \u0432 \u043e\u0431\u0449\u0435\u043c",
+                                                        "author": {
+                                                            "login": "Elevator89"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1257322905",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0414\u043b\u0438\u043d\u043d\u043e \u0441\u043b\u0438\u0448\u043a\u043e\u043c, \u043a\u0430\u043a \u043c\u043d\u0435 \u043a\u0430\u0436\u0435\u0442\u0441\u044f",
+                                                        "author": {
+                                                            "login": "Elevator89"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1257322954",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0414\u0435\u0435\u043f\u0440\u0438\u0447\u0430\u0441\u0442\u043d\u044b\u0439 \u043e\u0431\u043e\u0440\u043e\u0442 \u0432 \u043f\u0443\u043d\u043a\u0442\u0435 \u043a\u043e\u043d\u0442\u0435\u043a\u0441\u0442\u043d\u043e\u0433\u043e \u043c\u0435\u043d\u044e \u0432\u044b\u0433\u043b\u044f\u0434\u0438\u0442 \u043d\u0435 \u043e\u0447\u0435\u043d\u044c \u0445\u043e\u0440\u043e\u0448\u043e. \u041f\u0435\u0440\u0432\u044b\u0439 \u0432\u0430\u0440\u0438\u0430\u043d\u0442 \u043f\u043e\u043b\u0443\u0447\u0448\u0435 \u0431\u0443\u0434\u0435\u0442",
+                                                        "author": {
+                                                            "login": "Elevator89"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1257323290",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u041d\u043e \u043c\u0435\u043d\u044f \u043e\u0441\u0442\u0430\u043d\u0430\u0432\u043b\u0438\u0432\u0430\u0435\u0442, \u0447\u0442\u043e \u0441\u0442\u043e\u043b \u0432\u0441\u0451-\u0442\u0430\u043a\u0438 \u0440\u0430\u0437\u0434\u0435\u043b\u043e\u0447\u043d\u044b\u0439, \u0430 \u043d\u0435 \"\u043f\u0435\u0440\u0435\u0440\u0430\u0431\u043e\u0442\u043e\u0447\u043d\u044b\u0439\"\n\n\u042f \u043f\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0438\u043b \u0431\u044b \u043e\u0431\u0435\u0434\u0435\u043d\u043d\u044b\u0439 \u0441\u0442\u043e\u043b, \u043d\u0430 \u043a\u043e\u0442\u043e\u0440\u043e\u043c \u043d\u0438\u043a\u0442\u043e \u043d\u0435 \u0437\u0430\u043f\u0440\u0435\u0449\u0430\u0435\u0442 \u0437\u0430\u043d\u0438\u043c\u0430\u0442\u044c\u0441\u044f, \u043a \u043f\u0440\u0438\u043c\u0435\u0440\u0443, \u0440\u0443\u043a\u043e\u0434\u0435\u043b\u0438\u0435\u043c.",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1257358538",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u041f\u043e\u0447\u0435\u043c\u0443 \u0443\u0434\u0430\u043b\u0435\u043d\u043e \"\u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u044f\"?\n\n\u0414\u043b\u044f \u0441\u043e\u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0438\u044f \u043e\u0440\u0438\u0433\u0438\u043d\u0430\u043b\u0443: cooking at (gerund) \u043f\u0440\u043e\u0442\u0438\u0432 cook (verb)\n\n\u0418 \u043a\u0430\u043a \u044d\u0442\u043e \u0431\u0443\u0434\u0435\u0442 \u0432\u044b\u0433\u043b\u044f\u0434\u0435\u0442\u044c \u0432 \u0438\u0433\u0440\u0435?\n\n\u0415\u0441\u043b\u0438 \u043d\u0435\u0434\u043e\u0441\u0442\u0430\u0442\u043e\u0447\u043d\u043e \u0435\u0434\u044b:\n\n\u0415\u0441\u043b\u0438 \u043d\u0435\u0434\u043e\u0441\u0442\u0430\u0442\u043e\u0447\u043d\u043e \u0440\u0430\u0437\u0432\u0438\u0442 \u043d\u0430\u0432\u044b\u043a:\n\n\u0412 \u043e\u0431\u0449\u0435\u043c \u0441\u043b\u0443\u0447\u0430\u0435 \u043f\u043e\u0434\u0441\u0442\u0430\u0432\u043b\u044f\u0435\u0442\u0441\u044f \u043d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0440\u0435\u0446\u0435\u043f\u0442\u0430, \u0430 \u0437\u0430\u0442\u0435\u043c \u043f\u0440\u0438\u0447\u0438\u043d\u0430",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1257366338",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://chat.openai.com/share/4081d39a-5575-4c90-b47f-b8804ea9b817\n\u041d\u0443, \u043a\u0440\u043e\u043c\u0435 \u0448\u0443\u0442\u043e\u043a, \u043f\u043e\u0445\u043e\u0436\u0435, \u0447\u0442\u043e \"\u043f\u0435\u0440\u0435\u0440\u0430\u0431\u0430\u0442\u044b\u0432\u0430\u0442\u044c\" - \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043b\u044c\u043d\u043e \u0435\u0434\u0438\u043d\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0439 \u0431\u043e\u043b\u0435\u0435-\u043c\u0435\u043d\u0435\u0435 \u0432\u043c\u0435\u043d\u044f\u0435\u043c\u044b\u0439 \u0432\u0430\u0440\u0438\u0430\u043d\u0442 \u0434\u043b\u044f \u043e\u0431\u043e\u0438\u0445 \u0441\u043b\u0443\u0447\u0430\u0435\u0432.\n\u041d\u043e \u043c\u0435\u043d\u044f \u043d\u0435\u043c\u043d\u043e\u0433\u043e \u0441\u043c\u0443\u0449\u0430\u0435\u0442 \u043f\u043e\u043f\u044b\u0442\u043a\u0430 \u0440\u0435\u0448\u0438\u0442\u044c \u043f\u0440\u043e\u0431\u043b\u0435\u043c\u0443, \u0441\u043e\u0437\u0434\u0430\u043d\u043d\u0443\u044e \u0441\u0430\u043c\u0438\u043c \u0438\u0441\u0442\u043e\u0447\u043d\u0438\u043a\u043e\u043c. \u0422\u0430\u043a \u043a\u0430\u043a \u044d\u0442\u043e \u0430\u0432\u0442\u043e\u0440\u0441\u043a\u043e\u0435 \u0438\u043c\u043f\u043b\u0438\u0446\u0438\u0442\u043d\u043e\u0435 \u0440\u0435\u0448\u0435\u043d\u0438\u0435 \u043e\u0441\u0442\u0430\u0432\u0438\u0442\u044c \"prioritize butchering [kibble] at table\".\n\n\u0414\u043b\u044f \u044d\u0442\u043e\u0433\u043e \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u043e\u0441\u043e\u0431\u043e \u043d\u0435\u0442 \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0430, \u0442\u0430\u043a \u043a\u0430\u043a \u0432\u044b\u0440\u0430\u0436\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0441\u0442\u043e \u043d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e\u0435.\nhttps://context.reverso.net/translation/english-russian/to+butcher+kibble\n\u041d\u043e \u043e\u0434\u0438\u043d \u0438\u0437 \u0432\u0430\u0440\u0438\u0430\u043d\u0442\u043e\u0432:\nI can't wait to butcher that hog.\n\u0412\u044b\u0445\u043e\u0434\u0438, \u0448\u043b\u044f\u0445\u0442\u0438\u0447, \u0430 \u0442\u043e \u043c\u043d\u0435 \u043d\u0435 \u0442\u0435\u0440\u043f\u0438\u0442\u0441\u044f \u0437\u0430\u043d\u044f\u0442\u044c\u0441\u044f \u0442\u0435\u043c \u043a\u0430\u0431\u0430\u043d\u043e\u043c.\n\n\u043d\u0430\u0442\u043e\u043b\u043a\u043d\u0443\u043b \u043c\u0435\u043d\u044f \u043d\u0430 \u043c\u044b\u0441\u043b\u044c, \u0447\u0442\u043e \u0435\u0441\u043b\u0438 \u0443\u0436 \u043f\u044b\u0442\u0430\u0442\u044c\u0441\u044f \u043e\u0431\u043e\u0431\u0449\u0438\u0442\u044c \u043d\u0435\u043e\u0431\u043e\u0431\u0449\u0430\u0435\u043c\u043e\u0435, \u0442\u043e \u043c\u043e\u0436\u043d\u043e \u043f\u043e\u043f\u0440\u043e\u0431\u043e\u0432\u0430\u0442\u044c \u0432\u044b\u0439\u0442\u0438 \u0435\u0449\u0451 \u043d\u0430 \u0443\u0440\u043e\u0432\u0435\u043d\u044c \u0432\u044b\u0448\u0435, \u0438 \u0441\u0434\u0435\u043b\u0430\u0442\u044c \u043f\u0440\u043e\u0441\u0442\u043e \"\u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c\".\n\n\u041d\u043e \u044f \u043d\u0435 \u0443\u0432\u0435\u0440\u0435\u043d \u0442\u043e\u0447\u043d\u043e, \u043a\u0430\u043a \u044d\u0442\u043e \u043f\u043e\u0442\u043e\u043c \u0441\u043e\u0439\u0434\u0451\u0442\u0441\u044f \u0441 <DoBillsButcherFlesh.verb>, \u0442\u0430\u043a \u043a\u0430\u043a \u043d\u0435 \u0437\u043d\u0430\u044e, \u0433\u0434\u0435 \u043e\u043d \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0435\u0442\u0441\u044f.",
+                                                        "author": {
+                                                            "login": "Dimonasdf"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1257539457",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0421\u043e\u0433\u043b\u0430\u0441\u0435\u043d \u0441 @Dimonasdf",
+                                                        "author": {
+                                                            "login": "kamadz"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1257989191",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0423\u043c\u0435\u0449\u0430\u0435\u0442\u0441\u044f \u043d\u043e\u0440\u043c\u0430\u043b\u044c\u043d\u043e \u0432 \u044e\u0438?",
+                                                        "author": {
+                                                            "login": "kamadz"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1257992501",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0425\u043e\u0440\u043e\u0448\u043e, \u0442\u043e\u0433\u0434\u0430 \u043a\u043e\u043c\u043c\u0438\u0447\u0443 \"\u043f\u0435\u0440\u0435\u0440\u0430\u0431\u0430\u0442\u044b\u0432\u0430\u0442\u044c\"",
+                                                        "author": {
+                                                            "login": "Elevator89"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1258728146",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u0421\u043e\u0433\u043b\u0430\u0448\u0443\u0441\u044c \u0441 \u043f\u043e\u0442\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0439 \u043f\u043e\u0437\u0438\u0446\u0438\u0435\u0439, \u0447\u0442\u043e, \u043d\u0435\u0441\u043c\u043e\u0442\u0440\u044f \u043d\u0430 \u043d\u0430\u043b\u0438\u0447\u0438\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044e\u0449\u0438\u0445 \u043d\u0435 \u0443\u043c\u0435\u0449\u0430\u044e\u0449\u0438\u0445\u0441\u044f \u0432 \u043e\u0434\u043d\u043e\u0439 \u0441\u0442\u0440\u043e\u043a\u0435 \u0441\u043b\u043e\u0432\u043e\u0441\u043e\u0447\u0435\u0442\u0430\u043d\u0438\u0439, \u043d\u0435 \u0441\u0442\u043e\u0438\u0442 \u043f\u043b\u043e\u0434\u0438\u0442\u044c \u043d\u043e\u0432\u044b\u0435, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u043c\u043e\u0436\u043d\u043e \u0432\u0438\u0434\u043e\u0438\u0437\u043c\u0435\u043d\u0438\u0442\u044c \u043d\u0435 \u0432 \u0443\u0449\u0435\u0440\u0431 \u0441\u043c\u044b\u0441\u043b\u0443.\n\u0418\u0437\u043c\u0435\u043d\u0438\u043b \u043f\u0440\u0435\u0434\u043b\u043e\u0436\u0435\u043d\u0438\u0435 \u0432\u044b\u0448\u0435 \u2014 \u043f\u0435\u0440\u0435\u043d\u043e\u0441\u0430 \u0441\u0442\u0440\u043e\u043a\u0438 \u0432 \u0438\u0437\u043c\u0435\u043d\u0451\u043d\u043d\u043e\u043c \u0432\u0430\u0440\u0438\u0430\u043d\u0442\u0435 \u043d\u0435\u0442.\n\u0414\u043e\u0431\u0430\u0432\u043b\u044e \u0435\u0449\u0451 \u043f\u0430\u0440\u0443 \u0432\u0430\u0440\u0438\u0430\u043d\u0442\u043e\u0432, \u043c\u043e\u0436\u0435\u0442 \u043a\u043e\u043c\u0443 \u043f\u043e \u0432\u043a\u0443\u0441\u0443 \u043f\u0440\u0438\u0434\u0443\u0442\u0441\u044f:\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <ConstructFinishFrames.label>\u0437\u0430\u0432\u0435\u0440\u0448\u0430\u0442\u044c \u043f\u043e\u0441\u0442\u0440\u043e\u0439\u043a\u0438</ConstructFinishFrames.label>\n          \n          \n            \n              <ConstructFinishFrames.label>\u0437\u0430\u0432\u0435\u0440\u0448\u0430\u0442\u044c \u043f\u043e\u0441\u0442\u0440\u043e\u0439\u043a\u0443 \u0441\u043e\u043e\u0440\u0443\u0436\u0435\u043d\u0438\u0439</ConstructFinishFrames.label>\n          \n      \n    \n    \n  \n\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              <ConstructFinishFrames.label>\u0437\u0430\u0432\u0435\u0440\u0448\u0430\u0442\u044c \u043f\u043e\u0441\u0442\u0440\u043e\u0439\u043a\u0438</ConstructFinishFrames.label>\n          \n          \n            \n              <ConstructFinishFrames.label>\u0437\u0430\u0432\u0435\u0440\u0448\u0430\u0442\u044c \u043f\u043e\u0441\u0442\u0440\u043e\u0439\u043a\u0443 \u043e\u0431\u044a\u0435\u043a\u0442\u043e\u0432</ConstructFinishFrames.label>",
+                                                        "author": {
+                                                            "login": "Reiquard"
+                                                        },
+                                                        "url": "https://github.com/Ludeon/RimWorld-ru/pull/1571#discussion_r1258912979",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1e83b53",
+                                                            "authoredDate": "2023-07-07T09:15:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjI=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 2
+        }
+    }
+}

@@ -1,0 +1,1088 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 174,
+                        "title": "[backend] Add access level and password to Room model",
+                        "repository": {
+                            "nameWithOwner": "usatie/pong",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-12-23T09:25:28Z",
+                        "mergedAt": "2023-12-26T04:53:08Z",
+                        "url": "https://github.com/usatie/pong/pull/174",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "usatie"
+                        },
+                        "editor": {
+                            "login": "usatie"
+                        },
+                        "body": "\u307e\u305a\u306fbackend\u3067private/protected/public\u306a\u3069\u306e\u30a2\u30af\u30bb\u30b9\u30ec\u30d9\u30eb\u306b\u95a2\u3059\u308b\u30ed\u30b8\u30c3\u30af\u3092\u5b9f\u88c5\u3057\u3066\u3044\u304d\u307e\u3059\u3002\r\n\r\n## \u30e2\u30c7\u30eb\u306b\u3064\u3044\u3066\u5c11\u3057\u8003\u3048\u3066\u307e\u3068\u3081\u305f\u3082\u306e\r\nhttps://usatie.notion.site/Public-Private-Protected-channel-5b21d8a3dc2348f09b0d1c5d9d3176ba?pvs=4\r\n\r\n## \u5b9f\u88c5\u3057\u305f\u3082\u306e\r\nRoom\u3068UserOnRoom\u306b\u95a2\u3059\u308b\u4ee5\u4e0b\u305d\u308c\u305e\u308c\u306e\u30a8\u30f3\u30c9\u30dd\u30a4\u30f3\u30c8\u3092\u3001\u30c6\u30b9\u30c8\u3068\u4e00\u7dd2\u306b\u5b9f\u88c5\u3057\u305f\u3002\r\n- `PATCH /room/:id/:userId` (Update Role)\r\n- `DELETE /room/:roomId/kick/:userId` (Kick User)\r\n- `DELETE /room/:roomId/leave` (Leave Room)\r\n- `DELETE /room/:roomId` (Delete Room)\r\n- `PATCH /room/:roomId` (Update Room)\r\n- `GET /room` (Get Rooms)\r\n- `POST /room/:roomId/invite/:userId` (Invite User)\r\n- `POST /room/:id` (Enter Room)\r\n- `GET /room/:id` (Get Room)\r\n- `POST /rooms` (Create Room)\r\n\r\n## \u8ff7\u3063\u305f\u30dd\u30a4\u30f3\u30c8\r\n### \u9ad8\u968e\u95a2\u6570\u3068Ref<T>\u306b\u3088\u308b\u5171\u901a\u5316\u3092\u5c11\u3057\u3084\u308a\u3059\u304e\u3066\u3044\u308b\u6c17\u304c\u3059\u308b\r\n  - \u305d\u306e\u305b\u3044\u3067\u8aad\u307f\u306b\u304f\u304b\u3063\u305f\u308a\u30e1\u30f3\u30c6\u3057\u3065\u3089\u304b\u3063\u305f\u308a\u3057\u305d\u3046\u3068\u3044\u3046\r\n  - \u540c\u3058\u30b3\u30fc\u30c9\u3092\u4f55\u5ea6\u3082\u66f8\u304f\u3053\u3068\u306b\u8010\u3048\u304d\u308c\u305a\u591a\u5c11\u7121\u8336\u3057\u3066\u5171\u901a\u5316\u3057\u3066\u3044\u308b\r\n### \u5165\u5ba4\u30fb\u62db\u5f85\u3068\u9000\u5ba4\u30fb\u30ad\u30c3\u30af\u306eAPI\u306b\u3064\u3044\u3066\u306fREST\u7684\u306b\u8003\u3048\u308c\u3070\u7d71\u4e00\u7684\u306b\u6271\u3046\u3053\u3068\u3082\u3067\u304d\u308b\u306e\u3067\u3059\u304c\u3001\u30a8\u30f3\u30c9\u30dd\u30a4\u30f3\u30c8\u3092\u5206\u5272\u3057\u3066\u3044\u308b\r\n\u5206\u5272\u3057\u305f\u65b9\u304c\u8a8d\u8a3c\u3068\u8a8d\u53ef\u306e\u30ed\u30b8\u30c3\u30af\u3092\u975e\u5e38\u306b\u30b7\u30f3\u30d7\u30eb\u306b\u4fdd\u3064\u3053\u3068\u304c\u3067\u304d\u308b\u3002\u6700\u521d\u306f\u5206\u5272\u305b\u305a\u306b\u66f8\u3044\u3066\u305f\u306e\u3067\u3059\u304c\u3001\u30c6\u30b9\u30c8\u3082\u5b9f\u88c5\u3082\u7d50\u69cb\u5927\u5909\u3067\u3002\u3002\u3002\u4e00\u5fdcGPT\u306b\u76f8\u8ac7\u3057\u3066\u305f\u6642\u306e\u30ed\u30b0\u306f\u3053\u3061\u3089\r\nhttps://chat.openai.com/share/176a2982-bf5e-4bbe-8d06-74e4c96a5ba5\r\n\r\n#### \u5206\u5272\u3057\u306a\u3044\u5834\u5408\r\n\u5165\u5ba4\u30fb\u62db\u5f85\uff08POST /room/:roomId/:userId\uff09\r\n\u9000\u5ba4\u30fb\u30ad\u30c3\u30af\uff08DELETE /room/:roomId/:userId\uff09\r\n\r\n#### \u5206\u5272\u3059\u308b\u5834\u5408\r\n\u5165\u5ba4\uff08POST /room/:roomId/\uff09\r\n\u62db\u5f85\uff08POST /room/:roomId/invite/:userId\uff09\r\n\u9000\u5ba4\uff08DELETE /room/:roomId/leave\uff09\r\n\u30ad\u30c3\u30af\uff08DELETE /room/:roomId/kick/:userId\uff09\r\n\r\n## \u4eca\u5f8c\u306eTODO\u6848\r\n1. Owner\u304c\u9000\u5ba4\u3059\u308b\u5834\u5408\u306e\u51e6\u7406\uff08Owner\u4ee5\u5916\u3067\u6700\u521d\u306b\u5165\u5ba4\u3057\u305fAdmin\u304cowner\u306b\u306a\u308b\u3001\u3044\u306a\u3051\u308c\u3070Member\u3001\u8ab0\u3082\u3044\u306a\u3051\u308c\u3070Room\u524a\u9664\uff09\r\n2. ownership\u306etransfer\u306b\u95a2\u3059\u308bendpoint\u4f5c\u308b\r\n3. 1\u3064\u306eRoom\u306b1\u4eba\u306eOwner\u3057\u304b\u5b58\u5728\u3067\u304d\u306a\u3044\u3088\u3046\u306b\u3001Room.ownerId\u3092\u6301\u305f\u305b\u308b\r\n4. password\u3092\u76f4\u63a5\u4fdd\u5b58\u3059\u308b\u306e\u3067\u306f\u306a\u304f\u3001hash\u3092\u4fdd\u5b58\u3059\u308b\r\n\r\n## \u5b9f\u88c5\u4e88\u5b9a\r\n\u4ee5\u4e0b\u306e\u3088\u3046\u306a\u9806\u756a\u3067\u5b9f\u88c5\u3057\u3066\u3044\u304f\u4e88\u5b9a\u3002\r\n\r\n1. Prisma\u306eschema\u3092\u5909\u66f4 :white_check_mark:\r\n5. \u65e2\u5b58\u306e\u30d3\u30eb\u30c9\u3001Unit\u30c6\u30b9\u30c8\u3001E2E\u30c6\u30b9\u30c8\u304c\u901a\u308b\u3088\u3046\u306b\u4fee\u6b63 :white_check_mark:\r\n6. Private\u306b\u95a2\u3059\u308b\u30c6\u30b9\u30c8\u3068\u30ed\u30b8\u30c3\u30af\u3092\u5b9f\u88c5\uff08GET/GET/POST/PATCH\uff09 :white_check_mark:\r\n7. Protected\u306b\u95a2\u3059\u308b\u30c6\u30b9\u30c8\u3068\u30ed\u30b8\u30c3\u30af\u3092\u5b9f\u88c5\uff08GET/GET/POST/PATCH\uff09 :white_check_mark:\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-23T09:25:35Z",
+                                    "bodyText": "Walkthrough\nThe recent changes involve enhancing the room management system with access levels and password protection. New SQL migrations refine the Room table structure, introducing an AccessLevel enum and password fields. The backend logic and guards are updated to handle room access based on these new properties. DTOs and controllers are modified to support the creation, entry, and invitation processes for rooms with different access levels. The test suite is expanded to cover the new functionalities and ensure compliance with the access control logic.\nChanges\n\n\n\nFile Path\nChange Summary\n\n\n\n\nbackend/prisma/migrations/.../migration.sql\nIntroduces functionality for managing room access levels and removes default value constraint for accessLevel.\n\n\nbackend/prisma/schema.prisma\nAdds AccessLevel enum and updates Room model with accessLevel and password fields.\n\n\nbackend/src/room/dto/...\nModifies DTOs to include accessLevel and password properties with validation decorators.\n\n\nbackend/src/room/entities/room.entity.ts\nAdds accessLevel property and excludes password using class-transformer decorator.\n\n\nbackend/src/room/guards/...\nIntroduces and updates guards for room access control based on user roles and room access levels.\n\n\nbackend/src/room/room.controller.ts\nModifies methods to be asynchronous, adds guards, and includes new methods for room entry and invitation.\n\n\nbackend/src/room/room.service.ts\nUpdates methods for room creation and access, including handling of new DTO properties.\n\n\nbackend/test/...\nUpdates and adds tests for the new room access features and logic.\n\n\nbackend/test/utils/...\nModifies test utility methods to support new room entry and invitation logic.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThank you for using CodeRabbit. We offer it for free to the OSS community and would appreciate your support in helping us grow. If you find it useful, would you consider giving us a shout-out on your favorite social media?\n\nShare\n\nX\nMastodon\nReddit\nLinkedIn\n\n\n\n\n\nTips\nChat with CodeRabbit Bot (@coderabbitai)\n\nYou can directly reply to a review comment made by CodeRabbit. Example:\n\nI pushed a fix in commit <commit_id>.\n\n\nYou can tag CodeRabbit on specific lines of code or entire files in the PR by tagging @coderabbitai in a comment. Examples:\n\n@coderabbitai generate unit tests for this file\n@coderabbitai modularize this function\n\n\nYou can tag @coderabbitai in a PR comment and ask questions about the PR and the codebase. Use quoted replies to pass the context for follow-up questions. Examples:\n\n@coderabbitai gather interesting statistics about this repository and render them in a table.\n@coderabbitai show all the console.log statements in this repository.\n@coderabbitai generate unit tests for the src/utils.ts file.\n\n\n\nCodeRabbit Commands (invoked as PR comments)\n\n@coderabbitai pause to pause the reviews on a PR.\n@coderabbitai resume to resume the paused reviews.\n@coderabbitai review to trigger a review. This is useful when automatic reviews are disabled for the repository.\n@coderabbitai resolve resolve all the CodeRabbit review comments.\n@coderabbitai help to get help.\n\nAdditionally, you can add @coderabbitai ignore anywhere in the PR description to prevent this PR from being reviewed.\nCodeRabbit Configration File (.coderabbit.yaml)\n\nYou can programmatically configure CodeRabbit by adding a .coderabbit.yaml file to the root of your repository.\nThe JSON schema for the configuration file is available here.\nIf your editor has YAML language server enabled, you can add the path at the top of this file to enable auto-completion and validation: # yaml-language-server: $schema=https://coderabbit.ai/integrations/coderabbit-overrides.v2.json\n\nCodeRabbit Discord Community\nJoin our Discord Community to get help, request features, and share feedback.",
+                                    "url": "https://github.com/usatie/pong/pull/174#issuecomment-1868251287",
+                                    "author": {
+                                        "login": "coderabbitai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-26T04:46:55Z",
+                                    "bodyText": "main\u30d6\u30e9\u30f3\u30c1\u304c\u9032\u3093\u3067\u305f\u306e\u3067rebase\u3057\u307e\u3057\u305f\u304c\u3001\u7279\u306b\u30b3\u30f3\u30d5\u30ea\u30af\u30c8\u306f\u306a\u304b\u3063\u305f\u3002",
+                                    "url": "https://github.com/usatie/pong/pull/174#issuecomment-1869251064",
+                                    "author": {
+                                        "login": "usatie"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-26T04:47:56Z",
+                                    "bodyText": "\u3084\u3070\u3044\u3053\u308c\u3092\u3084\u3063\u3066\u3057\u307e\u3063\u305f\nhttps://qiita.com/takumihara/private/a402e99caaa63c07a74c\n\n\u4f5c\u696d\u3057\u3066\u3044\u308b\u30d6\u30e9\u30f3\u30c1\u306bmain\u30d6\u30e9\u30f3\u30c1\u3092\u4e0d\u5fc5\u8981\u306b\u53d6\u308a\u8fbc\u3080\u306e\u306f\u6b62\u3081\u3088\u3046\u3002\u3053\u306emerge\u30b3\u30df\u30c3\u30c8\u306f\u672c\u5f53\u306b\u7121\u99c4\u306a\u30ce\u30a4\u30ba\u3092\u4f5c\u308b\u3002\ufeff\n\u3069\u3046\u3057\u3066\u3082\u53d6\u308a\u8fbc\u3080\u5fc5\u8981\u304c\u3042\u308b\u6642\u306f\u3001\u307e\u3060PR\u3092\u4f5c\u3063\u3066\u3044\u306a\u3044\u306e\u3067\u3042\u308c\u3070\u3001rebase\u3092\u3057\u3088\u3046\u3002\n\u300cReview\u6642\u306e\u5fc3\u5f97\u300d\u306e\u7ae0\u3067\u3082\u8ff0\u3079\u305f\u3088\u3046\u306b\u3001\u65e2\u306b\u30ec\u30d3\u30e5\u30fc\u3092\u53d7\u3051\u3066\u3044\u308b\u306e\u3067\u3042\u308c\u3070\u3001rebase\u306f\u907f\u3051\u3066\u3001merge\u3092\u3057\u3088\u3046\u3002\n\ufeff",
+                                    "url": "https://github.com/usatie/pong/pull/174#issuecomment-1869251360",
+                                    "author": {
+                                        "login": "usatie"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The switch statement handling room.accessLevel lacks a default case, which could lead to undefined behavior if room.accessLevel is not one of the expected values. Consider adding a default case that throws an appropriate exception.\n  switch (room.accessLevel) {\n    case 'PUBLIC':\n      // ...\n    case 'PROTECTED':\n      // ...\n    case 'PRIVATE':\n      // ...\n+   default:\n+     throw new Error('Invalid access level');\n  }\n\n\n\n\nCommittable suggestion\n\n\u2757 IMPORTANT\nCarefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation.\n\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                switch (room.accessLevel) {\n          \n          \n            \n                  case 'PUBLIC': // PUBLIC rooms are accessible to everyone\n          \n          \n            \n                    return true;\n          \n          \n            \n                  case 'PROTECTED': // PROTECTED rooms are accessible to everyone with a password\n          \n          \n            \n                    if (!req.body.password) {\n          \n          \n            \n                      throw new BadRequestException('password is required');\n          \n          \n            \n                    }\n          \n          \n            \n                    if (room.password !== req.body.password) {\n          \n          \n            \n                      throw new ForbiddenException('invalid password');\n          \n          \n            \n                    }\n          \n          \n            \n                    return true;\n          \n          \n            \n                  case 'PRIVATE': // PRIVATE rooms are invite only\n          \n          \n            \n                    return false;\n          \n          \n            \n                }\n          \n          \n            \n                switch (room.accessLevel) {\n          \n          \n            \n                  case 'PUBLIC': // PUBLIC rooms are accessible to everyone\n          \n          \n            \n                    return true;\n          \n          \n            \n                  case 'PROTECTED': // PROTECTED rooms are accessible to everyone with a password\n          \n          \n            \n                    if (!req.body.password) {\n          \n          \n            \n                      throw new BadRequestException('password is required');\n          \n          \n            \n                    }\n          \n          \n            \n                    if (room.password !== req.body.password) {\n          \n          \n            \n                      throw a ForbiddenException('invalid password');\n          \n          \n            \n                    }\n          \n          \n            \n                    return true;\n          \n          \n            \n                  case 'PRIVATE': // PRIVATE rooms are invite only\n          \n          \n            \n                    return false;\n          \n          \n            \n                  default:\n          \n          \n            \n                    throw new Error('Invalid access level');\n          \n          \n            \n                }",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435751001",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24b9e93",
+                                                            "authoredDate": "2023-12-24T01:52:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The conversion of roomId to a number is not validated. If roomId is not a valid number, Number(roomId) will return NaN, which may cause unexpected behavior in roomService.findRoom. It's important to handle this case.\n- const room = await this.roomService.findRoom(Number(roomId));\n+ const numericRoomId = Number(roomId);\n+ if (Number.isNaN(numericRoomId)) {\n+   throw new BadRequestException('roomId must be a valid number');\n+ }\n+ const room = await this.roomService.findRoom(numericRoomId);\n\n\n\n\nCommittable suggestion\n\n\u2757 IMPORTANT\nCarefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation.\n\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                const room = await this.roomService.findRoom(Number(roomId));\n          \n          \n            \n                const numericRoomId = Number(roomId);\n          \n          \n            \n                if (Number.isNaN(numericRoomId)) {\n          \n          \n            \n                  throw new BadRequestException('roomId must be a valid number');\n          \n          \n            \n                }\n          \n          \n            \n                const room = await this.roomService.findRoom(numericRoomId);",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435751002",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24b9e93",
+                                                            "authoredDate": "2023-12-24T01:52:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The password comparison should be done using a constant-time algorithm to prevent timing attacks. Direct string comparison can leak information about the password.\n- if (room.password !== req.body.password) {\n+ if (!constantTimeCompare(room.password, req.body.password)) {\n+   throw new ForbiddenException('invalid password');\n+ }\nAnd ensure to implement or import a constantTimeCompare function that safely compares strings.\n\n\n\n\nCommittable suggestion\n\n\u2757 IMPORTANT\nCarefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation.\n\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    if (room.password !== req.body.password) {\n          \n          \n            \n                    if (!constantTimeCompare(room.password, req.body.password)) {\n          \n          \n            \n                      throw new ForbiddenException('invalid password');\n          \n          \n            \n                    }",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435751003",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24b9e93",
+                                                            "authoredDate": "2023-12-24T01:52:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The guard for PRIVATE rooms currently denies access to all users. There should be logic to check if the user is invited or has the right to enter the room.\n  case 'PRIVATE': // PRIVATE rooms are invite only\n-   return false;\n+   // Logic to check if the user is invited should be implemented here\n+   return checkIfUserIsInvited(user, room);\n\n\n\n\nCommittable suggestion\n\n\u2757 IMPORTANT\nCarefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation.\n\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                  case 'PRIVATE': // PRIVATE rooms are invite only\n          \n          \n            \n                    return false;\n          \n          \n            \n                  case 'PRIVATE': // PRIVATE rooms are invite only\n          \n          \n            \n                    // Logic to check if the user is invited should be implemented here\n          \n          \n            \n                    return checkIfUserIsInvited(user, room);",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435751004",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "24b9e93",
+                                                            "authoredDate": "2023-12-24T01:52:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The canActivate method correctly checks for user authentication, room membership, and admin role before allowing access. However, the error message in line 61 is misleading as it refers to the 'owner' instead of 'admin'. This could be confusing for debugging or user feedback.\n- throw new ForbiddenException('Only owner can do this');\n+ throw new ForbiddenException('Only owner or administrator can do this');\n\n\n\n\nCommittable suggestion\n\n\u2757 IMPORTANT\nCarefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation.\n\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              async canActivate(context: ExecutionContext) {\n          \n          \n            \n                const req = context.switchToHttp().getRequest();\n          \n          \n            \n                const { params, user } = req;\n          \n          \n            \n                // Validate roomId and targetUserId(userId)\n          \n          \n            \n                const roomId = this.expectNumberParam(params.roomId, 'roomId');\n          \n          \n            \n                if (!user) {\n          \n          \n            \n                  throw new ForbiddenException('require login');\n          \n          \n            \n                }\n          \n          \n            \n            \n          \n          \n            \n                // Check if user is a member of the room\n          \n          \n            \n                let userOnRoom;\n          \n          \n            \n                try {\n          \n          \n            \n                  userOnRoom = await this.prisma.userOnRoom.findUniqueOrThrow({\n          \n          \n            \n                    where: {\n          \n          \n            \n                      userId_roomId_unique: {\n          \n          \n            \n                        userId: user.id,\n          \n          \n            \n                        roomId: roomId,\n          \n          \n            \n                      },\n          \n          \n            \n                    },\n          \n          \n            \n                  });\n          \n          \n            \n                } catch (e) {\n          \n          \n            \n                  if (e.code === 'P2025') {\n          \n          \n            \n                    throw new ForbiddenException('User not found in the room');\n          \n          \n            \n                  } else {\n          \n          \n            \n                    throw e;\n          \n          \n            \n                  }\n          \n          \n            \n                }\n          \n          \n            \n            \n          \n          \n            \n                // Check if user has admin role\n          \n          \n            \n                if (\n          \n          \n            \n                  userOnRoom.role !== Role.OWNER &&\n          \n          \n            \n                  userOnRoom.role !== Role.ADMINISTRATOR\n          \n          \n            \n                ) {\n          \n          \n            \n                  throw new ForbiddenException('Only owner can do this');\n          \n          \n            \n                }\n          \n          \n            \n                req.admin = userOnRoom;\n          \n          \n            \n                return true;\n          \n          \n            \n              }\n          \n          \n            \n              async canActivate(context: ExecutionContext) {\n          \n          \n            \n                const req = context.switchToHttp().getRequest();\n          \n          \n            \n                const { params, user } = req;\n          \n          \n            \n                // Validate roomId and targetUserId(userId)\n          \n          \n            \n                const roomId = this.expectNumberParam(params.roomId, 'roomId');\n          \n          \n            \n                if (!user) {\n          \n          \n            \n                  throw new ForbiddenException('require login');\n          \n          \n            \n                }\n          \n          \n            \n            \n          \n          \n            \n                // Check if user is a member of the room\n          \n          \n            \n                let userOnRoom;\n          \n          \n            \n                try {\n          \n          \n            \n                  userOnRoom = await this.prisma.userOnRoom.findUniqueOrThrow({\n          \n          \n            \n                    where: {\n          \n          \n            \n                      userId_roomId_unique: {\n          \n          \n            \n                        userId: user.id,\n          \n          \n            \n                        roomId: roomId,\n          \n          \n            \n                      },\n          \n          \n            \n                    },\n          \n          \n            \n                  });\n          \n          \n            \n                } catch (e) {\n          \n          \n            \n                  if (e.code === 'P2025') {\n          \n          \n            \n                    throw new ForbiddenException('User not found in the room');\n          \n          \n            \n                  } else {\n          \n          \n            \n                    throw e;\n          \n          \n            \n                  }\n          \n          \n            \n                }\n          \n          \n            \n            \n          \n          \n            \n                // Check if user has admin role\n          \n          \n            \n                if (\n          \n          \n            \n                  userOnRoom.role !== Role.OWNER &&\n          \n          \n            \n                  userOnRoom.role !== Role.ADMINISTRATOR\n          \n          \n            \n                ) {\n          \n          \n            \n                  throw new ForbiddenException('Only owner or administrator can do this');\n          \n          \n            \n                }\n          \n          \n            \n                req.admin = userOnRoom;\n          \n          \n            \n                return true;\n          \n          \n            \n              }",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435757907",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b7dac4d",
+                                                            "authoredDate": "2023-12-24T03:27:56Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The error handling for findUniqueOrThrow is specific and correctly rethrows unexpected errors. However, the error code 'P2025' is Prisma-specific and should be documented or abstracted for maintainability.",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435757908",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b7dac4d",
+                                                            "authoredDate": "2023-12-24T03:27:56Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Modifying the request object directly to add admin is not a best practice as it can lead to unexpected side effects. It would be better to use a more formal method of passing data.",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435757909",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b7dac4d",
+                                                            "authoredDate": "2023-12-24T03:27:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The error message references GetRoomGuard instead of UpdateRoomGuard. This should be corrected to avoid confusion.\n- throw new Error('GetRoomGuard should only be used with :roomId');\n+ throw new Error('UpdateRoomGuard should only be used with :roomId');\n\n\n\n\nCommittable suggestion\n\n\u2757 IMPORTANT\nCarefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation.\n\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                  throw new Error('GetRoomGuard should only be used with :roomId');\n          \n          \n            \n                  throw new Error('UpdateRoomGuard should only be used with :roomId');",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435771769",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dd4bf0f",
+                                                            "authoredDate": "2023-12-24T06:27:39Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "There should be a check to ensure that the room exists after attempting to find it with findRoom. If the room does not exist, an appropriate exception should be thrown.",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435771770",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dd4bf0f",
+                                                            "authoredDate": "2023-12-24T06:27:39Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "That error is handled globally",
+                                                        "author": {
+                                                            "login": "usatie"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435782177",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dd4bf0f",
+                                                            "authoredDate": "2023-12-24T06:27:39Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@usatie, understood. If the global error handling covers this case, then there's no need for an additional local check here. Thanks for the clarification.\n\n\nIf you found this review helpful, would you consider giving us a shout-out on X?\nThank you for using CodeRabbit!",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435782196",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "dd4bf0f",
+                                                            "authoredDate": "2023-12-24T06:27:39Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "commit\u5206\u304b\u308c\u3066\u3066\u3081\u3061\u3083\u3081\u3061\u3083\u898b\u3084\u3059\u3044\u3067\u3059\u3002\u5206\u304b\u308c\u3066\u306a\u304b\u3063\u305f\u3089\u3001\u7d76\u5bfe\u30ec\u30d3\u30e5\u30fc\u3057\u306a\u3044\u3067\u3059ww\n\u5225\u306e\u30b3\u30e1\u30f3\u30c8\u3067\u3082\u3057\u305f\u306e\u3067\u3059\u304c\u3001PR\u3092\u5206\u5272\u306b\u3059\u308b\u65b9\u306b\u5411\u304b\u3046\u306e\u3082\u30a2\u30ea\u304b\u3068\u601d\u3044\u307e\u3057\u305f\u3002",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u81ea\u52d5\u751f\u6210\u306e\u30b3\u30fc\u30c9\u306f\u3080\u3057\u308d\u30b3\u30df\u30c3\u30c8\u5206\u3051\u3066\u3082\u3088\u3044\u304b\u3082\u3067\u3059\uff01\u3053\u308c\u8a18\u4e8b\u306b\u66f8\u304b\u306a\u304b\u3063\u305f\u3093\u3067\u3059\u3051\u3069\u3001\u5225\u306b\u30b3\u30df\u30c3\u30c8\u611f\u3067\u5fc5\u305a\u3057\u3082\u30c6\u30b9\u30c8\u304c\u901a\u308b\u5fc5\u8981\u306f\u7121\u3044\u3063\u3066\u3044\u3046\u306e\u306f\u8a00\u3063\u3066\u307e\u3057\u305f\u3002",
+                                                        "author": {
+                                                            "login": "takumihara"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435785079",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fdc02b3",
+                                                            "authoredDate": "2023-12-23T09:24:16Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "migration file\u307e\u3068\u3081\u3061\u3083\u3063\u305f\u307b\u3046\u304c\u826f\u3044\uff1f",
+                                                        "author": {
+                                                            "login": "takumihara"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435785204",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fdc02b3",
+                                                            "authoredDate": "2023-12-23T09:24:16Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u5206\u304b\u3089\u306a\u3044\u3067\u3059\u304c\u3001access level\u8ffd\u52a0\u3059\u308b\u5909\u66f4\u3068RoomEntity\u4f7f\u3046\u5909\u66f4\u306fcommit\u5206\u3051\u3066\u3082\u826f\u3044\u306e\u304b\u3068\u601d\u3063\u305f\u308a (fdc02b3 )",
+                                                        "author": {
+                                                            "login": "takumihara"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435785463",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fdc02b3",
+                                                            "authoredDate": "2023-12-23T09:24:16Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3053\u308c\u306fcommit\u540d\u3068\u306f\u5168\u304f\u9055\u3046\u5909\u66f4\u304b\u3068\u601d\u3063\u305f\u308a ( 0cd08c2 )",
+                                                        "author": {
+                                                            "login": "takumihara"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435785697",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0cd08c2",
+                                                            "authoredDate": "2023-12-23T12:35:17Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "[backend] Implement POST /rooms endpoint\n- Fix create room dto validation\n\n\u3053\u308c\u3001\u30b3\u30df\u30c3\u30c8\u30e1\u30c3\u30bb\u30fc\u30b8\u3060\u3068\u601d\u3046\u3093\u3067\u3059\u3051\u3069\u3001\n\u3053\u306ePR > Implement POST /rooms endpoint > Fix create room dto validation\n\u3063\u3066\u611f\u3058\u306b3\u3064\u306e\u30b3\u30f3\u30c6\u30ad\u30b9\u30c8\u304c\u3042\u308b\u3088\u3046\u306a\u6c17\u304c\u3057\u305f\u308a\u3057\u307e\u3059\uff08\u3053\u308c\u306fContext\u306e\u5206\u5272\u30ec\u30d9\u30eb\u306e\u8a71\u306a\u306e\u3067\u9593\u9055\u3063\u3066\u308b\u3063\u3066\u8a33\u3067\u306f\u7121\u3044\u306e\u3067\u3059\u304c\uff09\n\u81ea\u5206\u3060\u3063\u305f\u3089\u3001\u3068\u308a\u3042\u3048\u305aPR1\u3064\u3067\u3084\u308b\u3053\u3068\u3092\u3082\u3063\u3068\u6e1b\u3089\u3057\u307e\u3059\u3002\u4f8b\u3048\u3070\u3001\u30c6\u30b9\u30c8\u306e\u30ea\u30d5\u30a1\u30af\u30bf\u3068access level\u306e\u8ffd\u52a0\u3068\u304b\u3002\n\u305d\u308c\u3067\u3001Implement POST /rooms endpoint\u304b Add access level in room\u307f\u305f\u3044\u306a\u30bf\u30a4\u30c8\u30eb\u306ePR\u306b\u5bfe\u3057\u3066\u3001Fix create room dto validation \u304c\u30b3\u30df\u30c3\u30c8\u30e1\u30c3\u30bb\u30fc\u30b8\u306b\u306a\u3063\u3066\u3001body\u6d88\u3059\u611f\u3058\u3067\u3059\u304b\u306d\u3002",
+                                                        "author": {
+                                                            "login": "takumihara"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435786708",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b5719ae",
+                                                            "authoredDate": "2023-12-23T12:53:59Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3053\u308c\u306f\u3001http status\u307f\u305f\u3044\u306a\u611f\u3058\u306a\u3093\u3067\u3059\u304b\uff1f\u3046\u30fc\u3093\u3001\u3053\u308c\u3060\u3051\u3060\u3068\u306a\u3093\u3060\u304b\u5206\u304b\u3089\u306a\u3044\u3067\u3059\ud83d\ude05",
+                                                        "author": {
+                                                            "login": "takumihara"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435787164",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ea24412",
+                                                            "authoredDate": "2023-12-23T13:36:13Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3053\u306e\u30ed\u30b8\u30c3\u30af\u306f\u3001guard\u306b\u3042\u308b\u3079\u304d\u3067\u306f\u306a\u304f\u3001service\u306b\u3042\u308b\u3079\u304d\u304b\u3068\u601d\u3063\u305f\u308a\u3002schema\u306e\u78ba\u8a8d\u306f\u3044\u308d\u3044\u308d\u306a\u3068\u3053\u308d\u3067\u4f7f\u3044\u305f\u304f\u306a\u308b\u6c17\u304c\u3057\u307e\u3059\u3002",
+                                                        "author": {
+                                                            "login": "takumihara"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435788693",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "987dadf",
+                                                            "authoredDate": "2023-12-24T06:27:39Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u81ea\u5206\u306e\u5165\u3063\u3066\u308bprivate\u306aroom\u306f\u8fd4\u3055\u306a\u3044\u611f\u3058\u3067\u3059\u304b\u306d\uff1f",
+                                                        "author": {
+                                                            "login": "takumihara"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435788802",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3b5542",
+                                                            "authoredDate": "2023-12-24T03:27:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3053\u308c\u4ed6\u306e\u5834\u6240\u3067\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u8cbc\u3089\u308c\u3066\u308b\u306e\u898b\u307e\u3057\u305f\uff01",
+                                                        "author": {
+                                                            "login": "takumihara"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435790321",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ea24412",
+                                                            "authoredDate": "2023-12-23T13:36:13Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u4e0b\u306b\u3042\u308b\u3053\u306e\u6761\u4ef6\u3067\u8fd4\u3057\u3066\u3044\u307e\u3059\u3002\u8fd4\u3063\u3066\u304d\u3066\u308b\u3053\u3068\u306f\u30c6\u30b9\u30c8\u3067\u3082\u78ba\u8a8d\u3057\u3066\u307e\u3059\uff01\n          {\n            users: {\n              some: {\n                userId: userId,\n              },\n            },\n          },",
+                                                        "author": {
+                                                            "login": "usatie"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435825060",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3b5542",
+                                                            "authoredDate": "2023-12-24T03:27:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The logic now checks for both user and admin in the request object, which aligns with the PR's objective to handle different room access levels. However, the error message 'require login and admin' could be misleading if only one of the conditions is false. It might be more informative to separate the checks and provide specific error messages for each case.\n- throw new ForbiddenException('require login and admin');\n+ if (!user) {\n+   throw new ForbiddenException('Login is required');\n+ }\n+ if (!admin) {\n+   throw new ForbiddenException('Admin privileges are required');\n+ }\n\n\n\n\nCommittable suggestion\n\n\u2757 IMPORTANT\nCarefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation.\n\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                const { params, user, admin } = req;\n          \n          \n            \n                if (!user || !admin) {\n          \n          \n            \n                  throw new ForbiddenException('require login and admin');\n          \n          \n            \n                }\n          \n          \n            \n                // Validate roomId and targetUserId(userId)\n          \n          \n            \n                const roomId = this.expectNumberParam(params.roomId, 'roomId');\n          \n          \n            \n                const { params, user, admin } = req;\n          \n          \n            \n                if (!user) {\n          \n          \n            \n                  throw new ForbiddenException('Login is required');\n          \n          \n            \n                }\n          \n          \n            \n                if (!admin) {\n          \n          \n            \n                  throw new ForbiddenException('Admin privileges are required');\n          \n          \n            \n                }\n          \n          \n            \n                // Validate roomId and targetUserId(userId)\n          \n          \n            \n                const roomId = this.expectNumberParam(params.roomId, 'roomId');",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435825110",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "361b9f1",
+                                                            "authoredDate": "2023-12-24T13:02:13Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u6700\u7d42\u7684\u306bmodel\u304cfix\u3057\u305f\u3089\u5f8c\u3067Squash\u3057\u3066\u307e\u3068\u3081\u308b\u4e88\u5b9a\uff01",
+                                                        "author": {
+                                                            "login": "usatie"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435825293",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fdc02b3",
+                                                            "authoredDate": "2023-12-23T09:24:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u306a\u308b\u307b\u3069\uff01",
+                                                        "author": {
+                                                            "login": "usatie"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435825318",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fdc02b3",
+                                                            "authoredDate": "2023-12-23T09:24:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u304a\u3063\u3057\u3083\u308b\u901a\u308aw\n\u6700\u521d\u306f\u9762\u5012\u3060\u3063\u305f\u306e\u3067\u4e00\u7dd2\u306b\u8272\u3005\u3084\u3063\u3066\u3057\u307e\u3063\u3066\u3044\u307e\u3057\u305f",
+                                                        "author": {
+                                                            "login": "usatie"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435825725",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fdc02b3",
+                                                            "authoredDate": "2023-12-23T09:24:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3053\u308c\u7d50\u69cb\u96e3\u3057\u304f\u3066\u3001\u6700\u521d\u304b\u3089\u3084\u308b\u3053\u3068\u304c\u76f4\u7dda\u7684\u306b\u898b\u3048\u3066\u308c\u3070\u305d\u3046\u306a\u308b\u306e\u3067\u3059\u304c\u3001\u958b\u767a\u3057\u3066\u3044\u308b\u3046\u3061\u306b\u3053\u306e\u5f62\u5f0f\u3060\u3068\u7121\u7406\u3060\u306a\u301c\u3068\u304b\u30c6\u30b9\u30c8\u8ffd\u52a0\u3057\u3066\u308b\u3046\u3061\u306b\u898b\u3048\u3066\u304d\u3066DTO\u3092\u5909\u66f4\u3057\u305f\u308a\u3068\u304b\u3001\u30a8\u30f3\u30c9\u30dd\u30a4\u30f3\u30c8\u306e\u8a2d\u8a08\u3092\u5909\u3048\u305f\u308a\u8a66\u884c\u932f\u8aa4\u3057\u306a\u304c\u3089\u306e\u30ed\u30b0\u306b\u306a\u3063\u3066\u308b\u306e\u3067\u3059\u3088\u306d\u301c\u3002\n\u3067\u3082\u78ba\u304b\u306b\u6700\u7d42\u7684\u306bPR\u3092\u5206\u5272\u3059\u308b\u6c17\u529b\u304c\u3042\u308c\u3070\u3001\u305d\u3046\u3059\u308b\u304b\u3082\u3002\uff08\u6c17\u529b\u304c\u8db3\u308a\u308c\u3070\u30fb\u30fb\u30fbw\uff09",
+                                                        "author": {
+                                                            "login": "usatie"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435826289",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b5719ae",
+                                                            "authoredDate": "2023-12-23T12:53:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u305d\u3046\u306a\u3093\u3059\u3088\u301c\u3002\nPrisma\u5074\u3067\u7528\u610f\u3057\u3066\u6b32\u3057\u3044\u3067\u3059\u3088\u306dw\n\u305d\u3046\u3044\u3046\u8981\u671b\u3082\u3042\u308b\u3093\u3060\u3051\u3069\u3001\u7528\u610f\u3055\u308c\u3066\u306a\u304f\u3066w\nprisma/prisma#10394",
+                                                        "author": {
+                                                            "login": "usatie"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435826373",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ea24412",
+                                                            "authoredDate": "2023-12-23T13:36:13Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3059\u307f\u307e\u305b\u3093\u3001\u3053\u306e\u30ed\u30b8\u30c3\u30af\u3084schema\u306e\u78ba\u8a8d\u3068\u3044\u3046\u306e\u306f\u5177\u4f53\u7684\u306b\u3069\u3053\u306e\u7bc4\u56f2\u306e\u3053\u3068\u3092\u8a00\u3063\u3066\u307e\u3059\u304b\u30fb\u30fb\u30fb\uff1f\nparameter\u304c\u6570\u5b57\u3067\u3042\u308b\u3053\u3068\u306e\u30d0\u30ea\u30c7\u30fc\u30b7\u30e7\u30f3\u3068\u304b\u3060\u3068\u3059\u308b\u3068\u3001\u50d5\u3082\u305d\u3046\u3057\u305f\u3044\u3093\u3067\u3059\u304c\uff08\u901a\u5e38\u306fParseIntPipe\u3068\u304b\u3067\u3084\u308b\u306e\u3067\u3059\u304c\uff09\u3001\u3069\u3046\u3084\u3089Pipe\u306e\u524d\u306bGuard\u304c\u547c\u3070\u308c\u3066\u3057\u307e\u3046\u3088\u3046\u306a\u306e\u3067\u4e0d\u8981\u306aError\u3092\u907f\u3051\u308b\u305f\u3081\u306b\u3053\u306e\u30ed\u30b8\u30c3\u30af\u3092\u6301\u3064\u5fc5\u8981\u304c\u3042\u308b\u3088\u3046\u306a\u6c17\u304c\u3057\u3066\u304a\u308a\u3002\u3002\u3002\n\uff08\u516c\u5f0f\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u3067\u306f\u7121\u3044\u306e\u3067\u3059\u304cRequest\u306e\u51e6\u7406\u3055\u308c\u308b\u9806\u756a\u306b\u3064\u3044\u3066\uff09\nhttps://ru-nestjs-docs.netlify.app/faq/request-lifecycle\n\nIn general, the request lifecycle looks like the following:\n\nIncoming request\nGlobally bound middleware\nModule bound middleware\nGlobal guards\nController guards\nRoute guards\nGlobal interceptors (pre-controller)\nController interceptors (pre-controller)\nRoute interceptors (pre-controller)\nGlobal pipes\nController pipes\nRoute pipes\nRoute parameter pipes\nController (method handler)\nService (if exists)\nRoute interceptor (post-request)\nController interceptor (post-request)\nGlobal interceptor (post-request)\nException filters (route, then controller, then global)\nServer response",
+                                                        "author": {
+                                                            "login": "usatie"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435827285",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "987dadf",
+                                                            "authoredDate": "2023-12-24T06:27:39Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The tests for modifying user roles in a room are added but contain several \"TODO\" placeholders. Ensure that these tests are completed before merging the PR to maintain comprehensive test coverage.\n-    /* TODO */\n+    // Implement the test cases for modifying user roles\n\n\n\n\nCommittable suggestion\n\n\u2757 IMPORTANT\nCarefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation.\n\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n              describe('PATCH /room/:id/:userId (Modify user role in Room)', () => {\n          \n          \n            \n                let testRoomId: number;\n          \n          \n            \n                const toMemberDto: UpdateUserOnRoomDto = { role: Role.MEMBER };\n          \n          \n            \n              describe('PATCH /room/:id/:userId (Modify user role in Room)', () => {\n          \n          \n            \n                let testRoomId: number;\n          \n          \n            \n                const toMemberDto: UpdateUserOnRoomDto = { role: Role.MEMBER };\n          \n          \n            \n                // Implement the test cases for modifying user roles",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435827868",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "94267f4",
+                                                            "authoredDate": "2023-12-24T13:02:13Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Introduced a Ref class for holding mutable references. Ensure that the usage of mutable references is necessary and that there's no simpler alternative that could be used, such as directly assigning the values to variables within the scope they are used.",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435849558",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ee875f7",
+                                                            "authoredDate": "2023-12-24T15:58:44Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The guard now checks for admin in the request object to ensure that the user has admin privileges. This is a significant change from the previous logic that checked for member status.\n- // Previous logic would have checked for member status here\n+ if (!admin) {\n+   throw new ForbiddenException('Admin privileges are required');\n+ }\n\n\n\n\nCommittable suggestion\n\n\u2757 IMPORTANT\nCarefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation.\n\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                const { params, admin } = req;\n          \n          \n            \n                if (!admin) {\n          \n          \n            \n                  throw new ForbiddenException('Admin privileges are required');\n          \n          \n            \n                const { params, admin } = req;\n          \n          \n            \n                if (!admin) {\n          \n          \n            \n                  throw new ForbiddenException('Admin privileges are required');",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435849559",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ee875f7",
+                                                            "authoredDate": "2023-12-24T15:58:44Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Adding a NOT NULL column without a default value to an existing table will fail if the table is not empty. Consider adding a default value or a migration strategy for existing rows.\n- ALTER TABLE \"Room\" ADD COLUMN \"accessLevel\" \"AccessLevel\" NOT NULL,\n+ ALTER TABLE \"Room\" ADD COLUMN \"accessLevel\" \"AccessLevel\" NOT NULL DEFAULT 'PUBLIC',\nOr, if the intention is to selectively set the value for existing rows, a separate migration step should be included to handle this before setting the column to NOT NULL.\n\n\n\n\nCommittable suggestion\n\n\u2757 IMPORTANT\nCarefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation.\n\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            ALTER TABLE \"Room\" ADD COLUMN     \"accessLevel\" \"AccessLevel\" NOT NULL,\n          \n          \n            \n            ALTER TABLE \"Room\" ADD COLUMN \"accessLevel\" \"AccessLevel\" NOT NULL DEFAULT 'PUBLIC',",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435851700",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2f769af",
+                                                            "authoredDate": "2023-12-24T16:12:17Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The addition of the password column is correct. However, ensure that the application handles this data securely, encrypting the password before storing it in the database.",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435851701",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "2f769af",
+                                                            "authoredDate": "2023-12-24T16:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u306a\u308b\u307b\u3069\u3067\u3059\uff01",
+                                                        "author": {
+                                                            "login": "takumihara"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435938489",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3b5542",
+                                                            "authoredDate": "2023-12-24T03:27:56Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3053\u3063\u3061\u5074\u3067\u6761\u4ef6\u5206\u5c90\u304c\u3042\u308b\u306a\u3089\u3001describe\u3092\u5206\u3051\u3061\u3083\u3063\u3066\u3082\u826f\u3044\u6c17\u304c\u3057\u305f\u308a",
+                                                        "author": {
+                                                            "login": "takumihara"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435941516",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "12d4b47",
+                                                            "authoredDate": "2023-12-24T04:43:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3053\u306e\u30ed\u30b8\u30c3\u30af\n\n    const room = await this.roomService.findRoom(Number(roomId));\n    const dto: UpdateRoomDto = req.body;\n    // Remove password from PROTECTED by changing accessLevel to PUBLIC/PRIVATE is ok\n    if (\n      room.accessLevel === 'PROTECTED' &&\n      dto.accessLevel !== 'PROTECTED' &&\n      !dto.password\n    ) {\n      return true;\n    }\n\n    const updated = { ...room, ...dto };\n    // non-PROTECTED room must not have password\n    if (updated.accessLevel !== 'PROTECTED' && updated.password) {\n      throw new BadRequestException(\n        'password is only allowed for PROTECTED rooms',\n      );\n    }\n    // PROTECTED room must have password\n    if (updated.accessLevel === 'PROTECTED' && !updated.password) {\n      throw new BadRequestException('password is required');\n    }\n    return true;\n  }\n\n\nschema\u306e\u78ba\u8a8d\n\n\u307e\u3055\u306b\u4e0a\u306e\u30b3\u30fc\u30c9\u3067\u3084\u3063\u3066\u308b\u3053\u3068\u3067\u3001PROTECTED\u3060\u3063\u305f\u3089\u3001password\u3092\u6c42\u3081\u3066\u3001PROTECTED\u4ee5\u5916\u3060\u3063\u305f\u3089\u3002\u3002\u3002\u3063\u3066\u3044\u3046\u30c7\u30fc\u30bf\u306e\u30d0\u30ea\u30c7\u30fc\u30b7\u30e7\u30f3\u3063\u3066\u3044\u3046\u3093\u3067\u3059\u304b\u306d\u3002\u3053\u308c\u3063\u3066\u3001 @IsNotEmpty() \u3068\u304b\u3067\u3084\u3063\u3066\u308b\u3053\u3068\u3068\u540c\u3058\u30ec\u30d9\u30eb\u306e\u30d0\u30ea\u30c7\u30fc\u30b7\u30e7\u30f3\u3067\u3001controller\u3067\u3059\u308b\u3079\u304d\u3058\u3083\u306a\u3044\u306a\u3063\u3066\u601d\u3063\u305f\u611f\u3058\u3067\u3059\u3002\n\u4ee3\u6848\u3068\u3057\u3066\u306f\u3001custom validator\u3092\u4f5c\u3063\u3066\u3001\u305d\u308c\u3092dto\u304b\u3089\u547c\u3076\u304b\u3001service\u30ec\u30a4\u30e4\u30fc\u306b\u5165\u308c\u308b\u304b\u3067\u3059\u304b\u306d\uff1f\nhttps://chat.openai.com/share/3b9e682b-9adb-464c-b749-e6aea774829d\n\u7d50\u69cb\u9577\u304f\u306a\u3063\u3061\u3083\u305f\u3093\u3067\u3059\u3051\u3069\u3001The problem with this approach is when room's access level is already \"PROTECTED\", this doesn't allow update of password, which it should \u3053\u306e\u8cea\u554f\u306e\u56de\u7b54\u3068\u4e00\u756a\u6700\u5f8c\u306e\u56de\u7b54\u304c\u5f15\u304d\u51fa\u3057\u305f\u304b\u3063\u305f\u3068\u3053\u308d\u3067\u3059\u3002",
+                                                        "author": {
+                                                            "login": "takumihara"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1435958395",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "987dadf",
+                                                            "authoredDate": "2023-12-24T06:27:39Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u3061\u3087\u3063\u3068\u3053\u3053\u306f\u901a\u8a71\u3067\u8a71\u3057\u305f\u3044\u304b\u3082\u3067\u3059\u306d\u30fb\u30fb\u30fb\uff01\n\u7279\u306b\u30ed\u30b8\u30c3\u30af\u306e\u8a71\u306e\u90e8\u5206\u306f\u6587\u9762\u3060\u3051\u8aad\u3093\u3067\u3044\u3066\u3082\u3088\u304f\u50d5\u304c\u7406\u89e3\u3067\u304d\u3066\u3044\u306a\u3044\u90e8\u5206\u304c\u3042\u308a\u305d\u3046\u3067\u3059\u3002\u3054\u3081\u3093\u306a\u3055\u3044\uff01\n\u4e00\u5fdc\n\ncontroller\u3067\u3059\u308b\u3079\u304d\u3058\u3083\u306a\u3044\n\n\u306b\u95a2\u3057\u3066\u3044\u3046\u3068\u3001Guard\u306fcontroller\u306ehandler\u3068\u306f\u5225\u306e\u5834\u6240\u3067\u3059\u304c\u3001\u3082\u3063\u3068\u5f8c\u3067\u884c\u3046\u3079\u304d\u3068\u3044\u3046\u610f\u5473\u3067\u3059\u304b\u306d\u3002\n\uff08\u4ee3\u6848\u306bCustom Validator\u3082\u542b\u307e\u308c\u3066\u3044\u305f\u306e\u3067\u6df7\u4e71\u3057\u3066\u3044\u308b\u3068\u3053\u308d\u304c\u3042\u308a\u307e\u3059\u3002Service\u3067\u3059\u3079\u304d\u3001\u3068\u3044\u3046\u8a71\u3060\u3051\u306a\u3089\u7406\u89e3\u3067\u304d\u308b\u306e\u3067\u3059\u304c\u30fb\u30fb\u30fb\uff01\uff09\n6. Route guards <- @UpdateRoomGuard\u306f\u3053\u3053\u3067\u884c\u308f\u308c\u3066\u3044\u308b\u306f\u305a\n10. Global pipes <- @IsNotEmpty\u306a\u3069\u306evalidation\u306f\u3053\u3053\u3067\u884c\u308f\u308c\u3066\u3044\u308b\u306f\u305a\n14. Controller (method handler) <- Controller\u306emethod handler\u672c\u4f53\n15. Service (if exists)",
+                                                        "author": {
+                                                            "login": "usatie"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1436097082",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "987dadf",
+                                                            "authoredDate": "2023-12-24T06:27:39Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u4eca\u5ea6\u96fb\u8a71\u3057\u307e\u3057\u3087\u3046\uff01\u4e00\u5fdc\u8fd4\u4fe1\u3057\u3066\u304a\u304d\u307e\u3059\n\nGuard\u306fcontroller\u306ehandler\u3068\u306f\u5225\u306e\u5834\u6240\u3067\u3059\u304c\u3001\u3082\u3063\u3068\u5f8c\u3067\u884c\u3046\u3079\u304d\u3068\u3044\u3046\u610f\u5473\u3067\u3059\u304b\u306d\u3002\n\n\u78ba\u304b\u306bcontorller\u3067\u306f\u306a\u3044\u3067\u3059\u306d\u3002\u5931\u793c\u3002\n\u3082\u3063\u3068\u5f8c\u3067\u884c\u3046\u3079\u304d\u3068\u3044\u3046\u3088\u308a\u304b\u306f\u3001guard\u306b\u3042\u308b\u3079\u304d\u3067\u306f\u7121\u3044\u304b\u306a\u3063\u3066\u611f\u3058\u3067\u3057\u305f\u3002\nguard\u306b\u3042\u308b\u3079\u304d\u3067\u306f\u306a\u3044\u3068\u601d\u3046\u7406\u7531\u306f\n\n\u30c7\u30fc\u30bf\u306e\u6574\u5408\u6027\u3092\u4fdd\u3064\u305f\u3081\u306e\u30ed\u30b8\u30c3\u30af\u304c\u8272\u3005\u306a\u5834\u6240\u306b\u6563\u3089\u3070\u308b\n\u518d\u5229\u7528\u6027\u304c\u60aa\u3044\uff08\u5225\u306eAPI\u3067\u3001\u305d\u306eAPI\u306e\u30e1\u30a4\u30f3\u306e\u51e6\u7406\u3068\u306f\u5225\u306broom\u306eupdate\u3092\u3057\u305f\u3044\u6642\u306b\u3001guard\u306f\u4f7f\u3048\u306a\u3044\uff1f\uff09",
+                                                        "author": {
+                                                            "login": "takumihara"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1436169245",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "987dadf",
+                                                            "authoredDate": "2023-12-24T06:27:39Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Interface (web) is responsible for decoding the input, convert values to proper types, then invoke a business (core) function, and finally render the result in the expected format (html, json, ...)\n\n+authentication/authorizaton",
+                                                        "author": {
+                                                            "login": "takumihara"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1436201728",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "987dadf",
+                                                            "authoredDate": "2023-12-24T06:27:39Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\u901a\u8a71\u3067\u8a71\u3057\u305f\u3053\u3068\n\nweb interface (Controller)\u306f\u5165\u51fa\u529b\u306evalidation\u3060\u3051\u3092\u3059\u3079\u304d\nDB\u3078\u306e\u30a2\u30af\u30bb\u30b9\u304c\u542b\u307e\u308c\u3066\u3044\u308b\u3088\u3046\u306avalidation\u30ed\u30b8\u30c3\u30af\u306fservice\u5074\u3067\u5b9f\u884c\u3057\u305f\u65b9\u304c\u3044\u3044\n\u73fe\u72b6\u3001UpdateRoomGuard\u306a\u3069\u306f\u518d\u5229\u7528\u306f\u8003\u3048\u3066\u3044\u306a\u3044\u306e\u3067\u3001\u518d\u5229\u7528\u306b\u95a2\u3057\u3066\u306f\u8003\u616e\u3057\u306a\u3044",
+                                                        "author": {
+                                                            "login": "usatie"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1436203706",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "987dadf",
+                                                            "authoredDate": "2023-12-24T06:27:39Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Note: This review was outside the patches, so it was mapped to the patch with the greatest overlap. Original lines [1159-1204]\n\nThe remaining tests for banning, unbanning, muting, and unmuting users are placeholders without implementation. Ensure that these tests are implemented to cover the respective functionalities.\n- it('owner should ban anyone in the room', async () => {});\n+ it('owner should ban anyone in the room', async () => {\n+   // Implementation for banning users\n+ });\n\n- it('admin should ban admin/member', async () => {});\n+ it('admin should ban admin/member', async () => {\n+   // Implementation for banning users by admin\n+ });\n\n- // Other tests to be implemented...",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1436236880",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d3fc2a6",
+                                                            "authoredDate": "2023-12-24T16:12:17Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The test for an unmuted user being able to speak is a placeholder and should be implemented to ensure the mute functionality is correctly reversed.\n- it('unmuted user should be able to speak', async () => {});\n+ it('unmuted user should be able to speak', async () => {\n+   // Implementation for testing unmuted user's ability to speak\n+ });\n\n\n\n\nCommittable suggestion\n\n\u2757 IMPORTANT\nCarefully review the code before committing. Ensure that it accurately replaces the highlighted code, contains no missing lines, and has no issues with indentation.\n\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            \n          \n          \n            \n                it('unmuted user should be able to speak', async () => {});\n          \n          \n            \n              });\n          \n          \n            \n                it('unmuted user should be able to speak', async () => {\n          \n          \n            \n                  // Implementation for testing unmuted user's ability to speak\n          \n          \n            \n                });\n          \n          \n            \n              });",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1436236882",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d3fc2a6",
+                                                            "authoredDate": "2023-12-24T16:12:17Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ensure that the canActivate method properly handles the case where user or params might be undefined to prevent runtime errors.",
+                                                        "author": {
+                                                            "login": "coderabbitai"
+                                                        },
+                                                        "url": "https://github.com/usatie/pong/pull/174#discussion_r1436236883",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d3fc2a6",
+                                                            "authoredDate": "2023-12-24T16:12:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 3644,
+                        "title": "Proposal: New CSS selector engine for jsdom",
+                        "repository": {
+                            "nameWithOwner": "jsdom/jsdom",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-12-23T15:13:03Z",
+                        "mergedAt": "2024-01-07T12:26:06Z",
+                        "url": "https://github.com/jsdom/jsdom/pull/3644",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "asamuzaK"
+                        },
+                        "editor": null,
+                        "body": "`nwsapi` has been working great so far, and I appreciate the developer's hard work, but `nwsapi` is unable to support Selectors Level 4 properly at the moment.\r\nYou can find many selector-related bug reports in the `jsdom` issues.\r\n\r\nTherefore, I recommend changing to a different CSS selector engine [dom-selector](https://github.com/asamuzaK/domSelector).\r\nIt supports many features of the Selectors Level 4 and also the Shadow Hosts.\r\nRef [Supported CSS selectors](https://github.com/asamuzaK/domSelector#supported-css-selectors)\r\n\r\n# Benchmark results\r\n\r\n```\r\nnpm run benchmark\r\n```\r\n\r\n|API|nwsapi|dom-selector|\r\n|:--------|:--------|:--------|\r\n|closest()|jsdom x 126,133 ops/sec \u00b10.75% (73 runs sampled)|jsdom x 7,449 ops/sec \u00b113.28% (64 runs sampled)|\r\n|matches()|jsdom x 120,369 ops/sec \u00b18.31% (65 runs sampled)|jsdom x 8,507 ops/sec \u00b17.84% (60 runs sampled)|\r\n|querySelector()|jsdom x 3.12 ops/sec \u00b12.60% (12 runs sampled)|jsdom x 14.72 ops/sec \u00b11.94% (35 runs sampled)|\r\n|querySelectorAll()|jsdom x 2.93 ops/sec \u00b11.52% (11 runs sampled)|jsdom x 12.41 ops/sec \u00b12.47% (31 runs sampled)|\r\n\r\nFor `closest()` and `matches()`, `nwsapi` is about 15 times faster, but in reality, `dom-selector` processed in 0.11 to 0.13 msec, so I don't think it's extremely slow.\r\nRather, it is `querySelector()` and `querySelectorAll()` that often have speed performance issues, and in this benchmark, `dom-selector` is about 4 times faster than `nwsapi`.\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-12-27T07:36:12Z",
+                                    "bodyText": "Hi! Thank you for all your work here. I think we should merge this, and I agree that querySelector and querySelectorAll are more important than matches and closest. Here are some things I'd appreciate from you before doing so, if you are able to make the time:\n\n\nCan you add a large-scale benchmark? In particular, let's run against this page with these selectors. We should commit those files to the repo, and then in the benchmark setup load the page into jsdom, and load the selectors from a file and then into an in-memory array. Then we can test how long in total running all the selectors takes.\n\n\nDo you have a plan for closing the remaining performance gap with closest and matches?\n\n\nWould you be willing to maintain a changelog or releases page? https://github.com/asamuzaK/domSelector/releases is not informative, and https://github.com/asamuzaK/domSelector/commits/main/ has lots of \"update x\" commits. That makes it harder to do updates confidently in the future.\n\n\nI see you've enabled lots of new web platform tests. This is great!! Can you share a comparison with those directories and tests enabled on jsdom's current branch? Are there any regressions, or only progressions?",
+                                    "url": "https://github.com/jsdom/jsdom/pull/3644#issuecomment-1870032115",
+                                    "author": {
+                                        "login": "domenic"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-27T11:22:38Z",
+                                    "bodyText": "* Can you add a large-scale benchmark? In particular, let's run against [this page](https://github.com/jquery/sizzle/blob/main/speed/data/selector.html) with [these selectors](https://github.com/jquery/sizzle/blob/main/speed/selectors.large.css). We should commit those files to the repo, and then in the benchmark setup load the page into jsdom, and load the selectors from a file and then into an in-memory array. Then we can test how long in total running all the selectors takes.\n\n\nI'm planning to submit it as a separate PR.\nAnd rebase it to this PR afterwards.\nHow's that sounds?\n\n* Do you have a plan for closing the remaining performance gap with closest and matches?\n\n\nWith closest and matches, dom-selector is more than 4 times slower than happy-dom or linkeDom.\nI would like to do something about it if possible, but I haven't found any clue to improve so far.\n\n* Would you be willing to maintain a changelog or releases page?\n\n\nI will create change logs.\n\n* Can you share a comparison with those directories and tests enabled on jsdom's current branch? Are there any regressions, or only progressions?\n\n\n\nced0ecc\nThis update is for preparing and not directly related to this PR.\n375fa4f\n53dc3bc\nAdded DIR: css/selectors and DIR: css/css-scoping tests.\nThose failures are of the current main branch.\n47a2a74\nTest results with dom-selector.\nThe deleted rows are the errors resolved by dom-selector.\nNote that some new failures have been added, but these are errors that should have been detected before but were not for some reason.\nThey are basically not caused by dom-selector.",
+                                    "url": "https://github.com/jsdom/jsdom/pull/3644#issuecomment-1870210103",
+                                    "author": {
+                                        "login": "asamuzaK"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-28T12:50:34Z",
+                                    "bodyText": "I'm planning to submit it as a separate PR.\nAnd rebase it to this PR afterwards.\nHow's that sounds?\n\nThat sounds reasonable, although it'd be most helpful if we had some comparisons using the larger benchmark between nwsapi and dom-selector before merging. They don't need to be committed to the repository, but just something to check to make sure there's not a hidden significant performance issue with larger documents.\nI realize that, as you discussed in #3647, the comparison is difficult due to the number of failing selectors being different between the two implementations. Maybe you could just test the subset that pass in both, and report the results?\n\n\n47a2a74\nTest results with dom-selector.\n\n\nThis is perfect. Thank you so much for doing this work.",
+                                    "url": "https://github.com/jsdom/jsdom/pull/3644#issuecomment-1871137407",
+                                    "author": {
+                                        "login": "domenic"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-29T00:48:53Z",
+                                    "bodyText": "Log of sizzle-speed with dom-selector:\n# selectors/selector/querySelectorAll #\n9/273 fails.\njsdom  x 0.37 ops/sec \u00b110.00% (5 runs sampled)\n\n# selectors/selector/querySelectorAll only nwsapi supports #\njsdom  x 0.38 ops/sec \u00b15.31% (5 runs sampled)\n\nException thrown by dom-selector:\n[\n  {\n    selector: 'h1[id]:contains(Selectors)',\n    message: 'Unknown pseudo-class :contains()'\n  },\n  {\n    selector: 'div[class!=made_up]',\n    message: 'Attribute selector (=, ~=, ^=, $=, *=, |=) is expected'\n  },\n  {\n    selector: 'p:contains(selectors)',\n    message: 'Unknown pseudo-class :contains()'\n  },\n  { selector: 'p   p, ',\n    message: 'Invalid selector p   p, '\n  },\n  { selector: 'p   .5cm ',\n    message: 'Identifier is expected'\n  },\n  { selector: 'p   [*=test] ',\n    message: 'Vertical line is expected'\n  },\n  { selector: 'p  .13 ',\n    message: 'Percent sign is expected'\n  },\n  {\n    selector: 'div  p::first-child ',\n    message: 'Unknown pseudo-element ::first-child'\n  },\n  {\n    selector: 'p ..test .foo..quux .bar. ',\n    message: 'Identifier is expected'\n  }\n]\n\nSo, nwsapi is about 3 times faster.",
+                                    "url": "https://github.com/jsdom/jsdom/pull/3644#issuecomment-1871649857",
+                                    "author": {
+                                        "login": "asamuzaK"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-12-29T08:28:06Z",
+                                    "bodyText": "3x slowdown is not great... I think we should probably still proceed, since jsdom in general favors correctness over speed and the selector engine problems have been significant recently.\nBut, if there's anything we can do to improve performance before the next release, that would help a lot.\nI made a flamegraph using 0x and uploaded it here. I have to go out to dinner now but maybe it could be helpful for you...\nOne thing I noticed is that sometimes you call expensive jsdom methods like the indexed or named getters on HTMLCollection. There might be faster ways to do that. (E.g. just using item() might be faster than the indexed getter, since it avoids proxy machinery? Or iterating manually might be faster than using the named getter? Or avoiding HTMLCollection instances entirely, instead operating on the original tree? Or just caching things whenever possible, to avoid touching jsdom more often than necessary?)\nLike, I found this line [].slice.call(parentNode.children) in https://github.com/asamuzaK/domSelector/blob/802febbac20f1024b57bf73b66d7ce7a91f0fc74/src/js/matcher.js#L381 which seems potentially quite expensive.",
+                                    "url": "https://github.com/jsdom/jsdom/pull/3644#issuecomment-1871836170",
+                                    "author": {
+                                        "login": "domenic"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-03T15:15:18Z",
+                                    "bodyText": "dom-selector now uses TreeWalker instead of creating arrays from node.children, node.childNodes.\nThank you for the very useful advice.\nComparing v1.2.2...v1.2.6 \u00b7 asamuzaK/domSelector\nLatest benchmark results:\n\n\n\nbenchmark\nnwsapi\ndom-selector\n\n\n\n\n# dom/css-selector/closest #\njsdom x 126,133 ops/sec \u00b10.75% (73 runs sampled)\njsdom x 8,078 ops/sec \u00b115.55% (59 runs sampled)\n\n\n# dom/css-selector/matches #\njsdom x 120,369 ops/sec \u00b18.31% (65 runs sampled)\njsdom x 9,898 ops/sec \u00b18.28% (60 runs sampled)\n\n\n# dom/css-selector/querySelector #\njsdom x 3.12 ops/sec \u00b12.60% (12 runs sampled)\njsdom x 2,527 ops/sec \u00b13.31% (55 runs sampled)\n\n\n# dom/css-selector/querySelectorAll #\njsdom x 2.93 ops/sec \u00b11.52% (11 runs sampled)\njsdom x 11.39 ops/sec \u00b11.65% (29 runs sampled)\n\n\n# selectors/selector/querySelectorAll #\njsdom x 1.20 ops/sec \u00b110.21% (7 runs sampled) 18/273 fails.\njsdom x 0.41 ops/sec \u00b15.93% (6 runs sampled) 9/273 fails.\n\n\n# selectors/selector/querySelectorAll only nwsapi supports #\njsdom x 1.24 ops/sec \u00b18.02% (7 runs sampled)\njsdom x 0.42 ops/sec \u00b11.54% (5 runs sampled)\n\n\n\nThe performance of querySelector() is much better than before (was 14.72 ops/sec).\nOn the other hand, sizzle benchmark is about 10% better, but still 3x slower than nwsapi.\nSee domSelector#performance for other comparisons with nwsapi.",
+                                    "url": "https://github.com/jsdom/jsdom/pull/3644#issuecomment-1875531942",
+                                    "author": {
+                                        "login": "asamuzaK"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-06T05:49:09Z",
+                                    "bodyText": "PR ready.\nComparing v1.2.2...v2.0.1 \u00b7 asamuzaK/domSelector",
+                                    "url": "https://github.com/jsdom/jsdom/pull/3644#issuecomment-1879563387",
+                                    "author": {
+                                        "login": "asamuzaK"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-07T12:32:19Z",
+                                    "bodyText": "Thank you for all your work! Although the slowdown is unfortunate, I think it is great to have a maintained selector engine with modern features.\nI have tagged almost all open selectors issues as \"maybe fixed (add tests to confirm)\". It would be a nice bonus if you were willing to spend some time checking if there are existing WPTs covering the issue that are now passing, and leaving a comment on the issue so I can close them. Or, if there are no existing WPTs, we can work on adding them to the to-upstream WPTs. (Check out the existing files under test/web-platform-tests/tests/to-upstream/dom/nodes/ParentNode-querySelector* for examples.)\nThis is not necessary, but it would be helpful to me and to all the people who have previously reported various issues!",
+                                    "url": "https://github.com/jsdom/jsdom/pull/3644#issuecomment-1880046790",
+                                    "author": {
+                                        "login": "domenic"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-07T12:53:08Z",
+                                    "bodyText": "Although it does not follow the WPT format, issues reported on jsdom are tested on domSelector/test/jsdom-issues.test.js.\nIs it not possible to closing them, for example, marking them as tested upstream?\nI don't feel like rewriting all of them just for testing again...",
+                                    "url": "https://github.com/jsdom/jsdom/pull/3644#issuecomment-1880051793",
+                                    "author": {
+                                        "login": "asamuzaK"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-07T13:16:57Z",
+                                    "bodyText": "Ah, thank you for pointing to that file! It's best to have them in WPT format so that the coverage can be applied to all browsers, and so that we have tests in the jsdom repo to more easily catch regressions. But if you'd rather not do the rewriting yourself, that's not a problem. I can work on it!",
+                                    "url": "https://github.com/jsdom/jsdom/pull/3644#issuecomment-1880057734",
+                                    "author": {
+                                        "login": "domenic"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-07T13:25:04Z",
+                                    "bodyText": "In fact I think I can automate it :) https://chat.openai.com/share/3892a3b2-1c1c-4b9c-9a0f-fe3df1c317ae",
+                                    "url": "https://github.com/jsdom/jsdom/pull/3644#issuecomment-1880059666",
+                                    "author": {
+                                        "login": "domenic"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I noticed that the global window is accessible via document.defaultView.\nSo if dom-selector throws an exception like throw new document.defaultView.DOMException(), these try-catch can be completely removed, right?",
+                                                        "author": {
+                                                            "login": "asamuzaK"
+                                                        },
+                                                        "url": "https://github.com/jsdom/jsdom/pull/3644#discussion_r1442599751",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "33bbfc9",
+                                                            "authoredDate": "2024-01-05T00:20:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, that's right!",
+                                                        "author": {
+                                                            "login": "domenic"
+                                                        },
+                                                        "url": "https://github.com/jsdom/jsdom/pull/3644#discussion_r1442606696",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "33bbfc9",
+                                                            "authoredDate": "2024-01-05T00:20:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Thanks for the  quick reply.\nI will rewrite the code and PR.",
+                                                        "author": {
+                                                            "login": "asamuzaK"
+                                                        },
+                                                        "url": "https://github.com/jsdom/jsdom/pull/3644#discussion_r1442621495",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "33bbfc9",
+                                                            "authoredDate": "2024-01-05T00:20:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjI=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 2
+        }
+    }
+}

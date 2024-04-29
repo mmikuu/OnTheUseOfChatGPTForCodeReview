@@ -1,0 +1,171 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 70,
+                        "title": "Feature: optimise example video",
+                        "repository": {
+                            "nameWithOwner": "rhysmorgan134/node-CarPlay",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-10-06T12:09:50Z",
+                        "mergedAt": "2023-10-10T07:09:00Z",
+                        "url": "https://github.com/rhysmorgan134/node-CarPlay/pull/70",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "gozmanyoni"
+                        },
+                        "editor": null,
+                        "body": "Optimizing example - removed unneeded transformations and methods and further simplified code.\r\nFrom testing on Pi 4 60FPS its usable with 40-65% cpu, before these changes CPU was 50-80%\r\n\r\n@steelbrain @rhysmorgan134 curious if you have a similar experience on this branch?",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-10-06T20:16:48Z",
+                                    "bodyText": "I've done some testing\nnew changes\n\ncurrent master branch\n\njmuxer/electron\n\nNot particuarly useful as it's obviously a 1min average, but test was to go to map, choose navigate to work, let maps zoom in, then manually zoom out 5 clicks, then cancel route.\nWorth noting, I am unsure how jmuxer scored so high, jmuxer @ 1080 @ 60fps feels the worst in the case of useablility but got the lowest averages, I am guessing it is just dropping frames so technically lowering the load, but causing severe lag.\nI would say the new changes feel better, but I still think 1080 @ 60fps on all implementations doesn't feel \"smooth\". This is all with gpu mem set to 256mb on a pi4 4gb",
+                                    "url": "https://github.com/rhysmorgan134/node-CarPlay/pull/70#issuecomment-1751357146",
+                                    "author": {
+                                        "login": "rhysmorgan134"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-08T00:09:41Z",
+                                    "bodyText": "Added more renderers - particularly interested in WebGPU (supposed to be faster than WebGL), which we need Vulkan for - planning to try and enable Vulkan on the pi following - https://qengineering.eu/install-vulkan-on-raspberry-pi.html\nYou can also enable fps reporting to see console logs with FPS every 5 seconds",
+                                    "url": "https://github.com/rhysmorgan134/node-CarPlay/pull/70#issuecomment-1751871434",
+                                    "author": {
+                                        "login": "gozmanyoni"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-08T00:52:37Z",
+                                    "bodyText": "Added more renderers - particularly interested in WebGPU (supposed to be faster than WebGL), which we need Vulkan for - planning to try and enable Vulkan on the pi following - https://qengineering.eu/install-vulkan-on-raspberry-pi.html\n\nThe referenced blog post seems very heavy weight just to try Vulkan, here\u2019s something from ChatGPT https://chat.openai.com/share/bbaefbb3-9115-41c1-9cf9-0d4f3086dc53\nLooks like it\u2019s bundled in raspi repositories now?",
+                                    "url": "https://github.com/rhysmorgan134/node-CarPlay/pull/70#issuecomment-1751879482",
+                                    "author": {
+                                        "login": "steelbrain"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-09T20:06:41Z",
+                                    "bodyText": "Looks good to me, will give the different renderers a try when I get a chance!",
+                                    "url": "https://github.com/rhysmorgan134/node-CarPlay/pull/70#issuecomment-1753676451",
+                                    "author": {
+                                        "login": "rhysmorgan134"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-10T10:59:09Z",
+                                    "bodyText": "@steelbrain - Was that on the mac or a pi? I didnt have a chance to get Vulkan configured and working properly on my Pi yet",
+                                    "url": "https://github.com/rhysmorgan134/node-CarPlay/pull/70#issuecomment-1755051761",
+                                    "author": {
+                                        "login": "gozmanyoni"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-10T12:32:00Z",
+                                    "bodyText": "@gozmanyoni It was on macOS, I spent a few minutes on the pi and gave up after Chromium didnt enable webgpu even after vulkan drivers were installed.\nI can try again on the weekend and document what works and what doesnt",
+                                    "url": "https://github.com/rhysmorgan134/node-CarPlay/pull/70#issuecomment-1755298277",
+                                    "author": {
+                                        "login": "steelbrain"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-24T17:20:58Z",
+                                    "bodyText": "@gozmanyoni @steelbrain silky smooth on a pi5 even at 1080@60fps!",
+                                    "url": "https://github.com/rhysmorgan134/node-CarPlay/pull/70#issuecomment-1777687067",
+                                    "author": {
+                                        "login": "rhysmorgan134"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-24T23:01:44Z",
+                                    "bodyText": "@rhysmorgan134 nice! Do you have a demo video?\nAlso - does the pi5 play well with PiMOST? No stock of these in Australia yet :-(",
+                                    "url": "https://github.com/rhysmorgan134/node-CarPlay/pull/70#issuecomment-1778188808",
+                                    "author": {
+                                        "login": "gozmanyoni"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-26T08:44:19Z",
+                                    "bodyText": "@gozmanyoni no video yet, will grab one though.\nPi5 itself seems to be working well with it, however bookworm is having issues with i2s and the simple-audio-card overlay!",
+                                    "url": "https://github.com/rhysmorgan134/node-CarPlay/pull/70#issuecomment-1780674684",
+                                    "author": {
+                                        "login": "rhysmorgan134"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Changeset makes sense. Thank you for working on it!\nI\u2019ll try it this evening and report back",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Was configuring the dongle in its own web interface, and it actually errors out when sending anything below 300 - aligning with the minimum there.",
+                                                        "author": {
+                                                            "login": "gozmanyoni"
+                                                        },
+                                                        "url": "https://github.com/rhysmorgan134/node-CarPlay/pull/70#discussion_r1349600664",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b0029db",
+                                                            "authoredDate": "2023-10-08T00:04:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Alright, finally tried all the renderers, they all work flawlessly. Thank you @gozmanyoni!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}

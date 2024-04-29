@@ -1,0 +1,845 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 1885,
+                        "title": "Unescape strings at tokenizer level",
+                        "repository": {
+                            "nameWithOwner": "lcompilers/lpython",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2023-06-08T18:52:05Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/lcompilers/lpython/pull/1885",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "Shaikh-Ubaid"
+                        },
+                        "editor": {
+                            "login": "Shaikh-Ubaid"
+                        },
+                        "body": "related https://github.com/lfortran/lfortran/pull/1783",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-06-08T19:40:06Z",
+                                    "bodyText": "The step Run mamba-org/provision-with-micromamba@main seems to fail for three jobs at the CI.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/1885#issuecomment-1583225655",
+                                    "author": {
+                                        "login": "Shaikh-Ubaid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-09T02:33:43Z",
+                                    "bodyText": "(lp) ubaid@ubaids-MacBook-Pro lpython % cat examples/expr2.py                     \nr\"\"\"\nText\n123\\n\\t\n\"\"\"\n(lp) ubaid@ubaids-MacBook-Pro lpython % python -m tokenize examples/expr2.py      \n0,0-0,0:            ENCODING       'utf-8'        \n1,0-4,3:            STRING         'r\"\"\"\\nText\\n123\\\\n\\\\t\\n\"\"\"'\n4,3-4,4:            NEWLINE        '\\n'           \n5,0-5,0:            ENDMARKER      ''             \n(lp) ubaid@ubaids-MacBook-Pro lpython % lpython examples/expr2.py --show-ast        \n(Module\n    [(Expr\n        (ConstantStr\n            \"\\nText\\n123\\n\\t\\n\"\n            ()\n        )\n    )]\n    []\n)\nIn the above example, we have a raw string. For raw strings, escape sequences are treated as regular characters. We see that the current output of lpython is not as expected. Previously, the unescaping of string was done at the parser level, where we did not unescape strings which have PREFIX_STRING (see semantics.h) of r.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/1885#issuecomment-1583856847",
+                                    "author": {
+                                        "login": "Shaikh-Ubaid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-09T02:42:26Z",
+                                    "bodyText": "Good point. I see two ways forward:\n\nunescape at the parser level\nadd a special token for raw strings of the type r\"xxx\", and then handle unescaping correctly. Modify the parser accordingly.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/1885#issuecomment-1583863399",
+                                    "author": {
+                                        "login": "certik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-12T18:32:38Z",
+                                    "bodyText": "add a special token for raw strings of the type r\"xxx\", and then handle unescaping correctly. Modify the parser accordingly.\n\nIt seems that adding token for strings is possible, but is leading to many new tokens being added (raw_strings, bytes, raw_bytes, formatted strings, raw_formatted strings, etc.)\nraw_str1 = (\"r\" | \"R\") (string1 | string2);\nraw_str2 = (\"r\" | \"R\") (string3 | string4);\nbytes1 = (\"b\" | \"B\") (string1 | string2);\nbytes2 = (\"b\" | \"B\") (string3 | string4);\nraw_bytes1 = (\"rb\" | \"rB\" | \"Rb\" | \"RB\" | \"br\" | \"bR\" | \"Br\" | \"BR\") (string1 | string2);\nraw_bytes2 = (\"rb\" | \"rB\" | \"Rb\" | \"RB\" | \"br\" | \"bR\" | \"Br\" | \"BR\") (string3 | string4);\n...\n\nFor the moment it seems it is better to proceed with unescaping at the parser level.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/1885#issuecomment-1587868156",
+                                    "author": {
+                                        "login": "Shaikh-Ubaid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-12T18:45:27Z",
+                                    "bodyText": "I think if you use 'rb' then it is case insensitive in re2c. But it's fine.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/1885#issuecomment-1587883860",
+                                    "author": {
+                                        "login": "certik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-12T18:46:54Z",
+                                    "bodyText": "Looks good to me. @Shaikh-Ubaid let me know when this is ready for review.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/1885#issuecomment-1587885899",
+                                    "author": {
+                                        "login": "certik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-12T19:05:45Z",
+                                    "bodyText": "For the moment it seems it is better to proceed with unescaping at the parser level.\n\nThere is another concern here. For LFortran when unescaping strings, we need to know the quote used to create the string (' or \"). I think this information is not available with the parser. So, it seems it needs unescaping at the tokenizer level.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/1885#issuecomment-1587916639",
+                                    "author": {
+                                        "login": "Shaikh-Ubaid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-13T19:35:09Z",
+                                    "bodyText": "See #1902 (comment).",
+                                    "url": "https://github.com/lcompilers/lpython/pull/1885#issuecomment-1589907846",
+                                    "author": {
+                                        "login": "Shaikh-Ubaid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-13T23:36:17Z",
+                                    "bodyText": "Good point. I see two ways forward:\n\nunescape at the parser level\nadd a special token for raw strings of the type r\"xxx\", and then handle unescaping correctly. Modify the parser accordingly.\n\n\nThis PR currently unescapes at tokenizer level. (LFortran also currently unescapes at tokenizer level since it needs to know the quote used to create the string literal).\nThe concern in the current approach of unescaping at the tokenizer level in LPython is that we are needing to create several/many new tokens like raw strings, unicode strings, formatted strings, raw formatted strings, bytes, raw bytes (and these also need support at the parser level).",
+                                    "url": "https://github.com/lcompilers/lpython/pull/1885#issuecomment-1590195547",
+                                    "author": {
+                                        "login": "Shaikh-Ubaid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-13T23:39:28Z",
+                                    "bodyText": "In the current approach, we unescape all strings, bytes unless it is marked raw in which case we do not unescape (and therefore the escape sequences present (if any) in the raw string/bytes would be treated as character literals).",
+                                    "url": "https://github.com/lcompilers/lpython/pull/1885#issuecomment-1590198384",
+                                    "author": {
+                                        "login": "Shaikh-Ubaid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-13T23:40:06Z",
+                                    "bodyText": "Ready.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/1885#issuecomment-1590198991",
+                                    "author": {
+                                        "login": "Shaikh-Ubaid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-14T00:35:50Z",
+                                    "bodyText": "Thanks for this. I think you might have found and fixed another bug (#1885 (comment)).\nThat bug aside, it does seem this approach is more complicated than doing it in the parser. Let's keep this PR open for a while and think about it.\n@czgdp1807 let us know your opinion on this approach as well.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/1885#issuecomment-1590253442",
+                                    "author": {
+                                        "login": "certik"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-20T08:20:09Z",
+                                    "bodyText": "What's the status of this? Do we need this?\n\nWe need your opinion on it. Please, let us know what we should do.\nWe currently handle unescaping at the parser level for LPython (and tokenizer level for LFortran). This PR supports unescaping at tokenizer level for LPython.\nAny approach works for me. Please feel free to close/merge it as required.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/1885#issuecomment-1643488951",
+                                    "author": {
+                                        "login": "Shaikh-Ubaid"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-28T04:58:39Z",
+                                    "bodyText": "If there is no significant benefit of bringing un-escaping to the tokenizer level in LPython, then I wouldn't work on it for the time being. There are higher priority things to be done (like bug fixing, performance improvements to perform better than LPython's competitors), so let's work on those.",
+                                    "url": "https://github.com/lcompilers/lpython/pull/1885#issuecomment-1695010458",
+                                    "author": {
+                                        "login": "czgdp1807"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In the example above, the given string is\nb'''\n\\n\\\\n'''\n\nWith respect to this example, it seems that all strings (including raw strings, bytes, raw bytes, etc.) need unescaping at the tokenizer level. And then we need to escape them if they are raw strings/ bytes/ raw bytes, etc (I think at the parser level).",
+                                                        "author": {
+                                                            "login": "Shaikh-Ubaid"
+                                                        },
+                                                        "url": "https://github.com/lcompilers/lpython/pull/1885#discussion_r1227299976",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "66bf67e",
+                                                            "authoredDate": "2023-06-12T22:01:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Why do raw strings have to be escaped?",
+                                                        "author": {
+                                                            "login": "certik"
+                                                        },
+                                                        "url": "https://github.com/lcompilers/lpython/pull/1885#discussion_r1227347417",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "66bf67e",
+                                                            "authoredDate": "2023-06-12T22:01:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think you are right, Sir. I will look into it.",
+                                                        "author": {
+                                                            "login": "Shaikh-Ubaid"
+                                                        },
+                                                        "url": "https://github.com/lcompilers/lpython/pull/1885#discussion_r1227656022",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "66bf67e",
+                                                            "authoredDate": "2023-06-12T22:01:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think this is a bug.",
+                                                        "author": {
+                                                            "login": "certik"
+                                                        },
+                                                        "url": "https://github.com/lcompilers/lpython/pull/1885#discussion_r1228432762",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f1d76f0",
+                                                            "authoredDate": "2023-06-13T16:13:41Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I would keep this change.",
+                                                        "author": {
+                                                            "login": "certik"
+                                                        },
+                                                        "url": "https://github.com/lcompilers/lpython/pull/1885#discussion_r1228438663",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f1d76f0",
+                                                            "authoredDate": "2023-06-13T16:13:41Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I would keep this change (the str_escape_c).",
+                                                        "author": {
+                                                            "login": "certik"
+                                                        },
+                                                        "url": "https://github.com/lcompilers/lpython/pull/1885#discussion_r1228438947",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f1d76f0",
+                                                            "authoredDate": "2023-06-13T16:13:41Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's keep this change.",
+                                                        "author": {
+                                                            "login": "certik"
+                                                        },
+                                                        "url": "https://github.com/lcompilers/lpython/pull/1885#discussion_r1228439636",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "f1d76f0",
+                                                            "authoredDate": "2023-06-13T16:13:41Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This change fixes a bug?",
+                                                        "author": {
+                                                            "login": "certik"
+                                                        },
+                                                        "url": "https://github.com/lcompilers/lpython/pull/1885#discussion_r1228837650",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "20d1db9",
+                                                            "authoredDate": "2023-06-13T23:15:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It seems that the prefixes \"u\" and \"U\" were meaningful for Python 2. In Python 3, all string literals are Unicode by default. Thus, it seems the prefixes \"u\" and \"U\" do not add much/any value in Python 3 (Reference https://chat.openai.com/share/1270fc0a-fb93-4638-822d-3d1619488027).\nWith respect to the above, I think it might not be a bug fix. Previously, we were passing the kind only for \"u\" (prefix). Currently, we also pass the kind value for \"U\" (capital U) (prefix).",
+                                                        "author": {
+                                                            "login": "Shaikh-Ubaid"
+                                                        },
+                                                        "url": "https://github.com/lcompilers/lpython/pull/1885#discussion_r1228867141",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "20d1db9",
+                                                            "authoredDate": "2023-06-13T23:15:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "What's the status of this? Do we need this?",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 6,
+                        "title": "Support deep frontmatter property setting using pydash",
+                        "repository": {
+                            "nameWithOwner": "jefftriplett/frontmatter-cli",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-06-08T13:41:47Z",
+                        "mergedAt": "2023-06-09T02:23:06Z",
+                        "url": "https://github.com/jefftriplett/frontmatter-cli/pull/6",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "displague"
+                        },
+                        "editor": {
+                            "login": "displague"
+                        },
+                        "body": "Adds support for deep frontmatter property setting using pydash. This allows, for example, the ability to define additional `tags` or set `author` details when there are multiple authors with multiple fields per author.\r\n\r\nDependencies were also updated to include `pydash` and bumping Python version to 3.11 (minimum stays at 3.7).\r\n\r\nA Contributions section was added to the README.md with some of the tips that I picked up while trying to ensure the contribution met the project's expectations.\r\n\r\nFixes #5 \r\n\r\nCredit to ChatGPT \ud83e\udd16: https://chat.openai.com/share/56cc6f3c-6581-41f9-afa7-4021c9ef1b07\r\n\r\nCommits in Convention Commit style: https://www.conventionalcommits.org/en/v1.0.0/#summary\r\n(also see https://common-changelog.org/)\r\n\r\n\r\n\r\n## How has this been tested\r\n\r\n```sh\r\n$ python3 t.py --version.0.version=\"1.2.3\" --type.1=\"daft\" --type.2=\"punk\" --excerpt=\"Robot Rock\" ../../../fabric-go.md - | head -n 18\r\n---\r\ncategories:\r\n- API\r\nexcerpt: Robot Rock\r\nslug: fabric-go\r\ntitle: Fabric Go\r\ntype:\r\n- SDKs\r\n- daft\r\n- punk\r\nversion:\r\n- changelog: <https://github.com/equinix-labs/fabric-go/releases/tag/v0.4.0>\r\n  date: 2022-09-29\r\n  version: 1.2.3\r\n---\r\n\r\n## What is it?\r\n\r\n```\r\n\r\n```\r\n$ just lint\r\ncheck for added large files..............................................Passed\r\ncheck for case conflicts.................................................Passed\r\ncheck json...........................................(no files to check)Skipped\r\ncheck for merge conflicts................................................Passed\r\ncheck for broken symlinks............................(no files to check)Skipped\r\ncheck toml...............................................................Passed\r\nfix end of files.........................................................Passed\r\ntrim trailing whitespace.................................................Passed\r\nblack....................................................................Passed\r\nblacken-docs.............................................................Passed\r\nruff.....................................................................Passed\r\n```\r\nI also noticed that a Github Action for the justfile would be nice: https://github.com/extractions/setup-just#examples\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-06-09T02:32:15Z",
+                                    "bodyText": "@displague thank you for the contribution and GPT work. my local tests worked great and this is on https://pypi.org/project/frontmatter-cli/2023.6.1/ now",
+                                    "url": "https://github.com/jefftriplett/frontmatter-cli/pull/6#issuecomment-1583855887",
+                                    "author": {
+                                        "login": "jefftriplett"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 581,
+                        "title": "Merge `underfilled_job_title` with `employee_position_title` in `employee_salaries`",
+                        "repository": {
+                            "nameWithOwner": "skrub-data/skrub",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-06-08T15:49:41Z",
+                        "mergedAt": "2023-08-03T20:32:44Z",
+                        "url": "https://github.com/skrub-data/skrub/pull/581",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "LilianBoulard"
+                        },
+                        "editor": {
+                            "login": "LilianBoulard"
+                        },
+                        "body": "This PR adds a parameter to `fetch_employee_salaries`, so the main dirty column is overloaded with another column that adds some new information (from my understanding).",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-06-16T08:02:07Z",
+                                    "bodyText": "One comment more general than this PR: I seem to have noticed that datasets are downloaded in the directory where skrub is installed. In the long run this is not a solution that we can keep for two reasons:\n\nThis directory might not be writable (for instance skrub may be installed by a sysadmin, or a package manage)\nThe datasets get installed in a directory that is not well visible to users. Hence users don't have in mind that they can delete this directory to save space. Disk space is a problem when softwares install large file in hidden directory.\n\nThe good practice would be to change the directory to one in the home dir, following what scikit-learn does.",
+                                    "url": "https://github.com/skrub-data/skrub/pull/581#issuecomment-1594278703",
+                                    "author": {
+                                        "login": "GaelVaroquaux"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-16T08:11:47Z",
+                                    "bodyText": "I just had a look at the PR. I do not think that I am in favor of adding the new, cleaner, column.\nIn terms of philosophy, I would like us to try as hard as we can to improve our tools to work on the data as it is, rather than to change the data. This means that we must stare at our examples and wonder what makes them ugly, and then see if we can provide functionality to make them less ugly.\nWith regards to using more the upstream scikit-learn code, yes, I'm a thousands time in favor of doing that.",
+                                    "url": "https://github.com/skrub-data/skrub/pull/581#issuecomment-1594291111",
+                                    "author": {
+                                        "login": "GaelVaroquaux"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-24T12:17:04Z",
+                                    "bodyText": "I agree that as much as we can, we should use appropriate tools, but in this specific instance, I think merging them in advance is the best option. Of course if we have a tool designed for this type of issue down the road, we can re-introduce it, but currently, this merge is something we do a lot in the new examples (#546), and it would simplify them quite a bit.",
+                                    "url": "https://github.com/skrub-data/skrub/pull/581#issuecomment-1647803011",
+                                    "author": {
+                                        "login": "LilianBoulard"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-01T06:28:04Z",
+                                    "bodyText": "I might have missed something, but why do you need to overwrite the employee_position_title column for simplification? It seems to work well in the first example, and I think what you are doing in #546 might work as well. For instance, works here without preprocessing it for the Gap example.",
+                                    "url": "https://github.com/skrub-data/skrub/pull/581#issuecomment-1659649579",
+                                    "author": {
+                                        "login": "jovan-stojanovic"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-01T12:39:32Z",
+                                    "bodyText": "To me, underfilled job title is a column that gives more specific information about the job title. Let me demonstrate:\n>>> from skrub.datasets import fetch_employee_salaries\n>>> dataset = fetch_employee_salaries()\n>>> X = dataset.X  # alias\n>>> # Filter, keep only the jobs that contain \"Fire\"\n>>> X = X[X[\"employee_position_title\"].str.contains(\"Fire\")]\n>>> X[[\"employee_position_title\", \"underfilled_job_title\", \"date_first_hired\"]].head(10)\n        employee_position_title            underfilled_job_title date_first_hired\n8       Firefighter/Rescuer III  Firefighter/Rescuer I (Recruit)       12/12/2016\n42      Firefighter/Rescuer III                              NaN       10/09/2006\n107     Firefighter/Rescuer III                              NaN       05/08/2011\n128         Fire/Rescue Captain                              NaN       02/26/1990\n132     Firefighter/Rescuer III           Firefighter/Rescuer II       03/10/2014\n142     Firefighter/Rescuer III                              NaN       03/17/2008\n152  Master Firefighter/Rescuer                              NaN       01/30/2006\n157         Fire/Rescue Captain                              NaN       09/11/2000\n158     Firefighter/Rescuer III                              NaN       03/17/2008\n167     Firefighter/Rescuer III           Firefighter/Rescuer II       03/10/2014\nWhen there is a value, underfilled_job_title seems to give a more specific description of the job.\nSo my proposition is to overload employee_position_title with the underfilled_job_title column.\nAlso, for reference: https://chat.openai.com/share/d4a00de6-d10b-4c5a-af19-43757fb795cf",
+                                    "url": "https://github.com/skrub-data/skrub/pull/581#issuecomment-1660232892",
+                                    "author": {
+                                        "login": "LilianBoulard"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-01T14:04:19Z",
+                                    "bodyText": "You're right, it's not crucial, but it unloads some boilerplate from the examples, which I think is a big benefit.\nOn the True/False default, I think that realistically, these fetching methods are mainly used in examples, thus it makes more sense to me being True by default (since we'll set it to True in pretty much all our examples). Maybe we should get a third opinion to settle this, wdyt @Vincent-Maladiere?",
+                                    "url": "https://github.com/skrub-data/skrub/pull/581#issuecomment-1660401765",
+                                    "author": {
+                                        "login": "LilianBoulard"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Ok, I see the difference though I don't feel it's crucial. But it's good to have it as an option.\nI agree with merging this with False by default (you might easily use it for examples). WDYT?",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                overload_job_titles: bool = True,\n          \n          \n            \n                overload_job_titles: bool = False,",
+                                                        "author": {
+                                                            "login": "jovan-stojanovic"
+                                                        },
+                                                        "url": "https://github.com/skrub-data/skrub/pull/581#discussion_r1280640105",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a502941",
+                                                            "authoredDate": "2023-07-24T13:05:51Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                overload_job_titles : bool, default=True\n          \n          \n            \n                overload_job_titles : bool, default=False",
+                                                        "author": {
+                                                            "login": "jovan-stojanovic"
+                                                        },
+                                                        "url": "https://github.com/skrub-data/skrub/pull/581#discussion_r1280640614",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a502941",
+                                                            "authoredDate": "2023-07-24T13:05:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Hey! The point of our examples is to showcase our features, not to explain how to use pandas or this dataset specifically, IMHO.\nI agree with @LilianBoulard that we should do this quick preprocessing by default to simplify the examples, even though having it in the example is not dramatic or ugly.",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "For the sake of readability, I suggest using X instead of dataset.X",
+                                                        "author": {
+                                                            "login": "Vincent-Maladiere"
+                                                        },
+                                                        "url": "https://github.com/skrub-data/skrub/pull/581#discussion_r1281730684",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a502941",
+                                                            "authoredDate": "2023-07-24T13:05:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I agree it would make the code a bit simpler, but at the cost of aliasing X beforehand, and overwriting it in dataset afterwards (since we don't necessarily modify it in-place). Wdyt @jovan-stojanovic?",
+                                                        "author": {
+                                                            "login": "LilianBoulard"
+                                                        },
+                                                        "url": "https://github.com/skrub-data/skrub/pull/581#discussion_r1281757228",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a502941",
+                                                            "authoredDate": "2023-07-24T13:05:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Hey, IMO let's go for the most efficient, both are readable enough. I think it's important to be as fast as possible when importing data in examples.",
+                                                        "author": {
+                                                            "login": "jovan-stojanovic"
+                                                        },
+                                                        "url": "https://github.com/skrub-data/skrub/pull/581#discussion_r1281806233",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a502941",
+                                                            "authoredDate": "2023-07-24T13:05:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Well the cost I talked about was on the number of lines and error-proneness, not so much on the actual computation cost :)\nI guess both versions are equal in that sense, thus it's purely a question of readability.",
+                                                        "author": {
+                                                            "login": "LilianBoulard"
+                                                        },
+                                                        "url": "https://github.com/skrub-data/skrub/pull/581#discussion_r1281838910",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a502941",
+                                                            "authoredDate": "2023-07-24T13:05:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I guess the answer is as you wish then \ud83d\ude06",
+                                                        "author": {
+                                                            "login": "jovan-stojanovic"
+                                                        },
+                                                        "url": "https://github.com/skrub-data/skrub/pull/581#discussion_r1281840347",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a502941",
+                                                            "authoredDate": "2023-07-24T13:05:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Well, let's keep it like that for now then, it'll probably change with #669 anyway :)",
+                                                        "author": {
+                                                            "login": "LilianBoulard"
+                                                        },
+                                                        "url": "https://github.com/skrub-data/skrub/pull/581#discussion_r1281843031",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a502941",
+                                                            "authoredDate": "2023-07-24T13:05:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Ok, let's leave it as it is for now since it would involve changes out of this PR scope.\nAs a general mindset, we should ask ourselves which metric to prioritize here. Is it the number of lines or the time spent understanding the code?",
+                                                        "author": {
+                                                            "login": "Vincent-Maladiere"
+                                                        },
+                                                        "url": "https://github.com/skrub-data/skrub/pull/581#discussion_r1281852621",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "a502941",
+                                                            "authoredDate": "2023-07-24T13:05:51Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "I became convinced :).\nMerging, thank you!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 712,
+                        "title": "Adding permission waits",
+                        "repository": {
+                            "nameWithOwner": "telosnetwork/open-block-explorer",
+                            "primaryLanguage": {
+                                "name": "Vue"
+                            }
+                        },
+                        "createdAt": "2023-06-08T13:40:30Z",
+                        "mergedAt": "2023-06-15T15:42:34Z",
+                        "url": "https://github.com/telosnetwork/open-block-explorer/pull/712",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Viterbo"
+                        },
+                        "editor": {
+                            "login": "Viterbo"
+                        },
+                        "body": "# Fixes #703 \r\n\r\n## Description\r\nThis PR adds the waits for every permission\r\n\r\n## Test scenarios\r\n- https://e18d1166.open-block-explorer.pages.dev/account/tedp4holding?tab=keys\r\n  - You should see the permission waits below the permission account.\r\n![image](https://github.com/telosnetwork/open-block-explorer/assets/4420760/6f7b064a-6bb4-4bda-845f-0b4f119c853a)\r\n\r\n\r\n\r\n## Checklist:\r\n<!---\r\nYou can remove the items that are not relevant for your project.\r\n-->\r\n-   [x] I have performed a self-review of my own code\r\n-   [x] I have commented my code, particularly in hard-to-understand areas\r\n-   [x] I have cleaned up the code in the areas my change touches\r\n-   [x] My changes generate no new warnings\r\n-   [x] Any dependent changes have been merged and published in downstream modules\r\n-   [x] I have checked my code and corrected any misspellings\r\n-   [x] I have removed any unnecessary console messages\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-06-08T13:40:36Z",
+                                    "bodyText": "\u2705 Deploy Preview for obe-testnet ready!\n\n\n\nName\nLink\n\n\n\n\n\ud83d\udd28 Latest commit\n9a1715e\n\n\n\ud83d\udd0d Latest deploy log\nhttps://app.netlify.com/sites/obe-testnet/deploys/64884059c72dd9000861d5c3\n\n\n\ud83d\ude0e Deploy Preview\nhttps://deploy-preview-712--obe-testnet.netlify.app/\n\n\n\ud83d\udcf1 Preview on mobile\n Toggle QR Code... Use your smartphone camera to open QR code link.\n\n\n\n\nTo edit notification comments on pull requests, go to your Netlify site settings.",
+                                    "url": "https://github.com/telosnetwork/open-block-explorer/pull/712#issuecomment-1582600174",
+                                    "author": {
+                                        "login": "netlify"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-08T13:40:37Z",
+                                    "bodyText": "\u2705 Deploy Preview for obe-staging ready!\n\n\n\nName\nLink\n\n\n\n\n\ud83d\udd28 Latest commit\n9a1715e\n\n\n\ud83d\udd0d Latest deploy log\nhttps://app.netlify.com/sites/obe-staging/deploys/648840592e6ee90008df87d9\n\n\n\ud83d\ude0e Deploy Preview\nhttps://deploy-preview-712--obe-staging.netlify.app/\n\n\n\ud83d\udcf1 Preview on mobile\n Toggle QR Code... Use your smartphone camera to open QR code link.\n\n\n\n\nTo edit notification comments on pull requests, go to your Netlify site settings.",
+                                    "url": "https://github.com/telosnetwork/open-block-explorer/pull/712#issuecomment-1582600192",
+                                    "author": {
+                                        "login": "netlify"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-06-08T13:40:48Z",
+                                    "bodyText": "Deploying with \u00a0 \u00a0Cloudflare Pages\nLatest commit: \n9a1715e\n\nStatus:\u00a0\u2705\u00a0 Deploy successful!\nPreview URL:\nhttps://71ae0f73.open-block-explorer.pages.dev\n\nBranch Preview URL:\nhttps://703-keys-tab-not-displaying.open-block-explorer.pages.dev\n\n\nView logs",
+                                    "url": "https://github.com/telosnetwork/open-block-explorer/pull/712#issuecomment-1582600461",
+                                    "author": {
+                                        "login": "cloudflare-pages"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Does this work? it is better to not use v-html\nhttps://chat.openai.com/share/863a44da-3728-4fe5-83b8-285f4912abeb\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                                    <div><span>{{`+${w.weight} &nbsp; &nbsp; `}}</span><span v-html=\"formatWait(w.wait_sec.value)\"></span></div>\n          \n          \n            \n                                    <div><span>{{`+${w.weight} &nbsp; &nbsp; `}}</span><span>{{ formatWait(w.wait_sec.value) }}</span></div>",
+                                                        "author": {
+                                                            "login": "ezra-sg"
+                                                        },
+                                                        "url": "https://github.com/telosnetwork/open-block-explorer/pull/712#discussion_r1227329562",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d607fe2",
+                                                            "authoredDate": "2023-06-08T13:37:44Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I didn't know. Thanks!",
+                                                        "author": {
+                                                            "login": "Viterbo"
+                                                        },
+                                                        "url": "https://github.com/telosnetwork/open-block-explorer/pull/712#discussion_r1227878448",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "d607fe2",
+                                                            "authoredDate": "2023-06-08T13:37:44Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjQ=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 4
+        }
+    }
+}

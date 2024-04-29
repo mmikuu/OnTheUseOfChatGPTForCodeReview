@@ -1,0 +1,2412 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 30,
+                        "title": "[PR fix] Caching updates",
+                        "repository": {
+                            "nameWithOwner": "dswcodes0/StatChat",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-08-10T00:16:17Z",
+                        "mergedAt": "2023-08-10T17:26:41Z",
+                        "url": "https://github.com/dswcodes0/StatChat/pull/30",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "vqdo"
+                        },
+                        "editor": {
+                            "login": "vqdo"
+                        },
+                        "body": "Reopening this since https://github.com/dswcodes0/StatChat/pull/29 was accidentally merged in",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "If there's an error you should probably return here and not continue with the rest of the code. This way you don't need the validUser variable.",
+                                                        "author": {
+                                                            "login": "vqdo"
+                                                        },
+                                                        "url": "https://github.com/dswcodes0/StatChat/pull/30#discussion_r1289386985",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4745a9c",
+                                                            "authoredDate": "2023-08-09T23:34:32Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Nice use of .some! What's the difference between some and using something like a for-loop?",
+                                                        "author": {
+                                                            "login": "vqdo"
+                                                        },
+                                                        "url": "https://github.com/dswcodes0/StatChat/pull/30#discussion_r1289387311",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4745a9c",
+                                                            "authoredDate": "2023-08-09T23:34:32Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I'm a little confused by this comment. Is it possible some of the variable names changed since you first wrote it?",
+                                                        "author": {
+                                                            "login": "vqdo"
+                                                        },
+                                                        "url": "https://github.com/dswcodes0/StatChat/pull/30#discussion_r1289388488",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4745a9c",
+                                                            "authoredDate": "2023-08-09T23:34:32Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What would happen in this case, if we searched: \"alice\" -> \"bob\" -> \"alice\" -> \"caleb\" -> \"dan\"?\nThe most recently searched should be alice, caleb, and dan.\nWith this logic, it looks like we will instead save bob, caleb, and dan.",
+                                                        "author": {
+                                                            "login": "vqdo"
+                                                        },
+                                                        "url": "https://github.com/dswcodes0/StatChat/pull/30#discussion_r1289392187",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4745a9c",
+                                                            "authoredDate": "2023-08-09T23:34:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "some returns true if even one value meets the condition while a for loop is for more general iterating things",
+                                                        "author": {
+                                                            "login": "dswcodes0"
+                                                        },
+                                                        "url": "https://github.com/dswcodes0/StatChat/pull/30#discussion_r1289455165",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4745a9c",
+                                                            "authoredDate": "2023-08-09T23:34:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "yes, this was for a different version of the code, thank you for pointing it out:\nnew comment:          //assigned the stats for the new user as the user1.stats to user later.",
+                                                        "author": {
+                                                            "login": "dswcodes0"
+                                                        },
+                                                        "url": "https://github.com/dswcodes0/StatChat/pull/30#discussion_r1289456012",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4745a9c",
+                                                            "authoredDate": "2023-08-09T23:34:32Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "This looks good! It'd be super helpful in the future if you added a thorough test plan (ex. all the cases you tried) - or even better, unit tests.\nApproved (I can't do this in the UI since I opened this PR)",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The previous location of the catch block was a bit better, since it wrapped around the piece that we expect to throw an error.",
+                                                        "author": {
+                                                            "login": "vqdo"
+                                                        },
+                                                        "url": "https://github.com/dswcodes0/StatChat/pull/30#discussion_r1290310752",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "984c793",
+                                                            "authoredDate": "2023-08-10T02:52:03Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "It would be good to move \"3\" to a constant at the module level. Right now it's kind of a magic number. 1) In case we need to reference it later. 2) Giving it a descriptive name will readers understand what exactly \"3\" is.\nEven better explanation: https://chat.openai.com/share/64952937-bd11-49ad-bab5-22074a49b488",
+                                                        "author": {
+                                                            "login": "vqdo"
+                                                        },
+                                                        "url": "https://github.com/dswcodes0/StatChat/pull/30#discussion_r1290326339",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "984c793",
+                                                            "authoredDate": "2023-08-10T02:52:03Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "title"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 849,
+                        "title": "Farming kicks",
+                        "repository": {
+                            "nameWithOwner": "NotEnoughUpdates/NotEnoughUpdates",
+                            "primaryLanguage": {
+                                "name": "Java"
+                            }
+                        },
+                        "createdAt": "2023-10-02T14:37:45Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/NotEnoughUpdates/NotEnoughUpdates/pull/849",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "hannibal002"
+                        },
+                        "editor": null,
+                        "body": "Did something with the `blocksClicked` field in the `checkForBlockChange` method to fix this disconnect while farming:\r\n```\r\nNetty Client IO #4@21376\" daemon prio=5 tid=0xda nid=NA runnable\r\n  java.lang.Thread.State: RUNNABLE\r\n      at java.util.ConcurrentModificationException.<init>(Unknown Source:-1)\r\n      at java.util.TreeMap$PrivateEntryIterator.nextEntry(Unknown Source:-1)\r\n      at java.util.TreeMap$ValueIterator.next(Unknown Source:-1)\r\n      at io.github.moulberry.notenoughupdates.miscfeatures.ItemCooldowns.checkForBlockChange(ItemCooldowns.java:173)\r\n      at io.github.moulberry.notenoughupdates.miscfeatures.ItemCooldowns.processBlockChangePacket(ItemCooldowns.java:167)\r\n      at net.minecraft.client.network.NetHandlerPlayClient.handler$bjb000$handleBlockChange(MixinNetHandlerPlayClient.java:123)\r\n      at net.minecraft.client.network.NetHandlerPlayClient.func_147234_a(NetHandlerPlayClient.java:688)\r\n      at net.minecraft.network.play.server.S23PacketBlockChange.func_148833_a(SourceFile:40)\r\n      at net.minecraft.network.play.server.S23PacketBlockChange.func_148833_a(SourceFile:13)\r\n      at net.minecraft.network.NetworkManager.channelRead0(NetworkManager.java:151)\r\n      at net.minecraft.network.NetworkManager.channelRead0(NetworkManager.java:54)\r\n      ```\r\nI've tested it, this fixes it for me.",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "This PR does not fix the underlying issue one bit. I am also deeply disavowing of your usage of AI for this PR. Please disclose usage of AI in your PRs upfront in the future.\nThe following minimally reduced snippet (with obviously way faster loops than vanilla minecraft has), still reproduces the error:\nfun main() {\n    val blocksClicked = HashMap<Long, Unit>()\n    thread(name = \"Main thread\") {\n        while (true) {\n            blocksClicked[System.currentTimeMillis()] = Unit\n        }\n    }\n    thread(name = \"Packet thread\") {\n        while (true) {\n            val keySet = HashSet(blocksClicked.keys)\n            for (key in keySet) {\n                blocksClicked[key]\n            }\n        }\n    }\n}\nThis PR deeply disappoints me.\nIf you are not capable of solving something without relying on AI, please do not pretend to know a fix, and instead let experts take the lead.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 105,
+                        "title": "Add PDF reports functionality",
+                        "repository": {
+                            "nameWithOwner": "esag-swiss/iDig-Webapp",
+                            "primaryLanguage": {
+                                "name": "Vue"
+                            }
+                        },
+                        "createdAt": "2023-09-04T06:25:05Z",
+                        "mergedAt": "2023-09-06T11:23:45Z",
+                        "url": "https://github.com/esag-swiss/iDig-Webapp/pull/105",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "AlZorba"
+                        },
+                        "editor": null,
+                        "body": "**Issue** :  `https://github.com/esag-swiss/iDig-Webapp/issues/104`\r\n\r\n**Description** :    \r\nThis PR add a PDF format export/report as requested by ESAG. \r\nTHis PR also refactors the catch error when preference.json of the project is invalid.",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "@AlZorba c'est vraiment tres tres bien, avec des cleans et des ameliorations ux en plus !\n\nUne remarque sur la fonction rows, \u00e7a peut\u2013\u00eatre pas mal de le faire, mais pas fondamental.\nUne remarque sur le loading du font. Si \u00e7a t'interresse, sinon plus tard\nJ'approuve et bravo !",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@AlZorba Ici tu peux utiliser une fat arrow, et donc ne pas avoir besoin de  let arr = this.checkedFieldNames; (qui sinon pourrait \u00eatre un const, par ailleurs)`",
+                                                        "author": {
+                                                            "login": "dev-francois"
+                                                        },
+                                                        "url": "https://github.com/esag-swiss/iDig-Webapp/pull/105#discussion_r1316971541",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "89f5566",
+                                                            "authoredDate": "2023-09-05T15:31:37Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@AlZorba Je suggere de renommer cette variable en rows, voir result, \u00e7a sera plus facile \u00e0 lire",
+                                                        "author": {
+                                                            "login": "dev-francois"
+                                                        },
+                                                        "url": "https://github.com/esag-swiss/iDig-Webapp/pull/105#discussion_r1316973025",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "89f5566",
+                                                            "authoredDate": "2023-09-05T15:31:37Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@AlZorba ok c'est vachement mega mieux. Par contre c'est vrai qu'on rajoute 1,3 mb au bundle, m\u00eame si l'utilisateur n'utilise jamais cet export.\nQuand on voudra ameliorer \u00e7a :\n\nsoit on regarde ensemble comment inserer \u00e7a comme une font classique, dans public.\nsoit utiliser le lazy loading, \u00e7a \u00e0 l'air assez facile : https://chat.openai.com/share/7bbcf2d4-1a64-46f2-97a3-103985367c1e\n\nCa peut-\u00eatre fait plus tard, et notons qu'il y a aussi d'autres point o\u00f9 on pourrait reduire la taille de l'app.\nNote pour debugger/ameliorer :  on peut regarder dans la console, dans la tab network, \u00e0 quelle moment cette font est load\u00e9e",
+                                                        "author": {
+                                                            "login": "dev-francois"
+                                                        },
+                                                        "url": "https://github.com/esag-swiss/iDig-Webapp/pull/105#discussion_r1316979869",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "89f5566",
+                                                            "authoredDate": "2023-09-05T15:31:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "en effet",
+                                                        "author": {
+                                                            "login": "AlZorba"
+                                                        },
+                                                        "url": "https://github.com/esag-swiss/iDig-Webapp/pull/105#discussion_r1317005274",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "89f5566",
+                                                            "authoredDate": "2023-09-05T15:31:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "oui",
+                                                        "author": {
+                                                            "login": "AlZorba"
+                                                        },
+                                                        "url": "https://github.com/esag-swiss/iDig-Webapp/pull/105#discussion_r1317005503",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "89f5566",
+                                                            "authoredDate": "2023-09-05T15:31:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "volontiers, on pourrait regarder",
+                                                        "author": {
+                                                            "login": "AlZorba"
+                                                        },
+                                                        "url": "https://github.com/esag-swiss/iDig-Webapp/pull/105#discussion_r1317006752",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "89f5566",
+                                                            "authoredDate": "2023-09-05T15:31:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 11,
+                        "title": "added some mathy stuff to keep image size consistent among devices",
+                        "repository": {
+                            "nameWithOwner": "jojazpeitia/skinguessr",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-07-18T07:18:46Z",
+                        "mergedAt": "2023-07-18T07:25:22Z",
+                        "url": "https://github.com/jojazpeitia/skinguessr/pull/11",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "jojazpeitia"
+                        },
+                        "editor": null,
+                        "body": "- used chat gpt for this tbh\r\nhttps://chat.openai.com/share/5b6ebc30-3efe-48ec-91ed-df2e2b0f597d \r\n\r\n- can prob figure out a way to better implement, but will be pushing it to see how it looks on mobile.",
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 9991,
+                        "title": "Gateway dependency",
+                        "repository": {
+                            "nameWithOwner": "mlflow/mlflow",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-10-18T08:24:38Z",
+                        "mergedAt": "2023-10-19T05:10:54Z",
+                        "url": "https://github.com/mlflow/mlflow/pull/9991",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "daniellok-db"
+                        },
+                        "editor": {
+                            "login": "github-actions"
+                        },
+                        "body": "<details><summary>&#x1F6E0 DevTools &#x1F6E0</summary>\n<p>\n\n[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/daniellok-db/mlflow/pull/9991?quickstart=1)\n\n#### Install mlflow from this PR\n\n```\npip install git+https://github.com/mlflow/mlflow.git@refs/pull/9991/merge\n```\n\n#### Checkout with GitHub CLI\n\n```\ngh pr checkout 9991\n```\n\n</p>\n</details>\n\n### What changes are proposed in this pull request?\r\n\r\nThis PR updates `_capture_modules.py` to detect when `import mlflow.gateway` is called, and append it appropriately to the resulting `requirements.txt` file\r\n\r\n\r\n### How is this PR tested?\r\n\r\n- [x] Existing unit/integration tests\r\nExisting unit tests work:\r\n```\r\n$ pytest tests/utils/test_requirements_utils.py\r\n...\r\n20 passed, 32 warnings in 7.96s\r\n```\r\n\r\n- [x] New unit/integration tests\r\nAdded a new test:\r\n```\r\ntests/utils/test_requirements_utils.py::test_capture_imported_modules_includes_extras PASSED [100%]\r\n```\r\n\r\n- [x] Manual tests\r\nTried saving a model with `mlflow[gateway]` as a dependency, then switching to an environment that doesn't have `mlflow[gateway]` installed. Expectation here is that it should give me some helpful error message that tells me to install it. I guess the behavior here isn't ideal because it implies that mlflow is not installed at all. I think it should be quite easy to change the `installed_version` param to be more helpful in this case though (see comments below)\r\n<img width=\"675\" alt=\"Screenshot 2023-10-18 at 3 41 28\u202fPM\" src=\"https://github.com/mlflow/mlflow/assets/148037680/3164d222-2b4c-43e8-abe3-8efeb7b31214\">\r\n\r\n### Does this PR require documentation update?\r\n\r\n- [x] No. You can skip the rest of this section.\r\n- [ ] Yes. I've updated:\r\n  - [ ] Examples\r\n  - [ ] API references\r\n  - [ ] Instructions\r\n\r\n### Release Notes\r\n\r\n#### Is this a user-facing change?\r\n\r\n- [x] No. You can skip the rest of this section.\r\n- [ ] Yes. Give a description of this change to be included in the release notes for MLflow users.\r\n\r\n#### What component(s), interfaces, languages, and integrations does this PR affect?\r\n\r\nComponents\r\n\r\n- [x] `area/artifacts`: Artifact stores and artifact logging\r\n- [ ] `area/build`: Build and test infrastructure for MLflow\r\n- [ ] `area/docs`: MLflow documentation pages\r\n- [ ] `area/examples`: Example code\r\n- [x] `area/gateway`: AI Gateway service, Gateway client APIs, third-party Gateway integrations\r\n- [ ] `area/model-registry`: Model Registry service, APIs, and the fluent client calls for Model Registry\r\n- [x] `area/models`: MLmodel format, model serialization/deserialization, flavors\r\n- [ ] `area/recipes`: Recipes, Recipe APIs, Recipe configs, Recipe Templates\r\n- [ ] `area/projects`: MLproject format, project running backends\r\n- [ ] `area/scoring`: MLflow Model server, model deployment tools, Spark UDFs\r\n- [ ] `area/server-infra`: MLflow Tracking server backend\r\n- [ ] `area/tracking`: Tracking Service, tracking client APIs, autologging\r\n\r\nInterface\r\n\r\n- [ ] `area/uiux`: Front-end, user experience, plotting, JavaScript, JavaScript dev server\r\n- [ ] `area/docker`: Docker use across MLflow's components, such as MLflow Projects and MLflow Models\r\n- [ ] `area/sqlalchemy`: Use of SQLAlchemy in the Tracking Service or Model Registry\r\n- [ ] `area/windows`: Windows support\r\n\r\nLanguage\r\n\r\n- [ ] `language/r`: R APIs and clients\r\n- [ ] `language/java`: Java APIs and clients\r\n- [ ] `language/new`: Proposals for new client languages\r\n\r\nIntegrations\r\n\r\n- [ ] `integrations/azure`: Azure and Azure ML integrations\r\n- [ ] `integrations/sagemaker`: SageMaker integrations\r\n- [ ] `integrations/databricks`: Databricks integrations\r\n\r\n<!--\r\nInsert an empty named anchor here to allow jumping to this section with a fragment URL\r\n(e.g. https://github.com/mlflow/mlflow/pull/123#user-content-release-note-category).\r\nNote that GitHub prefixes anchor names in markdown with \"user-content-\".\r\n-->\r\n\r\n<a name=\"release-note-category\"></a>\r\n\r\n#### How should the PR be classified in the release notes? Choose one:\r\n\r\n- [x] `rn/none` - No description will be included. The PR will be mentioned only by the PR number in the \"Small Bugfixes and Documentation Updates\" section\r\n- [ ] `rn/breaking-change` - The PR will be mentioned in the \"Breaking Changes\" section\r\n- [ ] `rn/feature` - A new user-facing feature worth mentioning in the release notes\r\n- [ ] `rn/bug-fix` - A user-facing bug fix worth mentioning in the release notes\r\n- [ ] `rn/documentation` - A user-facing documentation change worth mentioning in the release notes\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "tried to follow the format of the databricks special casing above, but not sure if it's necessary since this really only affects gateway",
+                                                        "author": {
+                                                            "login": "daniellok-db"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363462318",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "the value here is kind of arbitrary\u2014it doesn't really get used except in requirements_utils.py:429 but it's hardcoded there too. maybe i should const it?",
+                                                        "author": {
+                                                            "login": "daniellok-db"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363462822",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "i felt a little weird about this, let me know if there's a better way to get the gateway extra recognized as a proper package.",
+                                                        "author": {
+                                                            "login": "daniellok-db"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363463256",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "if we want to keep the one liner i can make this something like\nreturn sorted([\n    _get_pinned_requirement(pkg) for pkg in packages \n    if pkg != \"mlflow[gateway]\" \n    else _get_pinned_requirements(\"mlflow\", extras=[\"gateway\"]\n)])",
+                                                        "author": {
+                                                            "login": "daniellok-db"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363463810",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "reusing the gateway detection logic from here\nas mentioned in the PR description, i could maybe change installed_version here to be something like mlflow=={version} rather than None, would that be more helpful?",
+                                                        "author": {
+                                                            "login": "daniellok-db"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363464277",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I like the current code. It looks more readable than one-liner.",
+                                                        "author": {
+                                                            "login": "harupy"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363478733",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The error message would look like this?\nmlflow (current: uninstalled, requirement: mlflow[gateway])",
+                                                        "author": {
+                                                            "login": "harupy"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363494674",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "yup exactly, i'm wondering if people will get confused and think that mlflow is not installed at all",
+                                                        "author": {
+                                                            "login": "daniellok-db"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363496204",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Another option is refactor _get_pinned_requirements  to accept a package requirement like mlflow[gateway] and remove the extras argument. This allows us to remove if package == \"mlflow[gateway].\ndiff --git a/mlflow/utils/requirements_utils.py b/mlflow/utils/requirements_utils.py\nindex 9233e52a7..cdbbbb26b 100644\n--- a/mlflow/utils/requirements_utils.py\n+++ b/mlflow/utils/requirements_utils.py\n@@ -462,18 +462,20 @@ def _strip_local_version_label(version):\n         return version\n \n \n-def _get_pinned_requirement(package, version=None, module=None, extras=None):\n+def _get_pinned_requirement(req, version=None, module=None):\n     \"\"\"\n     Returns a string representing a pinned pip requirement to install the specified package and\n     version (e.g. 'mlflow==1.2.3').\n \n-    :param package: The name of the package.\n+    :param req: The package requirement (e.g., 'mlflow' or 'mlflow[gateway]')\n     :param version: The version of the package. If None, defaults to the installed version.\n     :param module: The name of the top-level module provided by the package . For example,\n                    if `package` is 'scikit-learn', `module` should be 'sklearn'. If None, defaults\n                    to `package`.\n     :param extras: A list of extra names for the package\n     \"\"\"\n+    req = Requirement(req)\n+    package = req.name\n     if version is None:\n         version_raw = _get_installed_version(package, module)\n         local_version_label = _get_local_version_label(version_raw)\n@@ -492,8 +494,8 @@ def _get_pinned_requirement(package, version=None, module=None, extras=None):\n         else:\n             version = version_raw\n \n-    if extras:\n-        return f\"{package}[{','.join(extras)}]=={version}\"\n+    if req.extras:\n+        return f\"{package}[{','.join(req.extras)}]=={version}\"\n     return f\"{package}=={version}\"",
+                                                        "author": {
+                                                            "login": "harupy"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363496519",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "I think overall looks great! Just left a few nits :)",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                    def predict(self, _, inputs):\n          \n          \n            \n                    def predict(self, _, inputs, params=None):\n          \n      \n    \n    \n  \n\nLet's use the method signature defined in PythonModel.",
+                                                        "author": {
+                                                            "login": "serena-ruan"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363489856",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                        input_example=([1, 2, 3]),\n          \n          \n            \n                        input_example=[1, 2, 3],",
+                                                        "author": {
+                                                            "login": "serena-ruan"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363491078",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We can update this to one line though\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n                    if package == \"mlflow[gateway]\":\n          \n          \n            \n                        pinned_requirement = _get_pinned_requirement(\"mlflow\", extras=[\"gateway\"])\n          \n          \n            \n                    else:\n          \n          \n            \n                        pinned_requirement = _get_pinned_requirement(package)\n          \n          \n            \n                    pinned_requirement = _get_pinned_requirement(\"mlflow\", extras=[\"gateway\"]) if package == \"mlflow[gateway]\" else _get_pinned_requirement(package)",
+                                                        "author": {
+                                                            "login": "serena-ruan"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363495803",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I like this, we could use it to detect other extras in the future.",
+                                                        "author": {
+                                                            "login": "serena-ruan"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363499859",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think it's fine, we also use it in _capture_modules.",
+                                                        "author": {
+                                                            "login": "serena-ruan"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363501073",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe update package_name to be mlflow[gateway]?",
+                                                        "author": {
+                                                            "login": "serena-ruan"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363505233",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe update package_name to be mlflow[gateway]?\n\n+1",
+                                                        "author": {
+                                                            "login": "harupy"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363508380",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            def test_capture_imported_modules_includes_extras():\n          \n          \n            \n            def test_capture_imported_modules_includes_gateway_extra():",
+                                                        "author": {
+                                                            "login": "harupy"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1363511052",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Left some comments, otherwise LGTM!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "this makes sense, i went with this solution in the end!",
+                                                        "author": {
+                                                            "login": "daniellok-db"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1364841294",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "419db6c",
+                                                            "authoredDate": "2023-10-18T08:11:59Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@harupy I ended up refactoring the _get_pinned_requirement function to remove the extras param, so I had to edit this callsite as well (looks like it was the only other one using the extras param). Let me know if it looks alright!",
+                                                        "author": {
+                                                            "login": "daniellok-db"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1364842819",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b212463",
+                                                            "authoredDate": "2023-10-19T03:43:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes, looks good to me!",
+                                                        "author": {
+                                                            "login": "harupy"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1364844280",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b212463",
+                                                            "authoredDate": "2023-10-19T03:43:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "for some reason the old line (import mlflow.gateway) was causing a test failure.\nIt looks like it was overriding the mlflow variable name, making line 557 below fail (mlflow.__version__):\nTraceback (most recent call last):\n  File \"/Users/daniel.lok/mlflow/mlflow/pyfunc/__init__.py\", line 594, in _warn_dependency_requirement_mismatches\n    mismatch_info = _check_requirement_satisfied(req_line)\n  File \"/Users/daniel.lok/mlflow/mlflow/utils/requirements_utils.py\", line 557, in _check_requirement_satisfied\n    and installed_version == mlflow.__version__\nUnboundLocalError: local variable 'mlflow' referenced before assignment\n\nChanging this to from mlflow import gateway seems to fix",
+                                                        "author": {
+                                                            "login": "daniellok-db"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1364844520",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b212463",
+                                                            "authoredDate": "2023-10-19T03:43:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Interesting. mlflow is imported in the top level in requirements_utils.py.",
+                                                        "author": {
+                                                            "login": "harupy"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1364856038",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b212463",
+                                                            "authoredDate": "2023-10-19T03:43:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "yeah i'm not sure about the cause either\u2014you can try this example to repro:\nimport datetime\n\ndef test(should_import):\n    if should_import:\n        import datetime.datetime\n    print(datetime.__version__)\n\ntest(False)",
+                                                        "author": {
+                                                            "login": "daniellok-db"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1364859879",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b212463",
+                                                            "authoredDate": "2023-10-19T03:43:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Or here is one that actually does something when test(True):\nimport importlib\n\ndef test(should_import):\n    if should_import:\n        import importlib.metadata\n    print(importlib.__name__)\n\ntest(False)",
+                                                        "author": {
+                                                            "login": "daniellok-db"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1364861458",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b212463",
+                                                            "authoredDate": "2023-10-19T03:43:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://chat.openai.com/share/372cbd76-25c3-4fef-840b-2b826d44588b",
+                                                        "author": {
+                                                            "login": "harupy"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1364865450",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b212463",
+                                                            "authoredDate": "2023-10-19T03:43:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "import mlflow.gateway\n\nis equivalent to:\nmlflow = ...\nmlflow.gateway = ...\n\n?",
+                                                        "author": {
+                                                            "login": "harupy"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1364872664",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b212463",
+                                                            "authoredDate": "2023-10-19T03:43:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This seems like a good python quiz.",
+                                                        "author": {
+                                                            "login": "harupy"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1364875020",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b212463",
+                                                            "authoredDate": "2023-10-19T03:43:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's use from mlflow import gateway :)",
+                                                        "author": {
+                                                            "login": "harupy"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1364875368",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b212463",
+                                                            "authoredDate": "2023-10-19T03:43:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Hahaha yeah it's weird. It has something to do with the conditional, it does something even when the code inside the if block will never be executed:\nimport importlib\n\ndef test():\n    if False:\n        import importlib.metadata\n    print(importlib.__name__)\n\ntest()\nit also seems to matter that it's in a function, because the following has no problems:\nimport importlib\n\nif False:\n    import importlib.metadata\nprint(importlib.__name__)\nbut anyway yeah i think in the end the problem can be avoided with from mlflow import gateway because then there's no reassignment to the mlflow variable, just gateway.",
+                                                        "author": {
+                                                            "login": "daniellok-db"
+                                                        },
+                                                        "url": "https://github.com/mlflow/mlflow/pull/9991#discussion_r1364877375",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "b212463",
+                                                            "authoredDate": "2023-10-19T03:43:07Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 2446,
+                        "title": "Introduce and implement `--legacy-array-sections`",
+                        "repository": {
+                            "nameWithOwner": "lfortran/lfortran",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2023-09-18T08:01:05Z",
+                        "mergedAt": "2023-09-20T05:20:52Z",
+                        "url": "https://github.com/lfortran/lfortran/pull/2446",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Pranavchiku"
+                        },
+                        "editor": null,
+                        "body": "Fixes #2443.",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This will not work in cases like dimension SIM(N, *) where dimension contains variable",
+                                                        "author": {
+                                                            "login": "Pranavchiku"
+                                                        },
+                                                        "url": "https://github.com/lfortran/lfortran/pull/2446#discussion_r1328685275",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "3d57dbe",
+                                                            "authoredDate": "2023-09-18T07:59:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's add a test that only uses --legacy-array-syntax, but not --implicit-typing, that way we isolate these options and ensure they work correctly in isolation.",
+                                                        "author": {
+                                                            "login": "certik"
+                                                        },
+                                                        "url": "https://github.com/lfortran/lfortran/pull/2446#discussion_r1328778052",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "6a8bd17",
+                                                            "authoredDate": "2023-09-18T13:10:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Let's remove this file, and instead test the integration_tests file, which is the same file. That way we ensure exactly the same code will give an error message by default, but works with --legacy-array-sections.",
+                                                        "author": {
+                                                            "login": "certik"
+                                                        },
+                                                        "url": "https://github.com/lfortran/lfortran/pull/2446#discussion_r1330563622",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "05885c0",
+                                                            "authoredDate": "2023-09-19T18:18:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Remove the white space?",
+                                                        "author": {
+                                                            "login": "certik"
+                                                        },
+                                                        "url": "https://github.com/lfortran/lfortran/pull/2446#discussion_r1330564673",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "05885c0",
+                                                            "authoredDate": "2023-09-19T18:18:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "I think this looks great. I left a few minor comments.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Aah yes, I will do that.",
+                                                        "author": {
+                                                            "login": "Pranavchiku"
+                                                        },
+                                                        "url": "https://github.com/lfortran/lfortran/pull/2446#discussion_r1330566030",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "05885c0",
+                                                            "authoredDate": "2023-09-19T18:18:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Initially it was not indented properly. I guess after rebasing on top of main, extra tab space got added.",
+                                                        "author": {
+                                                            "login": "Pranavchiku"
+                                                        },
+                                                        "url": "https://github.com/lfortran/lfortran/pull/2446#discussion_r1330566838",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "05885c0",
+                                                            "authoredDate": "2023-09-19T18:18:31Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 1878,
+                        "title": "Add Pagination for Posts",
+                        "repository": {
+                            "nameWithOwner": "Codeinwp/otter-blocks",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-09-22T14:06:37Z",
+                        "mergedAt": "2023-11-02T06:12:55Z",
+                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Soare-Robert-Daniel"
+                        },
+                        "editor": {
+                            "login": "Soare-Robert-Daniel"
+                        },
+                        "body": "<!-- Issues that this pull request closes. -->\r\nCloses #1046\r\n<!-- Should look like this: `Closes #1, #2, #3.` . -->\r\n\r\n### Summary\r\n<!-- Please describe the changes you made. -->\r\n\r\nAdd pagination for Posts Block.\r\n\r\nDeveloping notes:\r\n - It seems that Dynamic Content collides with the counting mechanism. It needs some investigation on the cause.\r\n\r\n### Screenshots <!-- if applicable -->\r\n\r\n![image](https://github.com/Codeinwp/otter-blocks/assets/17597852/50b16af4-5f71-4991-8582-96d6b4a46ae7)\r\n\r\n![image](https://github.com/Codeinwp/otter-blocks/assets/17597852/c94e6b7e-e16a-40d9-a7b3-f105e8a9d602)\r\n\r\n\r\nhttps://github.com/Codeinwp/otter-blocks/assets/17597852/9bdbff2e-11cb-457d-8271-2a2572167e12\r\n\r\n----\r\n\r\n\r\n\r\n\r\n### Test instructions\r\n<!-- Describe how this pull request can be tested. -->\r\n\r\n1. Insert a Post Block\r\n2. Enable pagination and customize it.\r\n\r\n<!--\r\n#### Query\r\n```javascript\r\nnew QueryQA().select('blocks').run()\r\n```\r\n-->\r\n\r\n---- \r\n\r\n### Checklist before the final review\r\n\r\n- [ ] Included E2E or unit tests for the changes in this PR.\r\n- [x] Visual elements are not affected by independent changes.\r\n- [x] It is at least compatible with the [minimum WordPress version](https://wordpress.org/plugins/otter-blocks/).\r\n- [x] It loads additional script in frontend only if it is required.\r\n- [x] Does not impact the [Core Web Vitals](https://web.dev/vitals/).\r\n- [x] In case of deprecation, old blocks are safely migrated.\r\n- [x] It is usable in Widgets and FSE.\r\n- [x] Copy/Paste is working if the attributes are modified.\r\n- [x] PR is following [the best practices]()\r\n\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@HardeepAsrani, any idea if we can do the page counting to be nicer?",
+                                                        "author": {
+                                                            "login": "Soare-Robert-Daniel"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1337423793",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "724c086",
+                                                            "authoredDate": "2023-09-26T15:37:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We can use query->max_num_pages; to get the maximum numbers. I'd avoid using two WP_Query calls. We used get_posts because it was more efficient when not used but now that we're using pagination, we can consider using WP_Query too.",
+                                                        "author": {
+                                                            "login": "HardeepAsrani"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1337547653",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "724c086",
+                                                            "authoredDate": "2023-09-26T15:37:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Hey, I was just testing it on an instance to see the flow and pagination doesn't work:\n\n\nRegardless the page, it loads the same posts.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "NIT: You can fix the type, it should be retrieve_posts",
+                                                        "author": {
+                                                            "login": "HardeepAsrani"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1351525513",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4ce87c3",
+                                                            "authoredDate": "2023-10-05T10:08:40Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Left a small NIT but it looks good. It worked well when tried it locally. We can put it through QA and remove the QA-related code afterwards.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@HardeepAsrani, do you think it is worth keeping this for one release? I am considering the possibility of a slow rendering issue, which can help us confirm it on user websites.",
+                                                        "author": {
+                                                            "login": "Soare-Robert-Daniel"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1351578793",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4ce87c3",
+                                                            "authoredDate": "2023-10-05T10:08:40Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Might be worth testing this on our end with a dummy website with 1000s of posts, but we don't need to put it in prod given the number doesn't make much sense unless you can test before/after results.",
+                                                        "author": {
+                                                            "login": "HardeepAsrani"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1351589771",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4ce87c3",
+                                                            "authoredDate": "2023-10-05T10:08:40Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@HardeepAsrani, do you see something wrong with this? When added to Home page, the link is something like this https://cycleadvertisement.s2-tastewp.com/page/2/ and is not working. If you put the block on a post page, the link will be like https://cycleadvertisement.s2-tastewp.com/index.php/2023/10/12/post/page/2/ and is working.",
+                                                        "author": {
+                                                            "login": "Soare-Robert-Daniel"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1358104617",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "92e136c",
+                                                            "authoredDate": "2023-10-12T13:34:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@Soare-Robert-Daniel When you're going to that URL, I suppose it's redirecting you to 404? Or is it still opening the home?\nAlso, is it the sam eissue with Qubely?",
+                                                        "author": {
+                                                            "login": "HardeepAsrani"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1358131842",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "92e136c",
+                                                            "authoredDate": "2023-10-12T13:34:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes. With one mention that Qubley works when the link is not in a pretty format (I made an update also for us). For other formats, it is not working. It gives the same 404.\nThis 404 is in WP Taste, on my Local instance, they work without any issues. So I suspect some hosting setting might be in play.",
+                                                        "author": {
+                                                            "login": "Soare-Robert-Daniel"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1358191735",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "92e136c",
+                                                            "authoredDate": "2023-10-12T13:34:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Might be some issue with nginx/htaccess configs maybe, then we can skip that part and live with it for this version.",
+                                                        "author": {
+                                                            "login": "HardeepAsrani"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1358742151",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "92e136c",
+                                                            "authoredDate": "2023-10-12T13:34:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 759,
+                        "title": "feat: fix automatic unassign",
+                        "repository": {
+                            "nameWithOwner": "ubiquity/ubiquibot",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-09-12T09:59:19Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/ubiquity/ubiquibot/pull/759",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "wannacfuture"
+                        },
+                        "editor": null,
+                        "body": "Resolves #685\r\n\r\nFixed lastActivityTime function\r\n",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "#685 (comment)\ncommented on the bounty.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 2405,
+                        "title": "ci: check mergable by label",
+                        "repository": {
+                            "nameWithOwner": "faker-js/faker",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-09-18T07:08:36Z",
+                        "mergedAt": "2023-09-20T13:39:39Z",
+                        "url": "https://github.com/faker-js/faker/pull/2405",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Shinigami92"
+                        },
+                        "editor": {
+                            "login": "Shinigami92"
+                        },
+                        "body": "This ci blocks PRs by the labels on hold and do not merge yet, so it cannot accidentally be merged by not reading the labels\r\n\r\nCode is slightly copied from https://stackoverflow.com/questions/71502652/prevent-merging-of-branch-conditionally-based-on-label",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In VSCode this currently shows following error, and I don't know why and what is broken \ud83e\udd14\nNested mappings are not allowed in compact mappings at line 27, column 13:\n\n        if: contains(github.event.pull_request.labels.*.name, 's: on hold')\n            ^",
+                                                        "author": {
+                                                            "login": "Shinigami92"
+                                                        },
+                                                        "url": "https://github.com/faker-js/faker/pull/2405#discussion_r1328318638",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "62eb120",
+                                                            "authoredDate": "2023-09-18T07:07:22Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "fixed by applying actions/runner#1019 (comment)",
+                                                        "author": {
+                                                            "login": "Shinigami92"
+                                                        },
+                                                        "url": "https://github.com/faker-js/faker/pull/2405#discussion_r1328324973",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "62eb120",
+                                                            "authoredDate": "2023-09-18T07:07:22Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I would merge them into one Job so that our job list does grow that much. And it shouldnt matter that much either way which label blocks it exactly.",
+                                                        "author": {
+                                                            "login": "ST-DDT"
+                                                        },
+                                                        "url": "https://github.com/faker-js/faker/pull/2405#discussion_r1328329225",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5dd4475",
+                                                            "authoredDate": "2023-09-18T07:18:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I thought about this as well \ud83e\udd14 But on the other side it makes it more clear to a contributor why exactly the CI fails\nIf both are merged into on job, we cannot diff anymore and cannot show a specific message",
+                                                        "author": {
+                                                            "login": "Shinigami92"
+                                                        },
+                                                        "url": "https://github.com/faker-js/faker/pull/2405#discussion_r1328333561",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5dd4475",
+                                                            "authoredDate": "2023-09-18T07:18:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I thought about this as well \ud83e\udd14 But on the other side it makes it more clear to a contributor why exactly the CI fails\n\nI think the label names are self explanatory especially in combination with \"blocked by label\" CI.\n\nIf both are merged into on job, we cannot diff anymore and cannot show a specific message\n\nThe label being added or removed already has its own github notification, there is no need for a bot to add more (especially if it works for members only).",
+                                                        "author": {
+                                                            "login": "ST-DDT"
+                                                        },
+                                                        "url": "https://github.com/faker-js/faker/pull/2405#discussion_r1328340143",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "5dd4475",
+                                                            "authoredDate": "2023-09-18T07:18:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The : in s: on hold makes trouble, so I'm testing endsWith instead",
+                                                        "author": {
+                                                            "login": "Shinigami92"
+                                                        },
+                                                        "url": "https://github.com/faker-js/faker/pull/2405#discussion_r1328553123",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1348ac4",
+                                                            "authoredDate": "2023-09-18T10:54:23Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Have you tried running this without the token?",
+                                                        "author": {
+                                                            "login": "ST-DDT"
+                                                        },
+                                                        "url": "https://github.com/faker-js/faker/pull/2405#discussion_r1329243744",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "15c4de9",
+                                                            "authoredDate": "2023-09-18T20:26:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't see where is permission is used. Is that something implicit?",
+                                                        "author": {
+                                                            "login": "ST-DDT"
+                                                        },
+                                                        "url": "https://github.com/faker-js/faker/pull/2405#discussion_r1329245866",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "15c4de9",
+                                                            "authoredDate": "2023-09-18T20:26:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            name: Check mergable by label\n          \n          \n            \n            name: PR-Labels",
+                                                        "author": {
+                                                            "login": "ST-DDT"
+                                                        },
+                                                        "url": "https://github.com/faker-js/faker/pull/2405#discussion_r1329247661",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "15c4de9",
+                                                            "authoredDate": "2023-09-18T20:26:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "or\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            name: Check mergable by label\n          \n          \n            \n            name: PR Labels",
+                                                        "author": {
+                                                            "login": "ST-DDT"
+                                                        },
+                                                        "url": "https://github.com/faker-js/faker/pull/2405#discussion_r1329248045",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "15c4de9",
+                                                            "authoredDate": "2023-09-18T20:26:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n                  - name: Fail if PR is labeled by a blocking label\n          \n          \n            \n                  - name: Check for blocking labels",
+                                                        "author": {
+                                                            "login": "ST-DDT"
+                                                        },
+                                                        "url": "https://github.com/faker-js/faker/pull/2405#discussion_r1329248890",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "15c4de9",
+                                                            "authoredDate": "2023-09-18T20:26:34Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "AFAICT these two should be unrelated.\nhttps://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=synchronize#pull_request",
+                                                        "author": {
+                                                            "login": "ST-DDT"
+                                                        },
+                                                        "url": "https://github.com/faker-js/faker/pull/2405#discussion_r1329251461",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "15c4de9",
+                                                            "authoredDate": "2023-09-18T20:26:34Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "These are especially for rebasing all current PRs, so they get checked when this PR gets merged",
+                                                        "author": {
+                                                            "login": "Shinigami92"
+                                                        },
+                                                        "url": "https://github.com/faker-js/faker/pull/2405#discussion_r1330112604",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "15c4de9",
+                                                            "authoredDate": "2023-09-18T20:26:34Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "So should we remove those at a later point in time?",
+                                                        "author": {
+                                                            "login": "xDivisionByZerox"
+                                                        },
+                                                        "url": "https://github.com/faker-js/faker/pull/2405#discussion_r1331528241",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "15c4de9",
+                                                            "authoredDate": "2023-09-18T20:26:34Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think the effort is worth it \ud83d\ude05\nIt just works with or without them",
+                                                        "author": {
+                                                            "login": "Shinigami92"
+                                                        },
+                                                        "url": "https://github.com/faker-js/faker/pull/2405#discussion_r1331651366",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "15c4de9",
+                                                            "authoredDate": "2023-09-18T20:26:34Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 42,
+                        "title": "Nisyad/modify map per class",
+                        "repository": {
+                            "nameWithOwner": "microsoft/visionmetrics",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-08-17T13:24:08Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/microsoft/visionmetrics/pull/42",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "nisyad-ms"
+                        },
+                        "editor": null,
+                        "body": "This PR modifies the return output for `MeanAveragePrecision` for per class metrics. Return output as a dict with label_ids as keys. ",
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "with missing classes in targets or prediction?",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297623466",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "this sort got run by len(result['map_per_class']) times",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297627684",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "nit:\n# for line 41\nself._update_label_ids(predictions)\nself._update_label_ids(targets)\n\ndef _update_label_ids(self, items: List[Dict[str, torch.Tensor]]]) -> None:\n       for item in items:\n            self._label_ids.update(item['labels'].tolist())",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297631307",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "maybe check the Len equality",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297632151",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "There is reset and clone you might want to make sure they are working properly after adding this, with unit tests.",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297636312",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://github.com/Lightning-AI/torchmetrics/blob/3b3b997487fea2e05a65d81abc23a7ebef3371f1/src/torchmetrics/metric.py#L658",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297638372",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "updated - separated into two tests",
+                                                        "author": {
+                                                            "login": "nisyad-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297765534",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "thanks. updated",
+                                                        "author": {
+                                                            "login": "nisyad-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297765913",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "updated",
+                                                        "author": {
+                                                            "login": "nisyad-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297765971",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "updated - added a unit test to verify label_ids set across batches.",
+                                                        "author": {
+                                                            "login": "nisyad-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297766521",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Clone test\na = metric()\na.update(...., ....)\nb = a.clone()\nassert b.calculate() == a.calculate()\nReset test\ndata1(10 classes)\ndata2(2 classes)\na = metric()\na.update(data1)\na.reset()\na.update(data2)\nb=metric()\nb.update(data2)\nassert a.calculate() == b.calculate()",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297777363",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "slightly confusing \"# Wrong\" comment",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1297779715",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c59a77",
+                                                            "authoredDate": "2023-08-17T21:26:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Updated.\nNow using existing *-labels attributes of the Metric class to track all 'seen' labels. Added unit tests.",
+                                                        "author": {
+                                                            "login": "nisyad-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1303365588",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "93d9484",
+                                                            "authoredDate": "2023-08-17T13:30:08Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Fixed and updated.",
+                                                        "author": {
+                                                            "login": "nisyad-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1303365823",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1c59a77",
+                                                            "authoredDate": "2023-08-17T21:26:12Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "where is the clone tested?",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1304012170",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c040db6",
+                                                            "authoredDate": "2023-08-23T21:51:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Can you have multiple test cases covering different scenarios:\nmore classes before reset\nmore classes after reset\n..\nWrt info on parametrized tests:\nhttps://chat.openai.com/share/9841c3a6-3be4-4450-b3a5-b6d7cbe81250",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1304017280",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c040db6",
+                                                            "authoredDate": "2023-08-23T21:51:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "More test cases pls. Same with reset",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1304017850",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c040db6",
+                                                            "authoredDate": "2023-08-23T21:51:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Any reason still keeping this behavior:\n\nthe base class returns list, while this class returns dictionary for result['map_per_class']?",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1304020969",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c040db6",
+                                                            "authoredDate": "2023-08-23T21:51:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I thought returning as a dictionary with label info might make the tagwise result clearer for the end user. But on second thoughts, this may not still be a great idea. We would need to make the tagwise results of all other metric also as dict-style otherwise the user might be more confused.\nSo assuming we maintain the base class behavior, do we still need unit tests for reset() and clone() because we are not adding new states or modifying anything else. Basically, there is no PR.",
+                                                        "author": {
+                                                            "login": "nisyad-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1304623025",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c040db6",
+                                                            "authoredDate": "2023-08-23T21:51:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I remember in our last discussion, we agreed the need of dictionary output is mostly one kind of client need.\nIt does have the benefit wrt clarity, but there are ways doing it without making it a dictionary making it behave differently than the base class.\nIf no code change is needed, you can still check in the tests which could be helpful",
+                                                        "author": {
+                                                            "login": "pj-ms"
+                                                        },
+                                                        "url": "https://github.com/microsoft/visionmetrics/pull/42#discussion_r1304656634",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c040db6",
+                                                            "authoredDate": "2023-08-23T21:51:16Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjExMA==",
+                "hasNextPage": true,
+                "hasPreviousPage": true,
+                "startCursor": "Y3Vyc29yOjEwMQ=="
+            },
+            "issueCount": 191
+        }
+    }
+}

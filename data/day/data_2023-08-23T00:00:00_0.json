@@ -1,0 +1,148 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 7,
+                        "title": "Fix constructor being converted to undefined",
+                        "repository": {
+                            "nameWithOwner": "FlorianWoelki/obsidian-symbols-prettifier",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-08-23T14:17:59Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/FlorianWoelki/obsidian-symbols-prettifier/pull/7",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "sharshuv-quotient"
+                        },
+                        "editor": {
+                            "login": "sharshuv-quotient"
+                        },
+                        "body": "The issue was that regular property accessing in javascript can inherit from the prototype. \r\n\r\nBy default, each object in js has the \"object\" prototype which has a \"constructor\" property on it (Which is a function). \r\n\r\nI fixed this by createing the character Map so that it doesn't inherit from the default object.\r\n\r\nSee https://chat.openai.com/share/acece149-6d4b-457c-9ae9-7fa8a3ec35fc",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 23,
+                        "title": "Lower CUDA requirement to 11.7, auto-detect CUDA_ARCHITECTURES",
+                        "repository": {
+                            "nameWithOwner": "MrNeRF/gaussian-splatting-cuda",
+                            "primaryLanguage": {
+                                "name": "C"
+                            }
+                        },
+                        "createdAt": "2023-08-23T09:04:11Z",
+                        "mergedAt": "2023-08-23T11:27:14Z",
+                        "url": "https://github.com/MrNeRF/gaussian-splatting-cuda/pull/23",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "paulmelis"
+                        },
+                        "editor": null,
+                        "body": "I can't judge any performance implications, but the lower compute capability makes it possible to run on A30, A40, A100 and RTX 3050-3090 (amongst others). The current `compute_89` is very restrictive ;-)",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-08-23T09:37:29Z",
+                                    "bodyText": "Yeah I know. This was also on my TODO list. Going down is either not the best option :) You will loose the optimizations for your arch provided by the nvcc compiler.\nDo you have time to look into this? https://stackoverflow.com/questions/68223398/how-can-i-get-cmake-to-automatically-detect-the-value-for-cuda-architectures\nThere is a solution to automatically derive the architecture. Super easy and straight forward. That also implies that there will be a lower limit, probably below 80. But as long nobody is complaining, we should not catch this.\nGoing with a more recent cmake version (2.24) appears most elegant to me? What do you think? This would be my favorite.\nBtw, please look at the contribution guidelines in the README.md. That mostly means squashing commit for the pr. Otherwise it is really hard to review it properly. Thanks a lot.",
+                                    "url": "https://github.com/MrNeRF/gaussian-splatting-cuda/pull/23#issuecomment-1689626658",
+                                    "author": {
+                                        "login": "MrNeRF"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-23T09:48:58Z",
+                                    "bodyText": "Btw, the Readme needs then also an update with respect to the requirements.",
+                                    "url": "https://github.com/MrNeRF/gaussian-splatting-cuda/pull/23#issuecomment-1689646870",
+                                    "author": {
+                                        "login": "MrNeRF"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-23T09:53:19Z",
+                                    "bodyText": "Going with a more recent cmake version (2.24) appears most elegant to me? What do you think? This would be my favorite.\n\nCmake 3.24 (assume you mean that) was released around a year ago, seems fair to set that as the minimum version. And if that sets CUDA_ARCHITECTURES automatically that should indeed be an easy way. I'll see if I can make the changes.\n\nBtw, the Readme needs then also an update with respect to the requirements.\n\nYes indeed, I noticed that only later\n\nBtw, please look at the contribution guidelines in the README.md. That mostly means squashing commit for the pr. Otherwise it is really hard to review it properly. Thanks a lot.\n\nYeah, I noticed that comment. I'm not entirely clear what to do different in my git workflow to actually squash commits I'm afraid. Is it merely using --squash when doing a pull?",
+                                    "url": "https://github.com/MrNeRF/gaussian-splatting-cuda/pull/23#issuecomment-1689653427",
+                                    "author": {
+                                        "login": "paulmelis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-23T10:13:23Z",
+                                    "bodyText": "I also just learning the github workflow. At work we have bitbucket and plastic scm. That becomes annoying when you have multiple commits and you have conflicts on master. Also the reviewing sucks then. Anyway, maybe I should become this things first straight for myself.\nhttps://chat.openai.com/share/944c67d3-555e-4524-b2f0-81481f9cd5ba\nSo maybe lets stick with what we have for now and I just relax the squashing requirement. Most importantly, all commits to master have to compile. Then you can use bisect to find an issue in a very systematic way. But this should the reviewer also help to make sure.",
+                                    "url": "https://github.com/MrNeRF/gaussian-splatting-cuda/pull/23#issuecomment-1689687365",
+                                    "author": {
+                                        "login": "MrNeRF"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-23T10:16:38Z",
+                                    "bodyText": "I think you might need to enable something on the repo, if I read https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests correctly?",
+                                    "url": "https://github.com/MrNeRF/gaussian-splatting-cuda/pull/23#issuecomment-1689692419",
+                                    "author": {
+                                        "login": "paulmelis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-23T10:20:30Z",
+                                    "bodyText": "Using cmake 3.24 and auto-detect of CUDA arch works fine here, nice.",
+                                    "url": "https://github.com/MrNeRF/gaussian-splatting-cuda/pull/23#issuecomment-1689697889",
+                                    "author": {
+                                        "login": "paulmelis"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-23T11:06:14Z",
+                                    "bodyText": "looks good to me. You can add it also to the news update on the top of the Readme. Btw, we have also tested with a 3090 Ti. That works. The 3080Ti has issues with larger datasets as reported in the issue section. That will be hopefully also tackled today. You might make these updates? I will test it on my computer and then merge it given that it works on my computer as well.",
+                                    "url": "https://github.com/MrNeRF/gaussian-splatting-cuda/pull/23#issuecomment-1689763846",
+                                    "author": {
+                                        "login": "MrNeRF"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Thx, is verified! Works just fine!",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjI=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 2
+        }
+    }
+}

@@ -1,0 +1,764 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 58,
+                        "title": "Add simple working example of basic TCN / MomentNetwork structure",
+                        "repository": {
+                            "nameWithOwner": "bancaditalia/black-it",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-07-10T13:57:17Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/bancaditalia/black-it/pull/58",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "JLDC"
+                        },
+                        "editor": {
+                            "login": "JLDC"
+                        },
+                        "body": "## Proposed changes\r\n\r\nAdd a simple example of how a neural network (temporal convolutional network) could be used to construct the moments of a given underlying model.\r\n\r\n## Types of changes\r\n\r\n- [ ] Bugfix (non-breaking change which fixes an issue)\r\n- [x] New feature (non-breaking change which adds functionality)\r\n- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)\r\n\r\n## Checklist\r\n\r\n- [x] I have read the [CONTRIBUTING](../blob/master/CONTRIBUTING.md) doc\r\n- [x] I am making a pull request against the `main` branch (left side). Also you should start your branch off our `main`.\r\n- [ ] Lint and unit tests pass locally with my changes\r\n- [ ] I have added tests that prove my fix is effective or that my feature works\r\n\r\n## Further comments\r\n\r\nThis is really a minimal working example somewhat outside of the package structure. It should be integrated in the package structure and the PR is being created as discussed with @AldoGl. He will make changes to this PR before integrating it.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-07-10T15:05:30Z",
+                                    "bodyText": "Thank you Jonathan, great work! We'll try and integrate your algorithm soon :)",
+                                    "url": "https://github.com/bancaditalia/black-it/pull/58#issuecomment-1629155756",
+                                    "author": {
+                                        "login": "AldoGl"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-15T20:49:33Z",
+                                    "bodyText": "Codecov Report\n\nMerging #58 (35d2742) into main (152aa9b) will not change coverage.\nThe diff coverage is n/a.\n\n\u2757 Your organization is not using the GitHub App Integration. As a result you may experience degraded service beginning May 15th. Please install the Github App Integration for your organization. Read more.\nAdditional details and impacted files\n\n@@           Coverage Diff           @@\n##             main      #58   +/-   ##\n=======================================\n  Coverage   91.36%   91.36%           \n=======================================\n  Files          42       42           \n  Lines        1737     1737           \n=======================================\n  Hits         1587     1587           \n  Misses        150      150",
+                                    "url": "https://github.com/bancaditalia/black-it/pull/58#issuecomment-1636883967",
+                                    "author": {
+                                        "login": "codecov-commenter"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-26T14:40:54Z",
+                                    "bodyText": "Today I worked on the code and did the following:\n\nI moved modules into appropriate folders (loss_functions, test, example)\nI better integrated the code with existing classes (for instance, now the sampler used in the network is a Black-it sampler, and the parameter ranges are specified via a SearchSpace object)\nI added an example notebook (where i first compute the optimal moment function, and then I use it within a method of moments calibration)\nI fixed typing and linting error as much as possible\nI added @JLDC as an author\n\nThere is still some work to do, primarily:\n\nwrite the rest of the docstrings\nfix all linting errors\nwrite a test (I added a dummy test, we can start from there)\nconsider what should be done to extend the code to multiple moments while preserving existing abstractions within the method of moments loss function",
+                                    "url": "https://github.com/bancaditalia/black-it/pull/58#issuecomment-1651950247",
+                                    "author": {
+                                        "login": "AldoGl"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-26T14:45:04Z",
+                                    "bodyText": "@JLDC, could you give access to your fork also to @marcofavoritobi? (no hurry)",
+                                    "url": "https://github.com/bancaditalia/black-it/pull/58#issuecomment-1651957756",
+                                    "author": {
+                                        "login": "AldoGl"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-28T06:35:32Z",
+                                    "bodyText": "@JLDC, could you give access to your fork also to @marcofavoritobi? (no hurry)\n\nHe should already have access. Any maintainer is allowed to edit this pull request. Let me know if I am mistaken and I need to undertake something else.",
+                                    "url": "https://github.com/bancaditalia/black-it/pull/58#issuecomment-1655111636",
+                                    "author": {
+                                        "login": "JLDC"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I guess the last cells can be removed, right? They look like \"debugging cells\"",
+                                                        "author": {
+                                                            "login": "marcofavoritobi"
+                                                        },
+                                                        "url": "https://github.com/bancaditalia/black-it/pull/58#discussion_r1298497026",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "79e9017",
+                                                            "authoredDate": "2023-07-26T14:34:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "an idea to solve it from ChatGPT:\nhttps://chat.openai.com/share/43b7067f-9a6c-47a5-b2a2-9bf64b0ebd8e",
+                                                        "author": {
+                                                            "login": "marcofavoritobi"
+                                                        },
+                                                        "url": "https://github.com/bancaditalia/black-it/pull/58#discussion_r1298585008",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "79e9017",
+                                                            "authoredDate": "2023-07-26T14:34:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "can we replace TITLE with the actual paper title?",
+                                                        "author": {
+                                                            "login": "marcofavoritobi"
+                                                        },
+                                                        "url": "https://github.com/bancaditalia/black-it/pull/58#discussion_r1298585419",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "79e9017",
+                                                            "authoredDate": "2023-07-26T14:34:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "can we add paper title here? And the other authors?",
+                                                        "author": {
+                                                            "login": "marcofavoritobi"
+                                                        },
+                                                        "url": "https://github.com/bancaditalia/black-it/pull/58#discussion_r1298585779",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "79e9017",
+                                                            "authoredDate": "2023-07-26T14:34:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The title is still somewhat a working title, we might change it but if that is the case I will open a pull request. In the meanwhile, the title is \"Constructing Efficient Simulated Moments Using Temporal Convolutional Networks\", by Jonathan Chassot and Michael Creel. Link: https://www.jldc.ch/uploads/2023_chassot_creel.pdf",
+                                                        "author": {
+                                                            "login": "JLDC"
+                                                        },
+                                                        "url": "https://github.com/bancaditalia/black-it/pull/58#discussion_r1300164722",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "79e9017",
+                                                            "authoredDate": "2023-07-26T14:34:15Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 12,
+                        "title": "Flask API \uae30\ub2a5 \ucd94\uac00",
+                        "repository": {
+                            "nameWithOwner": "SWM14-Architect/moview-core-service",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-07-10T07:28:25Z",
+                        "mergedAt": "2023-07-10T12:10:07Z",
+                        "url": "https://github.com/SWM14-Architect/moview-core-service/pull/12",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "westreed"
+                        },
+                        "editor": null,
+                        "body": "[Flask API]\r\n- \uc0ac\uc6a9\uc790 \uc815\ubcf4 \uc785\ub825\r\n- \uc0ac\uc6a9\uc790 \uc815\ubcf4 \ud3c9\uac00\r\n- \ucd08\uae30 \uc9c8\ubb38\ub9ac\uc2a4\ud2b8 \uc0dd\uc131\r\n- \uc2ec\ud654\uc9c8\ubb38 \uc0dd\uc131\r\n- \ub2f5\ubcc0\ub0b4\uc6a9 \ud3c9\uac00",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "\uce58\uba85\uc801\uc778 \ubd80\ubd84\ub4e4\uc740 \uc544\ub2c8\ub77c\uc11c, \ud544\uc694\ud558\ub2e4\uace0 \uc0dd\uac01\ud558\uc2dc\ub294 \ubd80\ubd84\ub9cc \ubc14\uafd4\uc8fc\uc2dc\uba74 \uc88b\uc744 \uac83 \uac19\uc2b5\ub2c8\ub2e4!",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\uc81c\uac00 Type\uc5d0 \ub300\ud574\uc11c \uc798 \ubab0\ub77c\uc11c GPT\uc5d0\uac8c \ubb3c\uc5b4\ubcf8 \uacb0\uacfc, \uc774\ub7ec\ud55c \ub2f5\ubcc0\uc774 \uc654\uc2b5\ub2c8\ub2e4.\nhttps://chat.openai.com/share/af7b8700-ca7a-4955-9788-3068ade59912\n\ucc38\uace0\ud558\uc2dc\uace0, \uace0\uce60 \ud544\uc694\uac00 \uc788\ub2e4\uba74 \uace0\uccd0\uc8fc\uc138\uc694.",
+                                                        "author": {
+                                                            "login": "ssfic3380"
+                                                        },
+                                                        "url": "https://github.com/SWM14-Architect/moview-core-service/pull/12#discussion_r1257883180",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ee93f4f",
+                                                            "authoredDate": "2023-07-10T07:26:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\uc774 \ubd80\ubd84\uc740 \ud558\ub098\uc758 \ud568\uc218\ub85c \ucd94\ucd9c\ud558\ub294 \uac83\uc740 \uc5b4\ub5a4\uc9c0 \uc758\uacac\uc774 \uad81\uae08\ud569\ub2c8\ub2e4.\nInitQuestion \ud074\ub798\uc2a4\uc758 17~18 line\uc5d0\uc11c\ub3c4 check_data_manager\ub85c \uc5d0\ub7ec \uccb4\ud06c\ub97c \ud558\uace0 \uc2dc\uc791\ud558\ub294 \uac83\uc73c\ub85c \ubcfc \ub54c,\n\uc5d0\ub7ec \uccb4\ud0b9\uc744 \uc704\ud55c \ud558\ub098\uc758 \uba54\uc18c\ub4dc\ub85c \ud1b5\ud569\ud558\uace0, \ud30c\ub77c\ubbf8\ud130\ub85c \uccb4\ud06c\ud574\uc57c \ud558\ub294 manager \ubaa9\ub85d\uc744 \ubcf4\ub0b4\ub294 \uc2dd\uc73c\ub85c?",
+                                                        "author": {
+                                                            "login": "ssfic3380"
+                                                        },
+                                                        "url": "https://github.com/SWM14-Architect/moview-core-service/pull/12#discussion_r1257884697",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ee93f4f",
+                                                            "authoredDate": "2023-07-10T07:26:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\"\uc9c8\ubb38\uc744 \ub2f5\ubcc0\ud558\ub294 \uacfc\uc815\uc774 \ucd5c\uc18c 1\ud68c \uc774\uc0c1 \ud544\uc694\ud569\ub2c8\ub2e4.\" \uac00 \uc880 \ub354 \uc790\uc5f0\uc2a4\ub7ec\uc6b4 \ubb38\uc7a5\uc77c \uac83 \uac19\uc2b5\ub2c8\ub2e4.",
+                                                        "author": {
+                                                            "login": "ssfic3380"
+                                                        },
+                                                        "url": "https://github.com/SWM14-Architect/moview-core-service/pull/12#discussion_r1257885895",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ee93f4f",
+                                                            "authoredDate": "2023-07-10T07:26:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "ChatManager\ub3c4 \ud639\uc2dc \ubaa8\ub97c \uc0c1\ud669\uc744 \uc704\ud574 \uc5d0\ub7ec \uccb4\ud06c\uac00 \ud544\uc694\ud560 \uc218\ub3c4 \uc788\uc744 \uac83 \uac19\uc2b5\ub2c8\ub2e4.\nOpenAI API \ubb38\uc81c\ub85c \uc815\uc0c1\uc801\uc73c\ub85c LLM\uc744 \ubd88\ub7ec\uc624\uc9c0 \ubabb\ud560 \uc218\ub3c4 \uc788\uc744 \uac83 \uac19\uc544\uc11c\uc694.\n(LangChain \uba54\uc18c\ub4dc\ub97c \ud65c\uc6a9\ud558\ub2e4 \ubcf4\ub2c8 LangChain\uc5d0\uc11c \uc608\uc678 \ucc98\ub9ac\ub97c \ud574\uc904 \uc218\ub3c4 \uc788\uc9c0\ub9cc, \uadf8\ub807\ub354\ub77c\ub3c4 \ud544\uc694\ud558\uc9c0 \uc54a\uc744\uae4c \uc0dd\uac01\ud569\ub2c8\ub2e4)",
+                                                        "author": {
+                                                            "login": "ssfic3380"
+                                                        },
+                                                        "url": "https://github.com/SWM14-Architect/moview-core-service/pull/12#discussion_r1257924988",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ee93f4f",
+                                                            "authoredDate": "2023-07-10T07:26:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "\ub9ac\ubdf0 \uac10\uc0ac\ud569\ub2c8\ub2e4.\n\ud0c0\uc785\ud78c\ud2b8\uc640 \ud568\uc218 \ud1b5\ud569, \ubb38\uc7a5 \uc218\uc815\ub3c4 \uc9c4\ud589\ud558\uaca0\uc2b5\ub2c8\ub2e4!",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ubaa8\ub378 \uc0dd\uc131\uc740 OpenAI\uc5d0 API\ub97c \ud638\ucd9c\ud558\ub294 \uac74 \uc5c6\uc5b4\uc11c \uc548\uc804\ud569\ub2c8\ub2e4. \u314e\u314e\nAPI\ub97c \ud638\ucd9c\ud558\uae30 \uc804\uc5d0 \uc5b4\ub5a4 \uc2a4\ud399\uc758 \ubaa8\ub378\uc744 \uc4f8\uac70\uace0, \uc2a4\ud2b8\ub9ac\ubc0d\uc740 \uc4f8\uac70\ub2c8, \ub4f1\ub4f1...\uc744 \ubbf8\ub9ac \uc815\ud574\uc8fc\ub294 \ub2e8\uacc4\ub77c\uace0 \ubcf4\uc2dc\uba74 \ub429\ub2c8\ub2e4!",
+                                                        "author": {
+                                                            "login": "westreed"
+                                                        },
+                                                        "url": "https://github.com/SWM14-Architect/moview-core-service/pull/12#discussion_r1257932790",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ee93f4f",
+                                                            "authoredDate": "2023-07-10T07:26:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ub9de\ub124\uc694. 2\uac1c\uc529 \uc548\ub9cc\ub4e4\uace0 \ud558\ub098\ub85c \ub9cc\ub4e4\uc5b4\uc11c \ud30c\ub77c\ubbf8\ud130\ub85c \uccb4\ud06c\ud560 \uc218 \uc788\uaca0\ub124\uc694.\n\ubc18\uc601\ud558\uaca0\uc2b5\ub2c8\ub2e4!",
+                                                        "author": {
+                                                            "login": "westreed"
+                                                        },
+                                                        "url": "https://github.com/SWM14-Architect/moview-core-service/pull/12#discussion_r1257934821",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ee93f4f",
+                                                            "authoredDate": "2023-07-10T07:26:38Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\uc0ac\uc2e4 \uc785\ub825\ubc1b\ub294 \ud074\ub798\uc2a4\uac00 \uc815\ud655\ud788 \uc9c0\uc815\ub418\uc9c0 \uc54a\ub294 \ud30c\ub77c\ubbf8\ud130\ub77c\uc11c Type\uc774\ub77c\uace0 \uba85\uc2dc\ub97c \ud588\uc5c8\ub294\ub370\nType\uc740 \uc798\ubabb\ub41c \ud45c\ud604\uc774\uc5c8\ub124\uc694. GPT\uc5d0\uac8c \uc880 \ub354 \ubb3c\uc5b4\ubcf8 \uacb0\uacfc, Any\ub97c \uc4f0\ub294\uac8c \ub9de\ub294 \ud45c\ud604\uc774\ub77c\uace0 \ud569\ub2c8\ub2e4.",
+                                                        "author": {
+                                                            "login": "westreed"
+                                                        },
+                                                        "url": "https://github.com/SWM14-Architect/moview-core-service/pull/12#discussion_r1257945653",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ee93f4f",
+                                                            "authoredDate": "2023-07-10T07:26:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ub098\uc911\uc5d0 \uc774 \ubd80\ubd84\uc5d0\uc11c \uc785\ub825 \ud544\ud130\ub9c1\uc744 \uc704\ud55c \ub85c\uc9c1\uc774 \ucd94\uac00\ub418\uc57c\uaca0\uad70\uc694. \uc544\ub9c8 llm \uc4f8 \ub4ef..?",
+                                                        "author": {
+                                                            "login": "dasd412"
+                                                        },
+                                                        "url": "https://github.com/SWM14-Architect/moview-core-service/pull/12#discussion_r1258144308",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e320763",
+                                                            "authoredDate": "2023-07-10T07:07:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "\ud30c\uc774\uc36c\uc740 \uc544\uc9c1 \uc798 \ubaa8\ub974\uc9c0\ub9cc, Exception\uc740 \ub108\ubb34 \uc77c\ubc18\ud654\ub418\uc5b4 \uc608\uc678\uc758 \uc885\ub958\ub97c \ubc14\ub85c \ud30c\uc545\ud558\uae30 \uc5b4\ub835\uc2b5\ub2c8\ub2e4.\njava\uc758 \ucee4\uc2a4\ud140 \uc608\uc678\ucc98\ub7fc \ub9cc\ub4e4\uc5b4\ubcf4\ub294 \uac74 \uc5b4\ub5a8\uae4c\uc694?",
+                                                        "author": {
+                                                            "login": "dasd412"
+                                                        },
+                                                        "url": "https://github.com/SWM14-Architect/moview-core-service/pull/12#discussion_r1258145966",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e320763",
+                                                            "authoredDate": "2023-07-10T07:07:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "TimeoutException \uac19\uc740 \uac70\ub85c \ucee4\uc2a4\ud140 \ud558\ub294\uac8c..?",
+                                                        "author": {
+                                                            "login": "dasd412"
+                                                        },
+                                                        "url": "https://github.com/SWM14-Architect/moview-core-service/pull/12#discussion_r1258148208",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e320763",
+                                                            "authoredDate": "2023-07-10T07:07:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Any\ub3c4 \uc880 \uc544\ub2cc \uac83 \uac19\uc544\uc11c, \uad81\ub9ac\ud558\ub2e4\uac00 \ubaa8\ub4e0 Handler\uac00 BaseCallbackHandler\ub97c \uc0c1\uc18d\ubc1b\uc73c\ub2c8\uae4c Type[BaseCallbackHandler]\ub85c \uba85\uc2dc\ud558\uae30\ub85c \ud588\uc2b5\ub2c8\ub2e4.",
+                                                        "author": {
+                                                            "login": "westreed"
+                                                        },
+                                                        "url": "https://github.com/SWM14-Architect/moview-core-service/pull/12#discussion_r1258235429",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "ee93f4f",
+                                                            "authoredDate": "2023-07-10T07:26:38Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 301,
+                        "title": "Interaction and api updates",
+                        "repository": {
+                            "nameWithOwner": "OSRSB/OsrsBot",
+                            "primaryLanguage": {
+                                "name": "Java"
+                            }
+                        },
+                        "createdAt": "2023-07-10T23:18:09Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/OSRSB/OsrsBot/pull/301",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "Nubebuster"
+                        },
+                        "editor": {
+                            "login": "Nubebuster"
+                        },
+                        "body": "This branch contains some bug fixes and code improvements.\r\nMost notable changes:\r\n\r\n- RSModel interaction now no longer tries to click points that are not in collision with the polygons of the model. This means the success rate for clicking a model is drastically increased. It now gets a random polygon and finds a point within that to click on.\r\n- Added withdrawAll function to Bank\r\n- Added hasAction to RSObject\r\n\r\n### Bugs found\r\nSee Inventory.java:175 the condition is always true. Author: @Fire-Swan\r\nSee RSModel.java:343 this loop always returns with n=0. Author(s): @PhobicHD and/or @GigiaJ \r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-07-10T23:32:27Z",
+                                    "bodyText": "https://chat.openai.com/share/633e2b6f-6e7b-43e7-8a8a-7fbe47c0aa4b\nChatGPT helped me understand that the first bug is not a big deal.\nThe second bug also seems like a minor issue fixed. Please confirm the new behaviour is the intended behaviour @PhobicHD @GigiaJ",
+                                    "url": "https://github.com/OSRSB/OsrsBot/pull/301#issuecomment-1629870686",
+                                    "author": {
+                                        "login": "Nubebuster"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-11T00:23:58Z",
+                                    "bodyText": "In commit cd751f6 I only did formatting.\nIn all the commits I did formatting. Most notably I made sure to make the spaces/tabs consistent. The project mainly uses tabs and so should everyone contributing therefore.\nThis is going to be a bit of a mess while merging with the other pull requests. I recommend to merge the other requests first, and then resolve the conflicts in IntelliJ when merging.\nIf I can help with resolving conflicts at some point I would love to.",
+                                    "url": "https://github.com/OSRSB/OsrsBot/pull/301#issuecomment-1629912845",
+                                    "author": {
+                                        "login": "Nubebuster"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-07-11T16:22:40Z",
+                                    "bodyText": "Now we use the clickbox of the TileObject and try to get the middle of that if it exists. If that is not on screen or it does not exist, the old system is used. The old system tries to get a center polygon of the model on screen. If that also fails, the new system is used which tries to get a random polygon on the screen. The latter does not look specifically for a center and may therefore hit a polygon which is on screen while the middle of the model is not on screen.\nCombining these three methods creates a very high success rate for many shapes.\nI also changed the click to allow a user to specify how many tries the mouse makes to move onto the object. The default is set from 2 (which was not in a loop) to 3 as a loop.",
+                                    "url": "https://github.com/OSRSB/OsrsBot/pull/301#issuecomment-1631124456",
+                                    "author": {
+                                        "login": "Nubebuster"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Isn't this necessary? What if none of them are found? In that case its going to print a stack trace where are before it would just return false.",
+                                                        "author": {
+                                                            "login": "PhobicHD"
+                                                        },
+                                                        "url": "https://github.com/OSRSB/OsrsBot/pull/301#discussion_r1259020098",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "008b5a2",
+                                                            "authoredDate": "2023-07-10T23:37:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I strongly prefer else ifs on newlines not stacked. This is inconsistent through the api though and I think the rest of the file is like this",
+                                                        "author": {
+                                                            "login": "PhobicHD"
+                                                        },
+                                                        "url": "https://github.com/OSRSB/OsrsBot/pull/301#discussion_r1259020226",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "008b5a2",
+                                                            "authoredDate": "2023-07-10T23:37:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "is there a reason these are different?",
+                                                        "author": {
+                                                            "login": "PhobicHD"
+                                                        },
+                                                        "url": "https://github.com/OSRSB/OsrsBot/pull/301#discussion_r1259022683",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "008b5a2",
+                                                            "authoredDate": "2023-07-10T23:37:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This is similar to how it worked before. The problem is because of the screen projection the majority of triangles are going to be at or near the edge of the model in 2d screen space. Couple this together with the fact the model or camera may be moving and the mouse takes time to move. This causes moving the mouse to a model to fail most of the time at least when the model or camera is moving at all. I think that we can actually get the click hitbox somehow and take the center point of that which makes more sense but I didn't spend the time to figure it out. Ideally, our mouse movement would update while moving so it always finished on the model but that isn't how it works currently. Regardless, I don't think this is a good change even though on the surface it seems like a better way to do it. Oh also the name is definitely not apt with this change.",
+                                                        "author": {
+                                                            "login": "PhobicHD"
+                                                        },
+                                                        "url": "https://github.com/OSRSB/OsrsBot/pull/301#discussion_r1259028038",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "008b5a2",
+                                                            "authoredDate": "2023-07-10T23:37:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Note I have had some problems with using the definition like this. This should definitely exist and I think it is good how it is though. We shouldn't check this before trying to doAction as the hover menu is much more accurate.",
+                                                        "author": {
+                                                            "login": "PhobicHD"
+                                                        },
+                                                        "url": "https://github.com/OSRSB/OsrsBot/pull/301#discussion_r1259029785",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "008b5a2",
+                                                            "authoredDate": "2023-07-10T23:37:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I used this to find an open door. Since a closed door is a different object this works perfectly.\nIt's currently not being used in the OSRSBot code and is simply available to scripters.\nIn which case does this not work?",
+                                                        "author": {
+                                                            "login": "Nubebuster"
+                                                        },
+                                                        "url": "https://github.com/OSRSB/OsrsBot/pull/301#discussion_r1259032105",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "008b5a2",
+                                                            "authoredDate": "2023-07-10T23:37:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I overlooked. Will be changed in next commit",
+                                                        "author": {
+                                                            "login": "Nubebuster"
+                                                        },
+                                                        "url": "https://github.com/OSRSB/OsrsBot/pull/301#discussion_r1259032520",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "008b5a2",
+                                                            "authoredDate": "2023-07-10T23:37:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The entire project is like this and it's the default formatter behaviour of Intellij",
+                                                        "author": {
+                                                            "login": "Nubebuster"
+                                                        },
+                                                        "url": "https://github.com/OSRSB/OsrsBot/pull/301#discussion_r1259033823",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "008b5a2",
+                                                            "authoredDate": "2023-07-10T23:37:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "In the lines above the bankBooth is set to null if the bankChest is not null. Therefore this is always true.",
+                                                        "author": {
+                                                            "login": "Nubebuster"
+                                                        },
+                                                        "url": "https://github.com/OSRSB/OsrsBot/pull/301#discussion_r1259035420",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "008b5a2",
+                                                            "authoredDate": "2023-07-10T23:37:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "When interacting with a furnace the old code had a 10% fail rate when zoomed in. An 80% fail rate when zoomed out.",
+                                                        "author": {
+                                                            "login": "Nubebuster"
+                                                        },
+                                                        "url": "https://github.com/OSRSB/OsrsBot/pull/301#discussion_r1259037786",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "008b5a2",
+                                                            "authoredDate": "2023-07-10T23:37:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Some objects don't have actions properly defined in their definitions. The easiest example is any of these https://static.runelite.net/api/runelite-api/net/runelite/api/NullObjectID.html like the levers in draynor manor basement. There are a bunch more though where the definition of actions isn't the same as the object in certain game states.",
+                                                        "author": {
+                                                            "login": "PhobicHD"
+                                                        },
+                                                        "url": "https://github.com/OSRSB/OsrsBot/pull/301#discussion_r1259040285",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "008b5a2",
+                                                            "authoredDate": "2023-07-10T23:37:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Resolved in commit 06393b7",
+                                                        "author": {
+                                                            "login": "Nubebuster"
+                                                        },
+                                                        "url": "https://github.com/OSRSB/OsrsBot/pull/301#discussion_r1259041607",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "008b5a2",
+                                                            "authoredDate": "2023-07-10T23:37:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Resolved in commit c0aa5a3",
+                                                        "author": {
+                                                            "login": "Nubebuster"
+                                                        },
+                                                        "url": "https://github.com/OSRSB/OsrsBot/pull/301#discussion_r1259043702",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "008b5a2",
+                                                            "authoredDate": "2023-07-10T23:37:25Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I've updated the interaction logic",
+                                                        "author": {
+                                                            "login": "Nubebuster"
+                                                        },
+                                                        "url": "https://github.com/OSRSB/OsrsBot/pull/301#discussion_r1260005437",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "008b5a2",
+                                                            "authoredDate": "2023-07-10T23:37:25Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

@@ -1,0 +1,592 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 228,
+                        "title": "Replacing enums with string and installing isort & ruff",
+                        "repository": {
+                            "nameWithOwner": "cleanlab/cleanvision",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2023-10-05T18:17:45Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/cleanlab/cleanvision/pull/228",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "smttsp"
+                        },
+                        "editor": {
+                            "login": "smttsp"
+                        },
+                        "body": "## Summary\r\n\r\n> What is the reason for this Pull-Request?\r\n\r\nThis PR replaces HashType and IssueType enums with strings. IssueType was created before but in some places, string was used. This PR resolves that issue. \r\n\r\nAlong with those, ruff and isort which are linting and import formatting tools, respectively, added to in requirements. \r\n\r\nIf `isort` and `ruff` are not desired, I can remove them from the commits\r\n\r\n**NOTE**: This PR will be merged after https://github.com/cleanlab/cleanvision/pull/227/files if it is merged. Then, we can get rid of the commits from that PR (by rebasing onto main). Currently, we see those changes here which will be gone after the rebasing.\r\n\r\n## Impact\r\n\r\n> What is the scope of your changes and who/where do you think they will affect?\r\n\r\nSmall code clean up and some formatting. Along with that additional installations. Normally, these installations should not go into production code, they should stay in `dev` but I am not sure how to do that in the current setting. In the future, by separating requirements from requirements-dev.txt, we may be able to achieve that. \r\n\r\n## Testing\r\n\r\n> What testing have you done and verified? Please link to the one unit test that is most end-to-end check of your new functionality. It's ok if your unit tests are not yet comprehensive when you first open the PR, we can revisit them later!  \r\n\r\n- to be done\r\n\r\n## Ticket(s) or Conversations\r\n\r\n> What Git or Slack items (Issues, threads etc) are specifically related to this work? Please link them here.\r\n\r\n\r\n## References\r\n\r\n> Include any extra information that may be helpful to reviewers of your Pull-Request here (e.g. relevant URLs or Wiki pages that could help give background information). If relevant, please include additional code snippets (and their outputs/return values) showing alternative ways to use your newly added methods.\r\n\r\n-\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-10-10T13:59:42Z",
+                                    "bodyText": "Codecov Report\nAll modified lines are covered by tests \u2705\n\nComparison is base (cd8f98b) 95.63% compared to head (c2037fe) 95.68%.\n\nAdditional details and impacted files\n@@            Coverage Diff             @@\n##             main     #228      +/-   ##\n==========================================\n+ Coverage   95.63%   95.68%   +0.04%     \n==========================================\n  Files          16       17       +1     \n  Lines         986      997      +11     \n  Branches      194      194              \n==========================================\n+ Hits          943      954      +11     \n  Misses         22       22              \n  Partials       21       21              \n\n\n\nFiles\nCoverage \u0394\n\n\n\n\n\nsrc/cleanvision/__init__.py\n100.00% <\u00f8> (\u00f8)\n\n\n\nsrc/cleanvision/dataset/base_dataset.py\n100.00% <\u00f8> (\u00f8)\n\n\n\nsrc/cleanvision/dataset/fsspec_dataset.py\n95.65% <100.00%> (\u00f8)\n\n\n\nsrc/cleanvision/dataset/hf_dataset.py\n100.00% <100.00%> (\u00f8)\n\n\n\nsrc/cleanvision/dataset/torch_dataset.py\n100.00% <\u00f8> (\u00f8)\n\n\n\nsrc/cleanvision/dataset/utils.py\n100.00% <\u00f8> (\u00f8)\n\n\n\nsrc/cleanvision/imagelab.py\n91.97% <100.00%> (+0.04%)\n\u2b06\ufe0f\n\n\nsrc/cleanvision/issue_managers/__init__.py\n88.00% <100.00%> (-3.67%)\n\u2b07\ufe0f\n\n\n...anvision/issue_managers/duplicate_issue_manager.py\n99.21% <100.00%> (+<0.01%)\n\u2b06\ufe0f\n\n\nsrc/cleanvision/issue_managers/image_property.py\n94.00% <100.00%> (\u00f8)\n\n\n\n... and 7 more\n\n\n\n\n\n\n\u2614 View full report in Codecov by Sentry.\n\ud83d\udce2 Have feedback on the report? Share it here.",
+                                    "url": "https://github.com/cleanlab/cleanvision/pull/228#issuecomment-1755487335",
+                                    "author": {
+                                        "login": "codecov"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-11T00:11:00Z",
+                                    "bodyText": "hey @jwmueller @sanjanag @elisno,\nThis PR is mostly related to formatting.\nI eliminated half of the long lines, did some formatting, and created a hashing-type enum. Moved the issue type enum to another file as it was causing circular dependency.\nI added the following libs to the requirements.\nisort\nloguru\nruff\n\nI was thinking of replacing prints with logging sometime soon but not sure of your preferences. isort and ruff are formatting/linting tools that I have been using. I thought it would help. I used ruff for splitting long lines.\nIf you guys think this PR is an improvement, we can merge this branch after my other PR. Otherwise, I could drop the parts you think unnecessary.",
+                                    "url": "https://github.com/cleanlab/cleanvision/pull/228#issuecomment-1756489358",
+                                    "author": {
+                                        "login": "smttsp"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-11T13:19:01Z",
+                                    "bodyText": "@elisno, actually, I was in the wrong branch when I tried running black after setting the line length to 100: #228 (comment). (you can ignore my previous message)\nPreviously, you guys didn't have black settings in the pyproject.toml. So you were using black with the default settings. By default, the line length is set to 88: https://safjan.com/black-change-max-line-length/#:~:text=Black%20is%20an%20opinionated%20code,by%20default%20to%2088%20characters.\nSo, setting it to 100 caused quite a bit of change in 19 files in cleanvision. Below is an example screenshot from my gitkraken after the change & running black with length=100:\n\nPlease let me know if you want me to commit the above changes. Or I can commit them and you can decide whether to keep or drop those commits. What do you think?",
+                                    "url": "https://github.com/cleanlab/cleanvision/pull/228#issuecomment-1757685934",
+                                    "author": {
+                                        "login": "smttsp"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-11T13:50:53Z",
+                                    "bodyText": "Previously, you guys didn't have black settings in the pyproject.toml. So you were using black with the default settings. By default, the line length is set to 88: https://safjan.com/black-change-max-line-length/#:~:text=Black%20is%20an%20opinionated%20code,by%20default%20to%2088%20characters.\n\nI see, then the 88-character limit you've set is fine for this PR. I just assumed that some of the formatting changes were caused by explicitly setting that character limit.\nNo need to bump it up to 100 for now.",
+                                    "url": "https://github.com/cleanlab/cleanvision/pull/228#issuecomment-1757743014",
+                                    "author": {
+                                        "login": "elisno"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We set a 100 character line-length limit in the cleanlab code. I believe the same applies here.\nSome of the reformatted lines may need to be reverted because of this.",
+                                                        "author": {
+                                                            "login": "elisno"
+                                                        },
+                                                        "url": "https://github.com/cleanlab/cleanvision/pull/228#discussion_r1353839934",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e3b2007",
+                                                            "authoredDate": "2023-10-05T18:57:35Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This dependency should be included in a PR where we actually introduce its use.\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            loguru",
+                                                        "author": {
+                                                            "login": "elisno"
+                                                        },
+                                                        "url": "https://github.com/cleanlab/cleanvision/pull/228#discussion_r1353840632",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e3b2007",
+                                                            "authoredDate": "2023-10-05T18:57:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "CC @sanjanag",
+                                                        "author": {
+                                                            "login": "elisno"
+                                                        },
+                                                        "url": "https://github.com/cleanlab/cleanvision/pull/228#discussion_r1353841756",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e3b2007",
+                                                            "authoredDate": "2023-10-05T18:57:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Some of the reformatted lines may need to be reverted because of this.\n\nyes, I will re-run the formatting.",
+                                                        "author": {
+                                                            "login": "smttsp"
+                                                        },
+                                                        "url": "https://github.com/cleanlab/cleanvision/pull/228#discussion_r1353974047",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e3b2007",
+                                                            "authoredDate": "2023-10-05T18:57:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "yes, makes sense. committed your suggestion",
+                                                        "author": {
+                                                            "login": "smttsp"
+                                                        },
+                                                        "url": "https://github.com/cleanlab/cleanvision/pull/228#discussion_r1354928053",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e3b2007",
+                                                            "authoredDate": "2023-10-05T18:57:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I ran formatting after setting it to 100, nothing has changed.\nA majority of my changes were docstrings that were extremely long, length=100-200 that I manually split",
+                                                        "author": {
+                                                            "login": "smttsp"
+                                                        },
+                                                        "url": "https://github.com/cleanlab/cleanvision/pull/228#discussion_r1354943246",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e3b2007",
+                                                            "authoredDate": "2023-10-05T18:57:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "one comment",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@elisno, for example this line was 135, the above line is 144, etc",
+                                                        "author": {
+                                                            "login": "smttsp"
+                                                        },
+                                                        "url": "https://github.com/cleanlab/cleanvision/pull/228#discussion_r1354954914",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "49ae7c7",
+                                                            "authoredDate": "2023-10-11T12:54:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I added an example below: #228 (comment) regarding what I meant",
+                                                        "author": {
+                                                            "login": "smttsp"
+                                                        },
+                                                        "url": "https://github.com/cleanlab/cleanvision/pull/228#discussion_r1354957287",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e3b2007",
+                                                            "authoredDate": "2023-10-05T18:57:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "My mistake, I didn't realize the formatted (docstrings) were extremely long and manually split.\nThen ignore my initial comment here.",
+                                                        "author": {
+                                                            "login": "elisno"
+                                                        },
+                                                        "url": "https://github.com/cleanlab/cleanvision/pull/228#discussion_r1355048050",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "e3b2007",
+                                                            "authoredDate": "2023-10-05T18:57:35Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@smttsp About adding ruff:\nIt's known for being fast, but we already have flake8 for checking our code. We do ignore some errors in flake8, so there might be room for improvement.\nHowever, ruff is not set up in the CI/pre-commit steps, and it's not clear what unique help it brings to the project.\nSuggestion\nFor this PR, I suggest we keep the formatting improvements but remove the ruff dependency until we have a clearer understanding of its benefits. I propose we move the discussion about ruff to another Github Issue to explore if it solves anything new, or if there are other strong reasons to include it. This way, we keep the PR focused while exploring the linting tools and practices separately.\n  \n    \n      \n        Suggested change\n      \n    \n    \n      \n          \n            \n            ruff",
+                                                        "author": {
+                                                            "login": "elisno"
+                                                        },
+                                                        "url": "https://github.com/cleanlab/cleanvision/pull/228#discussion_r1355077197",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "49ae7c7",
+                                                            "authoredDate": "2023-10-11T12:54:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Could isort be added to .pre-commit-config.yaml?",
+                                                        "author": {
+                                                            "login": "elisno"
+                                                        },
+                                                        "url": "https://github.com/cleanlab/cleanvision/pull/228#discussion_r1355084866",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "49ae7c7",
+                                                            "authoredDate": "2023-10-11T12:54:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "unfortunately, I don't have hands-on experience with pre-commit but chatgpt says, yes:\nhttps://chat.openai.com/share/d6e0ccd3-67d2-4cf3-bb2e-6504a4861586",
+                                                        "author": {
+                                                            "login": "smttsp"
+                                                        },
+                                                        "url": "https://github.com/cleanlab/cleanvision/pull/228#discussion_r1355497525",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "49ae7c7",
+                                                            "authoredDate": "2023-10-11T12:54:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "sure, I can drop ruff.\nthe main benefit is AFAIK speed. It is 200-300x faster than flake8, which may not be much as flake8 takes 10-15 seconds ruff takes <1 sec.",
+                                                        "author": {
+                                                            "login": "smttsp"
+                                                        },
+                                                        "url": "https://github.com/cleanlab/cleanvision/pull/228#discussion_r1355516481",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "49ae7c7",
+                                                            "authoredDate": "2023-10-11T12:54:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "done",
+                                                        "author": {
+                                                            "login": "smttsp"
+                                                        },
+                                                        "url": "https://github.com/cleanlab/cleanvision/pull/228#discussion_r1356004487",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "49ae7c7",
+                                                            "authoredDate": "2023-10-11T12:54:47Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 427,
+                        "title": "Add URLPattern logo",
+                        "repository": {
+                            "nameWithOwner": "whatwg/whatwg.org",
+                            "primaryLanguage": null
+                        },
+                        "createdAt": "2023-10-05T04:42:46Z",
+                        "mergedAt": "2023-10-13T06:05:45Z",
+                        "url": "https://github.com/whatwg/whatwg.org/pull/427",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "sisidovski"
+                        },
+                        "editor": null,
+                        "body": "Adding logo files for the URLPattern API based on the checklist in https://github.com/whatwg/meta/blob/main/NEW-STANDARD.md. The new API is proposed in https://github.com/whatwg/sg/issues/215.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-10-05T14:15:32Z",
+                                    "bodyText": "LGTM. I've always slightly preferred the five-pointed asterisk but that's an unreasonable level of bikeshedding; this looks great. \ud83d\ude04",
+                                    "url": "https://github.com/whatwg/whatwg.org/pull/427#issuecomment-1748993410",
+                                    "author": {
+                                        "login": "jeremyroman"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Nice work, this is exactly the right approach!",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Suggested change\n      \n    \n    \n      \n          \n            \n            <path stroke=\"#3c790a\" stroke-width=\"8\" d=\"M50 22v32M36 28l28 20M64 28 36 48\"/>\n          \n          \n            \n            <path stroke=\"#3c790a\" stroke-width=\"8\" d=\"M50 34v32M36 40l28 20M64 40L36 60\"/>\n          \n      \n    \n    \n  \n\n(via https://chat.openai.com/share/7f5fafa5-25cd-4cfd-85e8-dea9a0772d2b )",
+                                                        "author": {
+                                                            "login": "domenic"
+                                                        },
+                                                        "url": "https://github.com/whatwg/whatwg.org/pull/427#discussion_r1346777741",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "26d19b5",
+                                                            "authoredDate": "2023-10-05T04:38:43Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Updated. Thank you AI Domenic.",
+                                                        "author": {
+                                                            "login": "sisidovski"
+                                                        },
+                                                        "url": "https://github.com/whatwg/whatwg.org/pull/427#discussion_r1346785932",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "26d19b5",
+                                                            "authoredDate": "2023-10-05T04:38:43Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "LGTM. I will delay merging probably until I'm back at work on Monday and we can do all the stuff at once. (That can also give @jeremyroman a chance to take a look if he wants.)",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 11,
+                        "title": "arrToObj added plus tests",
+                        "repository": {
+                            "nameWithOwner": "linhapeter/js-practice-vention",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-10-05T15:15:58Z",
+                        "mergedAt": "2023-10-10T09:39:18Z",
+                        "url": "https://github.com/linhapeter/js-practice-vention/pull/11",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "linhapeter"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Create a separate file for each function.\npow.test.js",
+                                                        "author": {
+                                                            "login": "igorTT"
+                                                        },
+                                                        "url": "https://github.com/linhapeter/js-practice-vention/pull/11#discussion_r1348385684",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1f858bc",
+                                                            "authoredDate": "2023-10-05T15:15:37Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Is it possible that the id will be incorrect?",
+                                                        "author": {
+                                                            "login": "igorTT"
+                                                        },
+                                                        "url": "https://github.com/linhapeter/js-practice-vention/pull/11#discussion_r1348389220",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "1f858bc",
+                                                            "authoredDate": "2023-10-05T15:15:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "I still have no idea- why we need to validate ids. Even if data contains some broken data- we need to filter it before serialization. Keep the single-responsibility principle.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "Don't check/filter array.\nRead about srp\nhttps://chat.openai.com/share/f8835fb3-d44b-4820-b420-d6cd12facfd3",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

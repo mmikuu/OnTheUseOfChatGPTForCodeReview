@@ -1,0 +1,1142 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 102,
+                        "title": "OPHLUDOS-145: K\u00e4ytt\u00e4j\u00e4 huomaa kun istunto vanhenee",
+                        "repository": {
+                            "nameWithOwner": "Opetushallitus/ludos",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2024-01-19T13:20:56Z",
+                        "mergedAt": "2024-01-24T12:07:33Z",
+                        "url": "https://github.com/Opetushallitus/ludos/pull/102",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "ChristianVilen"
+                        },
+                        "editor": null,
+                        "body": "",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "todo: tekstit viel lokalisointi palveluun",
+                                                        "author": {
+                                                            "login": "ChristianVilen"
+                                                        },
+                                                        "url": "https://github.com/Opetushallitus/ludos/pull/102#discussion_r1459001256",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fe7a2c4",
+                                                            "authoredDate": "2024-01-17T07:39:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "todo: tekstit viel lokalisointi palveluun",
+                                                        "author": {
+                                                            "login": "ChristianVilen"
+                                                        },
+                                                        "url": "https://github.com/Opetushallitus/ludos/pull/102#discussion_r1459002105",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fe7a2c4",
+                                                            "authoredDate": "2024-01-17T07:39:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "heh, toisin kun lokaalissa CI:ll\u00e4 pit\u00e4\u00e4 kattoo et tulee cas/login sivu.",
+                                                        "author": {
+                                                            "login": "ChristianVilen"
+                                                        },
+                                                        "url": "https://github.com/Opetushallitus/ludos/pull/102#discussion_r1459050709",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "fe7a2c4",
+                                                            "authoredDate": "2024-01-17T07:39:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Hmm, mites t\u00e4\u00e4 vertailu voi toimia, ku eik\u00f6s e ole Error-objekti ja FetchErrorMessages.SessionExpired ole stringi? Pit\u00e4isk\u00f6 t\u00e4s ja vastaavis paikois olla e.message?",
+                                                        "author": {
+                                                            "login": "visadb"
+                                                        },
+                                                        "url": "https://github.com/Opetushallitus/ludos/pull/102#discussion_r1463180108",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "955bd6e",
+                                                            "authoredDate": "2024-01-17T07:39:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Laittaisin t\u00e4n returnin elseen, ku se kommunikois ainakin mulle paremmin, ett\u00e4 toi ifin eka haara ei oo vaan jonkin virhetapauksen early return vaan ihan normaalitilanne.",
+                                                        "author": {
+                                                            "login": "visadb"
+                                                        },
+                                                        "url": "https://github.com/Opetushallitus/ludos/pull/102#discussion_r1463189627",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "955bd6e",
+                                                            "authoredDate": "2024-01-17T07:39:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "T\u00e4\u00e4 on hyv\u00e4, et fetch erottelee virheet jotenkin. Musta tuntuu, et vois olla parempi, ett\u00e4 t\u00e4ss\u00e4 tapauksessa virhe-enumin sijaan meil ois custom-error-luokat tyylii (class SessionExpiredFetchError extends Error { ... }.\ncatch-blokeis tsekattais virhetyyppi tyylii if (error instanceof SessionExpiredFetchError) { ... } Toi Error.message-kent\u00e4n k\u00e4ytt\u00e4minen ei ole kovin tyyppiturvallista.\nT\u00e4h\u00e4n tyyliin: https://chat.openai.com/share/bdfcb857-08a3-4ff9-b610-b9bffcff6db8",
+                                                        "author": {
+                                                            "login": "visadb"
+                                                        },
+                                                        "url": "https://github.com/Opetushallitus/ludos/pull/102#discussion_r1463212453",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "955bd6e",
+                                                            "authoredDate": "2024-01-17T07:39:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Hyv\u00e4 huomio, ei tullut testattua tota kunnolla",
+                                                        "author": {
+                                                            "login": "ChristianVilen"
+                                                        },
+                                                        "url": "https://github.com/Opetushallitus/ludos/pull/102#discussion_r1463248976",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "955bd6e",
+                                                            "authoredDate": "2024-01-17T07:39:58Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Pit\u00e4isk\u00f6 t\u00e4ss\u00e4 k\u00e4ytt\u00e4\u00e4 NonDeletedPublishState?",
+                                                        "author": {
+                                                            "login": "visadb"
+                                                        },
+                                                        "url": "https://github.com/Opetushallitus/ludos/pull/102#discussion_r1463361817",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8101afe",
+                                                            "authoredDate": "2024-01-23T13:08:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Uujea, hyv\u00e4 m\u00e4\u00e4r\u00e4 duplikaattikoodia taas poistettu t\u00e4n useFormSubmissionin avulla ja koodia n\u00e4tinnetty \ud83d\udcaa",
+                                                        "author": {
+                                                            "login": "visadb"
+                                                        },
+                                                        "url": "https://github.com/Opetushallitus/ludos/pull/102#discussion_r1463363801",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8101afe",
+                                                            "authoredDate": "2024-01-23T13:08:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "T\u00e4n testin idea on hyv\u00e4, mutta t\u00e4\u00e4 vika expect ei tee mit\u00e4 pit\u00e4\u00e4. Kokeilin rikkoa automaattisen reloadin sessio-expiryss\u00e4, ja t\u00e4\u00e4 testi menee silti l\u00e4pi.\nToi klikkaushan vie etusivulta teht\u00e4v\u00e4listaan, jolloin page-heading-etusivu takuulla katoaa vaikka reload ei toimiskaan. Oiskohan playwrightissa jokin robusti tapa huomata reload. Vaikka waitForResponse, joka kuuntelee index.html:n hakemista reloadin seuraksena?",
+                                                        "author": {
+                                                            "login": "visadb"
+                                                        },
+                                                        "url": "https://github.com/Opetushallitus/ludos/pull/102#discussion_r1463423399",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "8101afe",
+                                                            "authoredDate": "2024-01-23T13:08:30Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 338,
+                        "title": "[Service] NIT followups to `AddService` in #316",
+                        "repository": {
+                            "nameWithOwner": "pokt-network/poktroll",
+                            "primaryLanguage": {
+                                "name": "Go"
+                            }
+                        },
+                        "createdAt": "2024-01-19T16:29:19Z",
+                        "mergedAt": "2024-01-19T21:41:23Z",
+                        "url": "https://github.com/pokt-network/poktroll/pull/338",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Olshansk"
+                        },
+                        "editor": null,
+                        "body": "## Summary\r\n\r\nNIT followups to #316 added in a separate PR to avoid blocking the base PR.\r\n\r\n## Type of change\r\n\r\nSelect one or more:\r\n\r\n- [ ] New feature, functionality or library\r\n- [ ] Bug fix\r\n- [x] Code health or cleanup\r\n- [ ] Documentation\r\n- [ ] Other (specify)\r\n\r\n## Testing\r\n\r\n- [ ] **Run all unit tests**: `make go_develop_and_test`\r\n- [ ] **Run E2E tests locally**: `make test_e2e`\r\n- [ ] **Run E2E tests on DevNet**: Add the `devnet-test-e2e` label to the PR. This is VERY expensive, only do it after all the reviews are complete.\r\n\r\n## Sanity Checklist\r\n\r\n- [ ] I have tested my changes using the available tooling\r\n- [ ] I have performed a self-review of my own code\r\n- [ ] I have commented my code, updated documentation and left TODOs throughout the codebase\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2024-01-19T20:02:38Z",
+                                    "bodyText": "The CI will now also run the e2e tests on devnet, which increases the time it takes to complete all CI checks. If you just created a pull request, you might need to push another commit to produce a container image DevNet can utilize to spin up infrastructure. You can use make trigger_ci to push an empty commit.",
+                                    "url": "https://github.com/pokt-network/poktroll/pull/338#issuecomment-1901031441",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-19T20:03:06Z",
+                                    "bodyText": "@h5law Fixed the imports and will merge this in after E2E tests pass. Plz see my comment in #338 (comment), since I'm trying to understand what formatted you use.",
+                                    "url": "https://github.com/pokt-network/poktroll/pull/338#issuecomment-1901032001",
+                                    "author": {
+                                        "login": "Olshansk"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Left a few nits on imports but gunna approve please fix then merge <3",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "NIT: These should be in the second block",
+                                                        "author": {
+                                                            "login": "h5law"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/338#discussion_r1459422117",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3e842b",
+                                                            "authoredDate": "2024-01-19T16:32:17Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "NIT: Move this back to second block.",
+                                                        "author": {
+                                                            "login": "h5law"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/338#discussion_r1459422986",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3e842b",
+                                                            "authoredDate": "2024-01-19T16:32:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Do you have any idea why this doesn't format it correctly?",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/338#discussion_r1459666500",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3e842b",
+                                                            "authoredDate": "2024-01-19T16:32:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://github.com/incu6us/goimports-reviser\nhttps://github.com/golang/vscode-go/wiki/features#format-and-organize-imports\nhttps://github.com/golang/vscode-go/wiki/advanced#formatting-code-and-organizing-imports\n\n  \n    \n      poktroll/.golangci.yml\n    \n    \n         Line 30\n      in\n      943669e\n    \n  \n  \n    \n\n        \n          \n           gci: \n        \n    \n  \n\n\nThese links should help, I don't know exactly as I don't use vscode - but the last code reference to my linting PR should help as a reference on the 2nd link.",
+                                                        "author": {
+                                                            "login": "h5law"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/338#discussion_r1459703230",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3e842b",
+                                                            "authoredDate": "2024-01-19T16:32:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "goimports != goimports-reviser you want a final group which is prefixed with our repo name. Pretty sure there is a goimports-reviser plugin maybe for vscode but whatever way you find to make it work - document it somewhere so we can make a configs section",
+                                                        "author": {
+                                                            "login": "h5law"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/338#discussion_r1459706335",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3e842b",
+                                                            "authoredDate": "2024-01-19T16:32:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "https://chat.openai.com/share/d2590505-31e2-4e34-be93-8e4fabf8d872 @Olshansk this should do it ;)",
+                                                        "author": {
+                                                            "login": "h5law"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/338#discussion_r1459717523",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3e842b",
+                                                            "authoredDate": "2024-01-19T16:32:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "incu6us/goimports-reviser#147 \ud83e\udd37",
+                                                        "author": {
+                                                            "login": "Olshansk"
+                                                        },
+                                                        "url": "https://github.com/pokt-network/poktroll/pull/338#discussion_r1459914701",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "c3e842b",
+                                                            "authoredDate": "2024-01-19T16:32:17Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 26098,
+                        "title": "Parse LaTeX matrices and literal complex numbers",
+                        "repository": {
+                            "nameWithOwner": "sympy/sympy",
+                            "primaryLanguage": {
+                                "name": "Python"
+                            }
+                        },
+                        "createdAt": "2024-01-19T13:01:40Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/sympy/sympy/pull/26098",
+                        "state": "OPEN",
+                        "author": {
+                            "login": "8vasu"
+                        },
+                        "editor": {
+                            "login": "8vasu"
+                        },
+                        "body": "Fixes #14007 \r\nAddresses https://github.com/sympy/sympy/issues/25676 and https://github.com/sympy/sympy/issues/25366\r\n\r\nI have written this with the goal of using a purely SymPy-based backend (or SymPy as a part of SageMath) in [symtex.el](https://github.com/ultronozm/symtex.el) and [compuTeX](https://github.com/8vasu/compuTeX). I wish to unify the typesetting and computation aspects of working with matrix groups in my GNU Emacs/AUCTeX-based workflow. \r\n\r\nEdit: I do not mean to rush anyone, but the reason for this PR is that the `latex2sympy2` that we are currently using in our projects depends on ANTLR 4.7, which imports `typing.io`. We keep getting  warnings that `typing.io` is deprecated and that it will be completely removed in Python 3.12. Currently I am using the default Python 3.11 in Debian, but that might change in an OS update/upgrade in the near future. We have found a parsing solution using GNU Emacs Calc, but we depend on SymPy's `parse_expr` anyway. Matrices are a must for us, and I am looking for a clean solution that just uses `parse_latex`.\r\n\r\nEdit: This PR is being split into 2 parts. Currently this only has content for the Lark parser. The following message remains unchanged, and still mentions ANTLR, which is to be ignored.\r\n\r\nEdit: added `\\prime` and `\\ast` as new ways of performing matrix transpose and matrix self-adjoint.\r\n\r\n## Overview of features added or modified:\r\n\r\n1. Matrix parsing is added to both the ANTLR-based and the\r\nLark-based parsers.\r\n2. Literal complex numbers are introduced via the LaTeX macro\r\n`\\sympyi` in order to facilitate working with matrices with complex\r\nnumber entries.\r\n3. Since the single quote (prime) symbol is sometimes used to denote\r\nmatrix transpose, that is introduced, and as a side-effect, primed\r\nsymbols are added to the Lark parser, and the behavior of primes\r\non symbols in ANTLR and Lark are made consistent and completely\r\nfaithful to the input. For example, the input `\"a''_{b'''}''''\"`\r\ngenerates `sympy.Symbol(\"a''_{b'''}''''\")`. Before this commit, the\r\nANTLR-based parser would generate `sympy.Symbol(\"a_{b'}\")` from the\r\ninput `\"a_b'\"`; LaTeX compilers interpret this differently: the\r\nprime in `\"a_b'\"` is rendered on the `\"a\"` as opposed to the `\"b\"`. This\r\ncommit follows the convention followed by LaTeX compilers.\r\n\r\n## List of features added:\r\n\r\n1. Imaginary unit: `\\sympyi`\r\n2. Matrix parsing (`array` and AMS-LaTeX `matrix`, `pmatrix`, `bmatrix`)\r\nand detailed error handling\r\n3. Determinant parsing (`\\det`, `vmatrix`, `|array matrix|`,\r\n`|AMS-LaTeX matrix|`)\r\n4. Transpose via superscripts `^T`, `^{T}`, `^{'}`, `'`. Applied multiple\r\ntimes via `''`, `'''`, ..., `^{''}`, `^{'''}`, ...\r\n5. Conjugate transpose via superscripts `^H`, `^{H}`, `^{*}`. Applied\r\nmultiple times via `^{**}`, `^{***}`, ...\r\n6. Matrix Trace: `\\sympytr`\r\n7. Matrix adjugate: `\\sympyadj`\r\n8. The above matrix functionality works on all matrix expressions\r\nand not just individual literal matrices; for example, `\\det` can\r\nbe applied to the sum of 2 LaTeX matrices.\r\n9. Large number of new tests for all new functionality.\r\n\r\n## List of features modified:\r\n\r\n1. Symbols (one letter, greek, multi-letter, subscripted) can have\r\nprimes (single quotes) on them in the Lark grammar.\r\n2. Primes on output symbols and functions are now completely\r\nfaithful to the input strings (see added tests).\r\n3. In the Lark grammar, integral, derivative, and limit\r\nexpressions have been moved from `_expression_mul` to `_expression_func`\r\nso that, for instance, integrals can be multiplied with each other.\r\n4. In the Lark grammar, the rule `adjacent_expressions` has been\r\nmodified so that `\"fraction _expression\"` is now\r\n`\"fraction _expression_mul\"`. This is done to eliminate the incorrect\r\nalternatives in the ambiguous interpretations of `\\frac{a}{b} x+y`,\r\n`\\frac{a}{b} + \\frac{x}{y}`, `\\frac{a}{b} - \\frac{x}{y}`, etc.\r\n5. The Lark grammar now understands `\"+ expression\"` as just\r\n`\"expression\"`.\r\n6. Some tests have been modified to reflect change in behavior.\r\n\r\n    Relevant issue: https://github.com/sympy/sympy/issues/14007\r\n\r\n#### Release Notes\r\n\r\n<!-- Write the release notes for this release below between the BEGIN and END\r\nstatements. The basic format is a bulleted list with the name of the subpackage\r\nand the release note for this PR. For example:\r\n\r\n* solvers\r\n  * Added a new solver for logarithmic equations.\r\n\r\n* functions\r\n  * Fixed a bug with log of integers. Formerly, `log(-x)` incorrectly gave `-log(x)`.\r\n\r\n* physics.units\r\n  * Corrected a semantical error in the conversion between volt and statvolt which\r\n    reported the volt as being larger than the statvolt.\r\n\r\nor if no release note(s) should be included use:\r\n\r\nNO ENTRY\r\n\r\nSee https://github.com/sympy/sympy/wiki/Writing-Release-Notes for more\r\ninformation on how to write release notes. The bot will check your release\r\nnotes automatically to see if they are formatted correctly. -->\r\n\r\n<!-- BEGIN RELEASE NOTES -->\r\n* parsing\r\n  * Introduced matrix and literal complex number parsing.\r\n\r\n<!-- END RELEASE NOTES -->\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2024-01-19T13:01:48Z",
+                                    "bodyText": "\u2705\nHi, I am the SymPy bot. I'm here to help you write a release notes entry. Please read the guide on how to write release notes.\nYour release notes are in good order.\nHere is what the release notes will look like:\n\nparsing\n\nIntroduced matrix and literal complex number parsing. (#26098 by @8vasu)\n\n\n\nThis will be added to https://github.com/sympy/sympy/wiki/Release-Notes-for-1.13.\nClick here to see the pull request description that was parsed.\nFixes #14007 \nAddresses https://github.com/sympy/sympy/issues/25676 and https://github.com/sympy/sympy/issues/25366\n\nI have written this with the goal of using a purely SymPy-based backend (or SymPy as a part of SageMath) in [symtex.el](https://github.com/ultronozm/symtex.el) and [compuTeX](https://github.com/8vasu/compuTeX). I wish to unify the typesetting and computation aspects of working with matrix groups in my GNU Emacs/AUCTeX-based workflow. \n\nEdit: I do not mean to rush anyone, but the reason for this PR is that the `latex2sympy2` that we are currently using in our projects depends on ANTLR 4.7, which imports `typing.io`. We keep getting  warnings that `typing.io` is deprecated and that it will be completely removed in Python 3.12. Currently I am using the default Python 3.11 in Debian, but that might change in an OS update/upgrade in the near future. We have found a parsing solution using GNU Emacs Calc, but we depend on SymPy's `parse_expr` anyway. Matrices are a must for us, and I am looking for a clean solution that just uses `parse_latex`.\n\nEdit: This PR is being split into 2 parts. Currently this only has content for the Lark parser. The following message remains unchanged, and still mentions ANTLR, which is to be ignored.\n\nEdit: added `\\prime` and `\\ast` as new ways of performing matrix transpose and matrix self-adjoint.\n\n## Overview of features added or modified:\n\n1. Matrix parsing is added to both the ANTLR-based and the\nLark-based parsers.\n2. Literal complex numbers are introduced via the LaTeX macro\n`\\sympyi` in order to facilitate working with matrices with complex\nnumber entries.\n3. Since the single quote (prime) symbol is sometimes used to denote\nmatrix transpose, that is introduced, and as a side-effect, primed\nsymbols are added to the Lark parser, and the behavior of primes\non symbols in ANTLR and Lark are made consistent and completely\nfaithful to the input. For example, the input `\"a''_{b'''}''''\"`\ngenerates `sympy.Symbol(\"a''_{b'''}''''\")`. Before this commit, the\nANTLR-based parser would generate `sympy.Symbol(\"a_{b'}\")` from the\ninput `\"a_b'\"`; LaTeX compilers interpret this differently: the\nprime in `\"a_b'\"` is rendered on the `\"a\"` as opposed to the `\"b\"`. This\ncommit follows the convention followed by LaTeX compilers.\n\n## List of features added:\n\n1. Imaginary unit: `\\sympyi`\n2. Matrix parsing (`array` and AMS-LaTeX `matrix`, `pmatrix`, `bmatrix`)\nand detailed error handling\n3. Determinant parsing (`\\det`, `vmatrix`, `|array matrix|`,\n`|AMS-LaTeX matrix|`)\n4. Transpose via superscripts `^T`, `^{T}`, `^{'}`, `'`. Applied multiple\ntimes via `''`, `'''`, ..., `^{''}`, `^{'''}`, ...\n5. Conjugate transpose via superscripts `^H`, `^{H}`, `^{*}`. Applied\nmultiple times via `^{**}`, `^{***}`, ...\n6. Matrix Trace: `\\sympytr`\n7. Matrix adjugate: `\\sympyadj`\n8. The above matrix functionality works on all matrix expressions\nand not just individual literal matrices; for example, `\\det` can\nbe applied to the sum of 2 LaTeX matrices.\n9. Large number of new tests for all new functionality.\n\n## List of features modified:\n\n1. Symbols (one letter, greek, multi-letter, subscripted) can have\nprimes (single quotes) on them in the Lark grammar.\n2. Primes on output symbols and functions are now completely\nfaithful to the input strings (see added tests).\n3. In the Lark grammar, integral, derivative, and limit\nexpressions have been moved from `_expression_mul` to `_expression_func`\nso that, for instance, integrals can be multiplied with each other.\n4. In the Lark grammar, the rule `adjacent_expressions` has been\nmodified so that `\"fraction _expression\"` is now\n`\"fraction _expression_mul\"`. This is done to eliminate the incorrect\nalternatives in the ambiguous interpretations of `\\frac{a}{b} x+y`,\n`\\frac{a}{b} + \\frac{x}{y}`, `\\frac{a}{b} - \\frac{x}{y}`, etc.\n5. The Lark grammar now understands `\"+ expression\"` as just\n`\"expression\"`.\n6. Some tests have been modified to reflect change in behavior.\n\n    Relevant issue: https://github.com/sympy/sympy/issues/14007\n\n#### Release Notes\n\n<!-- Write the release notes for this release below between the BEGIN and END\nstatements. The basic format is a bulleted list with the name of the subpackage\nand the release note for this PR. For example:\n\n* solvers\n  * Added a new solver for logarithmic equations.\n\n* functions\n  * Fixed a bug with log of integers. Formerly, `log(-x)` incorrectly gave `-log(x)`.\n\n* physics.units\n  * Corrected a semantical error in the conversion between volt and statvolt which\n    reported the volt as being larger than the statvolt.\n\nor if no release note(s) should be included use:\n\nNO ENTRY\n\nSee https://github.com/sympy/sympy/wiki/Writing-Release-Notes for more\ninformation on how to write release notes. The bot will check your release\nnotes automatically to see if they are formatted correctly. -->\n\n<!-- BEGIN RELEASE NOTES -->\n* parsing\n  * Introduced matrix and literal complex number parsing.\n\n<!-- END RELEASE NOTES -->",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1900391333",
+                                    "author": {
+                                        "login": "sympy-bot"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-19T13:40:11Z",
+                                    "bodyText": "Why did the CircleCI test fail saying No module named 'lark'. Did I break something, or is a dependency supposed to be added to the test?",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1900446040",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-19T21:40:40Z",
+                                    "bodyText": "Apparently lark needs to be installed for the docs. I don't quite understand why that is only now an issue in this PR.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1901151192",
+                                    "author": {
+                                        "login": "asmeurer"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-19T21:42:45Z",
+                                    "bodyText": "I wouldn't worry as much about the ANTLR parser. We are hopefully going to get rid of it once the Lark parser is finished. Maybe @wermos or @Upabjojr can update us on the status of that (and also review this PR).",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1901153932",
+                                    "author": {
+                                        "login": "asmeurer"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T01:53:13Z",
+                                    "bodyText": "@asmeurer Thank you. From my experience, the Lark-based LaTeX parser is significantly slower than the ANTLR one (unless I am missing something). Why exactly is it being considered for removal? Maybe you or @wermos or @Upabjojr can enlighten me on this :)\nIn any case, working with the ANTLR parser really helped me in this case: the Lark parser was lacking some features and was doing some things not quite right (and vice versa), so I kept going back and forth to make sure both work consistently.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1901582861",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T11:06:50Z",
+                                    "bodyText": "Wow, this is a really big feature addition! I'd love to code review this PR and help get this in. Thanks for all the work, @8vasu!",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902066668",
+                                    "author": {
+                                        "login": "wermos"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T11:19:55Z",
+                                    "bodyText": "@wermos I am truly grateful for your comment. Please let me know if I can help in any way.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902069131",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T11:21:02Z",
+                                    "bodyText": "From my experience, the Lark-based LaTeX parser is significantly slower than the ANTLR one (unless I am missing something).\n\nCan you elaborate on that? What tests did you perform, and what were the results?\nFWIW, in the Lark repo's README.md, they did a comparison with ANTLR and they showed that Lark is faster. To be fair however, it might not have been a fair competition because this is from the Lark README after all.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902069363",
+                                    "author": {
+                                        "login": "wermos"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T11:24:56Z",
+                                    "bodyText": "BTW, these issues are also relevant: #25676 and #25366. You can mention these issues in the topmost comment of the PR, alongside #14007.\n#25676 deals with features which are missing from the current Lark parser. I mentioned matrices there as well.\n#25366 mentions improvements that can be made to the test suite. Since you added many tests, I think it is worthwhile to mention that issue too. You can say something like \"Addresses #25366\" in the topmost comment.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902070159",
+                                    "author": {
+                                        "login": "wermos"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T12:12:21Z",
+                                    "bodyText": "Why exactly is it being considered for removal?\n\nI addressed this question, and why we decided to use Lark, in my first GSoC blog post. Here is the relevant section.\nIf you still have questions after going through those links, feel free to ask on here!",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902079175",
+                                    "author": {
+                                        "login": "wermos"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T12:37:03Z",
+                                    "bodyText": "@wermos Thank you for being patient. I just wrote the following tiny script. Can you please try it? You might need to comment out the matrix stuff unless you have already stared testing my PR. It will write markdown to standard output so that users can easily copy-paste to GitHub.\n#!/usr/bin/python3\n\nimport time\nfrom sympy.parsing.latex import parse_latex\n\nTEST_INTEGRAL = r\"\\int_0^{\\infty} e^{-x}\\,dx\"\nTEST_MATRIX = r\"\\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{bmatrix}\"\nRUNS = 10\n\ndef parse_multi(s, n, b):\n    \"\"\"Parse string s integer n times using backend b.\"\"\"\n    for i in range(n):\n        parse_latex(s, backend=b)\n\ni = 0\nfor backend in [\"antlr\", \"lark\"]:\n    for expression in [TEST_INTEGRAL, TEST_MATRIX]:\n        i += 1\n        out = parse_latex(expression, backend=backend)\n        print(f\"{i}. backend = **{backend}**\")\n        print(f\"expression = `{expression}`\")\n        print(f\"output = `{out}`\")\n\n        start_time = time.time()\n        parse_multi(expression, RUNS, backend)\n        end_time = time.time()\n        elapsed = end_time - start_time\n        print(f\"{RUNS} runs: **{elapsed}** seconds\")\nConfiguration:\n\nLinux 6.1.0-16-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.67-1 (2023-12-12) x86_64 GNU/Linux\nDistributor ID: Debian\nDescription:    Debian GNU/Linux 12 (bookworm)\nRelease:        12\nCodename:       bookworm\nPython 3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0] on linux\nantlr4-python3-runtime 4.7\nATTENTION: not using antlr4-python3-runtime v4.11\nlark 1.1.9\nsympy master\n\nOutput:\n\nbackend = antlr\nexpression = \\int_0^{\\infty} e^{-x}\\,dx\noutput = Integral(e**(-x), (x, 0, oo))\n10 runs: 0.07213687896728516 seconds\nbackend = antlr\nexpression = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{bmatrix}\noutput = Matrix([[1, 2], [3, 4]])\n10 runs: 0.016150712966918945 seconds\nbackend = lark\nexpression = \\int_0^{\\infty} e^{-x}\\,dx\noutput = Integral(e**(-x), (x, 0, oo))\n10 runs: 14.553388833999634 seconds\nbackend = lark\nexpression = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{bmatrix}\noutput = Matrix([[1, 2], [3, 4]])\n10 runs: 14.952884435653687 seconds",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902083876",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T13:25:19Z",
+                                    "bodyText": "@asmeurer Thank you. From my experience, the Lark-based LaTeX parser is significantly slower than the ANTLR one (unless I am missing something). Why exactly is it being considered for removal? Maybe you or @wermos or @Upabjojr can enlighten me on this :)\nIn any case, working with the ANTLR parser really helped me in this case: the Lark parser was lacking some features and was doing some things not quite right (and vice versa), so I kept going back and forth to make sure both work consistently.\n\nUnfortunately, although we try to preserve or improve the features and performance to keep the popularity,\nit's not really our blame or responsibility to keep all the code if there is technical difficulty\n(see license about our responsibility and liability)",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902093674",
+                                    "author": {
+                                        "login": "sylee957"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T13:28:32Z",
+                                    "bodyText": "@wermos I completely agree with your blog post. If only you could help me figure out why my Lark backend is so slow (see output in previous comment; I might be doing something wrong).\nEdit: @sylee957 That makes sense. However, I am just requesting to see once if the Lark backend on your end is just as slow. There are 2 cases:\n\nIf it is not slow on your end, I will not request support from you for troubleshooting; I will try to figure out the issue on my end on my own.\nIf it is slow on your end (whereas the Lark authors claim that it should be faster than ANTLR), then I will create a separate GitHub issue for this (just for the sake of recording it; I am not requesting active support toward fixing such an issue).",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902094300",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T13:37:45Z",
+                                    "bodyText": "I'm a bit off about adding rules for \\sympyi, \\sympytr, \\sympyadj because that is not recognized by mathjax, or katex. (and we don't want to complicate the machinery to deal with custom macros, or some adhoc usage cases)",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902096133",
+                                    "author": {
+                                        "login": "sylee957"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T13:43:47Z",
+                                    "bodyText": "I just wrote the following tiny script. Can you please try it? You might need to comment out the matrix stuff unless you have already stared testing my PR.\n\nThis is the output I got for running the integral test:\n\nbackend = antlr\nexpression = \\int_0^{\\infty} e^{-x}\\,dx\noutput = Integral(e**(-x), (x, 0, oo))\n10 runs: 0.10222077369689941 seconds\nbackend = lark\nexpression = \\int_0^{\\infty} e^{-x}\\,dx\noutput = Integral(e**(-x), (x, 0, oo))\n10 runs: 0.17722725868225098 seconds\n\nI was unable to run the matrix test because I keep running into the following error:\nTraceback (most recent call last):\n  File \"/home/tirthankar/junk/sympy/test.py\", line 19, in <module>\n    out = parse_latex(expression, backend=backend)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/tirthankar/junk/sympy/sympy/parsing/latex/__init__.py\", line 197, in parse_latex\n    return _latex.parse_latex(s, strict)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/tirthankar/junk/sympy/sympy/parsing/latex/_parse_latex_antlr.py\", line 73, in parse_latex\n    lex = LaTeXLexer(stream)\n          ^^^^^^^^^^^^^^^^^^\nTypeError: 'NoneType' object is not callable\nWhen I try to build and run your PR. I tried with a fresh clone too, to no avail.\nI was also unable to try antlr4-python3-runtime version 4.7 because I keep getting this error when I install it and try to run the program:\nImportError: LaTeX parsing requires the antlr4 Python package, provided by pip (antlr4-python3-runtime) or conda (antlr-python-runtime), version 4.11\n\nIn your case, it looks like the time difference is massive (0.07s vs 14.5s), whereas Lark was only slightly slower than ANTLR on my machine.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902097330",
+                                    "author": {
+                                        "login": "wermos"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T13:44:14Z",
+                                    "bodyText": "Being able to take conjugate transpose while working with matrices with literal complex number entries is a must for me (major reason for this PR). The macros \\sympyi, \\sympytr, and \\sympyadj are placeholders for now. I think there should instead be a mechanism, such as via arguments to parse_latex, where the user could pass a list of their own preferred macros for these features, or if you are feeling adventurous, a dictionary that maps their own macros to whatever sympy equivalents.\nEdit: I will do this once the current state of the PR has been reviewed and debugged.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902097399",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T13:54:39Z",
+                                    "bodyText": "@wermos Thank you so much for running the timing test. Looks like the Lark issue is on my end. Please do not worry about that anymore :)\nFrom your error message it seems like LaTeXLexer is None, which means that ANTLR parser/lexer files might not have been generated using the antlr tool? Not sure.\nAre the matrices being parsed by Lark at least?",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902099345",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T14:07:24Z",
+                                    "bodyText": "Are the matrices being parsed by Lark at least?\n\nYes. Here are the timings on my machine:\n\nbackend = lark\nexpression = \\int_0^{\\infty} e^{-x}\\,dx\noutput = Integral(e**(-x), (x, 0, oo))\n10 runs: 0.23131775856018066 seconds\nbackend = lark\nexpression = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{bmatrix}\noutput = Matrix([[1, 2], [3, 4]])\n10 runs: 0.2458019256591797 seconds",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902104745",
+                                    "author": {
+                                        "login": "wermos"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T14:08:25Z",
+                                    "bodyText": "Ideally, I believe that this PR should be broken up into 2 PRs: 1 for the ANTLR stuff, and 1 for the Lark stuff.\nApart from the two subsystems being independent from each other, a huge reason we wanted to step away from ANTLR was the huge diffs the changes to that part causes, which can be seen here also.\n@8vasu Would it be possible to separate the ANTLR and Lark stuff into 2 separate PRs?\nI didn't really look at the ANTLR parts because that is not my area of expertise.\nOverall, the Lark changes look good, and I left a few comments for the things I thought should be changed.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902104941",
+                                    "author": {
+                                        "login": "wermos"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T14:13:16Z",
+                                    "bodyText": "@wermos  It should be easy to break this up into 2 PRs. Working on all suggested changes now.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902110622",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T14:20:11Z",
+                                    "bodyText": "I'm a bit off about adding rules for \\sympyi, \\sympytr, \\sympyadj because that is not recognized by MathJax, or KaTex. (and we don't want to complicate the machinery to deal with custom macros, or some ad hoc usage cases)\n\nWhile I agree, I think that this is a good suggestion:\n\nI think there should instead be a mechanism, such as via arguments to parse_latex, where the user could pass a list of their own preferred macros for these features, or if you are feeling adventurous, a dictionary that maps their own macros to whatever SymPy equivalents.\n\nThe reasons are twofold:\n\nIt frees us from having to mandate that any LaTeX expression which uses these features (imaginary numbers, traces, or adjugates) must use these specific macros or else fail to be parsed, and\nThere is no universally accepted way of denoting matrix traces and adjugates in LaTeX. Some people use \\operatorname{tr} like in the Wikipedia page for traces, others use \\DeclareMathOperator{\\trace}{tr}, and so on. A similar situation exists for matrix adjugates. Once again, Wikipedia uses \\operatorname{adj}, but \\DeclareMathOperator{\\adjugate}{adj} would also be valid.\n\nI don't think we need to worry about the number of options to parse_latex increasing dramatically, as it happened with latex, because at most, we would use this dictionary approach for things which don't have a universally agreed-upon LaTeX convention.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902112116",
+                                    "author": {
+                                        "login": "wermos"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-20T15:52:13Z",
+                                    "bodyText": "@wermos All requested changes made. Since you are the expert on Lark and are deeply familiar with the source, can you please point me toward the correct way of implementing the macro dictionary feature that I mentioned?\nWhile at the moment I am personally only interested in the imaginary unit, matrix trace, and matrix adjugate (all of different types: of these is a number, one is a class (sympy.matrices.expressions.Trace) and one is a method on matrices), I do not want to bloat your code with, like @sylee957 mentioned, some ad-hoc solution that only works for a fixed set of features.\nIn other words, what's the right way of doing this so that we can take care of this by just adding a single (or very small number of, say 2, 3) dictionary args to parse_latex()? Maybe one dictionary for functions, one for methods, blah blah...?\nI will keep thinking as well.\n\nEdit: The definition of class TransformToSymPyExpr says the following:\n\n**This class is never supposed to be used directly.**\n\nIn order to tweak the behavior of this class, it has to be subclassed and then after\nthe required modifications are made, the name of the new class should be passed to\nthe :py:class:LarkLaTeXParser class by using the transformer argument in the\nconstructor.\n\nMaybe this is the way?",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1902142117",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-25T22:25:15Z",
+                                    "bodyText": "The ANTLR parser has been a major maintenance burden due to the complexity of the external dependency (for example, the antlr runtime has to be pinned to the exact version the grammar was generated with). Additionally, because the parser is generated, there is no possibility of users extending the grammar at runtime.\nIt hasn't been removed yet, but I have proposed moving it into a separate package so that people who still want to use it still can.\nI definitely wouldn't be surprised if ANTLR if faster than Lark as speed is one of the main advantages of ANTLR. I wouldn't expect this to be a huge issue for LaTeX parsing in SymPy, but I'm interested that's not true for your use-case.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1911097336",
+                                    "author": {
+                                        "login": "asmeurer"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-25T22:39:33Z",
+                                    "bodyText": "Yes, however, I also suspect that earley causes the performance problem though.\n\n  \n    \n      sympy/sympy/parsing/latex/lark/latex_parser.py\n    \n    \n         Line 55\n      in\n      7bdc112\n    \n  \n  \n    \n\n        \n          \n           parser=\"earley\", \n        \n    \n  \n\n\nThe graph https://github.com/lark-parser/lark?tab=readme-ov-file#performance-comparison discourages earley for performance specifically.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1911111803",
+                                    "author": {
+                                        "login": "sylee957"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-25T22:47:56Z",
+                                    "bodyText": "In think in general for the LaTeX parser we want to prefer more expressive parsers, even if it's at the cost of performance, since LaTeX is such a complicated thing to parse. There's even an idea to use a probabilistic parser to better handle the ambiguities of the language. If we implemented that, it would obviously affect the performance even more. I also had an idea that we could interface with an LLM to do the LaTeX -> SymPy translation, but I don't think anyone's looked into it. Obviously you can already ask ChatGPT to do it manually and it's pretty decent at it.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1911120015",
+                                    "author": {
+                                        "login": "asmeurer"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-25T22:48:19Z",
+                                    "bodyText": "@asmeurer Thank you for the feedback. It might be a specific issue with my setup that is causing Lark to be that slow. Anyway, I have removed the ANTLR code for now based on @wermos' request. I will wait until this PR has been perfected (and hopefully merged :)) before doing anything with the ANTLR code that I wrote.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1911120384",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-25T22:53:11Z",
+                                    "bodyText": "@8vasu if you want to help out with the LaTeX parsing efforts more generally that would be great. Like I said, I'm supportive of moving the ANTLR parser into a separate package. If you're interested in continuing to use the ANTLR parser and want to help out with that, that would be great. @wermos maybe I missed if you already answered this, but why hasn't ANTLR already been removed at this point?",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1911124992",
+                                    "author": {
+                                        "login": "asmeurer"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-25T22:56:27Z",
+                                    "bodyText": "I also had an idea that we could interface with an LLM to do the LaTeX -> SymPy translation, but I don't think anyone's looked into it.\n\nI obviously had some toy projects before, let's say,\n\nTeach EBNF to ChatGPT and let it behave like step-by-step 'parser', and I manually prompt some 'examples' to let it parse something as expected\n\nHowever, I'd like to hear any of your successes of implementing that, because that is interesting,\nand that can scrap some efforts if it turns out to be great.\n(Despite that API request for OpenAI can be expensive)",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1911127712",
+                                    "author": {
+                                        "login": "sylee957"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-25T23:28:26Z",
+                                    "bodyText": "@asmeurer I am a number theory postdoc and currently have very limited time, so I cannot be the principal maintainer of any repository. That being said, I am really interested in your idea of an LLM/GPT-based parser. If others here are also interested, then I will surely try my best to make time on weekends for such a project.\nAbout ANTLR: when @wermos ran my script above, his Lark output speed was somewhat acceptable for my GNU Emacs-based use case. In case you ran my script and your Lark times were comparable to those of @wermos, I think that we should focus on improving the Lark-based backend instead of spending energy on ANTLR, simply because Lark is easier to maintain. However, if you feel like there is strong demand for a separate ANTLR-based package, I can help you initiate such a project.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1911162619",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-25T23:49:26Z",
+                                    "bodyText": "Maybe what we should do is just move the existing ANTLR code into another package, and reference it in the docs. If people are interested in developing it further, they can contribute to it. Otherwise, it will at least be there for those who want to use it.\nActually, we might just want to point people to the original latex2sympy, which was what the sympy latex parser was originally based on. The original repo has been archived, but there is at least one fork that seems a little active. If the maintainers of that repo are interested, they can try to backport the improvements people have made to the SymPy parse_latex over the years (and maybe also the changes here too).\nOr we can just make a new package under the sympy GitHub org. I don't have strong feelings about it either way.\n\nThat being said, I am really interested in your idea of an LLM/GPT-based parser. If others here are also interested, then I will surely try my best to make time on weekends for such a project.\n\nThis would be somewhat of a research project. I don't know what the best way to approach this is. For instance, would fine tuning make an LLM better at LaTeX parsing (and if yes, how can we generate a good dataset)? Also, can we get away with using a local LLM, especially a small local LLM?\nEither fine tuning or prompt engineering will probably be necessary. For example, I asked ChatGPT to convert \\begin{pmatrix}1 & 2 \\\\3 & 4\\end{pmatrix}^T)* (one of the examples from your tests) to SymPy. https://chat.openai.com/share/04013baf-f595-4f76-a101-3d998f552644. It was able to translate it, but it generated a block of code. Getting it to generate a single expression is more difficult. Also getting it to generate unevaluated vs. evaluated expressions would require either fine-tuning or prompt engineering. Open source models are less smart at code generation (especially the smaller ones), but also a lot easier to fine tune. But I don't have enough experience with fine tuning to know just how effective it would be at improving LLM outputs here.\nThe biggest concern here is that this space is evolving really fast. We could spend a lot of time fine tuning something that works reasonably well, only for a better model to come out in 6 months that works better out of the box.\nIn principle, I think an LLM should be better suited for this task (LaTeX parsing) than a traditional parser, because an LLM can guess how to handle the inherent ambiguities in LaTeX math, and could even be directly prompted in how to parse things, which would be way easier than trying to extend an EBNF grammar.\n\nTeach EBNF to ChatGPT and let it behave like step-by-step 'parser', and I manually prompt some 'examples' to let it parse something as expected\n\nI'm curious if this worked, but to me this is the wrong approach. You'd want to use an LLM's native ability to translate between \"languages\", especially fuzzy ambiguous languages like English or mathematical notation. That way you can completely forget about trying to make a formal grammar out of something as inherently ambiguous as LaTeX math.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1911181512",
+                                    "author": {
+                                        "login": "asmeurer"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-26T00:19:54Z",
+                                    "bodyText": "That was an excellent read, @asmeurer.\n\nActually, we might just want to point people to the original latex2sympy, which was what the sympy latex parser was originally based on. The original repo has been archived, but there is at least one fork that seems a little active.\n\nThat sounds like the easiest thing to do at the moment ANTLR-wise. Let me mention yet another approach: Emacs Calc. My postdoc mentor maintains this: symtex.el, and for several years he was using the (backend of) the fork that you mentioned above: latex2sympy2. This can parse matrices, but depends on an old version of ANTLR (4.7), which generates deprecation warnings due to the usage of typing.io; typing.io will be removed from Python 3.12.\nThis week, my mentor figured out that it is possible to completely remove any Python-based backends for LaTeX parsing, and get Emacs Calc to do it instead. It actually produces great results.\n\nThe biggest concern here is that this space is evolving really fast. We could spend a lot of time fine tuning something that works reasonably well, only for a better model to come out in 6 months that works better out of the box.\n\nThat might be the biggest downside of using a local LLM; on the other hand something like OpenAI's API requires the user to at the very least create an OpenAI account, which might be undesirable for someone who just wishes to parse LaTeX  (and pay if premium performance is desired).\nIn any case, I think focusing on Lark as the main backend and experimenting with a separate LLM-based project (local or global) sounds more practical given everyone's time constraints.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1911209848",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-26T00:34:02Z",
+                                    "bodyText": "I'm curious if this worked, but to me this is the wrong approach. You'd want to use an LLM's native ability to translate between \"languages\", especially fuzzy ambiguous languages like English or mathematical notation. That way you can completely forget about trying to make a formal grammar out of something as inherently ambiguous as LaTeX math.\n\nI share this result\nhttps://chat.openai.com/share/df6c4622-0f2b-49db-9e34-ef81614bd4ce\nI do think that explicitly listing the rules, in formal style (like arrow) helps",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1911223469",
+                                    "author": {
+                                        "login": "sylee957"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-26T00:48:54Z",
+                                    "bodyText": "@sylee957 I think we need to feed it more precise rules. The column vectors were interpreted as row vectors. Also, in the first 2 inputs, I think you missed the leftmost (, but even if we assume a variable position for the (, no such positioning of the ( should lead to the orders of application of the MatMul, MatAdd, etc that it generated.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1911235565",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-26T09:46:23Z",
+                                    "bodyText": "but to me this is the wrong approach\n\nI just want to add that in east asian culture (as I represent)\ntelling someone straightforwardly 'wrong' is quite a strong word to use.\nWe use more mild and indirect word for that any professional setting, or some people start fight.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1911761785",
+                                    "author": {
+                                        "login": "sylee957"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-26T12:49:53Z",
+                                    "bodyText": "@sylee957 I did not meant to hurt you; I apologize for the wording. I hope you forgive me.\nEdit: Again, I would like to say sorry about the bad habit; in mathematics, we are more used to being straightforward with colleagues and students (who are majoring in math) when there is a math error or a lack of rigor.\nAt the same time, an extension of your idea to train a local model sounds nice!\nEdit: I should read more carefully. Just realized that the message was NOT in response to my comment.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1912021030",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-26T19:46:05Z",
+                                    "bodyText": "@sylee957 in the open source culture, it's common to be direct with people. My hope is that it's understood that I'm talking only about the ideas, not the people, but in case it wasn't clear, I didn't mean any sleight against you.\nYou're also free to say that you think I'm wrong about this, as you have many times in the past. We have both demonstrated some basic approaches with ChatGPT, but we're pretty far from having something that works in an actual programmatic way. Like I said, it's a research problem to figure it out, so we will need to try a lot of ideas. My experience with LLMs in particular is that it's hard to get a good intuition on what works and what doesn't and the only real way to tell is to try things out.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1912601808",
+                                    "author": {
+                                        "login": "asmeurer"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-26T19:47:17Z",
+                                    "bodyText": "Also, maybe we should move this LLM discussion to a separate issue.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1912603158",
+                                    "author": {
+                                        "login": "asmeurer"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-26T20:54:00Z",
+                                    "bodyText": "I think that we should definitely move it.\nI'll give anyone 24hrs to open up new issue without procrastination,\nor I'll just prompt LLM to summarize the comment and open up an issue arbitrary.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1912682845",
+                                    "author": {
+                                        "login": "sylee957"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-26T21:10:29Z",
+                                    "bodyText": "@sylee957 in the open source culture, it's common to be direct with people. My hope is that it's understood that I'm talking only about the ideas, not the people, but in case it wasn't clear, I didn't mean any sleight against you.\n\nI also definitely agree on that. however, I do think that we can get more success if community could refine the format, such that everyone gets more 'kind' and 'friendly' responses, regardless of accept or rejection of ideas (especially from reviews of maintainers).\nI am also not honestly claiming to be best at this, however",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1912700395",
+                                    "author": {
+                                        "login": "sylee957"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-01-27T13:18:13Z",
+                                    "bodyText": "Issue created: #26128.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1913154546",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-01T19:51:03Z",
+                                    "bodyText": "I realized that after the I removed the ANTLR-based code from this PR, the Latex tests were broken since they were importing some things that I had added to the ANTLR tests. That is now fixed.\nAlso, while using * in Emacs Org LaTeX fragments to represent matrix adjoint, the asterisk is interpreted as the Org syntax for making text bold, which is not desirable. I made a new commit which adds \\prime and \\ast as alternatives to ' and * for matrix transpose and self-adjoint.\nEdit: amended commit to remove trailing whitespace and force-pushed.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1922113979",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-01T20:42:12Z",
+                                    "bodyText": "Benchmark results from GitHub Actions\nLower numbers are good, higher numbers are bad. A ratio less than 1\nmeans a speed up and greater than 1 means a slowdown. Green lines\nbeginning with + are slowdowns (the PR is slower then master or\nmaster is slower than the previous release). Red lines beginning\nwith - are speedups.\nSignificantly changed benchmark results (PR vs master)\n\nSignificantly changed benchmark results (master vs previous release)\n| Change   | Before [a00718ba]    | After [ac42c1da]    |   Ratio | Benchmark (Parameter)                                                |\n|----------|----------------------|---------------------|---------|----------------------------------------------------------------------|\n| -        | 71.4\u00b10.9ms           | 46.5\u00b10.4ms          |    0.65 | integrate.TimeIntegrationRisch02.time_doit(10)                       |\n| -        | 69.5\u00b10.7ms           | 44.6\u00b10.3ms          |    0.64 | integrate.TimeIntegrationRisch02.time_doit_risch(10)                 |\n| +        | 18.9\u00b10.2\u03bcs           | 30.2\u00b10.1\u03bcs          |    1.6  | integrate.TimeIntegrationRisch03.time_doit(1)                        |\n| -        | 5.32\u00b10.06ms          | 2.88\u00b10.02ms         |    0.54 | logic.LogicSuite.time_load_file                                      |\n| -        | 72.6\u00b10.7ms           | 29.2\u00b10.1ms          |    0.4  | polys.TimeGCD_GaussInt.time_op(1, 'dense')                           |\n| -        | 26.3\u00b10.2ms           | 17.3\u00b10.08ms         |    0.66 | polys.TimeGCD_GaussInt.time_op(1, 'expr')                            |\n| -        | 74.0\u00b10.6ms           | 29.2\u00b10.1ms          |    0.39 | polys.TimeGCD_GaussInt.time_op(1, 'sparse')                          |\n| -        | 256\u00b12ms              | 126\u00b10.4ms           |    0.49 | polys.TimeGCD_GaussInt.time_op(2, 'dense')                           |\n| -        | 258\u00b11ms              | 128\u00b12ms             |    0.5  | polys.TimeGCD_GaussInt.time_op(2, 'sparse')                          |\n| -        | 651\u00b17ms              | 375\u00b11ms             |    0.57 | polys.TimeGCD_GaussInt.time_op(3, 'dense')                           |\n| -        | 650\u00b13ms              | 374\u00b10.6ms           |    0.58 | polys.TimeGCD_GaussInt.time_op(3, 'sparse')                          |\n| -        | 489\u00b13\u03bcs              | 284\u00b11\u03bcs             |    0.58 | polys.TimeGCD_LinearDenseQuadraticGCD.time_op(1, 'dense')            |\n| -        | 1.76\u00b10.01ms          | 1.02\u00b10.01ms         |    0.58 | polys.TimeGCD_LinearDenseQuadraticGCD.time_op(2, 'dense')            |\n| -        | 5.78\u00b10.05ms          | 3.11\u00b10.01ms         |    0.54 | polys.TimeGCD_LinearDenseQuadraticGCD.time_op(3, 'dense')            |\n| -        | 456\u00b16\u03bcs              | 229\u00b11\u03bcs             |    0.5  | polys.TimeGCD_QuadraticNonMonicGCD.time_op(1, 'dense')               |\n| -        | 1.50\u00b10.01ms          | 683\u00b13\u03bcs             |    0.46 | polys.TimeGCD_QuadraticNonMonicGCD.time_op(2, 'dense')               |\n| -        | 4.89\u00b10.03ms          | 1.67\u00b10.02ms         |    0.34 | polys.TimeGCD_QuadraticNonMonicGCD.time_op(3, 'dense')               |\n| -        | 370\u00b14\u03bcs              | 207\u00b12\u03bcs             |    0.56 | polys.TimeGCD_SparseGCDHighDegree.time_op(1, 'dense')                |\n| -        | 2.42\u00b10.01ms          | 1.22\u00b10.01ms         |    0.51 | polys.TimeGCD_SparseGCDHighDegree.time_op(3, 'dense')                |\n| -        | 10.1\u00b10.07ms          | 4.38\u00b10.03ms         |    0.43 | polys.TimeGCD_SparseGCDHighDegree.time_op(5, 'dense')                |\n| -        | 357\u00b14\u03bcs              | 169\u00b11\u03bcs             |    0.47 | polys.TimeGCD_SparseNonMonicQuadratic.time_op(1, 'dense')            |\n| -        | 2.50\u00b10.02ms          | 894\u00b18\u03bcs             |    0.36 | polys.TimeGCD_SparseNonMonicQuadratic.time_op(3, 'dense')            |\n| -        | 9.68\u00b10.09ms          | 2.64\u00b10.03ms         |    0.27 | polys.TimeGCD_SparseNonMonicQuadratic.time_op(5, 'dense')            |\n| -        | 1.04\u00b10.01ms          | 429\u00b14\u03bcs             |    0.41 | polys.TimePREM_LinearDenseQuadraticGCD.time_op(3, 'dense')           |\n| -        | 1.77\u00b10.01ms          | 506\u00b12\u03bcs             |    0.29 | polys.TimePREM_LinearDenseQuadraticGCD.time_op(3, 'sparse')          |\n| -        | 5.98\u00b10.02ms          | 1.83\u00b10.02ms         |    0.31 | polys.TimePREM_LinearDenseQuadraticGCD.time_op(5, 'dense')           |\n| -        | 8.71\u00b10.05ms          | 1.52\u00b10.01ms         |    0.17 | polys.TimePREM_LinearDenseQuadraticGCD.time_op(5, 'sparse')          |\n| -        | 287\u00b12\u03bcs              | 63.6\u00b10.3\u03bcs          |    0.22 | polys.TimePREM_QuadraticNonMonicGCD.time_op(1, 'sparse')             |\n| -        | 3.46\u00b10.03ms          | 397\u00b13\u03bcs             |    0.11 | polys.TimePREM_QuadraticNonMonicGCD.time_op(3, 'dense')              |\n| -        | 3.95\u00b10.03ms          | 280\u00b11\u03bcs             |    0.07 | polys.TimePREM_QuadraticNonMonicGCD.time_op(3, 'sparse')             |\n| -        | 7.03\u00b10.04ms          | 1.26\u00b10.01ms         |    0.18 | polys.TimePREM_QuadraticNonMonicGCD.time_op(5, 'dense')              |\n| -        | 8.80\u00b10.1ms           | 853\u00b110\u03bcs            |    0.1  | polys.TimePREM_QuadraticNonMonicGCD.time_op(5, 'sparse')             |\n| -        | 5.07\u00b10.04ms          | 2.98\u00b10.01ms         |    0.59 | polys.TimeSUBRESULTANTS_LinearDenseQuadraticGCD.time_op(2, 'sparse') |\n| -        | 12.2\u00b10.09ms          | 6.55\u00b10.02ms         |    0.54 | polys.TimeSUBRESULTANTS_LinearDenseQuadraticGCD.time_op(3, 'dense')  |\n| -        | 22.8\u00b10.2ms           | 9.15\u00b10.04ms         |    0.4  | polys.TimeSUBRESULTANTS_LinearDenseQuadraticGCD.time_op(3, 'sparse') |\n| -        | 5.27\u00b10.02ms          | 865\u00b13\u03bcs             |    0.16 | polys.TimeSUBRESULTANTS_QuadraticNonMonicGCD.time_op(1, 'sparse')    |\n| -        | 12.7\u00b10.09ms          | 7.09\u00b10.02ms         |    0.56 | polys.TimeSUBRESULTANTS_QuadraticNonMonicGCD.time_op(2, 'sparse')    |\n| -        | 101\u00b10.6ms            | 25.6\u00b10.06ms         |    0.25 | polys.TimeSUBRESULTANTS_QuadraticNonMonicGCD.time_op(3, 'dense')     |\n| -        | 167\u00b11ms              | 54.7\u00b10.7ms          |    0.33 | polys.TimeSUBRESULTANTS_QuadraticNonMonicGCD.time_op(3, 'sparse')    |\n| -        | 174\u00b10.8\u03bcs            | 111\u00b10.6\u03bcs           |    0.64 | polys.TimeSUBRESULTANTS_SparseGCDHighDegree.time_op(1, 'dense')      |\n| -        | 358\u00b11\u03bcs              | 216\u00b11\u03bcs             |    0.6  | polys.TimeSUBRESULTANTS_SparseGCDHighDegree.time_op(1, 'sparse')     |\n| -        | 4.28\u00b10.03ms          | 852\u00b16\u03bcs             |    0.2  | polys.TimeSUBRESULTANTS_SparseGCDHighDegree.time_op(3, 'dense')      |\n| -        | 5.25\u00b10.04ms          | 382\u00b11\u03bcs             |    0.07 | polys.TimeSUBRESULTANTS_SparseGCDHighDegree.time_op(3, 'sparse')     |\n| -        | 20.1\u00b10.1ms           | 2.82\u00b10.01ms         |    0.14 | polys.TimeSUBRESULTANTS_SparseGCDHighDegree.time_op(5, 'dense')      |\n| -        | 22.9\u00b10.1ms           | 634\u00b11\u03bcs             |    0.03 | polys.TimeSUBRESULTANTS_SparseGCDHighDegree.time_op(5, 'sparse')     |\n| -        | 477\u00b12\u03bcs              | 133\u00b10.6\u03bcs           |    0.28 | polys.TimeSUBRESULTANTS_SparseNonMonicQuadratic.time_op(1, 'sparse') |\n| -        | 4.75\u00b10.04ms          | 618\u00b17\u03bcs             |    0.13 | polys.TimeSUBRESULTANTS_SparseNonMonicQuadratic.time_op(3, 'dense')  |\n| -        | 5.27\u00b10.04ms          | 138\u00b11\u03bcs             |    0.03 | polys.TimeSUBRESULTANTS_SparseNonMonicQuadratic.time_op(3, 'sparse') |\n| -        | 13.4\u00b10.2ms           | 1.30\u00b10.01ms         |    0.1  | polys.TimeSUBRESULTANTS_SparseNonMonicQuadratic.time_op(5, 'dense')  |\n| -        | 13.8\u00b10.08ms          | 141\u00b11\u03bcs             |    0.01 | polys.TimeSUBRESULTANTS_SparseNonMonicQuadratic.time_op(5, 'sparse') |\n| -        | 132\u00b10.4\u03bcs            | 75.6\u00b10.2\u03bcs          |    0.57 | solve.TimeMatrixOperations.time_rref(3, 0)                           |\n| -        | 253\u00b10.7\u03bcs            | 88.6\u00b10.2\u03bcs          |    0.35 | solve.TimeMatrixOperations.time_rref(4, 0)                           |\n| -        | 24.2\u00b10.1ms           | 10.5\u00b10.07ms         |    0.43 | solve.TimeSolveLinSys189x49.time_solve_lin_sys                       |\n| -        | 29.5\u00b10.3ms           | 15.7\u00b10.1ms          |    0.53 | solve.TimeSparseSystem.time_linsolve_Aaug(20)                        |\n| -        | 56.4\u00b10.2ms           | 25.4\u00b10.08ms         |    0.45 | solve.TimeSparseSystem.time_linsolve_Aaug(30)                        |\n| -        | 29.0\u00b10.2ms           | 15.5\u00b10.1ms          |    0.53 | solve.TimeSparseSystem.time_linsolve_Ab(20)                          |\n| -        | 56.7\u00b10.5ms           | 25.2\u00b10.1ms          |    0.44 | solve.TimeSparseSystem.time_linsolve_Ab(30)                          |\n\nFull benchmark results can be found as artifacts in GitHub Actions\n(click on checks at the top of the PR).",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1922209934",
+                                    "author": {
+                                        "login": "github-actions"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-01T22:12:18Z",
+                                    "bodyText": "@wermos Just a gentle reminder; no rush; take your time. All tests pass now.\nAlso, in case you missed the comment that I made above about removing \\sympyi, \\sympytr, and \\sympyadj and instead introducing some other way the user can define their own macros, maybe this is the way:\nThe definition of class TransformToSymPyExpr says the following:\n\nThis class is never supposed to be used directly.\nIn order to tweak the behavior of this class, it has to be subclassed and then after\nthe required modifications are made, the name of the new class should be passed to\nthe :py:class:LarkLaTeXParser class by using the transformer argument in the\nconstructor.\n\nIf this is not the correct approach, please let me know if you know of any way of doing this; otherwise I will keep looking.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1922357425",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2024-02-17T21:32:51Z",
+                                    "bodyText": "@wermos This is just a gentle reminder. No rush at all; take as much time as necessary.",
+                                    "url": "https://github.com/sympy/sympy/pull/26098#issuecomment-1950370209",
+                                    "author": {
+                                        "login": "8vasu"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "What is this file?",
+                                                        "author": {
+                                                            "login": "asmeurer"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1459818157",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0165b38",
+                                                            "authoredDate": "2024-01-19T12:35:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "That was auto generated by something. I think it is a graphical tree-like representation of one of the parsers. I will remove it before the final merge.",
+                                                        "author": {
+                                                            "login": "8vasu"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460130156",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0165b38",
+                                                            "authoredDate": "2024-01-19T12:35:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This sppf.png file is generated by Lark when using debug mode. It is meant to facilitate debugging of the grammar.\nThat being said, it doesn't belong in the repo and should indeed be removed.",
+                                                        "author": {
+                                                            "login": "wermos"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460376227",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0165b38",
+                                                            "authoredDate": "2024-01-19T12:35:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This diff probably shouldn't be there.",
+                                                        "author": {
+                                                            "login": "wermos"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460450022",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think this BEGIN_A and BEGIN_B (and similarly, END_A and END_B) is a good naming scheme. Can we think of an alternative, perhaps more descriptive name?",
+                                                        "author": {
+                                                            "login": "wermos"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460451786",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "This shouldn't be here like this, and it shouldn't be a naked import. It should be inside the if lark clause. If lark is installed, then that evaluates to True and we can freely import from Lark. Otherwise, we need to define dummy classes for all the things we imported so that the code still works syntactically.\nThe TL;DR is that you need to move this inside the if lark clause, and then define a dummy Tree class in the else part of that clause.",
+                                                        "author": {
+                                                            "login": "wermos"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460454205",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Maybe a couple of comments indicating what it means if len(tokens) is 4, or len(tokens) is 5 here would be nice to have.",
+                                                        "author": {
+                                                            "login": "wermos"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460454741",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "handle_division doesn't need to be an external function like this. It can be a private helper function of the Transformer class. The Transformer class already has an example of a function like this:  _extract_differential_symbol.",
+                                                        "author": {
+                                                            "login": "wermos"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460456635",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I don't think this belongs here. I'm assuming that this was a copy-paste error.",
+                                                        "author": {
+                                                            "login": "wermos"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460457865",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "The commented line should not be there, but I omitted \\\\\\\\ since that is the row separator for matrices. I will remove the commented line.",
+                                                        "author": {
+                                                            "login": "8vasu"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460459492",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Those are dummies. I am open to suggestions.",
+                                                        "author": {
+                                                            "login": "8vasu"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460460593",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Working on this.",
+                                                        "author": {
+                                                            "login": "8vasu"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460460920",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I will remove it now.",
+                                                        "author": {
+                                                            "login": "8vasu"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1460461497",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "7a31ab3",
+                                                            "authoredDate": "2024-01-20T06:09:10Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "I think that we should turn off debug in production here.\nsppf.png only conditionally generates when you have some stuff like dot installed in environment,\nand maybe that's why we are getting different results (and extremely slow one for you)",
+                                                        "author": {
+                                                            "login": "sylee957"
+                                                        },
+                                                        "url": "https://github.com/sympy/sympy/pull/26098#discussion_r1468279205",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "0165b38",
+                                                            "authoredDate": "2024-01-19T12:35:37Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjM=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 3
+        }
+    }
+}

@@ -1,0 +1,564 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 2,
+                        "title": "Policy on AI (ChatGPT, Bard, etc.) (#1035)",
+                        "repository": {
+                            "nameWithOwner": "DogeisCut/extensions",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-09-22T22:55:15Z",
+                        "mergedAt": "2023-09-22T22:55:20Z",
+                        "url": "https://github.com/DogeisCut/extensions/pull/2",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "DogeisCut"
+                        },
+                        "editor": null,
+                        "body": "Example of why you shouldn't use ChatGPT:\r\nhttps://chat.openai.com/share/245724e7-0a3c-4001-9fef-fb72c4a4acc6\r\n\r\nEverything except the last code block is hallucinated garbage, and even the code block is still worse than useless as it uses ScratchX so it can never be accepted here.",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 1,
+                        "title": "Policy on AI (ChatGPT, Bard, etc.) (#1035)",
+                        "repository": {
+                            "nameWithOwner": "DogeisCut/extensions",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-09-22T22:54:34Z",
+                        "mergedAt": "2023-09-22T22:54:45Z",
+                        "url": "https://github.com/DogeisCut/extensions/pull/1",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "DogeisCut"
+                        },
+                        "editor": null,
+                        "body": "Example of why you shouldn't use ChatGPT:\r\nhttps://chat.openai.com/share/245724e7-0a3c-4001-9fef-fb72c4a4acc6\r\n\r\nEverything except the last code block is hallucinated garbage, and even the code block is still worse than useless as it uses ScratchX so it can never be accepted here.",
+                        "comments": {
+                            "nodes": []
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 40,
+                        "title": "Flixible souce file",
+                        "repository": {
+                            "nameWithOwner": "rom-py/rompy",
+                            "primaryLanguage": {
+                                "name": "Jupyter Notebook"
+                            }
+                        },
+                        "createdAt": "2023-09-22T06:01:20Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/rom-py/rompy/pull/40",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "rafa-guedes"
+                        },
+                        "editor": null,
+                        "body": "@benjaminleighton I have implemented the changes to `SourceFile` we have discussed today. This object now has a `reader` optional field defaulting to `\"xarray.open_dataset\"` where you can define the reader function you want to use to open a file or file-like object into a Dataset. Some example using `\"xarray.open_mfdataset\"` is defined [here](https://github.com/rom-py/rompy/blob/flixible-souce-file/tests/test_data.py#L141-L147).\r\n\r\nThe approach you have implemented in https://github.com/rom-py/rompy/pull/34 is also perfectly valid and would work fine. My personal preference though would be generalising `SourceFile` a bit as implemented here, and having less of these `Source` objects which should really only handle a few specific corner cases - for most cases we should be able to abstract other complexities using `intake` (I agree for example with the good suggestion from @pbranson in https://github.com/rom-py/rompy/issues/33).\r\n\r\nThe new [reader](https://github.com/rom-py/rompy/blob/flixible-souce-file/rompy/core/data.py#L87-L95) field could also be passed as the function callable itself rather than a string, in case you are working programmatically from a Notebook for example.",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-10-02T01:26:59Z",
+                                    "bodyText": "Hi @rafa-guedes  sorry for not getting to this last week. This looks good except that it might be a security risk depending on our threat model for serialized pydantic objects because allowing the user to execute many things by importing functions from standard python libraries see https://chat.openai.com/share/1d61a6e1-06ca-49dd-980f-b9d1d68dbaca",
+                                    "url": "https://github.com/rom-py/rompy/pull/40#issuecomment-1742286490",
+                                    "author": {
+                                        "login": "benjaminleighton"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-17T01:40:08Z",
+                                    "bodyText": "Hi @benjaminleighton, perhaps this may not be necessary anymore if we implement the dynamic intake catalog as proposed by Paul in #43? If you still think we want the capability attempted to be generalise here but you are concerned this may represent a risk then we can implement it as you initially suggested with the SourceFiles class.",
+                                    "url": "https://github.com/rom-py/rompy/pull/40#issuecomment-1765519517",
+                                    "author": {
+                                        "login": "rafa-guedes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-18T22:20:51Z",
+                                    "bodyText": "@rafa-guedes thanks, I'll close this as you suggest",
+                                    "url": "https://github.com/rom-py/rompy/pull/40#issuecomment-1769491551",
+                                    "author": {
+                                        "login": "benjaminleighton"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 3393,
+                        "title": "Overhaul da code of conduct",
+                        "repository": {
+                            "nameWithOwner": "hyprwm/Hyprland",
+                            "primaryLanguage": {
+                                "name": "C++"
+                            }
+                        },
+                        "createdAt": "2023-09-22T00:46:14Z",
+                        "mergedAt": null,
+                        "url": "https://github.com/hyprwm/Hyprland/pull/3393",
+                        "state": "CLOSED",
+                        "author": {
+                            "login": "EIREXE"
+                        },
+                        "editor": null,
+                        "body": "I replaced the code of conduct with a more suitable text, i think that should improve things around\r\n\r\nplease let me know what you think, I can be reached at eirexe (at) eirteam.moe",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-22T02:57:54Z",
+                                    "bodyText": "You have contravened the stipulated provisions as per the Code of Conduct currently in effect under the jurisdiction of hyprwm organization\nhttps://github.com/EIREXE/Hyprland/blob/2d4a38fa2d5ccabd54fec98c876915c45c5d60bb/CODE_OF_CONDUCT.md?plain=1#L63\nArticle. I. Do not harass, attack, or in any other way discriminate against anyone, including for their protected traits, including, but not limited to, sex, religion, race, appearance, gender, identity, nationality, sexuality, etc.\nhttps://github.com/EIREXE/Hyprland/blob/2d4a38fa2d5ccabd54fec98c876915c45c5d60bb/CODE_OF_CONDUCT.md?plain=1#L25-L29\nArticle. II. Do not go off topic, Do not post spam.\nSpecifically, the use of offensive language and engaging in trolling activities are prohibited.\n\nFurthermore, you have also transgressed Section 2, pertaining to User Safety, of the Github Terms of Service, Acceptable Use Policies\nnamely\nhttps://github.com/EIREXE/Hyprland/blob/2d4a38fa2d5ccabd54fec98c876915c45c5d60bb/CODE_OF_CONDUCT.md?plain=1#L25-L29\n\nis sexually obscene or relates to sexual exploitation or abuse, including of minors;\n\nhttps://github.com/EIREXE/Hyprland/blob/2d4a38fa2d5ccabd54fec98c876915c45c5d60bb/CODE_OF_CONDUCT.md?plain=1#L63\n\nis discriminatory or abusive toward any individual or group;\n\nhttps://github.com/EIREXE/Hyprland/blob/2d4a38fa2d5ccabd54fec98c876915c45c5d60bb/CODE_OF_CONDUCT.md?plain=1#L16\n\ngratuitously depicts or glorifies violence, including violent images; or\nis off-topic, or interacts with platform features in a way that significantly or repeatedly disrupts the experience of other users.\n\n\nIn accordance with the prevailing regulations, both Hyprwm or Github reserves the right to request the closure or deletion of this Pull Request.\nhyprwm\n\n  \n    \n      Hyprland/CODE_OF_CONDUCT.md\n    \n    \n        Lines 75 to 88\n      in\n      1357b66\n    \n  \n  \n    \n\n        \n          \n           ### Warning/Deletion \n        \n\n        \n          \n            \n        \n\n        \n          \n           If your message is found inappropriate, a member might give you a public or private warning, \n        \n\n        \n          \n           and/or delete your message. \n        \n\n        \n          \n            \n        \n\n        \n          \n           ### Mute \n        \n\n        \n          \n            \n        \n\n        \n          \n           If your message is disruptive, or you have been repeatedly violating the standards, \n        \n\n        \n          \n           a member might mute (or temporarily ban) you. \n        \n\n        \n          \n            \n        \n\n        \n          \n           ### Ban \n        \n\n        \n          \n            \n        \n\n        \n          \n           If your message is hateful, very disruptive, or other, less serious infractions are repeated \n        \n\n        \n          \n           ignoring previous punishments, a member might ban you permanently. \n        \n    \n  \n\n\nGithub\n\nGitHub retains full discretion to take action in response to a violation of these policies, including account suspension, account termination, or removal of content\n\n\nI, as a third party advisor, therefore humbly suggest that you close this PR to prevent potential escalation.",
+                                    "url": "https://github.com/hyprwm/Hyprland/pull/3393#issuecomment-1730735690",
+                                    "author": {
+                                        "login": "memchr"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-22T07:57:04Z",
+                                    "bodyText": "Here, let me help you: https://youtu.be/ZYb_8MM1tGQ",
+                                    "url": "https://github.com/hyprwm/Hyprland/pull/3393#issuecomment-1730974244",
+                                    "author": {
+                                        "login": "EIREXE"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-22T08:07:05Z",
+                                    "bodyText": "Just saying.. https://chat.openai.com/share/39f35dbd-57cf-4e1a-8b09-9161af605b65",
+                                    "url": "https://github.com/hyprwm/Hyprland/pull/3393#issuecomment-1730987456",
+                                    "author": {
+                                        "login": "Kreyren"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "number": 1878,
+                        "title": "Add Pagination for Posts",
+                        "repository": {
+                            "nameWithOwner": "Codeinwp/otter-blocks",
+                            "primaryLanguage": {
+                                "name": "JavaScript"
+                            }
+                        },
+                        "createdAt": "2023-09-22T14:06:37Z",
+                        "mergedAt": "2023-11-02T06:12:55Z",
+                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "Soare-Robert-Daniel"
+                        },
+                        "editor": {
+                            "login": "Soare-Robert-Daniel"
+                        },
+                        "body": "<!-- Issues that this pull request closes. -->\r\nCloses #1046\r\n<!-- Should look like this: `Closes #1, #2, #3.` . -->\r\n\r\n### Summary\r\n<!-- Please describe the changes you made. -->\r\n\r\nAdd pagination for Posts Block.\r\n\r\nDeveloping notes:\r\n - It seems that Dynamic Content collides with the counting mechanism. It needs some investigation on the cause.\r\n\r\n### Screenshots <!-- if applicable -->\r\n\r\n![image](https://github.com/Codeinwp/otter-blocks/assets/17597852/50b16af4-5f71-4991-8582-96d6b4a46ae7)\r\n\r\n![image](https://github.com/Codeinwp/otter-blocks/assets/17597852/c94e6b7e-e16a-40d9-a7b3-f105e8a9d602)\r\n\r\n\r\nhttps://github.com/Codeinwp/otter-blocks/assets/17597852/9bdbff2e-11cb-457d-8271-2a2572167e12\r\n\r\n----\r\n\r\n\r\n\r\n\r\n### Test instructions\r\n<!-- Describe how this pull request can be tested. -->\r\n\r\n1. Insert a Post Block\r\n2. Enable pagination and customize it.\r\n\r\n<!--\r\n#### Query\r\n```javascript\r\nnew QueryQA().select('blocks').run()\r\n```\r\n-->\r\n\r\n---- \r\n\r\n### Checklist before the final review\r\n\r\n- [ ] Included E2E or unit tests for the changes in this PR.\r\n- [x] Visual elements are not affected by independent changes.\r\n- [x] It is at least compatible with the [minimum WordPress version](https://wordpress.org/plugins/otter-blocks/).\r\n- [x] It loads additional script in frontend only if it is required.\r\n- [x] Does not impact the [Core Web Vitals](https://web.dev/vitals/).\r\n- [x] In case of deprecation, old blocks are safely migrated.\r\n- [x] It is usable in Widgets and FSE.\r\n- [x] Copy/Paste is working if the attributes are modified.\r\n- [x] PR is following [the best practices]()\r\n\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-09-25T13:41:45Z",
+                                    "bodyText": "Bundle Size Diff\n\n\n\nPackage\nOld Size\nNew Size\nDiff\n\n\n\n\nAnimations\n275.01 KB\n276.86 KB\n1.85 KB (0.67%)\n\n\nBlocks\n1.47 MB\n1.48 MB\n7.33 KB (0.49%)\n\n\nCSS\n89.3 KB\n91.15 KB\n1.85 KB (2.07%)\n\n\nDashboard\n131.28 KB\n133.13 KB\n1.85 KB (1.41%)\n\n\nExport Import\n87.21 KB\n89.06 KB\n1.85 KB (2.12%)\n\n\nPro\n346.54 KB\n348.43 KB\n1.89 KB (0.54%)",
+                                    "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#issuecomment-1733738247",
+                                    "author": {
+                                        "login": "pirate-bot"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-25T13:42:35Z",
+                                    "bodyText": "Plugin build for e279cfe is ready \ud83d\udece\ufe0f!\n\nDownload Otter \u2013 Page Builder Blocks & Extensions for Gutenberg - Production ~ Development\nDownload Otter Pro - Production ~ Development\nDownload Blocks Animation - Production ~ Development\nDownload Blocks CSS - Production ~ Development\nDownload Blocks Export Import - Production ~ Development",
+                                    "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#issuecomment-1733739704",
+                                    "author": {
+                                        "login": "pirate-bot"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-25T13:49:51Z",
+                                    "bodyText": "E2E Summary\nTyping\n\n\n\nTest\nAverage Time (ms)\nStandard Deviation (ms)\nMedian Time (ms)\nQuantile for soft limit (%)\nQuantile for hard limit (%)\n\n\n\n\nTyping\n72.11\n10.92\n70.77\n0 (60ms)\n84.21 (80ms)\n\n\n\n\n    Values above 60ms\n    \"0 - 62.34, 1 - 66.54, 2 - 62.16, 3 - 61.89, 4 - 61.54, 5 - 83.66, 6 - 69.91, 7 - 72.09, 8 - 60.63, 9 - 68.44, 10 - 102.13, 11 - 72.38, 12 - 77.06, 13 - 70.77, 14 - 70.83, 15 - 77.68, 16 - 94.86, 17 - 70.89, 18 - 64.36\"",
+                                    "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#issuecomment-1733752577",
+                                    "author": {
+                                        "login": "pirate-bot"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-05T10:28:47Z",
+                                    "bodyText": "@HardeepAsrani, did you test on WPTaste? For some reasons it tries to always redirect me to the first page.\nEDIT: same thing when I try with Qubley Posts block.",
+                                    "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#issuecomment-1748618091",
+                                    "author": {
+                                        "login": "Soare-Robert-Daniel"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-11T08:28:35Z",
+                                    "bodyText": "@Soare-Robert-Daniel Tested the feature and here is what i found:\n\n Pagination active border color control is duplicated https://vertis.d.pr/i/55HbEu\n There is no way to add a top margin for the pagination, so if the row gap is set to a higher number, it won't look good https://vertis.d.pr/i/Tm19RT\n The featured post will be different on every page, both times when it's set as Sticky post or Latest post https://vertis.d.pr/v/f5XGgA\n If i enable the featured post and the number of items is set to 4, there will be 5 posts on the first page and 4 posts on the rest of them: first page, second page\n If the posts block is not placed at the top of the page, switching through pagination will refresh the page and it won't be scrolled to the block. Maybe we can change this for a better UX\n If i use these permalink settings, the pagination won't work https://vertis.d.pr/i/to87al (The block is placed on the homepage)\n\nYou can check the issues on this instance:\n Admin area URL: https://cycleadvertisement.s2-tastewp.com/wp-admin \n Username: irinel \n Password: hQ688Q6QlTQ",
+                                    "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#issuecomment-1757118057",
+                                    "author": {
+                                        "login": "irinelenache"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-12T13:42:33Z",
+                                    "bodyText": "The featured post will be different on every page, both times when it's set as Sticky post or Latest post https://vertis.d.pr/v/f5XGgA\n  If i enable the featured post and the number of items is set to 4, there will be 5 posts on the first page and 4 posts on the rest of them: first page, second page\n\n\nFor those problems, I made the pagination and features most to be mutually exclusive. You will not have them both. The way the featured post works right now is like a stylized first post. This is not good in the context of pagination in which the featured post must be a separate thing.\nIf we want them both, we will make another issue to address this. In this PR we will focus only on pagination.\n\n\n  If the posts block is not placed at the top of the page, switching through pagination will refresh the page and it won't be scrolled to the block. Maybe we can change this for a better UX\n\n\nThis is a hard problem because when you enter into the page, we do not know if you come via pagination or other ways around.  It creates some weird behavior. We will mark it as not an issue since some other competition blocks have the same behavior.",
+                                    "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#issuecomment-1759639220",
+                                    "author": {
+                                        "login": "Soare-Robert-Daniel"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-12T13:53:03Z",
+                                    "bodyText": "@irinelenache, when testing, please use another instance and not the one in this PR.",
+                                    "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#issuecomment-1759656890",
+                                    "author": {
+                                        "login": "Soare-Robert-Daniel"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-13T07:23:32Z",
+                                    "bodyText": "@Soare-Robert-Daniel Thank you for the fixes and for clarifying \ud83d\ude4f\n\nIf i use these permalink settings, the pagination won't work https://vertis.d.pr/i/to87al (The block is placed on the homepage)\n\n^ This issue is still happening on my end, you can check on this instance:\nSite name: Tranquil Division\nURL: https://tranquildivision.s2-tastewp.com\nUsername: irinel\nPassword: fUuJjouVI7I\n\nBesides this, everything's working fine \ud83d\udc4d",
+                                    "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#issuecomment-1761033188",
+                                    "author": {
+                                        "login": "irinelenache"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-16T07:10:45Z",
+                                    "bodyText": "@irinelenache, we should skip the front page on WP Taste since it might differ on host settings. We should use this plugin https://wordpress.org/plugins/qubely/ as a reference. Like Otter, it uses the same functions, so where they work, we should also work. The vice versa is also true.",
+                                    "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#issuecomment-1763862844",
+                                    "author": {
+                                        "login": "Soare-Robert-Daniel"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-16T08:47:24Z",
+                                    "bodyText": "@Soare-Robert-Daniel\nI tried to test on InstaWP now and compared some behaviours with Qubely. If i'm using these permalink settings it will work fine on the homepage only. On a normal page, there will be a slash missing that will break the page, here is a video with the behaviour on our end compared to Qubely https://vertis.d.pr/v/jyUFuS\nYou can check the issue here:\nURL: https://friendly-finch-wbell.vertisite.cloud\nUsername: xonegofusi7470\nPassword: jxDwygYlT0QAR72HfmP1",
+                                    "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#issuecomment-1764011762",
+                                    "author": {
+                                        "login": "irinelenache"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-18T09:58:13Z",
+                                    "bodyText": "I made the code similar to on Quble, which uses a snippet from PHP docs -- there should be no difference now. Here are some explanations for the trick used: https://chat.openai.com/share/3af75654-25bb-40de-988f-21ac8413b9e0",
+                                    "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#issuecomment-1768102277",
+                                    "author": {
+                                        "login": "Soare-Robert-Daniel"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-10-19T10:55:11Z",
+                                    "bodyText": "@Soare-Robert-Daniel Checked again and everything's fine now, thank you \ud83d\ude80",
+                                    "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#issuecomment-1770566215",
+                                    "author": {
+                                        "login": "irinelenache"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-11-16T15:52:41Z",
+                                    "bodyText": "\ud83c\udf89 This PR is included in version 2.5.0 \ud83c\udf89\nThe release is available on GitHub release\nYour semantic-release bot \ud83d\udce6\ud83d\ude80",
+                                    "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#issuecomment-1814734864",
+                                    "author": {
+                                        "login": "pirate-bot"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": [
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@HardeepAsrani, any idea if we can do the page counting to be nicer?",
+                                                        "author": {
+                                                            "login": "Soare-Robert-Daniel"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1337423793",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "724c086",
+                                                            "authoredDate": "2023-09-26T15:37:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "We can use query->max_num_pages; to get the maximum numbers. I'd avoid using two WP_Query calls. We used get_posts because it was more efficient when not used but now that we're using pagination, we can consider using WP_Query too.",
+                                                        "author": {
+                                                            "login": "HardeepAsrani"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1337547653",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "724c086",
+                                                            "authoredDate": "2023-09-26T15:37:02Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "CHANGES_REQUESTED",
+                                        "bodyText": "Hey, I was just testing it on an instance to see the flow and pagination doesn't work:\n\n\nRegardless the page, it loads the same posts.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "NIT: You can fix the type, it should be retrieve_posts",
+                                                        "author": {
+                                                            "login": "HardeepAsrani"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1351525513",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4ce87c3",
+                                                            "authoredDate": "2023-10-05T10:08:40Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "APPROVED",
+                                        "bodyText": "Left a small NIT but it looks good. It worked well when tried it locally. We can put it through QA and remove the QA-related code afterwards.",
+                                        "comments": {
+                                            "edges": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@HardeepAsrani, do you think it is worth keeping this for one release? I am considering the possibility of a slow rendering issue, which can help us confirm it on user websites.",
+                                                        "author": {
+                                                            "login": "Soare-Robert-Daniel"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1351578793",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4ce87c3",
+                                                            "authoredDate": "2023-10-05T10:08:40Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Might be worth testing this on our end with a dummy website with 1000s of posts, but we don't need to put it in prod given the number doesn't make much sense unless you can test before/after results.",
+                                                        "author": {
+                                                            "login": "HardeepAsrani"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1351589771",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "4ce87c3",
+                                                            "authoredDate": "2023-10-05T10:08:40Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@HardeepAsrani, do you see something wrong with this? When added to Home page, the link is something like this https://cycleadvertisement.s2-tastewp.com/page/2/ and is not working. If you put the block on a post page, the link will be like https://cycleadvertisement.s2-tastewp.com/index.php/2023/10/12/post/page/2/ and is working.",
+                                                        "author": {
+                                                            "login": "Soare-Robert-Daniel"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1358104617",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "92e136c",
+                                                            "authoredDate": "2023-10-12T13:34:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "@Soare-Robert-Daniel When you're going to that URL, I suppose it's redirecting you to 404? Or is it still opening the home?\nAlso, is it the sam eissue with Qubely?",
+                                                        "author": {
+                                                            "login": "HardeepAsrani"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1358131842",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "92e136c",
+                                                            "authoredDate": "2023-10-12T13:34:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Yes. With one mention that Qubley works when the link is not in a pretty format (I made an update also for us). For other formats, it is not working. It gives the same 404.\nThis 404 is in WP Taste, on my Local instance, they work without any issues. So I suspect some hosting setting might be in play.",
+                                                        "author": {
+                                                            "login": "Soare-Robert-Daniel"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1358191735",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "92e136c",
+                                                            "authoredDate": "2023-10-12T13:34:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "node": {
+                                        "state": "COMMENTED",
+                                        "bodyText": "",
+                                        "comments": {
+                                            "edges": [
+                                                {
+                                                    "node": {
+                                                        "bodyText": "Might be some issue with nginx/htaccess configs maybe, then we can skip that part and live with it for this version.",
+                                                        "author": {
+                                                            "login": "HardeepAsrani"
+                                                        },
+                                                        "url": "https://github.com/Codeinwp/otter-blocks/pull/1878#discussion_r1358742151",
+                                                        "originalCommit": {
+                                                            "abbreviatedOid": "92e136c",
+                                                            "authoredDate": "2023-10-12T13:34:45Z"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjU=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 5
+        }
+    }
+}

@@ -1,0 +1,851 @@
+{
+    "data": {
+        "search": {
+            "edges": [
+                {
+                    "node": {
+                        "number": 552,
+                        "title": "Consolidating Configuration Entropy and Nodes and Client Services Refactoring",
+                        "repository": {
+                            "nameWithOwner": "MatrixAI/Polykey",
+                            "primaryLanguage": {
+                                "name": "TypeScript"
+                            }
+                        },
+                        "createdAt": "2023-08-16T13:29:46Z",
+                        "mergedAt": "2023-10-04T06:03:18Z",
+                        "url": "https://github.com/MatrixAI/Polykey/pull/552",
+                        "state": "MERGED",
+                        "author": {
+                            "login": "CMCDragonkai"
+                        },
+                        "editor": {
+                            "login": "tegefaulkes"
+                        },
+                        "body": "### Description\r\n\r\nThe configuration of Polykey has suffered from alot of entropy. This PR attempts to consolidate our configuration structure.\r\n\r\nIt's based on this comment: https://github.com/MatrixAI/Polykey-CLI/pull/4#issuecomment-1680131511\r\n\r\nA note about task 5. It's important to understand that in `PolykeyAgent`, we have a bunch of dependencies that can be injected, but their injection is really intended for mocking, which is only for testing, not intended for production usage. This is different from optional dependencies which has legitimate usecases when injecting or not injecting. If we were to follow task 5. strictly, this would add alot of boilerplate to managing optional injected dependencies for everything in `PolykeyAgent`. And right now, there's no easy way to manage this without manually setting up booleans and conditional checks for all these optional dependencies. Therefore... task 5. should only be applied to situations where injecting or not-injecting is a legitimate usecase such as between `QUICSocket` and `QUICServer` and `QUICClient` and between `EncryptedFS` and `DB`. But optional dependencies in `PolykeyAgent` are the exception. IN FACT, because JS allows module mocking... we may even remove the ability to inject these dependencies and use `jest.mock` instead.\r\n\r\n### Issues Fixed\r\n\r\n* Related https://github.com/MatrixAI/Polykey-CLI/pull/4#issuecomment-1680131511\r\n* Related #444\r\n* Related #386 \r\n\r\n### Tasks\r\n\r\n- [x] 1. Move `*base` to `config.paths`. As these are path constants. They are not defaults to be configured.\r\n- [x] 2. Separate \"user config\" from \"system config\". There is a bunch of constants that control how the network works, these are not supposed to be changed by the user. These are constants that we developers of Polykey tune empirically for optimal operation. Remember at this point of the abstraction, PK is an application, no longer a library.\r\n  - `config.defaultsUser`\r\n  - `config.defaultsSystem`\r\n- [x] 3. Create a type based on `config.defaultsUser` and have it be referenced everywhere there needs to be some spread of the parameters that will be defaulted by `config.defaultsUser`. This prevents entropy where parameter names get changed and we forget that they need to be consistent.\r\n  - What happens if you only use a subset of the default parameters? Do you end up creating a subtype?\r\n  - All relevant types should be exposed in `src/config.ts` so that way it is always consistent, even if it is a bit weird. It gives us one place to ensure compliance between parameters that should have the same name and same meaning.\r\n- [x] 4. Restructure configuration properties into a special `config` parameter, and do a deep merge\r\n  - `PolykeyAgent.createPolykeyAgent` - create a `PolykeyAgentConfig` type\r\n  - `bootstrapState` - also needs to use `BootstrapConfig`, but it's a far simpler type\r\n  - Fix up `NodeConnectionManager` config\r\n  - Fix up `RPCServer` config\r\n  - Fix up `Websocket` config\r\n- [x] 5. Create issue for injected optional dependencies not having their lifecycle managed by the target system. This was changed for EFS. It should also be the case in PK. This means only encapsulated dependencies are managed. This does impact alot of tests.\r\n- [x] 6. Moved all QUIC client and server crypto into `NodeConnectionManager` and convert to using `keys/utils/symmetric` utilities rather than the HMAC SHA256.\r\n- [x] 7. Move `QUICSocket` lifecycle into `NodeConnectionManager`. All of the QUIC transport will be now encapsulated within `nodes` domain.\r\n- ~[ ] 8. Move all of RPC and websocket into the `client` domain, so that way both transports are encapsulated in their respective domain.~ - this is done in #560\r\n- [x] 9. Flesh out all the connection and stream error codes for the application of the QUIC connection and streams to the node usage.\r\n- [x] 10. Agent handlers should be moved into `nodes` domain if `client` domain contains handlers. We end up having \"client service\" and \"node service\", respectively meaning serving clients and serving nodes.\r\n- [x] 11. Ensure that `webcrypto` polyfill has the correct `Crypto` type due to changes in Node's interface. Do this by using `as Crypto`.\r\n- [x] 12. The `NodeConnectionManager` and `NodeConnection` have both pull and push flows.\r\n  - Make `NodeConnectionManager` an extension of `EventTarget` just like `NodeConnection`. This prepares in relation to #444 for subsequent observable integration.\r\n\r\n### Final checklist\r\n<!-- Please check what applies. Note that these are not hard requirements but merely serve as information for reviewers. -->\r\n\r\n* ~Domain specific tests~\r\n* ~Full tests~\r\n* [x] Updated inline-comment documentation\r\n* [x] Lint fixed\r\n* [x] Squash and rebased\r\n* [x] Sanity check the final build\r\n",
+                        "comments": {
+                            "nodes": [
+                                {
+                                    "createdAt": "2023-08-16T13:30:56Z",
+                                    "bodyText": "\ud83d\udc47 Click on the image for a new way to code review\n\n\n\nLegend",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1680611862",
+                                    "author": null
+                                },
+                                {
+                                    "createdAt": "2023-08-16T13:39:12Z",
+                                    "bodyText": "This PR is focused on have a consistent user-friendly \"application-level\" configuration of PK.\nThe fact that upstream libraries/domains may require a specific naming that doesn't match is not relevant for this. Upstream can change their naming (like aligning js-ws and js-quic), or PK can just map the relevant values.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1680626447",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-18T12:16:22Z",
+                                    "bodyText": "@tegefaulkes there are TODO comments left in code. These should not be left here, they must all be raised to issues. If you're in the midst of coding, I suspect keeping track as PR tasks can work too.\n// TODO: finish off agent migration work after CLI migration is done.\n// TODO: check all locking and add cancellation for it.\n\nRemoving these from NodeConnectionManager.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1683833594",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-18T12:16:42Z",
+                                    "bodyText": "Rebased on staging, now to continue.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1683833984",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-18T12:20:01Z",
+                                    "bodyText": "All paths that was in the defaults is now in:\nconfig.paths\n\n  /**\n   * File/directory paths\n   */\n  paths: {\n    statusBase: 'status.json',\n    statusLockBase: 'status.lock',\n    stateBase: 'state',\n    stateVersionBase: 'version',\n    dbBase: 'db',\n    keysBase: 'keys',\n    vaultsBase: 'vaults',\n    efsBase: 'efs',\n    tokenBase: 'token',\n  },\n\nThese are basically application constants, they are not really user config, no need to put in defaults anywhere.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1683837625",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-18T13:27:17Z",
+                                    "bodyText": "There are a bunch of system parameters. That I'm moving to config.defaultSystem.\nThese parameters are tuned by the developers. They are not to be specified by the user. We are only raising it to the top level to have one place acting as the main constant specification.\nThe naming of these parameters should be consistent and should have consistent meaning. And I'm already finding some strange aspects of these that I need you input on @tegefaulkes.\nFirstly for agent related networking. I'm noticing that there's overlap between node connection related parameters and the agent transport parameters. I've currently got them named like this in this PR:\n\nnodesConnectionConnectTime\nnodesConnectionTimeoutTime\nnodesConnectionHolePunchTimeoutTime\nnodesPingTimeoutTime\nagentConnectionKeepAliveIntervalTime\nagentConnectionMaxIdleTimeoutTime\n\nFirstly right now the entire agent transport is being encapsulated inside the nodes domain. This tells me that we should be abstracting the configuration of the agent transport entirely to the nodes domain.\nSecondly, isn't there overlapping behaviour here. We have a connect time and timeout time for node connections. But doesn't this end up encapsulating the entire agent connection keep alive interval time and max idle timeout time?\nLet's say nodesConnectionConnectTime is 2000. That means 2000ms is the timeout to create a NodeConnection. This is being used by the @timedCancellable decorator used in:\n\nNodeConnectionManager.withConnF\nNodeConnectionManager.getConnection\nNodeConnectionManager.getConnectionWithAddress\nNodeConnectionManager.getRemoteNodeClosestNodes\nNodeConnectionManager.sendSignalingMessage\nNodeConnectionManager.relaySignalingMessage\n\nIn all these cases, this 2000ms is used across all the asynchronous operations and finally fed into NodeConnection.createNodeConnection. Which itself uses QUICClient.createQUICClient.\nSo in terms of timing hierarchy:\n\nnode connection time - is the entire time allowed to \"establish a connection\" (however the whole thing is being used by default for a variety of operations that may end up establishing a connection)\nagent connection max idle timeout time - this actually controls the dialling time allowed, as well as how much time is available during idleness at the agent connection\n\nRight now the max idle time is set to 60000ms. While the node connection connect time is 2000ms. That actually means the total setup time is limited to 2000ms right?\nThen there's also the nodesConnectionTimeoutTime which is 60000ms. It governs how long a node connection will be kept around until it times out, unless there's activity. This activity is specific to node connections right? However this is also limited by the agentConnectionMaxIdleTimeoutTime.\n\nnodesConnectionTimeoutTime - 60000\nagentConnectionMaxIdleTimeoutTime - 60000\n\nThen this means, that after 60s without packet activity, the transport connection will be killed. But even if there is 60s of packet activity, if there is no \"node\" activity on a node connection, after 60s, the node connection will be killed. This means that as long as the keep alive is running, the underlying agent connection will continue running, but if no node-related operations are running for 60s, then the node connection is terminated.\nThen there's also the nodesPingTimeoutTime which I don't understand how it relates to the connection time.\nSo there are some overlaps and also specific constraints. Let's see if we can simplify all of this.\n\nThe node connection manager has a bunch of async operations that all require some form of timeout applied. The default however can be just be infinite to allow the caller to decide when to stop doing things. It may not actually be necessary to encode defaults into the creation of NodeConnectionManager. I may be wrong here because I haven't had time to fully review the NCM. The point is that if I run a particular command, I have the responsibility of cancelling it, and we can bubble up this requirement all the way to the top.\nWhat is the top? Who calls NCM? It's mostly 2 things: PolykeyAgent during bootstrapping and RPC calls that trigger node connections to form to do agent to agent calls. There is internal recursive calls that occur due to finding nodes, and maybe the NodeGraph requires regular updates.\nHowever there should definitely be \"idle timeouts\" and \"keepalive\" mechanisms applied. These should indeed by defaults applied to the NCM. In fact, in these cases, this would be the main way in which you configure this. Most method calls would have no need to be able to override these 2 configuration parameters.\n\nIf this is true, then we can:\n\nRemove any usages of default timeouts in the ctx being used by method calls, as NCM by itself would delegate this to the caller. And the caller can delegate this upwards. Therefore connection startup time could technically take forever. I argue that would mean an infinite timeout, which is actually the default value of quiche (a default value of 0 means infinite right?). I think we talked about this before @tegefaulkes but why didn't end up simply selecting 0 or infinite max timeout for QUIC as the default?\nThe 2 things that does require default configuration would be keep alive mechanisms and idle timeout mechanisms. To start it's important to differentiate \"idle timeout\" from startup timeout. In 1., we are talking about startup timeout because that's applied to the ctx of operations. By default it should be infinite until the caller decides it has taken enough time. Here an idle timeout only applies once the connection has started.\n\nNow I do remember we talked about this. I was asking why not set the underlying connection to have an infinite idle timeout, then rely on the NodeConnection to manage the startup timeout and the idle timeout separately? What was the reason?\nFurthermore such defaults doesn't need to be specified by the NodeConnectionManager directly. One could instead ask for these parameters, and have PolykeyAgent directly inject this during bootstrapping. If they were to have defaults, the default for keep alive interval time would be 1000, and the default for idle timeout would also be infinite.\nI'm a fan of \"terminal defaults\" - either the minimum value, or the maximum value. That means either:\n\nA minimum value representing disabledness. That could just simply be undefined as in the case of keep alive interval time, if that simply disables keepalive mechanism.\nA maximum value representing no-timeout. That could be 0 or Infinity.\n\nSuch defaults ensure no assumptions on the end-user. Keep-alives becomes opt-in, and timeouts become opt-in. Applying this principle ensures that the default configuration from a library perspective is always the minimal behaviour which is disabling keepalives and disabling timeouts.\nHowever applications are different and they should have tuned convention. This is because applications have contextual understanding, libraries don't.\nSo what does this mean for the config? I think:\n\nSet keep alive defaults to undefined\nSet timeout defaults to Infinity\nOnly use the config.defaultSystem at the application-bootstrapping level\nWe should be able to rely upon 2 timeouts: 1. node connection startup timeout, 2. node connection ttl timeout, in both cases... this shouldn't require the underlying transport, except a way to cancel things.\nOn the topic of hole punching, we should be symmetric to the dialling behaviour. I think that means making use of the node connection startup timeout, and interval time. Maybe interval time should also be exponential (2x each packet)? Again this should only be configured at the top level.\n\nI'm ordering them from most higher level to lower level. So config is ordered: RPC, nodes, client transport, then agent transport.\nAnother thing is that if defaults are specified at the application level, then in each domain, their defaults are specified right now directly. That's not quite correct. They should just directly refer to the src/config.ts for their defaults to avoid default entropy.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1683921288",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-18T13:28:36Z",
+                                    "bodyText": "I think there's also the problem of MatrixAI/Polykey-Docs#11. We also have to decide on the structuring of the timeout especially if there is a fan-out behaviour in the async code paths. We should label them correctly and ensure that we have specified behaviour here.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1683922989",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-18T13:34:02Z",
+                                    "bodyText": "Ok I did talk about this earlier about the issue with using maxIdleTimeout.\nMatrixAI/js-quic#26 (comment)\nNeed to reconcile this.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1683930238",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T02:59:39Z",
+                                    "bodyText": "Max idle timeout is a bit of a technical limitation of quic. It's the best way we can detect and handle a connection failure, so id prefer if it wasn't infinite. But for quic, it's used for the idle timeout and connection establishment timeout. so we can't really separate the two.\nIf we set the idle timeout to infinite, then we wouldn't have a nice way to detect if a connection has failed without re-implementing a bunch of logic for checking connection level idleness.  At the time we decided it was better to let quic handle this.\nAs for the startup timeout, that needs to be less than the maxIdleTimeoutTime since idle time is essentially the timeout time for a connection in quic. We coded it so that if the start timeout was more than the idle timeout then the connection creation would throw.\nIn my opinion, the idle timeout QUIC provides is too useful not to use, but given how it works, if we use it we can't have the start timeout be longer or infinite.\nI suppose we could default both to being being infinite and have anything using specify these parameters. But it seems like a bad idea to have any connections default to never timing out.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1685548893",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T05:44:51Z",
+                                    "bodyText": "I'm going to be trying to abstract the agent transport parameters to the nodes abstraction level. To do this I need to review how the nodes system is working, since it appears that all of agent transport is embedded into the nodes system. The nodes domain basically is encapsulating all of the agent transport.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1685687630",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T08:14:20Z",
+                                    "bodyText": "Here's the revised configuration for the system:\n    rpcTimeoutTime\n    rpcParserBufferSize\n    clientConnectTimeoutTime\n    clientKeepAliveTimeoutTime\n    clientKeepAliveIntervalTime\n    nodesConnectionConnectTimeoutTime\n    nodesConnectionKeepAliveTimeoutTime\n    nodesConnectionKeepAliveIntervalTime\n    nodesConnectionHolePunchTimeoutTime\n    nodesConnectionHolePunchIntervalTime\n    nodesConnectionFindConcurrencyLimit\n    nodesConnectionIdleTimeoutTime\n\nAll other parameters should be subsumed to this.\nIn order to achieve this both js-ws and js-quic should eventually converge to only using 3 parameters regarding time:\nconnectTimeoutTime\nkeepAliveTimeoutTime\nkeepAliveIntervalTime\n\nThe connectTimeoutTime in particular should actually be used on both connecting and accepting a connection.\nRight now js-quic is lacking this, and instead relies on a single maxIdleTimeout to do both connect timeout and keep alive timeout. We should set it to 0 and instead make use of JS level timeouts, to separate the connecting timeout (for both client and server) from the idle timeout. However it may be a bit more complicated for the idle timeout, because we would have to hook into the send and recv calls... remember that our keep alive mechanism is done inside quiche. So instead, we can do something hybrid. We could continue using maxIdleTimeout, but set it to keepAliveTimeoutTime, and then enforce that connectTimeoutTime cannot be larger than keepAliveTimeoutTime (throw an exception if this is the case).\nThis is all due to the implementation of js-quic which relies on quiche and its internal timeout and keepalive mechanism.\nCorrespondingly it makes sense to throw an exception if keepAliveIntervalTime was larger than keepAliveTimeoutTime.\nSo for js-quic here are the config constraints:\nconnectTimeoutTime <= keepAliveTimeoutTime\nkeepAliveIntervalTime <= keepAliveTimeoutTime\n\nAs for js-ws, it only needs this constraint.\nkeepAliveIntervalTime <= keepAliveTimeoutTime\n\nHowever if js-ws is limited also in its \"timeout\" mechanism, then also add in the first constraint.\n@amydevs @tegefaulkes",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1685864396",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T08:15:10Z",
+                                    "bodyText": "Furthermore I'm removing some parameters that should be auto-derived based on MatrixAI/Polykey-Docs#11.\nThings like the node ping timeout time, should really be automatically derived.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1685865564",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T08:16:58Z",
+                                    "bodyText": "Note that nodesConnectionIdleTimeoutTime is special as it represents the garbage collection trigger for the node connection when nothing in the program is using it. It's not the same as a timeout for inactivity on the connection (data-wise), it's more of a logical timeout, equivalent to a sort of time-based cache.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1685868195",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T08:28:06Z",
+                                    "bodyText": "@tegefaulkes the constraint can be checked in config.ts as just a precheck. But you cannot check the constraint in QUICConnection.createQUICConnection because it's possible I may want to override with a larger timeout due to creating a quic connection within a larger operation.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1685884214",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T08:29:50Z",
+                                    "bodyText": "So simply because maxIdleTimeout has to be continued to use, that is fundamentally the behaviour we will get, you can add a logger warning whenever the timeout is larger... but that might be too noisy.\nAlso if it turns out it's possible to actually mutate the config after you create the connection, that might actually solve the problem. I asked this but you need to experiment to see if it is true.\nhttps://chat.openai.com/share/5a302ea7-6134-4020-84fc-015200de4aa2",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1685886831",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-21T08:31:46Z",
+                                    "bodyText": "Regarding interval time, their definitions all depend on underlying implementation. In some simple cases it's just a fixed interval time. In other cases it is more efficient as in QUIC.\nI believe any implementation we do should default to the simple interval and let's not doing anything fancy yet.\nSo nodesConnectionHolePunchIntervalTime should just be a fixed interval, not be doubled each time.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1685889743",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-22T04:03:40Z",
+                                    "bodyText": "Ok so inside the quiche library, it is actually copying/cloning a portion of the config into the connection struct.\nIt looks like this:\n            local_transport_params: config.local_transport_params.clone(),\n\nLocated here: https://docs.quic.tech/src/quiche/lib.rs.html#1726\nAnyway this means if we do this:\n          clientQuicheConfig.setMaxIdleTimeout(10000);\n\n          clientConn = quiche.Connection.connect(\n            null,\n            clientScid,\n            clientHost,\n            serverHost,\n            clientQuicheConfig,\n          );\n\n          clientQuicheConfig.setMaxIdleTimeout(10000);\n\nThe first call works because it's done before the connection copies it. The second one doesn't. The call succeeds, but the mutation doesn't do anything because it doesn't affect the underlying property.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1687382587",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-22T04:05:50Z",
+                                    "bodyText": "Furthermore the local_transport_params is a private property of quiche's Connection struct so it cannot be mutated.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1687384018",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-22T04:56:25Z",
+                                    "bodyText": "The solution is:\n\nCreate a minIdleTimeout parameter in js-quic as the minimum boundary corresponding to maxIdleTimeout.\nThis is to be a static property exposed in src/config.ts in js-quic.\nAdditionally our QUICConfig should expose a keepAliveIntervalTime.\nDefault minIdleTimeout to Infinity and maxIdleTimeout to 0 and keepAliveIntevalTime to undefined.\nUse minIdleTimeout for the decorator in QUICClient.createQUICClient.\nUse minIdleTimeout for the QUICConnection.createQUICConnection inside QUICServer.connectionNew.\nApplication-wise we always set a nodesConnnectionConnectTimeoutTime to be less or equal to nodesConnectionKeepAliveTimeoutTime.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1687420089",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-22T13:13:21Z",
+                                    "bodyText": "@amydevs for js-ws, I'm creating these 3 parameters:\n    /**\n     * Timeout for the transport connecting to the client service.\n     *\n     * This bounds the amount of time that the client transport will wait to\n     * establish a connection to the client service of a Polykey Agent.\n     */\n    clientConnectTimeoutTime: 15_000, // 15 seconds\n    /**\n     * Timeout for the keep alive of the transport connection to the client\n     * service.\n     *\n     * It is reset upon sending or receiving any data on the client service\n     * transport connection.\n     *\n     * This is the default for both sides (client and server) of the connection.\n     *\n     * This should always be greater than the connect timeout.\n     */\n    clientKeepAliveTimeoutTime: 30_000, // 30 seconds (3x of interval time)\n    /**\n     * Interval for the keep alive of the transport connection to the client\n     * service.\n     *\n     * This is the minimum interval time because transport optimisations may\n     * increase the effective interval time when a keep alive message is not\n     * necessary, possibly due to other data being sent or received on the\n     * connection.\n     */\n    clientKeepAliveIntervalTime: 10_000, // 10 seconds\nNote that clientKeepAliveTimeoutTime should then be usable on client and server side, meaning the server side should also terminate connections that idle for too long. Can you make that possible in js-ws?\nRemember that in js-quic we defaulted everything to infinity because it's a library. While in PK the application, we are controlling for user experience.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1688165237",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-22T13:30:21Z",
+                                    "bodyText": "This PR can install the 0.0.19 QUIC implementation as it will have to reconfigure everything to use the new system defaults.\nThis is the current state now with all comments explaining their meaning.\n\n  defaultsSystem: {\n    /**\n     * Timeout for each RPC stream.\n     *\n     * The semantics of this timeout changes depending on the context of how it\n     * is used.\n     *\n     * It is reset upon sending or receiving any data on the stream. This is a\n     * one-shot timer on unary calls. This repeats for every chunk of data on\n     * streaming calls.\n     *\n     * This is the default for both client calls and server handlers. Both the\n     * client callers and server handlers can optionally override this default.\n     *\n     * When the server handler receives a desired timeout from the client call,\n     * the server handler will always choose the minimum of the timeouts between\n     * the client call and server handler.\n     *\n     * With respect to client calls, this timeout bounds the time that the client\n     * will wait for responses from the server, as well as the time to wait for\n     * additional to be sent to the server.\n     *\n     * With respect to server handlers, this timeout bounds the time that the\n     * server waits to send data back to the client, as well as the time to wait\n     * for additional client data.\n     *\n     * Therefore it is expected that specific clients calls and server handlers\n     * will override this timeout to cater to their specific circumstances.\n     */\n    rpcTimeoutTime: 15_000, // 15 seconds\n    /**\n     * Buffer size of the JSON RPC parser.\n     *\n     * This limits the largest parseable JSON message. Any JSON RPC message\n     * greater than this byte size will be rejecte by closing the RPC stream\n     * with an error.\n     *\n     * This has no effect on raw streams as raw streams do not use any parser.\n     */\n    rpcParserBufferSize: 64 * 1024, // 64 KiB\n    /**\n     * Timeout for the transport connecting to the client service.\n     *\n     * This bounds the amount of time that the client transport will wait to\n     * establish a connection to the client service of a Polykey Agent.\n     */\n    clientServiceConnectTimeoutTime: 15_000, // 15 seconds\n    /**\n     * Timeout for the keep alive of the transport connection to the client\n     * service.\n     *\n     * It is reset upon sending or receiving any data on the client service\n     * transport connection.\n     *\n     * This is the default for both sides (client and server) of the connection.\n     *\n     * This should always be greater than the connect timeout.\n     */\n    clientServiceKeepAliveTimeoutTime: 30_000, // 30 seconds (3x of interval time)\n    /**\n     * Interval for the keep alive of the transport connection to the client\n     * service.\n     *\n     * This is the minimum interval time because transport optimisations may\n     * increase the effective interval time when a keep alive message is not\n     * necessary, possibly due to other data being sent or received on the\n     * connection.\n     */\n    clientServiceKeepAliveIntervalTime: 10_000, // 10 seconds\n    /**\n     * Concurrency pool limit when finding other nodes.\n     *\n     * This is the parallel constant in the kademlia algorithm. It controls\n     * how many parallel connections when attempting to find a node across\n     * the network.\n     */\n    nodesConnectionFindConcurrencyLimit: 3,\n    /**\n     * Timeout for idle node connections.\n     *\n     * A node connection is idle, if nothing is using the connection. A\n     * connection is being used when its resource counter is above 0.\n     *\n     * The resource counter of node connections is incremented above 0\n     * when a reference to the node connection is maintained, usually with\n     * the bracketing pattern.\n     *\n     * This has nothing to do with the data being sent or received on the\n     * connection. It's intended as a way of garbage collecting unused\n     * connections.\n     *\n     * This should always be greater than the keep alive timeout.\n     */\n    nodesConnectionIdleTimeoutTime: 60_000, // 60 seconds\n    /**\n     * Timeout for establishing a node connection.\n     *\n     * This applies to both normal \"forward\" connections and \"reverse\"\n     * connections started by hole punching. Reverse connections\n     * is started by signalling requests that result in hole punching.\n     *\n     * This is the default for both client and server sides of the connection.\n     *\n     * Due to transport layer implementation peculiarities, this should never\n     * be greater than the keep alive timeout.\n     */\n    nodesConnectionConnectTimeoutTime: 15_000, // 15 seconds\n    /**\n     * Timeout for the keep alive of the node connection.\n     *\n     * It is reset upon sending or receiving any data on the connection.\n     *\n     * This is the default for both sides (client and server) of the connection.\n     *\n     * This should always be greater than the connect timeout.\n     */\n    nodesConnectionKeepAliveTimeoutTime: 30_000, // 30 seconds (3x of interval time)\n    /**\n     * Interval for the keep alive of the node connection.\n     *\n     * This is the minimum interval time because transport optimisations may\n     * increase the effective interval time when a keep alive message is not\n     * necessary, possibly due to other data being sent or received on the\n     * connection.\n     */\n    nodesConnectionKeepAliveIntervalTime: 10_000, // 10 seconds\n    /**\n     * Interval for hole punching reverse node connections.\n     */\n    nodesConnectionHolePunchIntervalTime: 1_000, // 1 second\n  },\n  /**\n   * Default user configuration.\n   * These are meant to be changed by the user.\n   * However the defaults here provide the average user experience.\n   */\n  defaultsUser: {\n    nodePath: getDefaultNodePath(),\n    rootCertDuration: 31536000,\n    /**\n     * If using dual stack `::`, then this forces only IPv6 bindings.\n     */\n    ipv6Only: false,\n    /**\n     * Agent host defaults to `::` dual stack.\n     * This is because the agent service is supposed to be public.\n     */\n    agentServiceHost: '::',\n    agentServicePort: 0,\n    /**\n     * Client host defaults to `localhost`.\n     * This will depend on the OS configuration.\n     * Usually it will be IPv4 `127.0.0.1` or IPv6 `::1`.\n     * This is because the client service is private most of the time.\n     */\n    clientServiceHost: 'localhost',\n    clientServicePort: 0,\n  },",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1688194562",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-22T13:31:01Z",
+                                    "bodyText": "@tegefaulkes will require you help with determining how to reconfigure the existing code with the new configuration set above.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1688196051",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-22T13:33:36Z",
+                                    "bodyText": "For task 3., this means that our message sent between the polykey to polykey-agent is reduced to only the user defaults, not the system defaults. This should simplify the overall set of types.\nFurthermore, for PolykeyAgent configuration should we flatten both user defaults and system defaults together, or should they be separated into their own small config parameters. I think it could work... as I see things like keyRingConfig, certManagerConfig... etc.\nHowever it may also work well to flatten the entire PolykeyAgent configuration parameters. Need to discuss this.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1688200496",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-23T01:33:13Z",
+                                    "bodyText": "@amydevs for js-ws, I'm creating these 3 parameters:\n    /**\n     * Timeout for the transport connecting to the client service.\n     *\n     * This bounds the amount of time that the client transport will wait to\n     * establish a connection to the client service of a Polykey Agent.\n     */\n    clientConnectTimeoutTime: 15_000, // 15 seconds\n    /**\n     * Timeout for the keep alive of the transport connection to the client\n     * service.\n     *\n     * It is reset upon sending or receiving any data on the client service\n     * transport connection.\n     *\n     * This is the default for both sides (client and server) of the connection.\n     *\n     * This should always be greater than the connect timeout.\n     */\n    clientKeepAliveTimeoutTime: 30_000, // 30 seconds (3x of interval time)\n    /**\n     * Interval for the keep alive of the transport connection to the client\n     * service.\n     *\n     * This is the minimum interval time because transport optimisations may\n     * increase the effective interval time when a keep alive message is not\n     * necessary, possibly due to other data being sent or received on the\n     * connection.\n     */\n    clientKeepAliveIntervalTime: 10_000, // 10 seconds\nNote that clientKeepAliveTimeoutTime should then be usable on client and server side, meaning the server side should also terminate connections that idle for too long. Can you make that possible in js-ws?\nRemember that in js-quic we defaulted everything to infinity because it's a library. While in PK the application, we are controlling for user experience.\n\nSo these params should be renamed to that?\nconnectTimeoutTime\nkeepAliveTimeoutTime\nkeepAliveIntervalTime",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1689131280",
+                                    "author": {
+                                        "login": "amydevs"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-23T01:35:20Z",
+                                    "bodyText": "No PK uses the prefix. Your library uses generic names.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1689132455",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-23T06:09:48Z",
+                                    "bodyText": "Ok so going to move all config parameters in PolykeyAgent to be like this instead:\nawait PolykeyAgent.createPolykeyAgent({\n  password: 'abc123',\n  // This will be a deep partial (with a deep merge)\n  config: {\n    rpc: {\n       x: 1\n    }\n  }\n});\nThis moves some configuration parameters to the top level, and others to a nested option group that corresponds to the domain name that it refers to.\nAnd the config will default to {} but will be deep-merged into relevant defaults.\nThis affects all downstream usage of PolykeyAgent.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1689336502",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-23T07:22:07Z",
+                                    "bodyText": "Putting together all PolykeyAgent config into 1 config parameter.\ntype PolykeyAgentConfig = {\n  nodePath: string;\n  clientServiceHost: string;\n  clientServicePort: number;\n  agentServiceHost: string;\n  agentServicePort: number;\n  seedNodes: SeedNodes;\n  workers: number;\n  ipv6Only: boolean;\n  keys: {\n    recoveryCode: RecoveryCode;\n    privateKey: PrivateKey;\n    privateKeyPath: string;\n    passwordOpsLimit: PasswordOpsLimit;\n    passwordMemLimit: PasswordMemLimit;\n    strictMemoryLock: boolean;\n    certDuration: number;\n  };\n  rpc: {\n    callTimeoutTime: number;\n    parserBufferSize: number;\n  };\n  client: {\n    connectTimoutTime: number;\n    keepAliveTimeoutTime: number;\n    keepAliveIntervalTime: number;\n  };\n  nodes: {\n    connectionIdleTimeoutTime: number;\n    connectionFindConcurrencyLimit: number;\n    connectionConnectTimeoutTime: number;\n    connectionKeepAliveTimeoutTime: number;\n    connectionKeepAliveIntervalTime: number;\n    connectionHolePunchIntervalTime: number;\n  };\n};\nFurthermore also discovered that the optional dependencies when injected, their lifecycles shouldn't be managed. This can be done in a separate issue since it isn't important right now.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1689423658",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-23T07:32:54Z",
+                                    "bodyText": "Because I am using the name config already as src/config.ts, I have to swap to using options as the parameter name to avoid name clashes.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1689437610",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-23T13:25:40Z",
+                                    "bodyText": "I tried so many variants, but I couldn't could a proper deep merge type working.\n/**\n * Recursive merge, preferring A, then B.\n *\n * This is quite a complex type, and it can probably be improved.\n * It is used where properties from A is preferred over B as long\n * as A properties are not `undefined`. If A is `undefined`, then\n * the resulting type is union of A and B. However if A can be an\n * object and B can be object, then the resulting type is a merge\n * of A and B.\n */\ntype DeepMerge<A, B> =\n  A extends object\n    ? B extends object\n      ?  {\n        [K in keyof A | keyof B]: K extends keyof A & keyof B\n          ? Merge<A[K], B[K]>\n          : K extends keyof A\n          ? A[K]\n          : K extends keyof B\n          ? B[K]\n          : never;\n      }\n      : Merge<A, B>\n  : Merge<A, B>;\n\ntype Merge<A, B> =\n  A extends IsPrimitiveExcludingUndefined<A>\n    ? A\n    : B extends IsPrimitiveExcludingUndefined<B>\n      ? undefined extends A\n        ? Exclude<A, undefined> | B\n        : A\n      : undefined extends A\n        ? undefined extends B\n          ? DeepMerge<Exclude<A, undefined>, Exclude<B, undefined>> | undefined\n          : DeepMerge<Exclude<A, undefined>, B>\n        : undefined extends B\n          ? DeepMerge<A, Exclude<B, undefined>>\n          : DeepMerge<A, B>;\n\ntype IsPrimitiveExcludingUndefined<T> = [T] extends [\n  T extends null | boolean | string | number | symbol | bigint ? T : never\n] ? T : never;\n\nSo for now the mergeObjects will just need to return POJO unfortunately.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1689962684",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-24T05:56:08Z",
+                                    "bodyText": "If nodes encapsulates everything about quic, then no need to have quicSocket on the outside.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1691048327",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-24T05:56:24Z",
+                                    "bodyText": "Would be nice to do this via dependency injection though.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1691048559",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-24T06:13:34Z",
+                                    "bodyText": "Lots of things in NodeConnectionManager to be fixed up. And there's a bunch of stuff that doesn't make sense to me. That I'm just going to list here.\n\nLots of order of properties and parameters don't match the order of declared input parameters. This should be straightened up to avoid too much scanning.\nThe handleStream propertyis defaulted to something that usesnever(). It's better to just leave it undefined` or some other way of knowing if it is usable or not.\nLack of docblock comments for properties.\nThe usage of protected nodeManager: NodeManager | undefined; seems strange. We use prop?: ... most of the time.\nRemoval of the backoff map? Not sure why this is needed. It's not for the hole punching since we are going to change to a simple delay instead. Still need to examine why this is done this way.\nDoes QUIC socket need to be moved into NCM or can NCM be dependency injected with the quic server and quic clients? It seems a NodeConnection at the very least would build on top of a quic client, and thus something would need to manage the quic server.\nResolve hostname should be configuration all the way to the top. It can be given a default value. The default should just be a regular resolveHostname as in js-quic that uses await dns.promises.lookup.\nRegarding the multi-host lookup. We would perform DNS resolution before we tell our transport to actually connect. So we would never provide the hostname directly to the transport, but instead give it IP addresses. This gives us the flexibility to deal with multi-host hostnames. So the resolveHost that we provide to the transport doesn't need to be set at all, as it would never be used.\nThe reasonToCode and codeToReason should be part of the nodes domain, not in src/utils/utils.ts.\nConnecting the NM and NCM has alot of cross overs\n\nNM calls:\n\ngetSeedNodes\nhasConnection\nwithConnF\nfindNode\npingNode\nisSeedNode\n\n\nNCM calls:\n\nsetNode\nupdateRefreshBucketDelay\n\n\n\n\nIt makes more sense for NM to depend on NCM. But when NCM needs to call back to NM, that is the weird thing. Seems like there's an option to factor out the commonality out of NCM and NM. Or at least make NCM call something else. Alternatively NCM could raise events that NM depends on (maybe this is a push-flow #444)?",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1691063360",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-24T07:20:44Z",
+                                    "bodyText": "PolykeyAgent.createPolykeyAgent will need to take creation parameters, construction parameters and start parameters\nPolykeyAgent.start only takes start parameters\n\nSo thinking about start parameters, I noticed that generally any parameter set in start has to be set again if you call start. That is, there's no persistence to start parameters.\nThis makes sense as any persistent parameters should be in the constructor instead, and that is then of course set on the instance. But if I'm calling start I must call with the same set of parameters.\nThe only thing that's a bit confusing is that start can take optional parameters.\nFor example QUICServer can take a host and port as the optional parameters. if it is started without anything, it uses the default.\nThen it's important to realise that if you were to call it again like:\nawait quicServer.stop();\nawait quicServer.start();\n\nThe second time you call start, it will continue to use the default parameters, not the original parameters it was started with.\nThis is all because that start parameters do not have persistence.\nIt would be a different story if you did:\nconst abc = new Abc(p1, p2);\nawait abc.start(p3, p4);\nawait abc.stop();\nawait abc.start(p3, p4);\nYou would expect that p1 and p2 would be retained, but p3 and p4 would not, and thus it has to be reapplied when you call start.\nWhich means PolykeyAgent.createPolykeyAgent(p1, p2, p3, p4) will have both persistent parameters and non-persistent parameters.\nThis kind of pattern should be consistent. Should document this into Polykey-Docs.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1691140660",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-25T00:48:37Z",
+                                    "bodyText": "The backoff map reduces the amount of repeat work during discovery if a node is offline. Since a node is not removed from the nodegraph unless the bucket fills up and a new node is added. it's possible to have information about offline nodes existing in the Kademlia DHT.\nWhen doing discovery, notably during network entry, we'd get information about nodes and attempt connections to them. We don't want to repeat these attempts if we had done so recently.\nNote that part of the network entry procedure include doing a node find for each bucket. Worst case we'd do this for each bucket, about 255 times. If there is an offline node we'd try to connect to it as many times in a short amount of time.\nThe backoff logic was to reduce this problem.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1692597576",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-25T03:49:25Z",
+                                    "bodyText": "So there are some things here that I'm thinking of while reviewing the nodes domain. I think it's ripe for some simplification.\nNodes\n\nThe NodeConnectionManager right now ends up calling back into NodeManager. This creates a mutual dependency that muddles the control flow and dataflow. Instead of doing this, let's think about 2 strategies to break this mutual dependency.\n\nFactoring out the commonality - this was originally intended to be the NodeGraph to do this. Especially in relation to the setNode function. However there maybe there is some functionality of this that can be moved to NodeGraph, so that NCM doesn't need to call back into NodeManager?\nWith reference to #444, it appears the reason why we are contorting ourselves might be that it is because we are trying to represent a push-flow with pull-methods. This is because the NCM is running a node connection server. And servers receive push-events from the outside world. A new connection appearing on the NCM means the origin of change is from outside the program. Therefore, it seems to make more sense to coordinate this through a push-flow system.\n\n\n\nClient\nOne of the things that's bugging me is that the parameters being used to configure things has prefixes that don't quite make sense.\nRight now nodes basically takes over the entire underlying transport as well as high level node connections. It facilitates the \"agent service\", but we don't have agent* config parameters, our config parameters are nodes* like nodesConnectionIdleTimeoutTime.\nAt the same time we have clientServiceConnectTimeoutTime even though there isn't a domain called clientService.\nI think a rearchitecture is suitable here:\n\nIf \"client service\" is called \"client service\" because it is a service for clients. That makes sense. So then src/client should be the domain that contains classes that governs the entire client service. That means supplying both the RPCClient, RPCServer as well as the websocket transport. Right now src/websockets and src/rpc will be factored out to their own domains js-websockets, js-rpc. This means creating and managing WSClient and WSServer should all be under src/client then, and it can also be the place where all the handlers are stored. This would allow configuration parameters that have the prefix of client* to make sense now.\nNow \"agent service\" was about serving other agents. We do have a src/agent directory. However this is only used for the agent service handlers. All of the transport related things are in src/nodes. Instead we could call the \"agent service\" the \"nodes service\", which would imply that the handlers should move to src/nodes/handlers. I'm not sure if this is good idea yet, but it would make the src/client and src/nodes consistent (perhaps\n\nThe main thing is so that client and nodes domain are somewhat consistent with each other. The PolykeyAgent would run the server-portion of client and use all of nodes, while PolykeyClient would use the client portion of client domain.\nCreation, Construction, Start Parameters\nAs mentioned in #552 (comment), the creation functions take both constructor parameters and start parameters. These need to be ordered for now and follow the convention that start parameters are only true until stopped, but constructor parameters are persistent to the object existence. The only way to enforce this in the future would be to provide a separate startOptions during creation. But right now we just have to do this by convention.\nOther configuration\nSince I've removed a bunch of configuration parameters, the nodes domain now needs to automatically figure out certain parameters such as due to MatrixAI/Polykey-Docs#11. And in many cases, parameters should pushed-down from the caller's ctx.timeout.\n@tegefaulkes you'll need to take over this soon, and we can identify each parameter that no longer exists and replace them with some automatic-derivation, it's all a case by case basis, until we can document the pattern.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1692715142",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T07:19:01Z",
+                                    "bodyText": "The nodes domain is going to require significant refactoring as I cannot understand the codebase as it is written right now.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694209160",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T07:20:57Z",
+                                    "bodyText": "With respect to #444 and the above indication about push-flow, I can see that NodeConnection already extends EventTarget indicating already we were starting to introducing push-flow into the nodes domain.\nI think we can extend this, as NodeConnectionManager should also extend EventTarget.\nInterestingly I wonder if introducing observable or reactive properties is orthogonal. I think so, it doesn't hurt for a class to behave like a EventTarget and also possess reactive properties.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694209844",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T07:24:01Z",
+                                    "bodyText": "The backoff map reduces the amount of repeat work during discovery if a node is offline. Since a node is not removed from the nodegraph unless the bucket fills up and a new node is added. it's possible to have information about offline nodes existing in the Kademlia DHT.\nWhen doing discovery, notably during network entry, we'd get information about nodes and attempt connections to them. We don't want to repeat these attempts if we had done so recently.\nNote that part of the network entry procedure include doing a node find for each bucket. Worst case we'd do this for each bucket, about 255 times. If there is an offline node we'd try to connect to it as many times in a short amount of time.\nThe backoff logic was to reduce this problem.\n\nUsing \"backoff\" doesn't appear to be the right solution to this problem. Backoffs is meant for temporary solution to preventing network overload. It's not meant to reduce repeated work. Reduction of repeated work should be using a caching or locking solution. I'm investigating this as this doesn't appear to be a correct solution.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694210774",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T07:26:02Z",
+                                    "bodyText": "Arrow properties are not correctly named here. They should hbe a protected handleX = () => {}.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694211219",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T07:28:52Z",
+                                    "bodyText": "You cannot use await inside event handlers.\nYou must use void.\nThis is because it is not possible to handle error in event handlers. Where do they propagate to?\nNowhere.\nYou can only use void.\nIt is essential that you must not allow any errors from emitting pass this event handler boundary.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694212241",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T07:29:22Z",
+                                    "bodyText": "All errors must be handled or you must design it so that no exceptions are thrown there.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694212333",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T07:29:59Z",
+                                    "bodyText": "protected handleQUICConnection = async (\n    event: QuicEvents.QUICServerConnectionEvent\n  ) => {\n    const connection = event.detail;\n    await this.handleConnectionReverse(connection);\n  };\n\nWill need to modify this. Cannot use await this.handleConnectionReverse(connection);.\nBTW this was already in js-quic.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694212438",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T07:32:10Z",
+                                    "bodyText": "The imports are not properly coalesced.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694213268",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T07:34:47Z",
+                                    "bodyText": "The import order is a mess. There are repeated imports and also imports from dist/types which is not needed.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694213831",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T13:43:53Z",
+                                    "bodyText": "I'm moving the crypto into NodeConnectionManager. Furthermore we do need to use HMAC SHA256 here. We have a better one that is supplied via libsodium, the crypto_generichash. This is using the blake2b algorithm. That way I don't have to bring in the webcrypto polyfill which is just there temporarily.\nIt's also important to realise that all array buffers must be isolated and not shared.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694344574",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T13:51:11Z",
+                                    "bodyText": "This should be sufficient:\n    this.quicClientCrypto = {\n      async randomBytes(data: ArrayBuffer) {\n        const randomBytes = keysUtils.getRandomBytes(data.byteLength);\n        randomBytes.copy(utils.bufferWrap(data));\n      }\n    };\n    // Note that all buffers allocated below is using `allocUnsafeSlow`.\n    // Which ensures that the underlying `ArrayBuffer` is not shared.\n    // Also all node buffers satisfy the `ArrayBuffer` interface.\n    const quicServerCrypto = {\n      key: keysUtils.generateKey(),\n      ops: {\n        async sign(key: ArrayBuffer, data: ArrayBuffer) {\n          return keysUtils.macWithKey(\n            utils.bufferWrap(key) as Key,\n            utils.bufferWrap(data)\n          );\n        },\n        async verify(key: ArrayBuffer, data: ArrayBuffer, sig: ArrayBuffer) {\n          return keysUtils.authWithKey(\n            utils.bufferWrap(key) as Key,\n            utils.bufferWrap(data),\n            utils.bufferWrap(sig)\n          );\n        }\n      },\n    };",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694346075",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T13:52:20Z",
+                                    "bodyText": "I don't quite understand the whole resolveHostname usage here. For the quic server, by the time we are using it, all hostnames would have been resolved already. So it's not sufficient to do anything here. We can just use the default, which would default on the os. But no usage of resolveHostname would be used unless you pass a hostname to the quic server. Which we wouldn't.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694346291",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T14:03:12Z",
+                                    "bodyText": "@tegefaulkes a while back I mentioned the usage of getHost and getPort. I think I've mulled over this and I think .host and .port is fine, since get host() and get port() can have the decorators applied, and so we can now have ready parameters without any issues.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694348229",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T14:04:17Z",
+                                    "bodyText": "The codeMap is still inside src/utils. This would be incorrect, this should go into src/nodes/utils. Furthermore there are no error codes defined.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694348439",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T14:04:54Z",
+                                    "bodyText": "I'm first moving them to src/nodes/utils and will set a task above.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694348535",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-26T14:12:05Z",
+                                    "bodyText": "I don't think #555 can be merged. This is significantly rearchitecting the nodes domain and configuration as there's too much that I need to fix in the nodes domain because I don't understand how the code works, so I'll try to get this PR into a better state first, then #555 can be looked at afterwards.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694349866",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-27T05:42:39Z",
+                                    "bodyText": "When filtering out the own node ID, it's important to avoid mutating the parameter.\nI've added a generic filterObject utility function to help with this.\n    // Filter out own node ID\n    const nodeIdEncodedOwn = nodesUtils.encodeNodeId(keyRing.getNodeId());\n    this.seedNodes = utils.filterObject(seedNodes, ([k]) => {\n      return k !== nodeIdEncodedOwn;\n    }) as SeedNodes;",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694577443",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-27T05:43:40Z",
+                                    "bodyText": "Generally speaking we want to maintain immutability when parameters are passed into functions or constructors. It should by default immutable, and only exceptions we mutate. Singleton objects is a different story, since they are not data, they are dependencies.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694577547",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-27T06:22:50Z",
+                                    "bodyText": "The handleStream parameter of NodeConnectionManager.start.\nAt first I'm thinking why is this part of the start parameters.\nIt seems like something that makes more sense to be part of the constructor parameters. Which makes it permanent to the object instance, rather than the start/stop lifecycle.\nHowever I can see something weird with the RPCServer.createRPCServer which requires injection of a manifest and that manifest is created with the instances of all the objects.\nSo if NCM has to started with a handleStream method, that sort of requires the RPC server to exist.\nBut RPC server to exist it requires the NCM to already exist.\nIt's again a sort of mutual dependency.\nBut as per the comment #552 (comment), handling a stream is itself another push-flow.\nWe again can change this so that we are simply emitting events indicating the handling of streams, rather than taking a callback in order to prepare for #444.\nSo I'm going to remove handleStream, and instead make use of EventTarget to emit this as an event.\n  public async start({\n    host = '::' as Host,\n    port = 0 as Port,\n    ipv6Only = false,\n    // handleStream,\n  }: {\n    host?: Host;\n    port?: Port;\n    ipv6Only?: boolean;\n    // handleStream: (stream: RPCStream<Uint8Array, Uint8Array>) => void;\n  }) {",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694583323",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-27T06:23:54Z",
+                                    "bodyText": "Furthermore if agent service handlers is moved to the nodes domain, one could just orchestrate the handlers directly there... but probably not a good idea just yet, since we have to figure out how to do a proper dependency injection into the handlers.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694583489",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-27T06:26:31Z",
+                                    "bodyText": "Next in NodeConnectionManager.start, we have:\n    // Adding seed nodes\n    for (const nodeIdEncoded in this.seedNodes) {\n      const nodeId = nodesUtils.decodeNodeId(nodeIdEncoded);\n      if (nodeId == null) utils.never();\n      await this.nodeManager.setNode(\n        nodeId,\n        this.seedNodes[nodeIdEncoded],\n        true,\n      );\n    }\nI don't think this makes much sense. We should expect seed nodes are already \"added\" the node manager.\nThe NCM should focus on connections solely, in that case. I'm going to remove this for now.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694583828",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-27T06:53:10Z",
+                                    "bodyText": "In order to propagate push flow, all events that are pushed from js-quic transport must be captured by NCM.\nNCM is now encapsulating the behaviour of js-quic. It is therefore required that all events must be either handled or propagated upwards.\nTherefore simply listening to serverConnection event is not sufficient.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694587913",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-27T07:19:47Z",
+                                    "bodyText": "There's something wrong about the QUICServer event handling.\n@tegefaulkes you added in this handler:\n  protected handleQUICSocketEvents = (e: events.QUICSocketEvent) => {\n    if (e instanceof events.QUICSocketErrorEvent) {\n      this.dispatchEvent(\n        new events.QUICServerErrorEvent({\n          detail: e.detail,\n        }),\n      );\n      void this.stop({ force: true });\n    } else if (e instanceof events.QUICSocketStopEvent) {\n      this.dispatchEvent(new events.QUICSocketStopEvent());\n      void this.stop({ force: true });\n    } else if (e instanceof events.QUICSocketStartEvent) {\n      this.dispatchEvent(new events.QUICSocketStartEvent());\n    } else {\n      // Should never happen, all cases should be covered\n      never();\n    }\n  };\n\n  protected handleQUICConnectionEvents = (\n    event: events.QUICConnectionEvent,\n  ) => {\n    if (event instanceof events.QUICConnectionErrorEvent) {\n      this.dispatchEvent(\n        new events.QUICConnectionErrorEvent({\n          detail: event.detail,\n        }),\n      );\n    } else if (event instanceof events.QUICConnectionStopEvent) {\n      this.dispatchEvent(new events.QUICConnectionStopEvent());\n    } else if (event instanceof events.QUICConnectionStreamEvent) {\n      this.dispatchEvent(\n        new events.QUICConnectionStreamEvent({ detail: event.detail }),\n      );\n    } else if (event instanceof events.QUICStreamDestroyEvent) {\n      this.dispatchEvent(new events.QUICStreamDestroyEvent());\n    } else {\n      utils.never();\n    }\n  };\n\nThis is different from when I first left it as:\n  protected handleQUICSocketEvents = (e: events.QUICSocketEvent) => {\n    this.dispatchEvent(e);\n    if (e instanceof events.QUICSocketErrorEvent) {\n      this.dispatchEvent(\n        new events.QUICServerErrorEvent({\n          detail: e.detail,\n        }),\n      );\n    }\n  };\n\n  protected handleQUICConnectionEvents = (e: events.QUICConnectionEvent) => {\n    this.dispatchEvent(e);\n  };\n\nNow in terms of handling QUICSocket events, one has to be careful here.\n\nIf QUICSocket is encapsulated by QUICServer, then all events of QUICSocket must be handled or propagated.\nIf QUICSocket is shared, then only relevant events is handled, all other events is ignored.\n\nRule 2 is necessary to avoid DIing singleton push-flow capable objects necessitating the re-emission of every single event. Imagine you had object A and you DIed it into B, C, D, E... etc. Now imagine that without rule 2, then that implies B, C, D, E... etc all have to re-emit events of A. That wouldn't make any sense.\nFurthermore, in terms of \"handling\" events, it is important to not create an infinite loop here.\nIn the current handleQUICSocketEvents you're potentially introducing an infinite loop with void this.stop when the QUICSocketStopEvent occurs. Even it doesn't happen right now, it could happen in the future.\nI think these event handlers need to be rewritten.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694592598",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-27T13:28:25Z",
+                                    "bodyText": "The usage of just arbitrary strings for event names is quite flaky. Instead we can use the class names. This would allow the type system to catch when things have changed.\nFurthermore, it would be nice if we can listen on all events if we are encapsulating an event emitting object. However EventTarget doesn't have it, so instead we end up listing them out.\nAlso I realised that XEvent is different from ErrorX that we normally use. It seems more accurate to use EventX since our ErrorX was to enable faster ways of locating relevant errors, and with #444 becoming more important, events can be uniquely namespaced.\nSo let's say we want to capture all QUICSocket events:\nquicSocket.addEventListener(EventQUICSocketStop.name, ...)\n\nThat's actually sort of like wanting to capture all possible errors. Right now we also have abstract QUICSocketEvent extends Event which represents the type grouping of all subsequent events.\nIs there a way to say, give me all possible event key strings underneath this particular class?\n\nI've started prototyping this in:\n\nhttps://github.com/MatrixAI/js-events\nMatrixAI/js-quic#53\n\nTurns out alot of nodes is push-oriented, and so we can start with js-events to provide a baseline functionality and abstraction around events, and then subsequently introduce observable utilities discussed in #444.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694669466",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-28T04:21:22Z",
+                                    "bodyText": "Sprint 34 actions:\n\nTarget #555 to this PR instead of staging.\nWe're going to be doing some consolidation between myself and @tegefaulkes for the nodes domain and figuring out how this fits between NodeManager, NodeConnectionManager, NodeConnection and the MDNS #537 #400 and relevant issues under #551.\nThe nodes domain is undergoing a first-phase transformation in line with #444 introducing push-flows into it due to the amount of push-events that occur from outside of the program. This means:\n\nNodeConnectionManager fully encapsulates both QUICServer and QUICSocket, it must handle all events within these 2, and not only that re-emit event wrappers (as you cannot re-emit already dispatched events), including ones that result in errors such as shutting down the entire PolykeyAgent.\nNodeManager must then handle all push events from NodeConnectionManager and that needs to replace all uses of setNode and updateRefreshBucketDelay that NodeConnectionManager currently calls. This will entirely remove the mutual dependnecy.\nNodeConnection fully encapsulates QUICClient, and thus it needs to also do the same.\nThis bubbles up all the way to PolykeyAgent, and thus PolykeyAgent is the root of the program. It's the bootstrap point.\n\n\nWe are introducing js-events as a phase 1 transformation for #444, and then subsequently it may also be suitable for phase 2 - observable integration.\n\nThis starts with: MatrixAI/js-quic#53 and https://github.com/MatrixAI/js-events\n\n\nMDNS, NodeGraph multiple addresses and segregation, fire and forget, configuration entropy, and all relevant QUIC-related fixes, as well as IPv6 support needs to be designed and developed in a consolidated fashion. We cannot incrementally add these features in, there's too much logical intersections that needs to be understood and managed.\nBackground tasks should use TaskManager even if their tasks are not persistent. This is because it's just easier to rely on the tasks domain to manage all the errors. In the future tasks domain can be abstracted out with the DB becoming an optional injection, or optimise it to support impermanent tasks. This is better path to take then to try to re-invent the wheel for every single thing that requires background tasks. Furthermore background tasks are fundamentally a push-flow too, which means #444 becomes relevant.\n\nAny other notes to make @tegefaulkes?",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694981535",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-28T04:40:59Z",
+                                    "bodyText": "I still don't like the idea of using TaskManager to handle the background signalling and punching.  The maps were only added to prevent orphaning the the promises.\nLet me think about this. For the initial handler I can refactor it to not do anything in the background an instead stick to the RPC handler context. It can still be mostly non-blocking in this case. It will already fail early if it can't immediately fulfil the request. The only difference here is that the RPC call will be active until the signalling has completed. But it won't be blocked by the punching stage.\nAs for the final step handler, this is just doing a hole punch operation. This by design should't throw ever unless there was a critical problem. It only sends punch packets until it times out or is cancelled. It doesn't return anything. So we don't need to do anything special here for error handling. I think using TaskManager for handling this is a bit overkill. We only need to maintain a reference to the promise to prevent orphaning it and to cancel it when shutting down the NCM.\nIf you still think the TaskManager is needed then i'd still like to keep it out of the NCM. We can move the signalling handlers to the NodeManager in this case. Or inline them inside the RPC handlers.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694996511",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-28T04:44:19Z",
+                                    "bodyText": "Signaling operations could be the domain of NM. It depends... either way, even when js-tasks gets created and supports impermanent tasks, you'll have to use that anyway. So right now ignore whether tasks actually uses state or not. The question is where to use it. I just don't want to have you reinvent task management for each system. I'm not even confident that MDNS's task management system is robust. We must not reinvent task management, it must be using a common system.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1694998848",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-28T04:46:51Z",
+                                    "bodyText": "As for the final step handler, this is just doing a hole punch operation. This by design should't throw ever unless there was a critical problem. It only sends punch packets until it times out or is cancelled. It doesn't return anything. So we don't need to do anything special here for error handling. I think using TaskManager for handling this is a bit overkill. We only need to maintain a reference to the promise to prevent orphaning it and to cancel it when shutting down the NCM.\n\nEven if there are critical problems, all events must be listened for and handled. It must be re-emitted.\nThis is why using the tasks system is best, as we centralise all efforts around understanding it.\nAll background task management is going to be abstracted into js-tasks down the line, with MDNS and anything else falling into line there too. So there's no point maintaining your own implementation of a task management system - no matter how basic in the NCM.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1695000605",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-28T04:59:14Z",
+                                    "bodyText": "We're not reinventing tasks here. They're just promises that need to be handled eventually. It's no different from the object maps we have in the NCM, quic or websockets.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1695010919",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-28T05:01:35Z",
+                                    "bodyText": "Ok, keep the background task outside of the nodes system for now then. I need to re-assess the nodes domain first.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1695012707",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-28T05:02:19Z",
+                                    "bodyText": "Also what floating promises exist in js-quic and js-ws?",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1695013249",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-29T05:37:46Z",
+                                    "bodyText": "Looking over the NCM, when forward and reverse connections are created we are updating their details in the NodeGraph via the Nodemanager. As we've discussed, we're going to remove NM usage inside of NCM and have them be handled via events on the NCM. This means we can fully remove the event handling for this in the event bus under the symbol PolykeyAgent.eventSymbols.QUICServer.\nIn fact I think the event bus can be removed entirely now if we move to event systems on the relevant domains.  You're probably already concluded this. Do we have a issue for that?",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1696799928",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-29T05:55:54Z",
+                                    "bodyText": "The NCM shouldn't be tracking the seed nodes. But the only other place to handle this would be the NodeGraph. The seed nodes are set when starting the agent so it's not information that is intended to be persistent.\ngetClosestGlobalNodes and  getRemoteNodeClosestNodes feel like they should go in the NodeManager but they are needed by the NCM to find other nodes in the network so we can't really move it out.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1696815828",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-31T02:37:23Z",
+                                    "bodyText": "Reviewing all the available events we need to be handling from quic. We should definitely be handling most if not all of it in some way. But I don't think we need to rethrow any of it. Since it's all encapsulated by the nodes domain, anything emitted should only be relevant to the nodes domain.\nAny events we want to handle and emit upwards are in the context of the nodes. There are two main ones right now.\n\nthe stream, currently a EventNodeStream, it wraps the QUICStream from the QUICConnection in the NodeConnection and emits all the way up trough the NCM to be used by the RPCServer.\nThe connection, currently a EventNodeConnectionManagerConnection that is emitted when a forward or reverse connection has fully established and added to the connection map. It contains details of the connection to be used by the NodeManager to add it to the NodeGraph.\n\nThese are the events that are not being handled in some fashion right now. Note that these are the old names.\n    // QUICSocket events are...\n    //   - QUICSocketStartEvent,\n    //   - QUICSocketStopEvent,\n    //   - QUICSocketErrorEvent,\n    // QUICServer events are...\n    //   - QUICServerStartEvent,\n    //   - QUICServerStopEvent,\n    //   - QUICServerErrorEvent,\n    // QUICClient events are...\n    //   - QUICClientErrorEvent,\n    // QUICConnection events are...\n    //   - QUICConnectionErrorEvent,\n    // QUICStream events are...\n    //   - QUICStreamDestroyEvent,\n\nThe socket and server events, starting we don't really care about since we directly control that. Stopping would be considered a critical problem if we didn't trigger it. Errors In this case I think are non-critical ones, just oddities that happen during operation of quic that you may want to be aware of. Such as a reverse connection failing to establish.\nIn all cases, if an event was a critical problem, Then using quic would end up throwing a clear error. So I don't think we strictly need to handle these events besides log them out? I'll go over it in more detail.\nSo in short,\n\nI don't think we want to re-emit any events, anything that needs to be re-emitted is wrapped as a node level event.\nstart events can be ignored, we don't react to them.\nstop events could be handled and trigger an error but if these were emitted then any normal usage will run into life-cycle errors.\nError events are strictly errors that were recovered from in the quic system, such as a server connection failure. We can log them but don't want to throw them or anything.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1700287081",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-31T02:39:40Z",
+                                    "bodyText": "Here's my mental model:\n\nRelevant events are handled with event-specific handlers. Side-effects are executed. And infinite loops are prevented by using the once handler. See js-events README.md about this.\nIrrelevant events are re-dispatched without any wrapping. It uses the any-handler. This is because of informational reasons. Note that this also redispatches events handled by event-specific handlers.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1700288506",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-31T02:44:03Z",
+                                    "bodyText": "I can do that, but I'd rather not re-emit the connection event upwards since connections must be obtained through the NCM. But If you're okay with that then I'll re-emit it.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1700290823",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-31T02:46:35Z",
+                                    "bodyText": "The redispatching is to enable informational observation.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1700292323",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-31T03:03:07Z",
+                                    "bodyText": "I suspect that it will be useful for future tracing/observability. So it's an easy to do.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1700302081",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-31T06:10:40Z",
+                                    "bodyText": "Do we want the host and port provided to the NodeConnectionManager.start() method to be Host and Port types? Don't we want to just use string and number?",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1700422487",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-08-31T06:57:35Z",
+                                    "bodyText": "So in js-quic, we changed that to string and number to avoid having to redo input types all the time.\nIn Polykey, other parts of the code use Host and Port, and it's part of the application so it works.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1700469783",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-08T03:12:32Z",
+                                    "bodyText": "With the changes to async-init including events now. Do we add the lifecycle events to everything using async-init?",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1711016033",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-08T03:31:41Z",
+                                    "bodyText": "Async unit supplies all lifecycle events.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1711026151",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-08T07:01:21Z",
+                                    "bodyText": "Should we add getters to the PolykeyAgent for getting service host and port information? Right now we use pkAgent.nodeConnectionManager.host which is implementation detail we shouldn't need to know to get the agentServiceHost. It also returns Host which is fine from the NCM perspective but not when using PolykeyAgent.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1711177092",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-08T07:37:59Z",
+                                    "bodyText": "It depends. We used to use getHost and getPort. But I think we slowly migrated to using get host and get port so .host and .port works. The @ready decorator works for both.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1711218315",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-08T07:38:25Z",
+                                    "bodyText": "Part of the reason to the movement is to realisation of eventually observable properties like .host$ and .port$.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1711218919",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-08T08:37:32Z",
+                                    "bodyText": "Some dependencies may have issues with the upgrade to node 20. Theses are...\n\n@peculiar/webcrypto, doesn't properly implement the globalThis.crypto. The return types for randomUUID() are different now, went from string to '`${string}-${string}-${string}-${string}-${string}`'\nmultiformats as a dependency of @matrixai/id has some type issues.\n@matrixai/db doesn't support node 20 yet.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1711294738",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-09T00:36:15Z",
+                                    "bodyText": "I have already fixed the crypto problem in a number of places. Even in js-quic. Maybe that can help, see the tests utils.\nThe other 2 just needs an update and recompilation.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1712361039",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-11T02:05:33Z",
+                                    "bodyText": "Thinking about what still needs to be done.\nOk, what do I need to do now....\n\nWe're still blocked by quic changes. Need that to be done before I can complete the nodes domain and test it.\nNodes domain still needs some updates to match the new events design. I really need to review that to know what the final design is.\nI can look into fully removing event bus and replace it's usage with evented. This is mostly updating the keyRing or CertManager?\nThere are some dependency build errors. These need to be resolved with updates to said dependencies.\n\nAfter all that we need to test and get the whole Polykey codebase stable.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1713049789",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-11T02:29:24Z",
+                                    "bodyText": "Let's try to set all the domain defaults to src/config.ts default values when they are part of Polykey. When they are factored out, they will need their own defaults. But as long as they are in PK, they should use src/config.ts.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1713066319",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-11T06:18:00Z",
+                                    "bodyText": "I made a new branch for trying to fix multiformats in @matrixai/id. I've updated it to node 20, but updating multiformats has problems with running the tests even though it builds fine. I'm not sure what's causing this.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1713235654",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-11T08:05:12Z",
+                                    "bodyText": "I'm looking at removing the EventBus. It's simple enough to add the event to the CertManager. but I'm a little conflicted with how to handle the event.\nIf something like NodeConnectionManager needs to react to an event, then it should set up the event handling itself. That means CertManager becomes a dependency of NodeConnectionManager.\nThe thing is, 5 things need to react to the cert or root keys changing. These are\n\nStatus\nNodeManager\nSigChain\nWebSocketServerClient\nNodeConnectionManager\n\nRight now a single event handler is making calls to each of these to update them and it's all in one place. From a maintainability perspective this makes the most sense. Least amount of code to handle and the effects are clear and in one place.\nFrom a life-cycle perspective, it makes more sense to DI the CertManager into whatever reacts to it and have that handle the event. Clearer dependency and each thing only cares about what it needs. Also less likely to result in not running errors since if it wasn't running it wouldn't be listening.\nAs it stands, it only makes sense for NodeManager, SigChain and NodeConnectionManager to have CertManager as a dependency. And it only needs to be optional since in most cases it won't be relevant.\nSo the two options.\n\nMonolific handler, handling only set up in PolykeyAgent.\nWhere relevant a domain takes CertManager as an optional dependency and handles the event itself.\n\nI'll start with 1 for now and we can convert to 2 if needed.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1713374644",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-12T01:25:44Z",
+                                    "bodyText": "The type problems are as follows.\nFor webcrypto\nnode_modules/@peculiar/webcrypto/index.d.ts:4:10 - error TS2416: Property 'randomUUID' in type 'Crypto' is not assignable to the same property in base type 'Crypto'.\n  Type '() => string' is not assignable to type '() => `${string}-${string}-${string}-${string}-${string}`'.\n    Type 'string' is not assignable to type '`${string}-${string}-${string}-${string}-${string}`'.\n\n4   public randomUUID(): string;\n           ~~~~~~~~~~\n\n\nI've tried replicating the fix but I must be missing something.\nFor multiformats\n\nnode_modules/multiformats/types/src/bases/base.d.ts:66:70 - error TS2344: Type 'T' does not satisfy the constraint 'string'.\n\n66 export type MultibaseCodec<T> = import('./interface').MultibaseCodec<T>;\n                                                                        ~\n\n  node_modules/multiformats/types/src/bases/base.d.ts:66:28\n    66 export type MultibaseCodec<T> = import('./interface').MultibaseCodec<T>;\n                                  ~\n    This type parameter might need an `extends string` constraint.\n\nnode_modules/multiformats/types/src/cid.d.ts:160:85 - error TS2344: Type 'Prefix' does not satisfy the constraint 'string'.\n\n160 export type MultibaseEncoder<Prefix> = import('./bases/interface').MultibaseEncoder<Prefix>;\n                                                                                        ~~~~~~\n\n  node_modules/multiformats/types/src/cid.d.ts:160:30\n    160 export type MultibaseEncoder<Prefix> = import('./bases/interface').MultibaseEncoder<Prefix>;\n                                     ~~~~~~\n    This type parameter might need an `extends string` constraint.\n\nnode_modules/multiformats/types/src/cid.d.ts:161:85 - error TS2344: Type 'Prefix' does not satisfy the constraint 'string'.\n\n161 export type MultibaseDecoder<Prefix> = import('./bases/interface').MultibaseDecoder<Prefix>;\n                                                                                        ~~~~~~\n\n  node_modules/multiformats/types/src/cid.d.ts:161:30\n    161 export type MultibaseDecoder<Prefix> = import('./bases/interface').MultibaseDecoder<Prefix>;\n                                     ~~~~~~\n    This type parameter might need an `extends string` constraint.\n\n\n\nI have a PR in @matrixai/id for updating multiformats, updating the version to 10+ results in import failures along the lines of failed to resolve module.... I think it's an ESM thing, but the current version is already EMS as far as I can tell.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1714828882",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-12T01:27:49Z",
+                                    "bodyText": "The type problems are as follows.\nFor webcrypto\nnode_modules/@peculiar/webcrypto/index.d.ts:4:10 - error TS2416: Property 'randomUUID' in type 'Crypto' is not assignable to the same property in base type 'Crypto'.\n  Type '() => string' is not assignable to type '() => `${string}-${string}-${string}-${string}-${string}`'.\n    Type 'string' is not assignable to type '`${string}-${string}-${string}-${string}-${string}`'.\n\n4   public randomUUID(): string;\n           ~~~~~~~~~~\n\n\nI've tried replicating the fix but I must be missing something.\nFor multiformats\n\nnode_modules/multiformats/types/src/bases/base.d.ts:66:70 - error TS2344: Type 'T' does not satisfy the constraint 'string'.\n\n66 export type MultibaseCodec<T> = import('./interface').MultibaseCodec<T>;\n                                                                        ~\n\n  node_modules/multiformats/types/src/bases/base.d.ts:66:28\n    66 export type MultibaseCodec<T> = import('./interface').MultibaseCodec<T>;\n                                  ~\n    This type parameter might need an `extends string` constraint.\n\nnode_modules/multiformats/types/src/cid.d.ts:160:85 - error TS2344: Type 'Prefix' does not satisfy the constraint 'string'.\n\n160 export type MultibaseEncoder<Prefix> = import('./bases/interface').MultibaseEncoder<Prefix>;\n                                                                                        ~~~~~~\n\n  node_modules/multiformats/types/src/cid.d.ts:160:30\n    160 export type MultibaseEncoder<Prefix> = import('./bases/interface').MultibaseEncoder<Prefix>;\n                                     ~~~~~~\n    This type parameter might need an `extends string` constraint.\n\nnode_modules/multiformats/types/src/cid.d.ts:161:85 - error TS2344: Type 'Prefix' does not satisfy the constraint 'string'.\n\n161 export type MultibaseDecoder<Prefix> = import('./bases/interface').MultibaseDecoder<Prefix>;\n                                                                                        ~~~~~~\n\n  node_modules/multiformats/types/src/cid.d.ts:161:30\n    161 export type MultibaseDecoder<Prefix> = import('./bases/interface').MultibaseDecoder<Prefix>;\n                                     ~~~~~~\n    This type parameter might need an `extends string` constraint.\n\n\n\nI have a PR in @matrixai/id for updating multiformats, updating the version to 10+ results in import failures along the lines of failed to resolve module.... I think it's an ESM thing, but the current version is already EMS as far as I can tell.\n\nThe current js-id is not ESM based. Are you saying the new multiformats is esm?\nEsm has nothing to do with type errors.\nDid you copy the fix from js-quic for webcrypto?",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1714830150",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-12T01:36:58Z",
+                                    "bodyText": "The webcrypto fix has already been applied to polykey, there's still a build error though.\njs-id isn't ESM but multiformats is. CURRENTLY there's a type error. Trying to update the version to fix it results in an import error which I think but not certain is related to ESM.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1714836084",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-12T01:50:35Z",
+                                    "bodyText": "After discussion we decided that library type errors should be ignored. This means adding \"skipLibCheck\": true to the tsconfig.\nThis means the multiformats and webcrypto problems are dealt with.\nOf the build side of things, @matrixai/db still needs to be updated to node 20.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1714845729",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-12T03:43:00Z",
+                                    "bodyText": "I'm looking at removing the EventBus. It's simple enough to add the event to the CertManager. but I'm a little conflicted with how to handle the event.\nIf something like NodeConnectionManager needs to react to an event, then it should set up the event handling itself. That means CertManager becomes a dependency of NodeConnectionManager.\nThe thing is, 5 things need to react to the cert or root keys changing. These are\n\nStatus\nNodeManager\nSigChain\nWebSocketServerClient\nNodeConnectionManager\n\nRight now a single event handler is making calls to each of these to update them and it's all in one place. From a maintainability perspective this makes the most sense. Least amount of code to handle and the effects are clear and in one place.\nFrom a life-cycle perspective, it makes more sense to DI the CertManager into whatever reacts to it and have that handle the event. Clearer dependency and each thing only cares about what it needs. Also less likely to result in not running errors since if it wasn't running it wouldn't be listening.\nAs it stands, it only makes sense for NodeManager, SigChain and NodeConnectionManager to have CertManager as a dependency. And it only needs to be optional since in most cases it won't be relevant.\nSo the two options.\n\nMonolific handler, handling only set up in PolykeyAgent.\nWhere relevant a domain takes CertManager as an optional dependency and handles the event itself.\n\nI'll start with 1 for now and we can convert to 2 if needed.\n\nGenerally speaking I don't think you should be DIing a particular dependency if you're just reacting to their events. DIing is intended if you intend to execute pull methods on that object.\nOne key usage of events is loose coupling. Objects should be tightly coupled to register events.\nConsider the example of NM and NCM. NM is calling NCM, but also reacting to events on NCM. In that case NCM is a dependency of NM.\nBut if you're talking about NCM and CertManager, this is different. NCM isn't supposed to call CertManager at all. But NCM needs to react to events from CertManager.\nSo in this latter situation we have a problem. Push events create 2 phases:\n\nStatic registration phase, where the listener must register to the dispatcher\nRuntime push phase, where the dispatcher just dispatches and control flow and data flow is in the same direction\n\nIt is this first initial phase that is the problem here. How would we do this? It would not be correct for CertManager to be injected into NCM. Instead PolykeyAgent which is the parent object to both, should listen to the CertManager event, and then convert the push to a pull, by calling a method on the NCM to switch certificates.\nHere's some pseudocode.\nclass PolykeyAgent {\n  start() {\n    certManager.addEventListener(EventCertManagerCertRotate.name, (evt) => {\n      nodeConnectionManager.updateTLS(evt.details);\n    });\n  }\n}\n\nIn fact you'd do the same for all the other ones depending on it.\n\nSo for NCM and NM, NM adds and removes the event listener according to its own lifecycle.\nFor PolykeyAgent and CertManager, PolykeyAgent adds and  removes event listener according to CertManager lifecycle, which itself is managing.\nAlso interestingly if you add the same instance event listener multiple times, it's a noop.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1714916153",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-12T05:14:58Z",
+                                    "bodyText": "That also means you're partially solving #386, as that was about propagating it the key change throughout the application and subsequently the network.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1714985118",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-26T09:52:37Z",
+                                    "bodyText": "@tegefaulkes existing tasks above is still relevant right.\nCan you start refactoring the events in nodes domain to match what we are doing in js-quic.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1735206898",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-26T13:09:46Z",
+                                    "bodyText": "Need to review this tomorrow @tegefaulkes so we can understand what still needs to be done here. Then I can move back to the CLI codebase.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1735513029",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-27T02:08:45Z",
+                                    "bodyText": "Is done.\nIs done.\nNot sure about 3, we don't subtype the config at all.\nStill needs to be done. But it's simple to move all the optional parameters into a config parameter.\nStill needs to be done\ndone\ndone\nnot relevant anymore. handled PR targeting this branch.\nThis pretty much means mapping all the expected errors into codes and back.\nStill needs to be done.\ndone\nMostly done, needs refinement based on what we learned in the js-quic pr.\n\nIn summary, we still need to complete 3, 4, 5, 9, 10 and 12. Most of it is simple except for 12 which may include structural work.\nOff the top of my head there's nothing to add, but I may come up with stuff while working on it.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1736559956",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-27T02:43:27Z",
+                                    "bodyText": "Based on discussion, this is the order of work going forward.\n\n apply events to all domains, just specifying custom event classes for each domain.\n Remove all usage of optional managed dependencies. mostly PolykeyAgent but may be other places. (5.)\n Flesh out codeToReason and reasonToCode. (9.)\n config review and final changes. (3. and 4.)\n Moving agent handlers to nodes domain and node service consolidation. (10.)\n Final nodes domain update for using events like js-quic (12.)",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1736586578",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-27T03:05:29Z",
+                                    "bodyText": "Is the http domain still used? I think we may have missed this when ripping out the GRPC stuff?",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1736602756",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-27T03:10:59Z",
+                                    "bodyText": "Is the http domain still used? I think we may have missed this when ripping out the GRPC stuff?\n\nIt's a utility function actually but it's not being used anywhere. Nothing to do with GRPC.\nWe could keep it for now.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1736606081",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-27T03:44:04Z",
+                                    "bodyText": "I'm thinking all events should extend the EventsPolykey at the top level. Right now I just have each domain extending the AbstractEvent class.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1736625682",
+                                    "author": {
+                                        "login": "tegefaulkes"
+                                    }
+                                },
+                                {
+                                    "createdAt": "2023-09-27T03:45:56Z",
+                                    "bodyText": "Could work, then you just need a src/events.ts and src/EventPolykey. Similar to src/errors.ts and src/ErrorPolykey.\nRemember the reason it's separated out is to avoid importing the kitchen sink. Then a recursive export is required for src/events.ts similar to src/errors.ts.",
+                                    "url": "https://github.com/MatrixAI/Polykey/pull/552#issuecomment-1736626756",
+                                    "author": {
+                                        "login": "CMCDragonkai"
+                                    }
+                                }
+                            ]
+                        },
+                        "reviews": {
+                            "edges": []
+                        }
+                    },
+                    "textMatches": [
+                        {
+                            "property": "comments.body"
+                        },
+                        {
+                            "property": "body"
+                        }
+                    ]
+                }
+            ],
+            "pageInfo": {
+                "endCursor": "Y3Vyc29yOjE=",
+                "hasNextPage": false,
+                "hasPreviousPage": false,
+                "startCursor": "Y3Vyc29yOjE="
+            },
+            "issueCount": 1
+        }
+    }
+}
